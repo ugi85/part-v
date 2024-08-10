@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <title>Halaman Masuk | Velonic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Template admin responsif bootstrap 4" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="authentication-page">
+
+    <div class="account-pages my-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mt-4">
+                        <div class="card-header p-4 bg-primary">
+                            <h4 class="text-white text-center mb-0 mt-0">Velonic</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="loginForm" class="p-2">
+                                <div id="notification" class="alert alert-success" style="display:none;">
+                                    Login berhasil!
+                                </div>
+                                <div id="message" class="alert alert-danger" style="display:none;">
+                                    Nama pengguna atau kata sandi salah.
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="username">Nama Pengguna:</label>
+                                    <input class="form-control" type="text" id="username" required placeholder="Nama Pengguna">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="password">Kata Sandi:</label>
+                                    <input class="form-control" type="password" id="password" required placeholder="Masukkan kata sandi Anda">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <div class="checkbox checkbox-success">
+                                        <input id="remember" type="checkbox" checked>
+                                        <label for="remember">
+                                            Ingat saya
+                                        </label>
+                                        <a href="pages-recoverpw.html" class="text-muted float-right">Lupa kata sandi?</a>
+                                    </div>
+                                </div>
+                                <div class="form-group row text-center mt-4 mb-4">
+                                    <div class="col-12">
+                                        <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit">Masuk</button>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <div class="col-sm-12 text-center">
+                                        <p class="text-muted mb-0">Belum punya akun? <a href="pages-register.html" class="text-dark m-l-5"><b>Daftar</b></a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+    </div>
+
+    <!-- Vendor js -->
+    <script src="assets/js/vendor.min.js"></script>
+    <!-- App js -->
+    <script src="assets/js/app.min.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=login&username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('notification').style.display = 'block';
+                        setTimeout(() => {
+                            window.location.href = 'index-dark.html';
+                        }, 2000);
+                    } else {
+                        document.getElementById('message').style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('message').style.display = 'block';
+                });
+        });
+    </script>
+
+</body>
+
+</html>
