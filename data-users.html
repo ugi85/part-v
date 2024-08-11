@@ -160,6 +160,7 @@
                                                 <th>Username</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -176,6 +177,7 @@
             </div>
             <!-- end content -->
 
+             <!-- Add User Modal -->
             <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -217,6 +219,45 @@
                     </div>
                 </div>
             </div>
+
+          <!-- Modal Edit -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editId" name="id">
+                    <div class="form-group">
+                        <label for="editUsername">Username</label>
+                        <input type="text" class="form-control" id="editUsername" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="editRole">Role</label>
+                        <select class="form-control" id="editRole" name="role" required>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
             <!-- Footer Start -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -274,12 +315,15 @@
         });
     </script>
 
-    <!-- Fetch and Display User Data -->
-   <!-- Fetch and Display User Data -->
+<!-- Sweet Alert js -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Fetch and Display User Data -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=read';
 
+        // Mengambil data pengguna dan menampilkannya dalam tabel
         fetch(scriptURL)
             .then(response => response.json())
             .then(data => {
@@ -292,6 +336,12 @@
                         row.insertCell(0).textContent = user.username;
                         row.insertCell(1).textContent = user.email;
                         row.insertCell(2).textContent = user.role;
+
+                        const actionsCell = row.insertCell(3);
+                        actionsCell.innerHTML = `
+                            <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}">Delete</button>
+                        `;
                     });
 
                     // Initialize DataTable
@@ -302,11 +352,131 @@
             })
             .catch(error => console.error('Error:', error));
     });
-</script>
 
+    // Event Listener untuk tombol Edit dan Delete
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('edit-btn')) {
+            const userId = event.target.dataset.id;
+            console.log('Edit user with ID:', userId);
 
-  <!-- Add User Script -->
-  <script>
+            // Mengambil data pengguna untuk diisi dalam form edit
+            fetch(`https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=getUserById&id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const user = data.data;
+                        document.querySelector('#editForm #editId').value = user.id;
+                        document.querySelector('#editForm #editUsername').value = user.username;
+                        document.querySelector('#editForm #editEmail').value = user.email;
+                        document.querySelector('#editForm #editRole').value = user.role;
+                        
+                        // Menampilkan modal edit
+                        $('#editModal').modal('show');
+                    } else {
+                        console.error('Error:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Event Listener untuk tombol Delete
+        if (event.target.classList.contains('delete-btn')) {
+            const userId = event.target.dataset.id;
+
+            // Konfirmasi penghapusan menggunakan SweetAlert2
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: 'Apakah Anda yakin ingin menghapus pengguna ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Menghapus data jika pengguna mengonfirmasi
+                    fetch(`https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=delete&id=${userId}`, {
+                        method: 'POST', // Metode POST digunakan
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'id': userId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Response:', data); // Debug response
+                        if (data.status === 'success') {
+                            // Menghapus baris dari tabel
+                            event.target.closest('tr').remove();
+                            Swal.fire(
+                                'Terhapus!',
+                                'Pengguna telah dihapus.',
+                                'success'
+                            );
+                        } else {
+                            console.error('Error:', data.message);
+                            Swal.fire(
+                                'Gagal!',
+                                'Terjadi kesalahan saat menghapus pengguna.',
+                                'error'
+                            );
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire(
+                            'Gagal!',
+                            'Terjadi kesalahan saat menghapus pengguna.',
+                            'error'
+                        );
+                    });
+                }
+            });
+        }
+    });
+
+    // Event listener untuk form edit
+    document.querySelector('#editForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const id = document.querySelector('#editForm #editId').value;
+        const username = document.querySelector('#editForm #editUsername').value;
+        const email = document.querySelector('#editForm #editEmail').value;
+        const role = document.querySelector('#editForm #editRole').value;
+
+        fetch('https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=update', {
+            method: 'POST',
+            body: new URLSearchParams({
+                id: id,
+                username: username,
+                email: email,
+                role: role
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                Swal.fire('Updated!', 'User has been updated.', 'success')
+                    .then(() => {
+                        // Update row in the table manually
+                        const row = document.querySelector(`button.edit-btn[data-id="${id}"]`).closest('tr');
+                        row.cells[0].textContent = username;
+                        row.cells[1].textContent = email;
+                        row.cells[2].textContent = role;
+
+                        // Hide the modal
+                        $('#editModal').modal('hide');
+                    });
+            } else {
+                Swal.fire('Error!', 'There was an error updating the user.', 'error');
+            }
+        })
+        .catch(error => Swal.fire('Error!', 'An error occurred.', 'error'));
+    });
+
+    // Event listener untuk form tambah pengguna
     document.getElementById('registerForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the form from submitting normally
 
@@ -382,7 +552,6 @@
         }
     });
 </script>
-
 
 
 </body>
