@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Halaman Masuk | Velonic</title>
+    <title>Login | E-Part</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Template admin responsif bootstrap 4" name="description">
     <meta content="Coderthemes" name="author">
@@ -24,7 +24,7 @@
                 <div class="col-md-8 col-lg-6 col-xl-5">
                     <div class="card mt-4">
                         <div class="card-header p-4 bg-primary">
-                            <h4 class="text-white text-center mb-0 mt-0">Velonic</h4>
+                            <h4 class="text-white text-center mb-0 mt-0">E-Part Login</h4>
                         </div>
                         <div class="card-body">
                             <form id="loginForm" class="p-2">
@@ -42,15 +42,7 @@
                                     <label for="password">Kata Sandi:</label>
                                     <input class="form-control" type="password" id="password" required placeholder="Masukkan kata sandi Anda">
                                 </div>
-                                <div class="form-group mb-4">
-                                    <div class="checkbox checkbox-success">
-                                        <input id="remember" type="checkbox" checked>
-                                        <label for="remember">
-                                            Ingat saya
-                                        </label>
-                                        <a href="pages-recoverpw.html" class="text-muted float-right">Lupa kata sandi?</a>
-                                    </div>
-                                </div>
+                                
                                 <div class="form-group row text-center mt-4 mb-4">
                                     <div class="col-12">
                                         <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit">Masuk</button>
@@ -58,7 +50,7 @@
                                 </div>
                                 <div class="form-group row mb-0">
                                     <div class="col-sm-12 text-center">
-                                        <p class="text-muted mb-0">Belum punya akun? <a href="pages-register.html" class="text-dark m-l-5"><b>Daftar</b></a></p>
+                                        <p class="text-muted mb-0">Belum punya akun? <a href="register.html" class="text-dark m-l-5"><b>Daftar</b></a></p>
                                     </div>
                                 </div>
                             </form>
@@ -78,6 +70,15 @@
     <!-- App js -->
     <script src="assets/js/app.min.js"></script>
     <script>
+        // Periksa status login saat halaman dimuat
+        window.onload = function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                window.location.href = 'main.html'; // Alihkan ke halaman utama jika sudah login
+            }
+        }
+
+        // Fungsi login
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -88,9 +89,10 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
+                        sessionStorage.setItem('isLoggedIn', 'true'); // Simpan status login
                         document.getElementById('notification').style.display = 'block';
                         setTimeout(() => {
-                            window.location.href = 'index-dark.html';
+                            window.location.href = 'main.html';
                         }, 2000);
                     } else {
                         document.getElementById('message').style.display = 'block';
