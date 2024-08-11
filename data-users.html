@@ -14,19 +14,19 @@
     <!-- Plugins css-->
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 
-    <!-- third party css -->
-    <link href="assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
+       <!-- third party css -->
+       <link href="assets\libs\datatables\dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+       <link href="assets\libs\datatables\buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+       <link href="assets\libs\datatables\responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+       <link href="assets\libs\datatables\select.bootstrap4.min.css" rel="stylesheet" type="text/css"> 
 
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
-    <!-- Script to check login status -->
-    <script>
+      <!-- Script to check login status -->
+      <script>
         // Periksa status login ketika halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
             if (!sessionStorage.getItem('isLoggedIn')) {
@@ -35,15 +35,20 @@
             }
         });
     </script>
+
 </head>
 
 <body>
+
     <!-- Begin page -->
     <div id="wrapper">
+
 
         <!-- Topbar Start -->
         <div class="navbar-custom">
             <ul class="list-unstyled topnav-menu float-right mb-0">
+
+
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
@@ -51,10 +56,10 @@
                             Thompson <i class="mdi mdi-chevron-down"></i>
                         </span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                         <!-- item-->
                         <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
+                            <h6 class="text-overflow m-0">Welcome !</h6>
                         </div>
 
                         <!-- item-->
@@ -82,8 +87,13 @@
                             <i class="mdi mdi-logout-variant"></i>
                             <span>Logout</span>
                         </a>
+
                     </div>
                 </li>
+
+
+
+
             </ul>
 
             <!-- LOGO -->
@@ -91,22 +101,28 @@
                 <a href="main.html" class="logo text-center logo-dark">
                     <span class="logo-lg">
                         <img src="assets/images/logo-dark.png" alt="" height="18">
+                        <!-- <span class="logo-lg-text-dark">Velonic</span> -->
                     </span>
                     <span class="logo-sm">
+                        <!-- <span class="logo-lg-text-dark">V</span> -->
                         <img src="assets/images/logo-sm.png" alt="" height="22">
                     </span>
                 </a>
+
                 <a href="main.html" class="logo text-center logo-light">
                     <span class="logo-lg">
                         <img src="assets/images/logo-light.png" alt="" height="18">
+                        <!-- <span class="logo-lg-text-dark">Velonic</span> -->
                     </span>
                     <span class="logo-sm">
+                        <!-- <span class="logo-lg-text-dark">V</span> -->
                         <img src="assets/images/logo-sm.png" alt="" height="22">
                     </span>
                 </a>
             </div>
 
             <!-- LOGO -->
+
 
             <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
                 <li>
@@ -119,160 +135,186 @@
         <!-- end Topbar -->
         <!-- ========== Left Sidebar Start ========== -->
         <div class="left-side-menu">
+
             <div class="slimscroll-menu">
+
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
+
+
                         <li>
                             <a href="data-users.html">
                                 <i class="ion ion-ios-contacts"></i>
                                 <span> Data Users </span>
                             </a>
                         </li>
+
                         <li>
                             <a href="data-part.html">
-                                <i class="ion ion-ios-construct"></i>
+                                <i class=" ion ion-ios-construct"></i>
                                 <span> Data Parts </span>
                             </a>
                         </li>
+
+
+
+
                     </ul>
+
                 </div>
                 <!-- End Sidebar -->
+
                 <div class="clearfix"></div>
+
             </div>
             <!-- Sidebar -left -->
+
         </div>
         <!-- Left Sidebar End -->
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
 
-        <!-- ============================================================== -->
-        <!-- Start Page Content here -->
-        <!-- ============================================================== -->
-        <div class="content-page">
-            <div class="content">
-                <!-- Start Content-->
-                <div class="container-fluid">
-                    <!-- start page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box d-flex justify-content-between align-items-center">
-                                <h4 class="page-title mb-0">Data Table</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addUserModal">Add User</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end page title -->
+            <div class="content-page">
+                <div class="content">
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body table-responsive">
-                                    <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>UserName</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Data akan ditambahkan di sini -->
-                                        </tbody>
-                                    </table>
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex justify-content-between align-items-center">
+                                    <h4 class="page-title mb-0">Data Table</h4>
+                                    <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addUserModal">Add User</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- end row -->
-                </div>
-                <!-- end container-fluid -->
-            </div>
-            <!-- end content -->
+                        
+                        <!-- end page title -->
 
-            <!-- Modal for Add User -->
-            <div id="addUserModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body table-responsive">
+                                       
+                                        <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                                            <thead>
+                                                <tr>
+                                                    <th>UserName</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <!-- Data akan ditambahkan di sini -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form id="addUserForm">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email address</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select class="form-control" id="role" name="role" required>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-between">
-                            <button type="button" class="btn btn-primary" id="saveUserButton">Save</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- end container-fluid -->
+
+                </div>
+                <!-- end content -->
+
+                <!-- Modal for Add User -->
+                <div id="addUserModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addUserForm">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email address</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                        <select class="form-control" id="role" name="role" required>
+                                            <option value="admin">Admin</option>
+                                            <option value="user">User</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary" id="saveUserButton">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Footer Start -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                2024 &copy; powered by <a href="">BiCoder</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+
             </div>
 
-            <!-- Footer Start -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            2024 &copy; powered by <a href="">BiCoder</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- end Footer -->
-        </div>
-        <!-- ============================================================== -->
-        <!-- End Page content -->
-        <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
     </div>
     <!-- END wrapper -->
 
-    <!-- Vendor js -->
-    <script src="assets/js/vendor.min.js"></script>
 
-    <!-- Required datatable js -->
-    <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
-    <!-- Buttons examples -->
-    <script src="assets/libs/datatables/dataTables.buttons.min.js"></script>
-    <script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
-    <script src="assets/libs/jszip/jszip.min.js"></script>
-    <script src="assets/libs/pdfmake/pdfmake.min.js"></script>
-    <script src="assets/libs/pdfmake/vfs_fonts.js"></script>
-    <script src="assets/libs/datatables/buttons.html5.min.js"></script>
-    <script src="assets/libs/datatables/buttons.print.min.js"></script>
+      <!-- Vendor js -->
+      <script src="assets\js\vendor.min.js"></script>
 
-    <!-- Responsive examples -->
-    <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
-    <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.select.min.js"></script>
+      <!-- Required datatable js -->
+      <script src="assets\libs\datatables\jquery.dataTables.min.js"></script>
+      <script src="assets\libs\datatables\dataTables.bootstrap4.min.js"></script>
+      <!-- Buttons examples -->
+      <script src="assets\libs\datatables\dataTables.buttons.min.js"></script>
+      <script src="assets\libs\datatables\buttons.bootstrap4.min.js"></script>
+      <script src="assets\libs\jszip\jszip.min.js"></script>
+      <script src="assets\libs\pdfmake\pdfmake.min.js"></script>
+      <script src="assets\libs\pdfmake\vfs_fonts.js"></script>
+      <script src="assets\libs\datatables\buttons.html5.min.js"></script>
+      <script src="assets\libs\datatables\buttons.print.min.js"></script>
 
-    <!-- Datatables init -->
-    <script src="assets/js/pages/datatables.init.js"></script>
+      <!-- Responsive examples -->
+      <script src="assets\libs\datatables\dataTables.responsive.min.js"></script>
+      <script src="assets\libs\datatables\responsive.bootstrap4.min.js"></script>
 
-    <!-- App js -->
-    <script src="assets/js/app.min.js"></script>
+      <script src="assets\libs\datatables\dataTables.keyTable.min.js"></script>
+      <script src="assets\libs\datatables\dataTables.select.min.js"></script>
+
+      <!-- Datatables init -->
+      <script src="assets\js\pages\datatables.init.js"></script>
+
+      <!-- App js -->
+      <script src="assets\js\app.min.js"></script>
 
     <!-- Logout Script -->
     <script>
@@ -283,89 +325,46 @@
             window.location.href = 'index.html';
         });
     </script>
-
-    <!-- Fetch and Display User Data -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=read';
-
-            fetch(scriptURL)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        const users = data.data;
-                        const usersTableBody = document.querySelector('#userTable tbody');
-
-                        users.forEach(user => {
-                            const row = usersTableBody.insertRow();
-                            row.insertCell(0).textContent = user.username;
-                            row.insertCell(1).textContent = user.email;
-                            row.insertCell(2).textContent = user.role;
-                        });
-
-                        // Initialize DataTable
-                        $('#userTable').DataTable();
-                    } else {
-                        console.error('Error:', data.message);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const addUserButton = document.querySelector('.btn-success');
-            addUserButton.addEventListener('click', function() {
-                $('#addUserModal').modal('show');
+        <!-- Fetch and Display User Data -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=read';
+    
+                fetch(scriptURL)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            const users = data.data;
+                            const usersTableBody = document.querySelector('#userTable tbody');
+    
+                            users.forEach(user => {
+                                const row = usersTableBody.insertRow();
+                                row.insertCell(0).textContent = user.username;
+                                row.insertCell(1).textContent = user.email;
+                                row.insertCell(2).textContent = user.role;
+                            });
+    
+                            // Initialize DataTable
+                            $('#userTable').DataTable();
+                        } else {
+                            console.error('Error:', data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             });
-        });
-    </script>
+        </script>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-    $(document).ready(function() {
-        $('#saveUserButton').on('click', function() {
-            // Ambil data dari formulir
-            var username = $('#username').val();
-            var email = $('#email').val();
-            var password = $('#password').val();
-            var role = $('#role').val();
-
-            // Validasi data
-            if (username === '' || email === '' || password === '' || role === '') {
-                alert('Please fill in all fields.');
-                return;
-            }
-
-            // Kirim data ke server
-            $.ajax({
-                url: 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=register',
-                type: 'POST',
-                data: {
-                    username: username,
-                    email: email,
-                    password: password,
-                    role: role
-                },
-                success: function(response) {
-                    // Tindakan setelah data berhasil dikirim
-                    alert('User added successfully!');
-                    $('#addUserModal').modal('hide');
-                    $('#addUserForm')[0].reset(); // Reset formulir
-                },
-                error: function(xhr, status, error) {
-                    // Tindakan jika terjadi kesalahan
-                    alert('Error: ' + error);
-                }
-            });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addUserButton = document.querySelector('.btn-success');
+        addUserButton.addEventListener('click', function() {
+            $('#addUserModal').modal('show');
         });
     });
-    </script>
+</script>
+
+
+
 </body>
 
 </html>

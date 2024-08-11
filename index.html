@@ -24,7 +24,7 @@
                 <div class="col-md-8 col-lg-6 col-xl-5">
                     <div class="card mt-4">
                         <div class="card-header p-4 bg-primary">
-                            <h4 class="text-white text-center mb-0 mt-0">E-Part Login</h4>
+                            <h4 class="text-white text-center mb-0 mt-0">E-Part | Login</h4>
                         </div>
                         <div class="card-body">
                             <form id="loginForm" class="p-2">
@@ -85,23 +85,34 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            fetch('https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=login&username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password))
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        sessionStorage.setItem('isLoggedIn', 'true'); // Simpan status login
-                        document.getElementById('notification').style.display = 'block';
-                        setTimeout(() => {
-                            window.location.href = 'main.html';
-                        }, 2000);
-                    } else {
-                        document.getElementById('message').style.display = 'block';
-                    }
+            // Kirim data menggunakan method POST
+            fetch('https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    action: 'login',
+                    username: username,
+                    password: password
                 })
-                .catch(error => {
-                    console.error('Error:', error);
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    sessionStorage.setItem('isLoggedIn', 'true'); // Simpan status login
+                    document.getElementById('notification').style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'main.html';
+                    }, 2000);
+                } else {
                     document.getElementById('message').style.display = 'block';
-                });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('message').style.display = 'block';
+            });
         });
     </script>
 
