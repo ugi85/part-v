@@ -30,8 +30,6 @@
     <!-- Sweet Alert css -->
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 
-    
-
     <!-- Script to check login status -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -43,6 +41,8 @@
 </head>
 
 <body>
+    <!-- Spinner -->
+    <div id="loadingSpinner" class="spinner" style="display: none;"></div>
     <!-- Begin page -->
     <div id="wrapper">
         <!-- Topbar Start -->
@@ -144,7 +144,7 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Data Table</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Add User</button>
+                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addPartModal">Tambah Part</button>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,6 @@
                                     <h4 class="m-t-0 header-title mb-4"><b>Data Sparepart</b></h4>
 
                                     <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-
                                         <thead>
                                             <tr>
                                                 <th>Code Part</th>
@@ -165,6 +164,7 @@
                                                 <th>Specification</th>
                                                 <th>Machine</th>
                                                 <th>Maker</th>
+                                                <th>Location</th>
                                                 <th>Class Part</th>
                                                 <th>Min</th>
                                                 <th>Max</th>
@@ -175,7 +175,6 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-
                                         <tbody>
                                             <!-- Data akan ditambahkan di sini -->
                                         </tbody>
@@ -184,92 +183,183 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <!-- end container-fluid -->
             </div>
             <!-- end content -->
 
-             <!-- Add User Modal -->
-            <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="registerModalLabel">Add User</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="registerForm">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" required>
-                                    <div class="invalid-feedback">Username is required.</div>
+
+            <!-- Modal Add Part -->
+        <!-- Add Part Modal -->
+        <div class="modal fade" id="addPartModal" tabindex="-1" role="dialog" aria-labelledby="addPartModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document"> <!-- Tambahkan class modal-lg untuk ukuran lebih besar -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="partModalLabel">Tambah Part</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="partForm">
+                            <div class="row"> <!-- Mulai grid row -->
+        
+                                <!-- Kolom pertama -->
+                                <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
+                                    <div class="form-group">
+                                        <label for="code_part">Code Part</label>
+                                        <input type="text" class="form-control" id="code_part" name="code_part" required>
+                                        <div class="invalid-feedback">Code Part is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sparepart">Sparepart</label>
+                                        <input type="text" class="form-control" id="sparepart" name="sparepart" required>
+                                        <div class="invalid-feedback">Sparepart is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="specification">Specification</label>
+                                        <input type="text" class="form-control" id="specification" name="specification" required>
+                                        <div class="invalid-feedback">Specification is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="machine">Machine</label>
+                                        <input type="text" class="form-control" id="machine" name="machine" required>
+                                        <div class="invalid-feedback">Machine is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="maker">Maker</label>
+                                        <input type="text" class="form-control" id="maker" name="maker" required>
+                                        <div class="invalid-feedback">Maker is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text" class="form-control" id="location" name="location" required>
+                                        <div class="invalid-feedback">Location is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="class_part">Class Part</label>
+                                        <input type="text" class="form-control" id="class_part" name="class_part" required>
+                                        <div class="invalid-feedback">Class Part is required.</div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <div class="invalid-feedback">Password is required.</div>
+        
+                                <!-- Kolom kedua -->
+                                <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
+                                    
+                                    <div class="form-group">
+                                        <label for="min">Min</label>
+                                        <input type="text" class="form-control" id="min" name="min" required>
+                                        <div class="invalid-feedback">Min is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="max">Max</label>
+                                        <input type="text" class="form-control" id="max" name="max" required>
+                                        <div class="invalid-feedback">Max is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="in">In</label>
+                                        <input type="text" class="form-control" id="in" name="in" required>
+                                        <div class="invalid-feedback">In is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="out">Out</label>
+                                        <input type="text" class="form-control" id="out" name="out" required>
+                                        <div class="invalid-feedback">Out is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stock">Stock</label>
+                                        <input type="text" class="form-control" id="stock" name="stock" required>
+                                        <div class="invalid-feedback">Stock is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="harga">Harga</label>
+                                        <input type="text" class="form-control" id="harga" name="harga" required>
+                                        <div class="invalid-feedback">Harga is required.</div>
+                                    </div>
+                                    <div class="col-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                               
                                 </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                    <div class="invalid-feedback">Valid email is required.</div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="role">Role</label>
-                                    <select class="form-control" id="role" name="role" required>
-                                        <option value="">Select Role</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
-                                    </select>
-                                    <div class="invalid-feedback">Role is required.</div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
+                            </div>
+                            
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-          <!-- Modal Edit -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<!-- Modal Edit Part -->
+<div id="editPartModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editPartModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+                <h5 class="modal-title" id="editPartModalLabel">Edit Part</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editForm">
-                    <input type="hidden" id="editId" name="id">
+                <form id="editPartForm">
                     <div class="form-group">
-                        <label for="editUsername">Username</label>
-                        <input type="text" class="form-control" id="editUsername" name="username">
+                        <label for="editCodepart">Code Part</label>
+                        <input type="text" class="form-control" id="editCodepart" name="code_part" required>
                     </div>
                     <div class="form-group">
-                        <label for="editEmail">Email</label>
-                        <input type="email" class="form-control" id="editEmail" name="email">
+                        <label for="editSparepart">Sparepart</label>
+                        <input type="text" class="form-control" id="editSparepart" name="sparepart" required>
                     </div>
                     <div class="form-group">
-                        <label for="editRole">Role</label>
-                        <select class="form-control" id="editRole" name="role" required>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                        </select>
+                        <label for="editSpec">Specification</label>
+                        <input type="text" class="form-control" id="editSpec" name="spec" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="form-group">
+                        <label for="editMachine">Machine</label>
+                        <input type="text" class="form-control" id="editMachine" name="machine" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editMaker">Maker</label>
+                        <input type="text" class="form-control" id="editMaker" name="maker" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLocation">Location</label>
+                        <input type="text" class="form-control" id="editLocation" name="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editClasspart">Class Part</label>
+                        <input type="text" class="form-control" id="editClasspart" name="class_part" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editMin">Min</label>
+                        <input type="number" class="form-control" id="editMin" name="min" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editMax">Max</label>
+                        <input type="number" class="form-control" id="editMax" name="max" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editIn">In</label>
+                        <input type="number" class="form-control" id="editIn" name="in" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editOut">Out</label>
+                        <input type="number" class="form-control" id="editOut" name="out" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStock">Stock</label>
+                        <input type="number" class="form-control" id="editStock" name="stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editHarga">Harga</label>
+                        <input type="number" class="form-control" id="editHarga" name="harga" required>
+                    </div>
+                    <input type="hidden" id="editPartId" name="partId">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
 
 
             <!-- Footer Start -->
@@ -307,147 +397,262 @@
     <!-- Responsive examples -->
     <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
     <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.select.min.js"></script>
-
-    <!-- Toastr js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
     <!-- Datatables init -->
     <script src="assets/js/pages/datatables.init.js"></script>
 
     <!-- App js -->
     <script src="assets/js/app.min.js"></script>
-    <!-- Sweet Alert js -->
+
+    <!-- Toastr js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+    <!-- Sweet Alerts js -->
     <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-    <!-- Logout Script -->
     <script>
-        document.getElementById('logoutButton').addEventListener('click', function() {
-            sessionStorage.removeItem('isLoggedIn');
-            window.location.href = 'index.html';
-        });
-    </script>
-
-<!-- Sweet Alert js -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-
-<script>
-   $(document).ready(function () {
-    const table = $('#userTable').DataTable();
-    const endpoint = "https://script.google.com/macros/s/AKfycbwMJ6g9lDAmlvQD44WqDkVO4-o-IL1EnRxoz5uAq8Rb0XMFPY8Ju-2xfQKK_JFjHeIv_Q/exec?action=read";
-
-    function fetchData() {
-        fetch(endpoint)
-            .then(response => response.json())
-            .then(data => {
-                table.clear().draw();
-                data.forEach(item => {
-                    table.row.add([
-                        item.code_part,
-                        item.sparepart,
-                        item.specification,
-                        item.machine,
-                        item.maker,
-                        item.class_part,
-                        item.min,
-                        item.max,
-                        item.in,
-                        item.out,
-                        item.stock,
-                        item.harga,
-                        `<button class="btn btn-warning btn-sm edit-button" data-id="${item.id}">Edit</button>
-                         <button class="btn btn-danger btn-sm delete-button" data-id="${item.id}">Delete</button>`
-                    ]).draw();
-                });
-            });
-    }
-
-    fetchData();
-
-    $('#userTable').on('click', '.edit-button', function () {
-        const id = $(this).data('id');
-        fetch(`https://script.google.com/macros/s/AKfycbwMJ6g9lDAmlvQD44WqDkVO4-o-IL1EnRxoz5uAq8Rb0XMFPY8Ju-2xfQKK_JFjHeIv_Q/exec?action=getUserById&id=${id}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    const user = data.data;
-                    $('#editId').val(user.id);
-                    $('#editUsername').val(user.username);
-                    $('#editEmail').val(user.email);
-                    $('#editRole').val(user.role);
-                    $('#editModal').modal('show');
-                } else {
-                    console.error('Error:', data.message);
+        // Fungsi untuk memuat data part dari Google Apps Script
+        function loadPartData() {
+            $('#loadingSpinner').show(); // Menampilkan spinner saat data sedang dimuat
+    
+            $.ajax({
+                url: 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=read',
+                type: 'GET',
+                success: function(response) {
+                    const partData = response.data;
+                    const tableBody = $('#userTable tbody');
+                    tableBody.empty(); // Kosongkan isi tabel sebelum menambahkan data baru
+    
+                    // Memasukkan data part ke dalam tabel
+                    partData.forEach((part, index) => {
+                        const newRow = `
+                            <tr>
+                                <td>${part.code_part}</td>
+                                <td>${part.sparepart}</td>
+                                <td>${part.specification}</td>
+                                <td>${part.machine}</td>
+                                <td>${part.maker}</td>
+                                <td>${part.location}</td>
+                                <td>${part.class_part}</td>
+                                <td>${part.min}</td>
+                                <td>${part.max}</td>
+                                <td>${part.in}</td>
+                                <td>${part.out}</td>
+                                <td>${part.stock}</td>
+                                <td>${part.harga}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning edit-btn" data-id="${part.id}">Edit</button>
+                                    <button class="btn btn-sm btn-danger delete-btn" data-id="${part.id}">Delete</button>
+                                </td>
+                            </tr>
+                        `;
+                        tableBody.append(newRow);
+                    });
+    
+                    // Inisialisasi DataTable
+                    $('#userTable').DataTable({
+                        destroy: true, // Hancurkan instance DataTable sebelumnya
+                        searching: true, // Aktifkan fitur pencarian
+                        paging: true, // Aktifkan fitur paging
+                        ordering: true, // Aktifkan fitur pengurutan
+                    });
+    
+                    $('#loadingSpinner').hide(); // Sembunyikan spinner setelah data selesai dimuat
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    toastr.error('Gagal memuat data part.');
+                    $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
                 }
             });
-    });
-
-    $('#userTable').on('click', '.delete-button', function () {
-        const id = $(this).data('id');
-        Swal.fire({
-            title: 'Konfirmasi Hapus',
-            text: 'Apakah Anda yakin ingin menghapus data ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Hapus',
-            cancelButtonText: 'Batal',
-            reverseButtons: true
-        }).then(result => {
-            if (result.isConfirmed) {
-                fetch(`https://script.google.com/macros/s/AKfycbwMJ6g9lDAmlvQD44WqDkVO4-o-IL1EnRxoz5uAq8Rb0XMFPY8Ju-2xfQKK_JFjHeIv_Q/exec?action=delete&id=${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    
+        // Style for loading spinner
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .spinner {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                width: 50px;
+                height: 50px;
+                border: 5px solid #f3f3f3;
+                border-top: 5px solid #3498db;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    
+        // Fungsi untuk menghapus part
+        function deletePart(partId) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data ini tidak dapat dipulihkan setelah dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#loadingSpinner').show(); // Menampilkan spinner saat proses hapus
+                    $.ajax({
+                        url: `https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=delete&id=${partId}`,
+                        type: 'POST',
+                        success: function(response) {
+                            toastr.success('Part berhasil dihapus.');
+                            $('#loadingSpinner').hide(); // Sembunyikan spinner setelah proses selesai
+                            loadPartData(); // Memuat ulang data part setelah berhasil dihapus
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                            toastr.error('Gagal menghapus part.');
+                            $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
+                        }
+                    });
+                }
+            });
+        }
+    
+        // Fungsi untuk logout
+        function logout() {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan logout dari aplikasi.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    sessionStorage.removeItem('isLoggedIn'); // Menghapus status login
+                    window.location.href = 'index.html'; // Mengarahkan kembali ke halaman login
+                }
+            });
+        }
+    
+        $(document).ready(function() {
+            loadPartData(); // Memuat data part saat halaman pertama kali dimuat
+    
+            // Menambahkan event listener untuk tombol delete
+            $('#userTable').on('click', '.delete-btn', function() {
+                const partId = $(this).data('id');
+                deletePart(partId); // Memanggil fungsi deletePart dengan ID yang sesuai
+            });
+    
+            // Menambahkan event listener untuk tombol logout
+            $('#logoutButton').on('click', function() {
+                logout(); // Memanggil fungsi logout saat tombol logout diklik
+            });
+    
+            // Form Add Part Submit
+            $('#addPartForm').on('submit', function(e) {
+                e.preventDefault();
+                const formData = $(this).serialize(); // Ambil data form
+                addPart(formData); // Panggil fungsi addPart dengan data form
+            });
+    
+            // Form Edit Part Submit
+            $('#editPartForm').on('submit', function(e) {
+                e.preventDefault();
+                const formData = $(this).serialize(); // Ambil data form
+                editPart(formData); // Panggil fungsi editPart dengan data form
+            });
+    
+            // Menambahkan event listener untuk tombol Add Part
+            $('#addPartButton').on('click', function() {
+                $('#addPartModal').modal('show'); // Menampilkan modal Add Part
+            });
+    
+            // Menambahkan event listener untuk tombol Edit Part
+            $('#userTable').on('click', '.edit-btn', function() {
+                const partId = $(this).data('id');
+                $.ajax({
+                    url: `https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=getPartById&id=${partId}`,
+                    type: 'GET',
+                    success: function(response) {
+                        showEditModal(response.data); // Tampilkan modal edit dengan data part
                     },
-                    body: new URLSearchParams({ 'id': id })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        Swal.fire('Terhapus!', 'Data telah dihapus.', 'success');
-                        table.row($(this).closest('tr')).remove().draw();
-                    } else {
-                        Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus data.', 'error');
+                    error: function(error) {
+                        console.error('Error:', error);
+                        toastr.error('Gagal mengambil data part.');
                     }
                 });
-            }
+            });
         });
-    });
-
-    $('#editForm').on('submit', function (event) {
-        event.preventDefault();
-        const id = $('#editId').val();
-        const username = $('#editUsername').val();
-        const email = $('#editEmail').val();
-        const role = $('#editRole').val();
-
-        fetch('https://script.google.com/macros/s/AKfycbwMJ6g9lDAmlvQD44WqDkVO4-o-IL1EnRxoz5uAq8Rb0XMFPY8Ju-2xfQKK_JFjHeIv_Q/exec?action=update', {
-            method: 'POST',
-            body: new URLSearchParams({
-                id: id,
-                username: username,
-                email: email,
-                role: role
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                Swal.fire('Updated!', 'Data telah diperbarui.', 'success');
-                $('#editModal').modal('hide');
-                fetchData();
-            } else {
-                Swal.fire('Error!', 'Terjadi kesalahan saat memperbarui data.', 'error');
-            }
-        });
-    });
-});
-
-</script>
-
+    
+        // Fungsi untuk menambahkan part
+        function addPart(data) {
+            $('#loadingSpinner').show(); // Menampilkan spinner saat data sedang diproses
+            $.ajax({
+                url: 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=create',
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    toastr.success('Part berhasil ditambahkan.');
+                    $('#loadingSpinner').hide(); // Sembunyikan spinner setelah data berhasil ditambahkan
+                    $('#addPartModal').modal('hide'); // Menutup modal setelah berhasil
+                    loadPartData(); // Memuat ulang data part
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    toastr.error('Gagal menambahkan part.');
+                    $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
+                }
+            });
+        }
+    
+        // Fungsi untuk mengedit part
+        function editPart(data) {
+            $('#loadingSpinner').show(); // Menampilkan spinner saat data sedang diproses
+            $.ajax({
+                url: 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=update',
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    toastr.success('Part berhasil diubah.');
+                    $('#loadingSpinner').hide(); // Sembunyikan spinner setelah data berhasil diubah
+                    $('#editPartModal').modal('hide'); // Menutup modal setelah berhasil
+                    loadPartData(); // Memuat ulang data part
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    toastr.error('Gagal mengubah part.');
+                    $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
+                }
+            });
+        }
+    
+        // Fungsi untuk menampilkan modal edit dengan data part
+        function showEditModal(part) {
+            $('#editCodepart').val(part.code_part);
+            $('#editSparepart').val(part.sparepart);
+            $('#editSpec').val(part.specification);
+            $('#editMachine').val(part.machine);
+            $('#editMaker').val(part.maker);
+            $('#editLocation').val(part.location);
+            $('#editClasspart').val(part.class_part);
+            $('#editMin').val(part.min);
+            $('#editMax').val(part.max);
+            $('#editIn').val(part.in);
+            $('#editOut').val(part.out);
+            $('#editStock').val(part.stock);
+            $('#editHarga').val(part.harga);
+            $('#editPartId').val(part.id);
+            $('#editPartModal').modal('show');
+        }
+    </script>
+    
 </body>
 
 </html>
