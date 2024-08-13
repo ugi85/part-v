@@ -30,7 +30,19 @@
     <!-- Sweet Alert css -->
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
 
-    
+      <!-- Custom CSS for Loading Spinner -->
+      <style>
+        #loadingSpinner {
+            margin: 20px 0;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: .4em;
+            color: rgb(47, 47, 230);
+        }
+    </style>
 
     <!-- Script to check login status -->
     <script>
@@ -43,6 +55,7 @@
 </head>
 
 <body>
+
     <!-- Begin page -->
     <div id="wrapper">
         <!-- Topbar Start -->
@@ -168,6 +181,11 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div id="loadingSpinner" class="text-center" style="display: none;">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -213,7 +231,9 @@
                                     </select>
                                     <div class="invalid-feedback">Role is required.</div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -248,7 +268,9 @@
                             <option value="user">User</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -322,6 +344,11 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=read';
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Menampilkan spinner
+        loadingSpinner.style.display = 'block';
+
 
         // Mengambil data pengguna dan menampilkannya dalam tabel
         fetch(scriptURL)
@@ -350,8 +377,13 @@
                     console.error('Error:', data.message);
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error))
+            .finally(() => {
+            // Menyembunyikan spinner setelah data selesai dimuat
+            loadingSpinner.style.display = 'none';
+        });
     });
+    
 
     // Event Listener untuk tombol Edit dan Delete
     document.addEventListener('click', function(event) {
