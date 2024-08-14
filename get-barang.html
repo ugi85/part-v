@@ -425,12 +425,20 @@
                             </div>
             </div>`;
         itemsContainer.insertAdjacentHTML('beforeend', itemHTML);
-    });
+      });
 
 
       
-  </script>
+    </script>
 
+     <!-- Logout Script -->
+     <script>
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Hapus status login dari sessionStorage
+            sessionStorage.removeItem('isLoggedIn');
+            // Alihkan ke halaman login
+            window.location.href = 'index.html';
+        });
     </script>
 
 
