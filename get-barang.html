@@ -209,7 +209,7 @@
             </div>
             <!-- end content -->
 
-            <!-- Add Item Modal -->
+<!-- Add Item Modal -->
 <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -253,11 +253,32 @@
 
                     <!-- Dynamic Items Container -->
                     <div id="itemsContainer">
-                        <!-- Item fields will be appended here -->
+                        <!-- Item 1 fields -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="no">No</label>
+                                <input type="text" class="form-control" id="no" name="no[]" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="partName">Part Name</label>
+                                <input type="text" class="form-control" id="partName" name="partName[]" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="specification">Specification</label>
+                                <input type="text" class="form-control" id="specification" name="specification[]" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="qty">Qty</label>
+                                <input type="number" class="form-control" id="qty" name="qty[]" required>
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" id="addItemButton" class="btn btn-secondary">Tambah Item</button>
 
-                    <div class="form-group">
+                    <div class="mt-3">
+                        <button type="button" id="addItemButton" class="btn btn-secondary">Tambah Item</button>
+                    </div>
+
+                    <div class="form-group mt-4">
                         <label for="requester">Requester</label>
                         <input type="text" class="form-control" id="requester" name="requester" required>
                         <div class="invalid-feedback">Requester is required.</div>
@@ -277,6 +298,7 @@
 </div>
 <!-- End Add Item Modal -->
 
+
             <!-- Footer Start -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -294,100 +316,123 @@
         <!-- ============================================================== -->
     </div>
     <!-- END wrapper -->
+  <!-- Vendor js -->
+  <script src="assets/js/vendor.min.js"></script>
 
-    <!-- Vendor js -->
-    <script src="assets/js/vendor.min.js"></script>
+  <!-- Required datatable js -->
+  <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.buttons.min.js"></script>
+  <script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+  <script src="assets/libs/jszip/jszip.min.js"></script>
+  <script src="assets/libs/pdfmake/pdfmake.min.js"></script>
+  <script src="assets/libs/pdfmake/vfs_fonts.js"></script>
+  <script src="assets/libs/datatables/buttons.html5.min.js"></script>
+  <script src="assets/libs/datatables/buttons.print.min.js"></script>
 
-    <!-- Required datatable js -->
-    <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.buttons.min.js"></script>
-    <script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
-    <script src="assets/libs/jszip/jszip.min.js"></script>
-    <script src="assets/libs/pdfmake/pdfmake.min.js"></script>
-    <script src="assets/libs/pdfmake/vfs_fonts.js"></script>
-    <script src="assets/libs/datatables/buttons.html5.min.js"></script>
-    <script src="assets/libs/datatables/buttons.print.min.js"></script>
+  <!-- Responsive examples -->
+  <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
+  <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.select.min.js"></script>
 
-    <!-- Responsive examples -->
-    <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
-    <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
-    <script src="assets/libs/datatables/dataTables.select.min.js"></script>
+  <!-- Toastr js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
-    <!-- Toastr js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+  <!-- Datatables init -->
+  <script src="assets/js/pages/datatables.init.js"></script>
 
-    <!-- Datatables init -->
-    <script src="assets/js/pages/datatables.init.js"></script>
+  <!-- App js -->
+  <script src="assets/js/app.min.js"></script>
 
-    <!-- App js -->
-    <script src="assets/js/app.min.js"></script>
-    <!-- Sweet Alert js -->
-    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+  <!-- Sweet Alert js -->
+  <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Logout Script -->
-    <script>
-        document.getElementById('logoutButton').addEventListener('click', function() {
-            sessionStorage.removeItem('isLoggedIn');
-            window.location.href = 'index.html';
-        });
-    </script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Sweet Alert js -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Custom Script for Dynamic Items -->
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const scriptURL = 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=read';
+          const loadingSpinner = document.getElementById('loadingSpinner');
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=read';
-    const loadingSpinner = document.getElementById('loadingSpinner');
+          // Menampilkan spinner
+          loadingSpinner.style.display = 'block';
 
-    // Menampilkan spinner
-    loadingSpinner.style.display = 'block';
+          // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+          fetch(scriptURL)
+              .then(response => response.json())
+              .then(data => {
+                  console.log('Data received:', data);
+                  if (data.status === 'success') {
+                      const rows = data.data;
+                      const usersTableBody = document.querySelector('#userTable tbody');
 
-    // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
-    fetch(scriptURL)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data received:', data); // Tambahkan baris ini untuk memeriksa data yang diterima
-            if (data.status === 'success') {
-                const rows = data.data; // Misalkan data.data adalah array dari objek
-                const usersTableBody = document.querySelector('#userTable tbody');
-                
-                // Kosongkan tabel sebelum menambahkan data
-                usersTableBody.innerHTML = '';
+                      // Kosongkan tabel sebelum menambahkan data
+                      usersTableBody.innerHTML = '';
 
-                rows.forEach(row => {
-                    const tableRow = usersTableBody.insertRow();
-                    tableRow.insertCell(0).textContent = row.nama || '';
-                    tableRow.insertCell(1).textContent = row.tanggal || ''; // Format tanggal
-                    tableRow.insertCell(2).textContent = row.waktu || ''; // Format waktu
-                    tableRow.insertCell(3).textContent = row.departemen || '';
-                    tableRow.insertCell(4).textContent = row.mesin || '';
-                    tableRow.insertCell(5).textContent = row.remark || '';
-                    tableRow.insertCell(6).textContent = row.no || '';
-                    tableRow.insertCell(7).textContent = row.part_name || '';
-                    tableRow.insertCell(8).textContent = row.specification || '';
-                    tableRow.insertCell(9).textContent = row.qty || '';
-                    tableRow.insertCell(10).textContent = row.requester || '';
-                    tableRow.insertCell(11).textContent = row.security || '';
-                });
+                      rows.forEach(row => {
+                          const tableRow = usersTableBody.insertRow();
+                          tableRow.insertCell(0).textContent = row.nama || '';
+                          tableRow.insertCell(1).textContent = row.tanggal || '';
+                          tableRow.insertCell(2).textContent = row.waktu || '';
+                          tableRow.insertCell(3).textContent = row.departemen || '';
+                          tableRow.insertCell(4).textContent = row.mesin || '';
+                          tableRow.insertCell(5).textContent = row.remark || '';
+                          tableRow.insertCell(6).textContent = row.no || '';
+                          tableRow.insertCell(7).textContent = row.part_name || '';
+                          tableRow.insertCell(8).textContent = row.specification || '';
+                          tableRow.insertCell(9).textContent = row.qty || '';
+                          tableRow.insertCell(10).textContent = row.requester || '';
+                          tableRow.insertCell(11).textContent = row.security || '';
+                      });
 
-                // Inisialisasi DataTable setelah data ditambahkan
-                $('#userTable').DataTable();
-            } else {
-                console.error('Error:', data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error))
-        .finally(() => {
-            // Menyembunyikan spinner setelah data selesai dimuat
-            loadingSpinner.style.display = 'none';
-        });
-});
+                      // Inisialisasi DataTable setelah data ditambahkan
+                      $('#userTable').DataTable();
+                  } else {
+                      console.error('Error:', data.message);
+                      toastr.error('Failed to fetch data. Please try again.');
+                  }
+              })
+              .catch(error => {
+                  console.error('Error fetching data:', error);
+                  toastr.error('An error occurred while fetching data.');
+              })
+              .finally(() => {
+                  // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
+                  loadingSpinner.style.display = 'none';
+              });
+      });
 
+      document.getElementById('addItemButton').addEventListener('click', function() {
+        const itemsContainer = document.getElementById('itemsContainer');
+        const itemHTML = `
+            <div class="row mt-2">
+                            <div class="col-md-3">
+                                <label for="no">No</label>
+                                <input type="text" class="form-control" id="no" name="no[]" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="partName">Part Name</label>
+                                <input type="text" class="form-control" id="partName" name="partName[]" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="specification">Specification</label>
+                                <input type="text" class="form-control" id="specification" name="specification[]" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="qty">Qty</label>
+                                <input type="number" class="form-control" id="qty" name="qty[]" required>
+                            </div>
+            </div>`;
+        itemsContainer.insertAdjacentHTML('beforeend', itemHTML);
+    });
+
+
+      
+  </script>
 
     </script>
 
