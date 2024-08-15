@@ -665,6 +665,250 @@
             window.location.href = 'index.html';
         });
     </script>
+
+<script>
+    // Fungsi untuk memuat data part dari Google Apps Script
+    function loadPartData() {
+        $('#loadingSpinner').show(); // Menampilkan spinner saat data sedang dimuat
+
+        $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=read',
+            type: 'GET',
+            success: function(response) {
+                const partData = response.data;
+                const tableBody = $('#userTable tbody');
+                tableBody.empty(); // Kosongkan isi tabel sebelum menambahkan data baru
+
+                // Memasukkan data part ke dalam tabel
+                partData.forEach((part, index) => {
+                    const newRow = `
+                        <tr>
+                            <td>${part.code_part}</td>
+                            <td>${part.sparepart}</td>
+                            <td>${part.specification}</td>
+                            <td>${part.machine}</td>
+                            <td>${part.maker}</td>
+                            <td>${part.location}</td>
+                            <td>${part.class_part}</td>
+                            <td>${part.min}</td>
+                            <td>${part.max}</td>
+                            <td>${part.in}</td>
+                            <td>${part.out}</td>
+                            <td>${part.stock}</td>
+                            <td>${part.harga}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning edit-btn" data-id="${part.id}">Edit</button>
+                                <button class="btn btn-sm btn-danger delete-btn" data-id="${part.id}">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.append(newRow);
+                });
+
+                // Inisialisasi DataTable
+                $('#userTable').DataTable({
+                    destroy: true, // Hancurkan instance DataTable sebelumnya
+                    searching: true, // Aktifkan fitur pencarian
+                    paging: true, // Aktifkan fitur paging
+                    ordering: true, // Aktifkan fitur pengurutan
+                });
+
+                $('#loadingSpinner').hide(); // Sembunyikan spinner setelah data selesai dimuat
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                toastr.error('Gagal memuat data part.');
+                $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
+            }
+        });
+    }
+
+    // Style for loading spinner
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .spinner {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Fungsi untuk menghapus part
+    function deletePart(partId) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data ini tidak dapat dipulihkan setelah dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#loadingSpinner').show(); // Menampilkan spinner saat proses hapus
+                $.ajax({
+                    url: `https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=delete&id=${partId}`,
+                    type: 'POST',
+                    success: function(response) {
+                        toastr.success('Part berhasil dihapus.');
+                        $('#loadingSpinner').hide(); // Sembunyikan spinner setelah proses selesai
+                        loadPartData(); // Memuat ulang data part setelah berhasil dihapus
+                    },
+                    error: function(error) {
+                        console.error('Error:', error);
+                        toastr.error('Gagal menghapus part.');
+                        $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
+                    }
+                });
+            }
+        });
+    }
+
+    // Fungsi untuk logout
+    function logout() {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda akan logout dari aplikasi.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, logout!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                sessionStorage.removeItem('isLoggedIn'); // Menghapus status login
+                window.location.href = 'index.html'; // Mengarahkan kembali ke halaman login
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        loadPartData(); // Memuat data part saat halaman pertama kali dimuat
+
+        // Menambahkan event listener untuk tombol delete
+        $('#userTable').on('click', '.delete-btn', function() {
+            const partId = $(this).data('id');
+            deletePart(partId); // Memanggil fungsi deletePart dengan ID yang sesuai
+        });
+
+        // Menambahkan event listener untuk tombol logout
+        // $('#logoutButton').on('click', function() {
+        //     logout(); // Memanggil fungsi logout saat tombol logout diklik
+        // });
+
+        // Form Add Part Submit
+        $('#addPartForm').on('submit', function(e) {
+            e.preventDefault();
+            const formData = $(this).serialize(); // Ambil data form
+            addPart(formData); // Panggil fungsi addPart dengan data form
+        });
+
+        // Form Edit Part Submit
+        $('#editPartForm').on('submit', function(e) {
+            e.preventDefault();
+            const formData = $(this).serialize(); // Ambil data form
+            editPart(formData); // Panggil fungsi editPart dengan data form
+        });
+
+        // Menambahkan event listener untuk tombol Add Part
+        $('#addPartButton').on('click', function() {
+            $('#addPartModal').modal('show'); // Menampilkan modal Add Part
+        });
+
+        // Menambahkan event listener untuk tombol Edit Part
+        $('#userTable').on('click', '.edit-btn', function() {
+            const partId = $(this).data('id');
+            $.ajax({
+                url: `https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=getPartById&id=${partId}`,
+                type: 'GET',
+                success: function(response) {
+                    showEditModal(response.data); // Tampilkan modal edit dengan data part
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    toastr.error('Gagal mengambil data part.');
+                }
+            });
+        });
+    });
+
+    // Fungsi untuk menambahkan part
+    function addPart(data) {
+        $('#loadingSpinner').show(); // Menampilkan spinner saat data sedang diproses
+        $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=create',
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                toastr.success('Part berhasil ditambahkan.');
+                $('#loadingSpinner').hide(); // Sembunyikan spinner setelah data berhasil ditambahkan
+                $('#addPartModal').modal('hide'); // Menutup modal setelah berhasil
+                loadPartData(); // Memuat ulang data part
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                toastr.error('Gagal menambahkan part.');
+                $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
+            }
+        });
+    }
+
+    // Fungsi untuk mengedit part
+    function editPart(data) {
+        $('#loadingSpinner').show(); // Menampilkan spinner saat data sedang diproses
+        $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=update',
+            type: 'POST',
+            data: data,
+            success: function(response) {
+                toastr.success('Part berhasil diubah.');
+                $('#loadingSpinner').hide(); // Sembunyikan spinner setelah data berhasil diubah
+                $('#editPartModal').modal('hide'); // Menutup modal setelah berhasil
+                loadPartData(); // Memuat ulang data part
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                toastr.error('Gagal mengubah part.');
+                $('#loadingSpinner').hide(); // Sembunyikan spinner jika terjadi kesalahan
+            }
+        });
+    }
+
+    // Fungsi untuk menampilkan modal edit dengan data part
+    function showEditModal(part) {
+        $('#editCodepart').val(part.code_part);
+        $('#editSparepart').val(part.sparepart);
+        $('#editSpec').val(part.specification);
+        $('#editMachine').val(part.machine);
+        $('#editMaker').val(part.maker);
+        $('#editLocation').val(part.location);
+        $('#editClasspart').val(part.class_part);
+        $('#editMin').val(part.min);
+        $('#editMax').val(part.max);
+        $('#editIn').val(part.in);
+        $('#editOut').val(part.out);
+        $('#editStock').val(part.stock);
+        $('#editHarga').val(part.harga);
+        $('#editPartId').val(part.id);
+        $('#editPartModal').modal('show');
+    }
+</script>
+
     
 </body>
 
