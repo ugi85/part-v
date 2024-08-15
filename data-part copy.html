@@ -270,19 +270,56 @@
                 <form id="editForm">
                     <input type="hidden" id="editId" name="id">
                     <div class="form-group">
-                        <label for="editUsername">Username</label>
-                        <input type="text" class="form-control" id="editUsername" name="username">
+                        <label for="editCodepart">Code Part</label>
+                        <input type="text" class="form-control" id="editCodepart" name="code_part">
                     </div>
                     <div class="form-group">
-                        <label for="editEmail">Email</label>
-                        <input type="email" class="form-control" id="editEmail" name="email">
+                        <label for="editSparepart">Sparepart</label>
+                        <input type="text" class="form-control" id="editSparepart" name="sparepart">
                     </div>
                     <div class="form-group">
-                        <label for="editRole">Role</label>
-                        <select class="form-control" id="editRole" name="role" required>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
-                        </select>
+                        <label for="editSpecification">Specification</label>
+                        <input type="text" class="form-control" id="editSpecification" name="specification">
+                    </div>
+                    <div class="form-group">
+                        <label for="editMachine">Machine</label>
+                        <input type="text" class="form-control" id="editMachine" name="machine">
+                    </div>
+                    <div class="form-group">
+                        <label for="editMaker">Maker</label>
+                        <input type="text" class="form-control" id="editMaker" name="maker">
+                    </div>
+                    <div class="form-group">
+                        <label for="editLocation">Location</label>
+                        <input type="text" class="form-control" id="editLocation" name="location">
+                    </div>
+                    <div class="form-group">
+                        <label for="editClasspart">Classpart</label>
+                        <input type="text" class="form-control" id="editClasspart" name="class_part">
+                    </div>
+                    <div class="form-group">
+                        <label for="editMin">Min</label>
+                        <input type="text" class="form-control" id="editMin" name="min">
+                    </div>
+                    <div class="form-group">
+                        <label for="editMax">Max</label>
+                        <input type="text" class="form-control" id="editMax" name="max">
+                    </div>
+                    <div class="form-group">
+                        <label for="editIn">In</label>
+                        <input type="text" class="form-control" id="editIn" name="in">
+                    </div>
+                    <div class="form-group">
+                        <label for="editOut">Out</label>
+                        <input type="text" class="form-control" id="editOut" name="out">
+                    </div>
+                    <div class="form-group">
+                        <label for="editStock">Stock</label>
+                        <input type="text" class="form-control" id="editStock" name="stock">
+                    </div>
+                    <div class="form-group">
+                        <label for="editHarga">Harga</label>
+                        <input type="text" class="form-control" id="editHarga" name="harga">
                     </div>
                     <div class="col-12 text-right">
                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -379,16 +416,16 @@
                         row.insertCell(0).textContent = user.code_part;
                         row.insertCell(1).textContent = user.sparepart;
                         row.insertCell(2).textContent = user.specification;
-                        row.insertCell(2).textContent = user.machine;
-                        row.insertCell(2).textContent = user.maker;
-                        row.insertCell(2).textContent = user.location;
-                        row.insertCell(2).textContent = user.class_part;
-                        row.insertCell(2).textContent = user.min;
-                        row.insertCell(2).textContent = user.max;
-                        row.insertCell(2).textContent = user.in;
-                        row.insertCell(2).textContent = user.out;
-                        row.insertCell(2).textContent = user.stock;
-                        row.insertCell(2).textContent = user.harga;
+                        row.insertCell(3).textContent = user.machine;
+                        row.insertCell(4).textContent = user.maker;
+                        row.insertCell(5).textContent = user.location;
+                        row.insertCell(6).textContent = user.class_part;
+                        row.insertCell(7).textContent = user.min;
+                        row.insertCell(8).textContent = user.max;
+                        row.insertCell(9).textContent = user.in;
+                        row.insertCell(10).textContent = user.out;
+                        row.insertCell(11).textContent = user.stock;
+                        row.insertCell(12).textContent = user.harga;
 
                         const actionsCell = row.insertCell(13);
                         actionsCell.innerHTML = `
@@ -418,15 +455,25 @@
             console.log('Edit user with ID:', userId);
 
             // Mengambil data pengguna untuk diisi dalam form edit
-            fetch(`https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exe?action=getUserById&id=${userId}`)
+            fetch(`https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=getPartById&id=${userId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
                         const user = data.data;
                         document.querySelector('#editForm #editId').value = user.id;
-                        document.querySelector('#editForm #editUsername').value = user.code_part;
-                        document.querySelector('#editForm #editEmail').value = user.sparepart;
-                        document.querySelector('#editForm #editRole').value = user.specification;
+                        document.querySelector('#editForm #editCodepart').value = user.code_part;
+                        document.querySelector('#editForm #editSparepart').value = user.sparepart;
+                        document.querySelector('#editForm #editSpecification').value = user.specification;
+                        document.querySelector('#editForm #editMachine').value = user.machine;
+                        document.querySelector('#editForm #editMaker').value = user.maker;
+                        document.querySelector('#editForm #editLocation').value = user.location;
+                        document.querySelector('#editForm #editClasspart').value = user.class_part;
+                        document.querySelector('#editForm #editMin').value = user.min;
+                        document.querySelector('#editForm #editMax').value = user.max;
+                        document.querySelector('#editForm #editIn').value = user.in;
+                        document.querySelector('#editForm #editOut').value = user.out;
+                        document.querySelector('#editForm #editStock').value = user.stock;
+                        document.querySelector('#editForm #editHarga').value = user.harga;
                         
                         // Menampilkan modal edit
                         $('#editModal').modal('show');
@@ -500,17 +547,17 @@
         event.preventDefault();
 
         const id = document.querySelector('#editForm #editId').value;
-        const username = document.querySelector('#editForm #editUsername').value;
-        const email = document.querySelector('#editForm #editEmail').value;
-        const role = document.querySelector('#editForm #editRole').value;
+        const username = document.querySelector('#editForm #editCodepart').value;
+        const email = document.querySelector('#editForm #editSparepart').value;
+        const role = document.querySelector('#editForm #editSpecification').value;
 
-        fetch('https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=update', {
+        fetch('https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=update', {
             method: 'POST',
             body: new URLSearchParams({
                 id: id,
-                username: username,
-                email: email,
-                role: role
+                code_part: code_part,
+                sparepart: sparepart,
+                specification: specification
             })
         })
         .then(response => response.json())
@@ -520,9 +567,9 @@
                     .then(() => {
                         // Update row in the table manually
                         const row = document.querySelector(`button.edit-btn[data-id="${id}"]`).closest('tr');
-                        row.cells[0].textContent = username;
-                        row.cells[1].textContent = email;
-                        row.cells[2].textContent = role;
+                        row.cells[0].textContent = code_part;
+                        row.cells[1].textContent = sparepart;
+                        row.cells[2].textContent = specification;
 
                         // Hide the modal
                         $('#editModal').modal('hide');
