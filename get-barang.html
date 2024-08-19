@@ -251,31 +251,33 @@
                         <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
                     </div>
 
-                    <!-- Dynamic Items Container -->
                     <div id="itemsContainer">
                         <!-- Item 1 fields -->
-                        <div class="row">
-                            <div class="col-md-3">
+                        <div class="item-row row">
+                            <div class="col-md-2">
                                 <label for="no">No</label>
-                                <input type="text" class="form-control" id="no" name="no[]" required>
+                                <input type="text" class="form-control no" name="no[]" required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <label for="partName">Part Name</label>
-                                <input type="text" class="form-control" id="partName" name="partName[]" required>
+                                <select class="form-control partName" name="partName[]" required>
+                                    <!-- Options will be added dynamically -->
+                                </select>
                             </div>
                             <div class="col-md-3">
                                 <label for="specification">Specification</label>
-                                <input type="text" class="form-control" id="specification" name="specification[]" required>
+                                <input type="text" class="form-control specification" name="specification[]" required>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label for="qty">Qty</label>
-                                <input type="number" class="form-control" id="qty" name="qty[]" required>
+                                <input type="number" class="form-control qty" name="qty[]" required>
                             </div>
                         </div>
                     </div>
+                    
 
                     <div class="mt-3">
-                        <button type="button" id="addItemButton" class="btn btn-secondary">Tambah Item</button>
+                        <button type="button" id="addItem" class="btn btn-secondary">Tambah Item</button>
                     </div>
 
                     <div class="form-group mt-4">
@@ -403,31 +405,6 @@
               });
       });
 
-      document.getElementById('addItemButton').addEventListener('click', function() {
-        const itemsContainer = document.getElementById('itemsContainer');
-        const itemHTML = `
-            <div class="row mt-2">
-                            <div class="col-md-3">
-                                <label for="no">No</label>
-                                <input type="text" class="form-control" id="no" name="no[]" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="partName">Part Name</label>
-                                <input type="text" class="form-control" id="partName" name="partName[]" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="specification">Specification</label>
-                                <input type="text" class="form-control" id="specification" name="specification[]" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="qty">Qty</label>
-                                <input type="number" class="form-control" id="qty" name="qty[]" required>
-                            </div>
-            </div>`;
-        itemsContainer.insertAdjacentHTML('beforeend', itemHTML);
-      });
-
-
       
     </script>
 
@@ -442,6 +419,91 @@
     </script>
 
 
+ <script>
+    $(document).ready(function() {
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpecification';
+    
+        function populatePartNameDropdown($dropdown, data) {
+            $dropdown.empty();
+            $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
+            data.forEach(item => {
+                if (item.partName) {
+                    $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
+                }
+            });
+        }
+    
+        // Populate all existing dropdowns on page load
+        function populateAllDropdowns() {
+            $.get(apiUrl, function(response) {
+                if (response.status === 'success') {
+                    const $dropdowns = $('.partName');
+                    $dropdowns.each(function() {
+                        populatePartNameDropdown($(this), response.data);
+                    });
+                } else {
+                    console.error('Error fetching spare parts data: ', response.message);
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Request failed: ', textStatus, errorThrown);
+            });
+        }
+
+        populateAllDropdowns();
+
+        // Handle change event for dropdowns
+        $('#itemsContainer').on('change', '.partName', function() {
+            const selectedPartName = $(this).val();
+            const $specField = $(this).closest('.item-row').find('.specification');
+            
+            if (selectedPartName) {
+                $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                    console.log('Specification Response:', response); // Check response format
+                    if (response.partName === selectedPartName) {
+                        $specField.val(response.specification || '');
+                    } else {
+                        console.error('Part name mismatch or specification data missing');
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed: ', textStatus, errorThrown);
+                });
+            } else {
+                $specField.val('');
+            }
+        });
+
+        // Add new item row
+        $('#addItem').click(function() {
+            const newItemHtml = `
+                <div class="item-row row">
+                    <div class="col-md-2">
+                        <label for="no">No</label>
+                        <input type="text" class="form-control no" name="no[]" required>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="partName">Part Name</label>
+                        <select class="form-control partName" name="partName[]" required>
+                            <!-- Options will be added dynamically -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="specification">Specification</label>
+                        <input type="text" class="form-control specification" name="specification[]" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="qty">Qty</label>
+                        <input type="number" class="form-control qty" name="qty[]" required>
+                    </div>
+                </div>
+            `;
+            $('#itemsContainer').append(newItemHtml);
+
+            // Re-populate dropdowns for new items
+            populateAllDropdowns();
+        });
+    });
+</script>
 
 
 
