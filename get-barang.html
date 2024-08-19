@@ -220,20 +220,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addItemForm">
+                <form id="createItemForm">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control" id="name" name="nama" required>
                         <div class="invalid-feedback">Name is required.</div>
                     </div>
                     <div class="form-group">
                         <label for="date">Tanggal</label>
-                        <input type="date" class="form-control" id="date" name="date" required>
+                        <input type="date" class="form-control" id="date" name="tanggal" required>
                         <div class="invalid-feedback">Date is required.</div>
                     </div>
                     <div class="form-group">
                         <label for="time">Waktu</label>
-                        <input type="time" class="form-control" id="time" name="time" required>
+                        <input type="time" class="form-control" id="time" name="waktu" required>
                         <div class="invalid-feedback">Time is required.</div>
                     </div>
                     <div class="form-group">
@@ -250,28 +250,30 @@
                         <label for="remark">Remark</label>
                         <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
                     </div>
+                    
 
                     <div id="itemsContainer">
                         <!-- Item 1 fields -->
                         <div class="item-row row">
                             <div class="col-md-2">
                                 <label for="no">No</label>
-                                <input type="text" class="form-control no" name="no[]" required>
+                                <input type="text" class="form-control no" name="no" required>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <label for="partName">Part Name</label>
-                                <select class="form-control partName" name="partName[]" required>
+                                <select class="form-control partName" name="part_name" required>
                                     <!-- Options will be added dynamically -->
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <label for="specification">Specification</label>
-                                <input type="text" class="form-control specification" name="specification[]" required>
+                                <input type="text" class="form-control specification" name="specification" required>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="qty">Qty</label>
-                                <input type="number" class="form-control qty" name="qty[]" required>
+                                <input type="text" class="form-control qty" name="qty" required>
                             </div>
+                           
                         </div>
                     </div>
                     
@@ -287,7 +289,7 @@
                     </div>
                     <div class="form-group">
                         <label for="storeKeeper">Store Keeper/Security</label>
-                        <input type="text" class="form-control" id="storeKeeper" name="storeKeeper" required>
+                        <input type="text" class="form-control" id="storeKeeper" name="security" required>
                         <div class="invalid-feedback">Store Keeper/Security is required.</div>
                     </div>
                     <div class="col-12 text-right">
@@ -350,66 +352,8 @@
   <!-- Sweet Alerts js -->
   <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-
-  <!-- Custom Script for Dynamic Items -->
-  <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          const scriptURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
-          const loadingSpinner = document.getElementById('loadingSpinner');
-
-          // Menampilkan spinner
-          loadingSpinner.style.display = 'block';
-
-          // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
-          fetch(scriptURL)
-              .then(response => response.json())
-              .then(data => {
-                  console.log('Data received:', data);
-                  if (data.status === 'success') {
-                      const rows = data.data;
-                      const usersTableBody = document.querySelector('#userTable tbody');
-
-                      // Kosongkan tabel sebelum menambahkan data
-                      usersTableBody.innerHTML = '';
-
-                      rows.forEach(row => {
-                          const tableRow = usersTableBody.insertRow();
-                          tableRow.insertCell(0).textContent = row.nama || '';
-                          tableRow.insertCell(1).textContent = row.tanggal || '';
-                          tableRow.insertCell(2).textContent = row.waktu || '';
-                          tableRow.insertCell(3).textContent = row.departemen || '';
-                          tableRow.insertCell(4).textContent = row.mesin || '';
-                          tableRow.insertCell(5).textContent = row.remark || '';
-                          tableRow.insertCell(6).textContent = row.no || '';
-                          tableRow.insertCell(7).textContent = row.part_name || '';
-                          tableRow.insertCell(8).textContent = row.specification || '';
-                          tableRow.insertCell(9).textContent = row.qty || '';
-                          tableRow.insertCell(10).textContent = row.requester || '';
-                          tableRow.insertCell(11).textContent = row.security || '';
-                      });
-
-                      // Inisialisasi DataTable setelah data ditambahkan
-                      $('#userTable').DataTable();
-                  } else {
-                      console.error('Error:', data.message);
-                      toastr.error('Failed to fetch data. Please try again.');
-                  }
-              })
-              .catch(error => {
-                  console.error('Error fetching data:', error);
-                  toastr.error('An error occurred while fetching data.');
-              })
-              .finally(() => {
-                  // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
-                  loadingSpinner.style.display = 'none';
-              });
-      });
-
-      
-    </script>
-
-     <!-- Logout Script -->
-     <script>
+    <!-- Logout Script -->
+    <script>
         document.getElementById('logoutButton').addEventListener('click', function() {
             // Hapus status login dari sessionStorage
             sessionStorage.removeItem('isLoggedIn');
@@ -419,11 +363,64 @@
     </script>
 
 
- <script>
+  <!-- Custom Script for Dynamic Items -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Menampilkan spinner
+        loadingSpinner.style.display = 'block';
+
+        // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+        fetch(scriptURL)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data received:', data);
+                if (data.status === 'success') {
+                    const rows = data.data;
+                    const usersTableBody = document.querySelector('#userTable tbody');
+
+                    // Kosongkan tabel sebelum menambahkan data
+                    usersTableBody.innerHTML = '';
+
+                    rows.forEach(row => {
+                        const tableRow = usersTableBody.insertRow();
+                        tableRow.insertCell(0).textContent = row.nama || '';
+                        tableRow.insertCell(1).textContent = row.tanggal || '';
+                        tableRow.insertCell(2).textContent = row.waktu || '';
+                        tableRow.insertCell(3).textContent = row.departemen || '';
+                        tableRow.insertCell(4).textContent = row.mesin || '';
+                        tableRow.insertCell(5).textContent = row.remark || '';
+                        tableRow.insertCell(6).textContent = row.no || '';
+                        tableRow.insertCell(7).textContent = row.part_name || '';
+                        tableRow.insertCell(8).textContent = row.specification || '';
+                        tableRow.insertCell(9).textContent = row.qty || '';
+                        tableRow.insertCell(10).textContent = row.requester || '';
+                        tableRow.insertCell(11).textContent = row.security || '';
+                    });
+
+                    // Inisialisasi DataTable setelah data ditambahkan
+                    $('#userTable').DataTable();
+                } else {
+                    console.error('Error:', data.message);
+                    Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
+            })
+            .finally(() => {
+                // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
+                loadingSpinner.style.display = 'none';
+            });
+    });
+
     $(document).ready(function() {
         const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
         const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpecification';
-    
+
         function populatePartNameDropdown($dropdown, data) {
             $dropdown.empty();
             $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
@@ -433,8 +430,7 @@
                 }
             });
         }
-    
-        // Populate all existing dropdowns on page load
+
         function populateAllDropdowns() {
             $.get(apiUrl, function(response) {
                 if (response.status === 'success') {
@@ -443,68 +439,173 @@
                         populatePartNameDropdown($(this), response.data);
                     });
                 } else {
-                    console.error('Error fetching spare parts data: ', response.message);
+                    console.error('Error fetching spare parts data:', response.message);
                 }
             }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.error('Request failed: ', textStatus, errorThrown);
+                console.error('Request failed:', textStatus, errorThrown);
             });
         }
 
         populateAllDropdowns();
 
-        // Handle change event for dropdowns
         $('#itemsContainer').on('change', '.partName', function() {
             const selectedPartName = $(this).val();
             const $specField = $(this).closest('.item-row').find('.specification');
             
             if (selectedPartName) {
                 $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-                    console.log('Specification Response:', response); // Check response format
+                    console.log('Specification Response:', response);
                     if (response.partName === selectedPartName) {
                         $specField.val(response.specification || '');
                     } else {
                         console.error('Part name mismatch or specification data missing');
                     }
                 }).fail(function(jqXHR, textStatus, errorThrown) {
-                    console.error('Request failed: ', textStatus, errorThrown);
+                    console.error('Request failed:', textStatus, errorThrown);
                 });
             } else {
                 $specField.val('');
             }
         });
 
-        // Add new item row
         $('#addItem').click(function() {
             const newItemHtml = `
-                <div class="item-row row">
+                <div class="item-row row mb-3">
                     <div class="col-md-2">
                         <label for="no">No</label>
                         <input type="text" class="form-control no" name="no[]" required>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label for="partName">Part Name</label>
-                        <select class="form-control partName" name="partName[]" required>
+                        <select class="form-control partName" name="part_name[]" required>
                             <!-- Options will be added dynamically -->
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="specification">Specification</label>
-                        <input type="text" class="form-control specification" name="specification[]" required>
+                        <input type="text" class="form-control specification" name="specification" required>
                     </div>
                     <div class="col-md-2">
                         <label for="qty">Qty</label>
-                        <input type="number" class="form-control qty" name="qty[]" required>
+                        <input type="text" class="form-control qty" name="qty[]" required>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="remove" style="visibility: hidden">.</label>
+                        <button type="button" class="btn btn-danger removeItem">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
                     </div>
                 </div>
             `;
             $('#itemsContainer').append(newItemHtml);
 
-            // Re-populate dropdowns for new items
-            populateAllDropdowns();
+            const $newDropdown = $('#itemsContainer .item-row:last-child .partName');
+            $.get(apiUrl, function(response) {
+                if (response.status === 'success') {
+                    populatePartNameDropdown($newDropdown, response.data);
+                } else {
+                    console.error('Error fetching spare parts data:', response.message);
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Request failed:', textStatus, errorThrown);
+            });
+
+            // Remove item row
+            $('#itemsContainer').on('click', '.removeItem', function() {
+                $(this).closest('.item-row').remove();
+            });
         });
+
+        // Form submission
+        document.getElementById('createItemForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    var form = event.target;
+    var isValid = true;
+    
+    // Validate each field
+    Array.from(form.elements).forEach(function(element) {
+        if (element.required && !element.value) {
+            element.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            element.classList.remove('is-invalid');
+        }
+    });
+
+    // Collect data from each item row
+    var itemsData = [];
+    document.querySelectorAll('#itemsContainer .item-row').forEach(function(row) {
+        var item = {
+            no: row.querySelector('.no').value,
+            part_name: row.querySelector('.partName').value,
+            specification: row.querySelector('.specification').value,
+            qty: row.querySelector('.qty').value
+        };
+        itemsData.push(item);
+    });
+
+    // If form is valid, submit it
+    if (isValid) {
+        var formData = new FormData(form);
+        formData.append('items', JSON.stringify(itemsData)); // Add items data
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=create', true);
+
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Data saved successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        location.reload(); // Reload the page to update the data
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: response.message || 'An error occurred while submitting the form.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred while submitting the form.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        };
+
+        xhr.onerror = function() {
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while sending the request.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        };
+
+        xhr.send(formData);
+    } else {
+        Swal.fire({
+            title: 'Validation Error',
+            text: 'Please fill in all required fields.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+    }
+});
+
     });
 </script>
-
 
 
 </body>
