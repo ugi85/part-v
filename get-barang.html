@@ -188,6 +188,7 @@
                                                 <th>Qty</th>
                                                 <th>Requester</th>
                                                 <th>Store keeper/Security</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -277,10 +278,10 @@
                         </div>
                     </div>
                     
-
+<!-- 
                     <div class="mt-3">
                         <button type="button" id="addItem" class="btn btn-secondary">Tambah Item</button>
-                    </div>
+                    </div> -->
 
                     <div class="form-group mt-4">
                         <label for="requester">Requester</label>
@@ -301,6 +302,80 @@
     </div>
 </div>
 <!-- End Add Item Modal -->
+
+<!-- Edit Item Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editItemModalLabel">Edit Pengambilan Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <div class="form-group">
+                        <label for="editName">Name</label>
+                        <input type="text" class="form-control" id="editName" name="nama" required>
+                        <div class="invalid-feedback">Name is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDate">Tanggal</label>
+                        <input type="date" class="form-control" id="editDate" name="tanggal" required>
+                        <div class="invalid-feedback">Date is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTime">Waktu</label>
+                        <input type="time" class="form-control" id="editTime" name="waktu" required>
+                        <div class="invalid-feedback">Time is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDepartemen">Departemen</label>
+                        <input type="text" class="form-control" id="editDepartemen" name="departemen" required>
+                        <div class="invalid-feedback">Department is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editMesin">Mesin</label>
+                        <input type="text" class="form-control" id="editMesin" name="mesin" required>
+                        <div class="invalid-feedback">Machine is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editRemark">Remark</label>
+                        <textarea class="form-control" id="editRemark" name="remark" rows="3"></textarea>
+                    </div>
+
+                    <!-- Container for dynamic item fields -->
+                    <!-- <div id="editItemsContainer">
+                        <!-- Item fields will be dynamically generated here -->
+                    <!-- </div> --> -->
+
+                    <!-- Button to add more item fields -->
+                    <!-- <div class="mt-3">
+                        <button type="button" id="editAddItem" class="btn btn-secondary">Tambah Item</button>
+                    </div> -->
+
+                    <!-- Additional fields -->
+                    <div class="form-group mt-4">
+                        <label for="editRequester">Requester</label>
+                        <input type="text" class="form-control" id="editRequester" name="requester" required>
+                        <div class="invalid-feedback">Requester is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStoreKeeper">Store Keeper/Security</label>
+                        <input type="text" class="form-control" id="editStoreKeeper" name="security" required>
+                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                    </div>
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Edit Item Modal -->
+
 
 
             <!-- Footer Start -->
@@ -365,6 +440,21 @@
 
   <!-- Custom Script for Dynamic Items -->
   <script>
+            function formatDate(dateValue) {
+            if (typeof dateValue === 'number') {
+                return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
+            }
+            return new Date(dateValue).toISOString().split('T')[0];
+            }
+
+            function formatTime(timeValue) {
+            if (typeof timeValue === 'number') {
+                const date = new Date((timeValue - 25569) * 86400 * 1000);
+                return date.toTimeString().split(' ')[0];
+            }
+            return new Date(timeValue).toISOString().split('T')[1].split('.')[0];
+            }
+
     document.addEventListener('DOMContentLoaded', function() {
         const scriptURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
         const loadingSpinner = document.getElementById('loadingSpinner');
@@ -387,8 +477,8 @@
                     rows.forEach(row => {
                         const tableRow = usersTableBody.insertRow();
                         tableRow.insertCell(0).textContent = row.nama || '';
-                        tableRow.insertCell(1).textContent = row.tanggal || '';
-                        tableRow.insertCell(2).textContent = row.waktu || '';
+                        tableRow.insertCell(1).textContent = formatDate(row.tanggal) || '';
+                        tableRow.insertCell(2).textContent = formatTime(row.waktu) || '';
                         tableRow.insertCell(3).textContent = row.departemen || '';
                         tableRow.insertCell(4).textContent = row.mesin || '';
                         tableRow.insertCell(5).textContent = row.remark || '';
@@ -398,6 +488,13 @@
                         tableRow.insertCell(9).textContent = row.qty || '';
                         tableRow.insertCell(10).textContent = row.requester || '';
                         tableRow.insertCell(11).textContent = row.security || '';
+
+                         // Tambahkan kolom Edit dan Delete
+                         const actionCell = tableRow.insertCell(12);
+                        actionCell.innerHTML = `
+                     <button class="btn btn-primary edit-btn" data-id="${row.id}">Edit</button>
+                     <button class="btn btn-danger delete-btn" data-id="${row.id}">Delete</button>
+                         `;
                     });
 
                     // Inisialisasi DataTable setelah data ditambahkan
@@ -416,6 +513,103 @@
                 loadingSpinner.style.display = 'none';
             });
     });
+
+     // Event Listener untuk tombol Edit dan Delete
+     document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('edit-btn')) {
+        const userId = event.target.dataset.id;
+        console.log('Edit user with ID:', userId);
+
+
+        // Mengambil data pengguna untuk diisi dalam form edit
+        fetch(`https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=getItemById&id=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const user = data.data;
+                    document.querySelector('#editForm #editId').value = user.id;
+                    document.querySelector('#editForm #editName').value = user.nama;
+                    document.querySelector('#editForm #editDate').value = user.tanggal;
+                    document.querySelector('#editForm #editTime').value = user.waktu;
+                    document.querySelector('#editForm #editDepartment').value = user.departemen;
+                 
+
+                  
+
+                    // Menampilkan modal edit
+                    $('#editModal').modal('show');
+                } else {
+                    console.error('Error:', data.message);
+                 
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Event Listener untuk tombol Delete
+
+    if (event.target.classList.contains('delete-btn')) {
+    const userId = event.target.dataset.id;
+    console.log('Delete user with ID:', userId); // Log ID yang dikirim
+
+    // Konfirmasi penghapusan menggunakan SweetAlert2
+    Swal.fire({
+      title: 'Konfirmasi Hapus',
+      text: 'Apakah Anda yakin ingin menghapus item ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Hapus',
+      cancelButtonText: 'Batal',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Menghapus data jika pengguna mengonfirmasi
+        fetch(`https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=delete&id=${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            'id': userId
+          })
+        })
+        .then(response => {
+          console.log('HTTP Status:', response.status); // Log status HTTP
+          return response.json();
+        })
+        .then(data => {
+          console.log('Response:', data); // Debug response
+          if (data.status === 'success') {
+            // Menghapus baris dari tabel
+            event.target.closest('tr').remove();
+            Swal.fire(
+              'Terhapus!',
+              'Item telah dihapus.',
+              'success'
+            );
+          } else {
+            console.error('Error:', data.message);
+            Swal.fire(
+              'Gagal!',
+              'Terjadi kesalahan saat menghapus item.',
+              'error'
+            );
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          Swal.fire(
+            'Gagal!',
+            'Terjadi kesalahan saat menghapus item.',
+            'error'
+          );
+        });
+      }
+        });
+    }
+});
+
+
 
     $(document).ready(function() {
         const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
