@@ -27,8 +27,7 @@
 
     <!-- Toastr css -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
-    <!-- Sweet Alert css -->
-    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
 
      <!-- Script to check login status -->
      <script>
@@ -429,8 +428,8 @@
   <!-- Toastr js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
-  <!-- Sweet Alert js -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <!-- SweetAlert2 JS -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Logout Script -->
     <script>
@@ -445,6 +444,7 @@
 
 
   <script>
+            // format date
             function formatDate(dateValue) {
             if (typeof dateValue === 'number') {
                 return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
@@ -452,6 +452,7 @@
             return new Date(dateValue).toISOString().split('T')[0];
             }
 
+            // format time
             function formatTime(timeValue) {
             if (typeof timeValue === 'number') {
                 const date = new Date((timeValue - 25569) * 86400 * 1000);
@@ -460,9 +461,10 @@
             return new Date(timeValue).toISOString().split('T')[1].split('.')[0];
             }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
-        const loadingSpinner = document.getElementById('loadingSpinner');
+            // read data
+         document.addEventListener('DOMContentLoaded', function() {
+         const scriptURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
+         const loadingSpinner = document.getElementById('loadingSpinner');
 
         // Menampilkan spinner
         loadingSpinner.style.display = 'block';
@@ -520,81 +522,81 @@
 
 
     
-    // get part name sheet barang
-    document.addEventListener('DOMContentLoaded', function() {
-    const partSheetURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
-    const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
-    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpecification';
+        // get part name sheet barang
+        document.addEventListener('DOMContentLoaded', function() {
+        const partSheetURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpecification';
 
-    let partData = [];
+        let partData = [];
 
     // Fetch data part_name dari sheet part
-    fetch(partSheetURL)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Raw part data:', data); // Debug: Cek data mentah
-            if (data.status === 'success') {
-                partData = data.data;
-                console.log('Part data:', partData); // Debug: Cek data setelah parsing
-            } else {
-                console.error('Error fetching part data:', data.message);
-                Swal.fire('Error!', 'Failed to fetch part data. Please try again.', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching part data:', error);
-            Swal.fire('Error!', 'An error occurred while fetching part data.', 'error');
-        });
-
-
-        
-
-        
-    
-    function populatePartNameDropdown($dropdown, data) {
-        $dropdown.empty();
-        $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
-        data.forEach(item => {
-            if (item.partName) {
-                $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
-            }
-        });
-    }
-
-    function populateAllDropdowns() {
-        $.get(apiUrl, function(response) {
-            if (response.status === 'success') {
-                const $dropdowns = $('#editPartName');
-                populatePartNameDropdown($dropdowns, response.data);
-            } else {
-                console.error('Error fetching spare parts data:', response.message);
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('Request failed:', textStatus, errorThrown);
-        });
-    }
-
-    populateAllDropdowns();
-
-    $('#itemsContainer').on('change', '.partName', function() {
-        const selectedPartName = $(this).val();
-        const $specField = $(this).closest('.item-row').find('.specification');
-        
-        if (selectedPartName) {
-            $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-                console.log('Specification Response:', response);
-                if (response.partName === selectedPartName) {
-                    $specField.val(response.specification || '');
+        fetch(partSheetURL)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Raw part data:', data); // Debug: Cek data mentah
+                if (data.status === 'success') {
+                    partData = data.data;
+                    console.log('Part data:', partData); // Debug: Cek data setelah parsing
                 } else {
-                    console.error('Part name mismatch or specification data missing');
+                    console.error('Error fetching part data:', data.message);
+                    Swal.fire('Error!', 'Failed to fetch part data. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching part data:', error);
+                Swal.fire('Error!', 'An error occurred while fetching part data.', 'error');
+            });
+
+
+        
+
+        
+        
+        function populatePartNameDropdown($dropdown, data) {
+            $dropdown.empty();
+            $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
+            data.forEach(item => {
+                if (item.partName) {
+                    $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
+                }
+            });
+        }
+
+        function populateAllDropdowns() {
+            $.get(apiUrl, function(response) {
+                if (response.status === 'success') {
+                    const $dropdowns = $('#editPartName');
+                    populatePartNameDropdown($dropdowns, response.data);
+                } else {
+                    console.error('Error fetching spare parts data:', response.message);
                 }
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.error('Request failed:', textStatus, errorThrown);
             });
-        } else {
-            $specField.val('');
         }
-    });
+
+        populateAllDropdowns();
+
+        $('#itemsContainer').on('change', '.partName', function() {
+            const selectedPartName = $(this).val();
+            const $specField = $(this).closest('.item-row').find('.specification');
+            
+            if (selectedPartName) {
+                $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                    console.log('Specification Response:', response);
+                    if (response.partName === selectedPartName) {
+                        $specField.val(response.specification || '');
+                    } else {
+                        console.error('Part name mismatch or specification data missing');
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                });
+            } else {
+                $specField.val('');
+            }
+        });
 
 
     // Fungsi untuk memformat waktu dan tanggal sebelum mengisi form
@@ -613,7 +615,130 @@ function formatTimeForInput(timeValue) {
     return new Date(timeValue).toISOString().split('T')[1].split('.')[0].slice(0, 5); // HH:MM
 }
 
-    $(document).on('click', '.edit-btn', function() {
+
+
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('edite-btn')) {
+        const userId = event.target.dataset.id;
+        console.log('Edit user with ID:', userId);
+
+
+        // Mengambil data pengguna untuk diisi dalam form edit
+        fetch(`https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=getItemById&id=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const user = data.data;
+                    document.querySelector('#editForm #editId').val(user.id);
+                    document.querySelector('#editForm #editNama').val(user.nama);
+                    document.querySelector('#editForm #editTanggal').val(formatDateForInput(user.tanggal));
+                    document.querySelector('#editForm #editWaktu').val(formatTimeForInput(user.waktu));
+                    document.querySelector('#editForm #editMachine').value = user.machine;
+                    document.querySelector('#editForm #editMaker').value = user.maker;
+                    document.querySelector('#editForm #editLocation').value = user.location;
+                    document.querySelector('#editForm #editClasspart').value = user.class_part;
+                    document.querySelector('#editForm #editMin').value = user.min;
+                    document.querySelector('#editForm #editMax').value = user.max;
+                    document.querySelector('#editForm #editIn').value = user.in;
+                    document.querySelector('#editForm #editOut').value = user.out;
+                    document.querySelector('#editForm #editStock').value = user.stock;
+                    document.querySelector('#editForm #editHarga').value = user.harga;
+                    $('#editId').val(user.id);
+                    $('#editNama').val(user.nama);
+                    $('#editTanggal').val(formatDateForInput(user.tanggal));
+                    $('#editWaktu').val(formatTimeForInput(user.waktu));
+                    $('#editDepartemen').val(user.departemen);
+                    $('#editMesin').val(user.mesin);
+                    $('#editRemark').val(user.remark);
+                    $('#editNo').val(user.no);
+
+                    $('#editPartName').val(user.part_name);
+                    $('#editSpecification').val(user.specification);
+                    $('#editQty').val(user.qty);
+                    $('#editRequester').val(user.requester);
+                    $('#editStoreKeeper').val(user.security);
+
+                  
+
+                    // Menampilkan modal edit
+                    $('#editModal').modal('show');
+                } else {
+                    console.error('Error:', data.message);
+                 
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Event Listener untuk tombol Delete
+    if (event.target.classList.contains('delete-btn')) {
+            const userId = event.target.dataset.id;
+
+            // Konfirmasi penghapusan menggunakan SweetAlert2
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: 'Apakah Anda yakin ingin menghapus part ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Menghapus data jika pengguna mengonfirmasi
+                    fetch(`https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=delete&id=${userId}`, {
+                        method: 'POST', // Metode POST digunakan
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'id': userId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Response:', data); // Debug response
+                        if (data.status === 'success') {
+                            // Menghapus baris dari tabel
+                            event.target.closest('tr').remove();
+                            Swal.fire(
+                                'Terhapus!',
+                                'Pengguna telah dihapus.',
+                                'success'
+                            );
+                        } else {
+                            console.error('Error:', data.message);
+                            Swal.fire(
+                                'Gagal!',
+                                'Terjadi kesalahan saat menghapus pengguna.',
+                                'error'
+                            );
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire(
+                            'Gagal!',
+                            'Terjadi kesalahan saat menghapus pengguna.',
+                            'error'
+                        );
+                    });
+                }
+            });
+        }
+});
+
+
+
+
+
+
+
+
+
+ 
+       $(document).on('click', '.edit-btn', function() {
         const userId = $(this).data('id');
 
         // Ambil data item berdasarkan ID
@@ -669,97 +794,49 @@ function formatTimeForInput(timeValue) {
 
      // Form submission untuk modal edit
      $('#editForm').submit(function(e) {
-            e.preventDefault();
+    e.preventDefault();
 
-            const formData = $(this).serialize();
+    const formData = $(this).serialize();
 
-            $.ajax({
-                url: 'https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=update',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        Swal.fire('Updated!', 'Item has been updated.', 'success');
+    $.ajax({
+        url: 'https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=update',
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+            if (response.status === 'success') {
+                Swal.fire({
+                    title: 'Updated!',
+                    text: 'Item has been updated.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         $('#editModal').modal('hide');
-                        location.reload(); // Refresh page to reflect changes
-                    } else {
-                        Swal.fire('Error!', response.message, 'error');
+                        location.reload(); // Refresh page after user confirms
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Request failed:', textStatus, errorThrown);
-                    Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
-                }
-            });
-        });
+                });
+            } else {
+                Swal.fire('Error!', response.message, 'error');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Request failed:', textStatus, errorThrown);
+            Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
+        }
+    });
+});
+
 
 
 
     // Event Listener untuk tombol Delete
 
-    if (event.target.classList.contains('delete-btn')) {
-    const userId = event.target.dataset.id;
-
-    // Konfirmasi penghapusan menggunakan SweetAlert2
-    Swal.fire({
-      title: 'Konfirmasi Hapus',
-      text: 'Apakah Anda yakin ingin menghapus item ini?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Hapus',
-      cancelButtonText: 'Batal',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Menghapus data jika pengguna mengonfirmasi
-        fetch(`https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=delete&id=${userId}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams({
-            'id': userId
-          })
-        })
-        .then(response => {
-          console.log('HTTP Status:', response.status); // Log status HTTP
-          return response.json();
-        })
-        .then(data => {
-          console.log('Response:', data); // Debug response
-          if (data.status === 'success') {
-            // Menghapus baris dari tabel
-            event.target.closest('tr').remove();
-            Swal.fire(
-              'Terhapus!',
-              'Item telah dihapus.',
-              'success'
-            );
-          } else {
-            console.error('Error:', data.message);
-            Swal.fire(
-              'Gagal!',
-              'Terjadi kesalahan saat menghapus item.',
-              'error'
-            );
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          Swal.fire(
-            'Gagal!',
-            'Terjadi kesalahan saat menghapus item.',
-            'error'
-          );
-        });
-      }
-        });
-    }
-});
+     });
 
 
 
-    $(document).ready(function() {
+    // create
+         $(document).ready(function() {
         const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
         const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpecification';
 
@@ -900,6 +977,9 @@ function formatTimeForInput(timeValue) {
             });
 
     });
+
+
+
 </script>
 
 
