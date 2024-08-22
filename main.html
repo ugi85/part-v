@@ -47,7 +47,8 @@
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
-                            User <i class="mdi mdi-chevron-down"></i>
+                        <span id="tampil_nama1"></span>
+                              <i class="mdi mdi-chevron-down"></i>
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -193,7 +194,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">Welcome User !</h4>
+                                <h4 class="page-title">Welcome, <span id="tampil_nama2"></span> !</h4>
+
                                 <div class="page-title-right">
                                     <ol class="breadcrumb p-0 m-0">
                                         <li class="breadcrumb-item"><a href="#">Velonic</a></li>
@@ -435,6 +437,35 @@
             window.location.href = 'index.html';
         });
     </script>
+
+<script>
+    window.onload = function() {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        const show_username = sessionStorage.getItem('username'); 
+        const userRole = sessionStorage.getItem('role'); // Ambil peran pengguna dari sessionStorage
+
+        if (isLoggedIn === 'true') {
+            // Tampilkan nama pengguna
+            if (show_username) {
+                document.getElementById('tampil_nama1').textContent = show_username;
+                document.getElementById('tampil_nama2').textContent = show_username;
+            }
+
+            // Sesuaikan tampilan tombol berdasarkan peran
+            if (userRole === 'admin') {
+                // Tampilkan tombol edit dan delete untuk admin
+                document.querySelectorAll('.edit-button').forEach(button => button.style.display = 'inline-block');
+                document.querySelectorAll('.delete-button').forEach(button => button.style.display = 'inline-block');
+            } else {
+                // Sembunyikan tombol edit dan delete untuk user biasa
+                document.querySelectorAll('.edit-button').forEach(button => button.style.display = 'none');
+                document.querySelectorAll('.delete-button').forEach(button => button.style.display = 'none');
+            }
+        }
+    }
+</script>
+
+
 
 </body>
 

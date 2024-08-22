@@ -62,7 +62,8 @@
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
-                            User <i class="mdi mdi-chevron-down"></i>
+                        <span id="tampil_nama1"></span>
+                            <i class="mdi mdi-chevron-down"></i>
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown">
@@ -472,6 +473,9 @@
         // Menampilkan spinner
         loadingSpinner.style.display = 'block';
 
+         // Ambil peran pengguna dari sessionStorage
+         const userRole = sessionStorage.getItem('role');
+
 
         // Mengambil data pengguna dan menampilkannya dalam tabel
         fetch(scriptURL)
@@ -480,6 +484,7 @@
                 if (data.status === 'success') {
                     const users = data.data;
                     const usersTableBody = document.querySelector('#userTable tbody');
+                    usersTableBody.innerHTML = '';
 
                     users.forEach(user => {
                         const row = usersTableBody.insertRow();
@@ -498,15 +503,34 @@
                         row.insertCell(12).textContent = user.harga;
 
                         const actionsCell = row.insertCell(13);
-                        actionsCell.innerHTML = `
-                            <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}">Edit</button>
-                            <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}">Delete</button>
-                        `;
-                    });
+                        // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
+                  // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
+                  actionsCell.innerHTML = `
+                        <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                    `;
+                });
 
-                    // Initialize DataTable
-                    $('#userTable').DataTable();
-                } else {
+                 // Initialize or reinitialize DataTable
+                 if ($.fn.DataTable.isDataTable('#userTable')) {
+                            $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                        }
+                        $('#userTable').DataTable(); // Buat instance DataTable baru
+                        // Sembunyikan kolom Actions jika user bukan admin
+                if (userRole !== 'admin') {
+                    // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
+                    setTimeout(() => {
+                        const table = document.getElementById('userTable');
+                        const actionsColumnIndex = 13; // Indeks kolom Actions (0-based)
+                        // Sembunyikan header kolom
+                        table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                        // Sembunyikan semua cell di kolom Actions
+                        table.querySelectorAll(`tbody tr`).forEach(row => {
+                            row.children[actionsColumnIndex].style.display = 'none';
+                        });
+                    }, 100); // Sesuaikan timeout sesuai kebutuhan
+                }
+                    } else {
                     console.error('Error:', data.message);
                 }
             })
@@ -767,6 +791,33 @@
 
         
     
+</script>
+
+<script>
+    window.onload = function() {
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        const show_username = sessionStorage.getItem('username'); 
+        const userRole = sessionStorage.getItem('role'); // Ambil peran pengguna dari sessionStorage
+
+        if (isLoggedIn === 'true') {
+            // Tampilkan nama pengguna
+            if (show_username) {
+                document.getElementById('tampil_nama1').textContent = show_username;
+                document.getElementById('tampil_nama2').textContent = show_username;
+            }
+
+            // Sesuaikan tampilan tombol berdasarkan peran
+            if (userRole === 'admin') {
+                // Tampilkan tombol edit dan delete untuk admin
+                document.querySelectorAll('.edit-btn').forEach(button => button.style.display = 'inline-block');
+                document.querySelectorAll('.delete-btn').forEach(button => button.style.display = 'inline-block');
+            } else {
+                // Sembunyikan tombol edit dan delete untuk user biasa
+                document.querySelectorAll('.edit-btn').forEach(button => button.style.display = 'none');
+                document.querySelectorAll('.delete-btn').forEach(button => button.style.display = 'none');
+            }
+        }
+    }
 </script>
 
 
