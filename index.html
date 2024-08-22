@@ -86,7 +86,7 @@
             const password = document.getElementById('password').value;
 
             // Kirim data menggunakan method POST
-            fetch('https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbxQxuG4l-XshlJL20FUXID_b_KuSh4Wy7G6534vbTF7jPLS_qw7P4SfRHNf39O9UP_gJA/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -101,6 +101,8 @@
             .then(data => {
                 if (data.status === 'success') {
                     sessionStorage.setItem('isLoggedIn', 'true'); // Simpan status login
+                    sessionStorage.setItem('username', data.username); // Simpan nama pengguna
+                    sessionStorage.setItem('role', data.role); // Simpan role pengguna
                     document.getElementById('notification').style.display = 'block';
                     setTimeout(() => {
                         window.location.href = 'main.html';
@@ -120,6 +122,16 @@
                     }, 3000);
             });
         });
+
+                // Tampilkan nama pengguna di navbar saat halaman utama dimuat
+            window.onload = function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const username = sessionStorage.getItem('username'); 
+
+            if (isLoggedIn === 'true' && username) {
+                document.querySelector('.pro-user-name').innerHTML = username + ' <i class="mdi mdi-chevron-down"></i>';
+            }
+        }
     </script>
 
 </body>
