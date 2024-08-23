@@ -476,6 +476,9 @@
         // Menampilkan spinner
         loadingSpinner.style.display = 'block';
 
+                 // Ambil peran pengguna dari sessionStorage
+                 const userRole = sessionStorage.getItem('role');
+
         // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
         fetch(scriptURL)
             .then(response => response.json())
@@ -505,16 +508,32 @@
                          // Tambahkan kolom Edit dan Delete
                          const actionCell = tableRow.insertCell(12);
                         actionCell.innerHTML = `
-                     <button class="btn btn-warning edit-btn" data-id="${row.id}">Edit</button>
-                     <button class="btn btn-danger delete-btn" data-id="${row.id}">Delete</button>
-                         `;
-                    });
+                        <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                    `;
+                });
 
-                    // Inisialisasi DataTable setelah data ditambahkan
-                    $('#userTable').DataTable();
-                } else {
+               // Initialize or reinitialize DataTable
+               if ($.fn.DataTable.isDataTable('#userTable')) {
+                            $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                        }
+                        $('#userTable').DataTable(); // Buat instance DataTable baru
+                        // Sembunyikan kolom Actions jika user bukan admin
+                if (userRole !== 'admin') {
+                    // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
+                    setTimeout(() => {
+                        const table = document.getElementById('userTable');
+                        const actionsColumnIndex = 12; // Indeks kolom Actions (0-based)
+                        // Sembunyikan header kolom
+                        table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                        // Sembunyikan semua cell di kolom Actions
+                        table.querySelectorAll(`tbody tr`).forEach(row => {
+                            row.children[actionsColumnIndex].style.display = 'none';
+                        });
+                    }, 100); // Sesuaikan timeout sesuai kebutuhan
+                }
+                    } else {
                     console.error('Error:', data.message);
-                    Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
                 }
             })
             .catch(error => {
@@ -735,13 +754,6 @@ document.addEventListener('click', function(event) {
             });
         }
 });
-
-
-
-
-
-
-
 
 
  

@@ -392,19 +392,19 @@ window.onload = function() {
         const userRole = sessionStorage.getItem('role');
 
          // Tampilkan atau sembunyikan kolom 'Actions' berdasarkan peran pengguna
-         if (userRole !== 'admin') {
-                // Sembunyikan kolom 'Actions'
-                const actionsColumnIndex = 3; // Index kolom Actions (0-based)
-                const table = document.getElementById('userTable');
+        //  if (userRole !== 'admin') {
+        //         // Sembunyikan kolom 'Actions'
+        //         const actionsColumnIndex = 3; // Index kolom Actions (0-based)
+        //         const table = document.getElementById('userTable');
                 
-                // Sembunyikan header kolom
-                table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+        //         // Sembunyikan header kolom
+        //         table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
                 
-                // Sembunyikan semua cell di kolom Actions
-                table.querySelectorAll(`tbody tr`).forEach(row => {
-                    row.children[actionsColumnIndex].style.display = 'none';
-                });
-            }
+        //         // Sembunyikan semua cell di kolom Actions
+        //         table.querySelectorAll(`tbody tr`).forEach(row => {
+        //             row.children[actionsColumnIndex].style.display = 'none';
+        //         });
+        //     }
 
         // Mengambil data pengguna dan menampilkannya dalam tabel
         fetch(scriptURL)
@@ -420,18 +420,34 @@ window.onload = function() {
                         row.insertCell(1).textContent = user.email;
                         row.insertCell(2).textContent = user.role;
 
-                    // Jika kolom Actions ditampilkan, tambahkan tombol Edit dan Delete
-                    if (userRole === 'admin') {
-                                const actionsCell = row.insertCell(3);
-                                actionsCell.innerHTML = `
-                                    <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}">Edit</button>
-                                    <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}">Delete</button>
-                                `;
-                            }
+                        const actionsCell = row.insertCell(3);
+                  // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
+                  actionsCell.innerHTML = `
+                        <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                    `;
+                });
+
+                 // Initialize or reinitialize DataTable
+                 if ($.fn.DataTable.isDataTable('#userTable')) {
+                            $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                        }
+                        $('#userTable').DataTable(); // Buat instance DataTable baru
+                        // Sembunyikan kolom Actions jika user bukan admin
+                if (userRole !== 'admin') {
+                    // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
+                    setTimeout(() => {
+                        const table = document.getElementById('userTable');
+                        const actionsColumnIndex = 3; // Indeks kolom Actions (0-based)
+                        // Sembunyikan header kolom
+                        table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                        // Sembunyikan semua cell di kolom Actions
+                        table.querySelectorAll(`tbody tr`).forEach(row => {
+                            row.children[actionsColumnIndex].style.display = 'none';
                         });
-                    // Initialize DataTable
-                    $('#userTable').DataTable();
-                } else {
+                    }, 100); // Sesuaikan timeout sesuai kebutuhan
+                }
+                    } else {
                     console.error('Error:', data.message);
                 }
             })
