@@ -503,7 +503,6 @@
                         row.insertCell(12).textContent = user.harga;
 
                         const actionsCell = row.insertCell(13);
-                        // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
                   // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
                   actionsCell.innerHTML = `
                         <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
