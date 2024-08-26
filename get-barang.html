@@ -470,7 +470,7 @@
 
             // read data
          document.addEventListener('DOMContentLoaded', function() {
-         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOFcabSBwz1P4NNfvOfCpSUdIs2EQG2hIEoyU2JrCmBcLvdebZBWHWt_g77iBL_kIQQQ/exec?action=read';
+         const scriptURL = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=read';
          const loadingSpinner = document.getElementById('loadingSpinner');
 
         // Menampilkan spinner
@@ -548,9 +548,9 @@
     
         // get part name sheet barang
         document.addEventListener('DOMContentLoaded', function() {
-        const partSheetURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
-        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpecification';
+        const partSheetURL = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=read';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpareParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpecification';
 
         let partData = [];
 
@@ -649,7 +649,7 @@ document.addEventListener('click', function(event) {
 
 
         // Mengambil data pengguna untuk diisi dalam form edit
-        fetch(`https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=getItemById&id=${userId}`)
+        fetch(`https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getItemById&id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -711,7 +711,7 @@ document.addEventListener('click', function(event) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menghapus data jika pengguna mengonfirmasi
-                    fetch(`https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=delete&id=${userId}`, {
+                    fetch(`https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=delete&id=${userId}`, {
                         method: 'POST', // Metode POST digunakan
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -759,7 +759,7 @@ document.addEventListener('click', function(event) {
         const userId = $(this).data('id');
 
         // Ambil data item berdasarkan ID
-        $.get(`https://script.google.com/macros/s/AKfycbwOFcabSBwz1P4NNfvOfCpSUdIs2EQG2hIEoyU2JrCmBcLvdebZBWHWt_g77iBL_kIQQQ/exec?action=getItemById&id=${userId}`, function(data) {
+        $.get(`https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getItemById&id=${userId}`, function(data) {
 
             if (data.status === 'success') {
                 const user = data.data;
@@ -815,7 +815,7 @@ document.addEventListener('click', function(event) {
     const formData = $(this).serialize();
 
     $.ajax({
-        url: 'https://script.google.com/macros/s/AKfycbzuZpZAjPGqSAW22A4nfov5v_vMeRGq0XJhhRl9LHrHwa20k53eT800Lv2wSDqy6LE-zw/exec?action=update',
+        url: 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=update',
         type: 'POST',
         data: formData,
         success: function(response) {
@@ -860,8 +860,8 @@ document.addEventListener('click', function(event) {
     $('#date').val(today);
     $('#time').val(timeNow);
 
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpareParts';
-        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzHFUEon22Cx8-EXCkNJXWd0F8wh0fRoGBXrQaRaq-xKuG6p7XBN2mOYDPH1n-iCKgMzA/exec?action=getSpecification';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpareParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpecification';
 
         function populatePartNameDropdown($dropdown, data) {
             $dropdown.empty();
@@ -951,7 +951,7 @@ document.addEventListener('click', function(event) {
 
 
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwOFcabSBwz1P4NNfvOfCpSUdIs2EQG2hIEoyU2JrCmBcLvdebZBWHWt_g77iBL_kIQQQ/exec?action=create', true);
+                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=create', true);
 
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 400) {
