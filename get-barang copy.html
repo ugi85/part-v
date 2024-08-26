@@ -468,15 +468,15 @@
             }
 
             // read data
-        document.addEventListener('DOMContentLoaded', function() {
+         document.addEventListener('DOMContentLoaded', function() {
          const scriptURL = 'https://script.google.com/macros/s/AKfycby_xxaU1tYBZXC_PdxAUEoKbHlzqIV18l7jOV73IM9kDkV3PbgZmdS9tgIPUzT6KUe9xw/exec?action=read';
          const loadingSpinner = document.getElementById('loadingSpinner');
 
-         // Menampilkan spinner
-          loadingSpinner.style.display = 'block';
+        // Menampilkan spinner
+        loadingSpinner.style.display = 'block';
 
-         // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
-         fetch(scriptURL)
+        // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+        fetch(scriptURL)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -524,7 +524,7 @@
                 // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
                 loadingSpinner.style.display = 'none';
             });
-         });
+    });
 
 
     
@@ -536,7 +536,7 @@
 
         let partData = [];
 
-       // Fetch data part_name dari sheet part
+    // Fetch data part_name dari sheet part
         fetch(partSheetURL)
             .then(response => response.json())
             .then(data => {
@@ -605,27 +605,27 @@
         });
 
 
-                // Fungsi untuk memformat waktu dan tanggal sebelum mengisi form
-            function formatDateForInput(dateValue) {
-                if (typeof dateValue === 'number') {
-                    return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-                }
-                return new Date(dateValue).toISOString().split('T')[0];
-            }
+    // Fungsi untuk memformat waktu dan tanggal sebelum mengisi form
+function formatDateForInput(dateValue) {
+    if (typeof dateValue === 'number') {
+        return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
+    }
+    return new Date(dateValue).toISOString().split('T')[0];
+}
 
-            function formatTimeForInput(timeValue) {
-                if (typeof timeValue === 'number') {
-                    const date = new Date((timeValue - 25569) * 86400 * 1000);
-                    return date.toTimeString().split(' ')[0].slice(0, 5); // HH:MM
-                }
-                return new Date(timeValue).toISOString().split('T')[1].split('.')[0].slice(0, 5); // HH:MM
-            }
+function formatTimeForInput(timeValue) {
+    if (typeof timeValue === 'number') {
+        const date = new Date((timeValue - 25569) * 86400 * 1000);
+        return date.toTimeString().split(' ')[0].slice(0, 5); // HH:MM
+    }
+    return new Date(timeValue).toISOString().split('T')[1].split('.')[0].slice(0, 5); // HH:MM
+}
 
 
 
 
 document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('edit-btn')) {
+    if (event.target.classList.contains('edite-btn')) {
         const userId = event.target.dataset.id;
         console.log('Edit user with ID:', userId);
 
@@ -636,6 +636,20 @@ document.addEventListener('click', function(event) {
             .then(data => {
                 if (data.status === 'success') {
                     const user = data.data;
+                    document.querySelector('#editForm #editId').val(user.id);
+                    document.querySelector('#editForm #editNama').val(user.nama);
+                    document.querySelector('#editForm #editTanggal').val(formatDateForInput(user.tanggal));
+                    document.querySelector('#editForm #editWaktu').val(formatTimeForInput(user.waktu));
+                    document.querySelector('#editForm #editMachine').value = user.machine;
+                    document.querySelector('#editForm #editMaker').value = user.maker;
+                    document.querySelector('#editForm #editLocation').value = user.location;
+                    document.querySelector('#editForm #editClasspart').value = user.class_part;
+                    document.querySelector('#editForm #editMin').value = user.min;
+                    document.querySelector('#editForm #editMax').value = user.max;
+                    document.querySelector('#editForm #editIn').value = user.in;
+                    document.querySelector('#editForm #editOut').value = user.out;
+                    document.querySelector('#editForm #editStock').value = user.stock;
+                    document.querySelector('#editForm #editHarga').value = user.harga;
                     $('#editId').val(user.id);
                     $('#editNama').val(user.nama);
                     $('#editTanggal').val(formatDateForInput(user.tanggal));
@@ -650,6 +664,7 @@ document.addEventListener('click', function(event) {
                     $('#editQty').val(user.qty);
                     $('#editRequester').val(user.requester);
                     $('#editStoreKeeper').val(user.security);
+
                   
 
                     // Menampilkan modal edit
@@ -729,7 +744,7 @@ document.addEventListener('click', function(event) {
 
 
  
-       $(document).on('click', '.edite-btn', function() {
+       $(document).on('click', '.edit-btn', function() {
         const userId = $(this).data('id');
 
         // Ambil data item berdasarkan ID
@@ -823,10 +838,6 @@ document.addEventListener('click', function(event) {
     // Event Listener untuk tombol Delete
 
      });
-
-
-
-
 
 
 
