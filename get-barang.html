@@ -127,7 +127,7 @@
             <div class="slimscroll-menu">
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
-                        <li>
+                        <li id="menu-data-users">
                             <a href="data-users.html">
                                 <i class="ion ion-ios-contacts"></i>
                                 <span> Data Users </span>
@@ -240,14 +240,17 @@
                         <label for="departemen">Departemen</label>
                         <select class="form-control" id="departemen" name="departemen" required>
                             <option value="" disabled selected>Select Department</option>
+                            <option value="FMEHSS EHS">FMEHSS EHS</option>
+                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
+                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
                             <option value="SOLID">SOLID</option>
+                            <option value="FMEHSS GA">FMEHSS GA</option>
                             <option value="MIXTECH">MIXTECH</option>
-                            <option value="QC">QC</option>
-                            <option value="QA">QA</option>
-                            <option value="FMEES">FMEES</option>
-                            <option value="HR">HR</option>
-                            <option value="ISS">ISS</option>
-                            <option value="FITTER">FITTER</option>
+                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
+                            <option value="WAREHOUSE">WAREHOUSE</option>
+                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
+                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
+                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
                         </select>
                         <div class="invalid-feedback">Department is required.</div>
                     </div>
@@ -331,14 +334,17 @@
                         <label for="editDepartemen">Departemen</label>
                         <select class="form-control" id="editDepartemen" name="departemen" required>
                             <option value="" disabled selected>Select Department</option>
+                            <option value="FMEHSS EHS">FMEHSS EHS</option>
+                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
+                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
                             <option value="SOLID">SOLID</option>
+                            <option value="FMEHSS GA">FMEHSS GA</option>
                             <option value="MIXTECH">MIXTECH</option>
-                            <option value="QC">QC</option>
-                            <option value="QA">QA</option>
-                            <option value="FMEES">FMEES</option>
-                            <option value="HR">HR</option>
-                            <option value="ISS">ISS</option>
-                            <option value="FITTER">FITTER</option>
+                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
+                            <option value="WAREHOUSE">WAREHOUSE</option>
+                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
+                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
+                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
                         </select>
                         <div class="invalid-feedback">Department is required.</div>
                     </div>          
@@ -456,6 +462,21 @@
         });
     </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role');
+
+        // Sembunyikan menu "Data Users" jika bukan admin
+        if (userRole !== 'admin') {
+            const menuDataUsers = document.getElementById('menu-data-users');
+            if (menuDataUsers) {
+                menuDataUsers.style.display = 'none';
+            }
+        }
+    });
+</script>
+
 
 
 <script>
@@ -544,7 +565,7 @@
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-            Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
+            // Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
         })
         .finally(() => {
             // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error

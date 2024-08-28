@@ -128,7 +128,7 @@
             <div class="slimscroll-menu">
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
-                        <li>
+                        <li id="menu-data-users">
                             <a href="data-users.html">
                                 <i class="ion ion-ios-contacts"></i>
                                 <span> Data Users </span>
@@ -443,6 +443,21 @@
     </script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role');
+
+        // Sembunyikan menu "Data Users" jika bukan admin
+        if (userRole !== 'admin') {
+            const menuDataUsers = document.getElementById('menu-data-users');
+            if (menuDataUsers) {
+                menuDataUsers.style.display = 'none';
+            }
+        }
+    });
+</script>
+
+<script>
     // Tampilkan nama pengguna di navbar saat halaman utama dimuat
     window.onload = function() {
  const isLoggedIn = sessionStorage.getItem('isLoggedIn');
@@ -456,6 +471,8 @@
  }
 }
 </script>
+
+
 
 
 

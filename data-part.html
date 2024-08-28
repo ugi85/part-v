@@ -125,7 +125,7 @@
             <div class="slimscroll-menu">
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
-                        <li>
+                        <li id="menu-data-users">
                             <a href="data-users.html">
                                 <i class="ion ion-ios-contacts"></i>
                                 <span> Data Users </span>
@@ -460,6 +460,21 @@
             window.location.href = 'index.html';
         });
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role');
+
+        // Sembunyikan menu "Data Users" jika bukan admin
+        if (userRole !== 'admin') {
+            const menuDataUsers = document.getElementById('menu-data-users');
+            if (menuDataUsers) {
+                menuDataUsers.style.display = 'none';
+            }
+        }
+    });
+</script>
 
 <!-- Sweet Alert js -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
