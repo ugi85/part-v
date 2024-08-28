@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard 1 | Velonic - Responsive Bootstrap 4 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Plugins css -->
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+
+    <!-- Toastr css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
+
+    <!-- Custom CSS for Loading Spinner -->
+    <style>
+        #loadingSpinner {
+            margin: 20px 0;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: .4em;
+            color: rgb(47, 47, 230);
+        }
+    </style>
+
+    <!-- Script to check login status -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Topbar Start -->
+        <!-- [Navbar & Sidebar content here] -->
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex justify-content-between align-items-center">
+                                <h4 class="page-title mb-0">Permohonan Pengadaan</h4>
+                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addItemModal">Tambah Data</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <!-- [Table content here] -->
+
+                </div>
+                <!-- end container-fluid -->
+            </div>
+            <!-- end content -->
+
+            <!-- Add Item Modal -->
+            <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addItemModalLabel">Form Pengadaan Barang</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createItemForm">
+                                <div class="form-group">
+                                    <label for="id">ID</label>
+                                    <input type="text" class="form-control" id="id" name="id" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no-pbb">No. PBB</label>
+                                    <input type="text" class="form-control" id="no-pbb" name="no_pbb" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date">Tanggal</label>
+                                    <input type="date" class="form-control" id="date" name="tanggal" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nama">Nama Pemohon</label>
+                                    <input type="text" class="form-control" id="nama" name="nama_pemohon" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">Area</label>
+                                    <input type="text" class="form-control" id="area" name="area" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nama-barang">Nama Barang</label>
+                                    <input type="text" class="form-control" id="nama-barang" name="nama_barang" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no-part">No. Part (Spesifikasi)</label>
+                                    <input type="text" class="form-control" id="no-part" name="no_part" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="qty">QTY</label>
+                                    <input type="text" class="form-control" id="qty" name="qty" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no-material">No. Material</label>
+                                    <input type="text" class="form-control" id="no-material" name="no_material" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="digunakan">Digunakan Di</label>
+                                    <input type="text" class="form-control" id="digunakan" name="digunakan_di" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="keterangan">Keterangan</label>
+                                    <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pic">PIC</label>
+                                    <input type="text" class="form-control" id="pic" name="pic" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area-leader">Area Leader</label>
+                                    <input type="text" class="form-control" id="area-leader" name="area_leader" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="diterimaby">Diterima Eng. Storage</label>
+                                    <input type="text" class="form-control" id="diterimaby" name="diterima" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="costcentre">Cost Centre</label>
+                                    <input type="text" class="form-control" id="costcentre" name="cost_centre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no-pr">No. PR</label>
+                                    <input type="text" class="form-control" id="no-pr" name="no_pr" required>
+                                </div>
+
+                                <!-- Menambahkan Checkbox -->
+                                <div class="form-group">
+                                    <label for="kelengkapan-dokumen">Kelengkapan Dokumen</label>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="budget" name="kelengkapan[]" value="Budget">
+                                        <label for="budget">Budget*</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="report" name="kelengkapan[]" value="Report">
+                                        <label for="report">Report*</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="reguler" name="kelengkapan[]" value="Reguler">
+                                        <label for="reguler">Reguler</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="material-master" name="kelengkapan[]" value="Material Master">
+                                        <label for="material-master">Material Master</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Add Item Modal -->
+
+        </div>
+        <!-- END wrapper -->
+    </div>
+
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+
+    <!-- Sweet-Alert  -->
+    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="assets/js/pages/sweet-alerts.init.js"></script>
+
+    <!-- Toastr js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+    <!-- CRUD Functionality -->
+    <script>
+        $(document).ready(function () {
+            $('#createItemForm').on('submit', function (e) {
+                e.preventDefault();
+                
+                // Mengambil data dari form
+                var formData = $(this).serialize();
+
+                // Mengirim data ke server
+                $.ajax({
+                    type: 'POST',
+                    url: 'path_to_your_create_item_api', // Ganti dengan URL API Anda
+                    data: formData,
+                    beforeSend: function () {
+                        toastr.info('Processing...', 'Please wait');
+                    },
+                    success: function (response) {
+                        toastr.success('Item created successfully', 'Success');
+                        $('#addItemModal').modal('hide');
+                        // Perbarui tabel dengan data baru atau lakukan redirect
+                    },
+                    error: function (error) {
+                        toastr.error('Failed to create item', 'Error');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
