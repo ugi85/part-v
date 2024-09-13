@@ -265,6 +265,10 @@
                         <input type="text" class="form-control" id="editUsername" name="username">
                     </div>
                     <div class="form-group">
+                        <label for="editPassword">Password</label>
+                        <input type="password" class="form-control" id="editPassword" name="password">
+                    </div>
+                    <div class="form-group">
                         <label for="editEmail">Email</label>
                         <input type="email" class="form-control" id="editEmail" name="email">
                     </div>
@@ -390,37 +394,26 @@ window.onload = function() {
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=read';
+    document.addEventListener('DOMContentLoaded',async function() {
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzL2dQ87hEnr8ECHXgSRvWi5QQ-P6292bD46m5GMWYQFZMFmXEcK_LhmXy5_jloWyEDhw/exec?action=read';
         const loadingSpinner = document.getElementById('loadingSpinner');
 
         // Menampilkan spinner
         loadingSpinner.style.display = 'block';
 
+        
+
         // Ambil peran pengguna dari sessionStorage
         const userRole = sessionStorage.getItem('role');
 
-         // Tampilkan atau sembunyikan kolom 'Actions' berdasarkan peran pengguna
-        //  if (userRole !== 'admin') {
-        //         // Sembunyikan kolom 'Actions'
-        //         const actionsColumnIndex = 3; // Index kolom Actions (0-based)
-        //         const table = document.getElementById('userTable');
-                
-        //         // Sembunyikan header kolom
-        //         table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
-                
-        //         // Sembunyikan semua cell di kolom Actions
-        //         table.querySelectorAll(`tbody tr`).forEach(row => {
-        //             row.children[actionsColumnIndex].style.display = 'none';
-        //         });
-        //     }
-
+       
         // Mengambil data pengguna dan menampilkannya dalam tabel
         fetch(scriptURL)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
                     const users = data.data;
+                    users.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     const usersTableBody = document.querySelector('#userTable tbody');
 
                     users.forEach(user => {
@@ -475,13 +468,14 @@ window.onload = function() {
             console.log('Edit user with ID:', userId);
 
             // Mengambil data pengguna untuk diisi dalam form edit
-            fetch(`https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=getUserById&id=${userId}`)
+            fetch(`https://script.google.com/macros/s/AKfycbzL2dQ87hEnr8ECHXgSRvWi5QQ-P6292bD46m5GMWYQFZMFmXEcK_LhmXy5_jloWyEDhw/exec?action=getUserById&id=${userId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
                         const user = data.data;
                         document.querySelector('#editForm #editId').value = user.id;
                         document.querySelector('#editForm #editUsername').value = user.username;
+                        document.querySelector('#editForm #editPassword').value = user.password.substring(0, 10);
                         document.querySelector('#editForm #editEmail').value = user.email;
                         document.querySelector('#editForm #editRole').value = user.role;
                         
@@ -510,7 +504,7 @@ window.onload = function() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menghapus data jika pengguna mengonfirmasi
-                    fetch(`https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=delete&id=${userId}`, {
+                    fetch(`https://script.google.com/macros/s/AKfycbzL2dQ87hEnr8ECHXgSRvWi5QQ-P6292bD46m5GMWYQFZMFmXEcK_LhmXy5_jloWyEDhw/exec?action=delete&id=${userId}`, {
                         method: 'POST', // Metode POST digunakan
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -558,14 +552,16 @@ window.onload = function() {
 
         const id = document.querySelector('#editForm #editId').value;
         const username = document.querySelector('#editForm #editUsername').value;
+        const password = document.querySelector('#editForm #editPassword').value;
         const email = document.querySelector('#editForm #editEmail').value;
         const role = document.querySelector('#editForm #editRole').value;
 
-        fetch('https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=update', {
+        fetch('https://script.google.com/macros/s/AKfycbzL2dQ87hEnr8ECHXgSRvWi5QQ-P6292bD46m5GMWYQFZMFmXEcK_LhmXy5_jloWyEDhw/exec?action=update', {
             method: 'POST',
             body: new URLSearchParams({
                 id: id,
                 username: username,
+                password: password,
                 email: email,
                 role: role
             })
@@ -581,7 +577,7 @@ window.onload = function() {
                         row.cells[1].textContent = email;
                         row.cells[2].textContent = role;
 
-                        // Hide the modal
+           
                         $('#editModal').modal('hide');
                     });
             } else {
@@ -612,7 +608,7 @@ window.onload = function() {
         if (isValid) {
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=register', true);
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzL2dQ87hEnr8ECHXgSRvWi5QQ-P6292bD46m5GMWYQFZMFmXEcK_LhmXy5_jloWyEDhw/exec?action=register', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
