@@ -25,6 +25,7 @@
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
+
   
 
       <!-- Custom CSS for Loading Spinner -->
@@ -161,7 +162,7 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Data Parts</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Part</button>
+                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Item</button>
                             </div>
                         </div>
                     </div>
@@ -174,19 +175,23 @@
                                     <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>Code Part</th>
-                                                <th>Sparepart</th>
+                                                <th>ID Part</th>
+                                                <th>Description</th>
                                                 <th>Specification</th>
                                                 <th>Machine</th>
-                                                <th>Maker</th>
+                                                <th>Supplier1</th>
+                                                <th>Supplier2</th>
                                                 <th>Location</th>
-                                                <th>Class Part</th>
+                                                <th>Type Part</th>
                                                 <th>Min</th>
                                                 <th>Max</th>
-                                                <th>In</th>
-                                                <th>Out</th>
+                                                <th>Unit</th>
+                                                <th>LT DAY</th>
                                                 <th>Stock</th>
-                                                <th>Harga</th>
+                                                <th>Price</th>
+                                                <th>Total Value</th>
+                                                <th>Total Sparepart Cost</th>
+                                                <th>Condition</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -214,7 +219,7 @@
             <div class="modal-dialog modal-lg" role="document"> <!-- Tambahkan class modal-lg untuk ukuran lebih besar -->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="registerModalLabel">Tambah Part</h5>
+                        <h5 class="modal-title" id="registerModalLabel">Tambah Item</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -226,13 +231,13 @@
                                 <!-- Kolom pertama -->
                                 <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                                     <div class="form-group">
-                                        <label for="code_part">Code Part</label>
-                                        <input type="text" class="form-control" id="code_part" name="code_part" required>
-                                        <div class="invalid-feedback">Code Part is required.</div>
+                                        <label for="id_part">ID Part</label>
+                                        <input type="text" class="form-control" id="id_part" name="id_part" required>
+                                        <div class="invalid-feedback">ID Part is required.</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="sparepart">Sparepart</label>
-                                        <input type="text" class="form-control" id="sparepart" name="sparepart" required>
+                                        <label for="description">Description</label>
+                                        <input type="text" class="form-control" id="description" name="description" required>
                                         <div class="invalid-feedback">Sparepart is required.</div>
                                     </div>
                                     <div class="form-group">
@@ -246,9 +251,14 @@
                                         <div class="invalid-feedback">Machine is required.</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="maker">Maker</label>
-                                        <input type="text" class="form-control" id="maker" name="maker" required>
-                                        <div class="invalid-feedback">Maker is required.</div>
+                                        <label for="supplier1">Supplier1</label>
+                                        <input type="text" class="form-control" id="supplier1" name="supplier1">
+                                        <div class="invalid-feedback">Supplier1 is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="supplier2">Supplier2</label>
+                                        <input type="text" class="form-control" id="supplier2" name="supplier2">
+                                        <div class="invalid-feedback">Supplier2 is required.</div>
                                     </div>
                                     <div class="form-group">
                                         <label for="location">Location</label>
@@ -256,9 +266,14 @@
                                         <div class="invalid-feedback">Location is required.</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="class_part">Class Part</label>
-                                        <input type="text" class="form-control" id="class_part" name="class_part" required>
+                                        <label for="type_part">Type Part</label>
+                                        <input type="text" class="form-control" id="type_part" name="type_part" required>
                                         <div class="invalid-feedback">Class Part is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="condition">Condition</label>
+                                        <input type="text" class="form-control" id="condition" name="condition">
+                                        <div class="invalid-feedback">Total_value is required.</div>
                                     </div>
                                 </div>
         
@@ -276,13 +291,13 @@
                                         <div class="invalid-feedback">Max is required.</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="in">In</label>
-                                        <input type="text" class="form-control" id="in" name="in" required>
+                                        <label for="unit">Unit</label>
+                                        <input type="text" class="form-control" id="unit" name="unit" required>
                                         <div class="invalid-feedback">In is required.</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="out">Out</label>
-                                        <input type="text" class="form-control" id="out" name="out" required>
+                                        <label for="lt_day">LT Day</label>
+                                        <input type="text" class="form-control" id="lt_day" name="lt_day" required>
                                         <div class="invalid-feedback">Out is required.</div>
                                     </div>
                                     <div class="form-group">
@@ -291,10 +306,21 @@
                                         <div class="invalid-feedback">Stock is required.</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="harga">Harga</label>
-                                        <input type="text" class="form-control" id="harga" name="harga" required>
-                                        <div class="invalid-feedback">Harga is required.</div>
+                                        <label for="price">Price</label>
+                                        <input type="text" class="form-control" id="price" name="price" required>
+                                        <div class="invalid-feedback">Price is required.</div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="total_value">Total Value</label>
+                                        <input type="text" class="form-control" id="total_value" name="total_value">
+                                        <div class="invalid-feedback">Total_value is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="total_sparepart_cost">Total Sparepart Cost</label>
+                                        <input type="text" class="form-control" id="total_sparepart_cost" name="total_sparepart_cost">
+                                        <div class="invalid-feedback">Total_cost is required.</div>
+                                    </div>
+                                    
                                     <div class="col-12 text-right">
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
@@ -313,7 +339,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Parts</h5>
+                        <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -326,12 +352,12 @@
                                 <!-- Kolom pertama -->
                                 <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                                     <div class="form-group">
-                                        <label for="editCodepart">Code Part</label>
-                                        <input type="text" class="form-control" id="editCodepart" name="code_part">
+                                        <label for="editIdpart">ID Part</label>
+                                        <input type="text" class="form-control" id="editIdpart" name="id_part">
                                     </div>
                                     <div class="form-group">
-                                        <label for="editSparepart">Sparepart</label>
-                                        <input type="text" class="form-control" id="editSparepart" name="sparepart">
+                                        <label for="editDescription">Description</label>
+                                        <input type="text" class="form-control" id="editDescription" name="description">
                                     </div>
                                     <div class="form-group">
                                         <label for="editSpecification">Specification</label>
@@ -476,7 +502,7 @@
 <!-- Fetch and Display User Data -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=read';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=read';
         const loadingSpinner = document.getElementById('loadingSpinner');
 
         // Menampilkan spinner
@@ -497,21 +523,25 @@
 
                     users.forEach(user => {
                         const row = usersTableBody.insertRow();
-                        row.insertCell(0).textContent = user.code_part;
-                        row.insertCell(1).textContent = user.sparepart;
+                        row.insertCell(0).textContent = user.id_part;
+                        row.insertCell(1).textContent = user.description;
                         row.insertCell(2).textContent = user.specification;
                         row.insertCell(3).textContent = user.machine;
-                        row.insertCell(4).textContent = user.maker;
-                        row.insertCell(5).textContent = user.location;
-                        row.insertCell(6).textContent = user.class_part;
-                        row.insertCell(7).textContent = user.min;
-                        row.insertCell(8).textContent = user.max;
-                        row.insertCell(9).textContent = user.in;
-                        row.insertCell(10).textContent = user.out;
-                        row.insertCell(11).textContent = user.stock;
-                        row.insertCell(12).textContent = user.harga;
+                        row.insertCell(4).textContent = user.supplier1;
+                        row.insertCell(5).textContent = user.supplier2;
+                        row.insertCell(6).textContent = user.location;
+                        row.insertCell(7).textContent = user.type_part;
+                        row.insertCell(8).textContent = user.min;
+                        row.insertCell(9).textContent = user.max;
+                        row.insertCell(10).textContent = user.unit;
+                        row.insertCell(11).textContent = user.lt_day;
+                        row.insertCell(12).textContent = user.stock;
+                        row.insertCell(13).textContent = user.price;
+                        row.insertCell(14).textContent = user.total_value;
+                        row.insertCell(15).textContent = user.total_sparepart_cost;
+                        row.insertCell(16).textContent = user.condition;
 
-                        const actionsCell = row.insertCell(13);
+                        const actionsCell = row.insertCell(17);
                   // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
                   actionsCell.innerHTML = `
                         <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
@@ -558,7 +588,7 @@
 
 
         // Mengambil data pengguna untuk diisi dalam form edit
-        fetch(`https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=getPartById&id=${userId}`)
+        fetch(`https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=getPartById&id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -742,7 +772,7 @@
         if (isValid) {
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=create', true);
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=create', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -751,7 +781,7 @@
                     if (response.status === 'success') {
                         Swal.fire({
                             title: 'Success!',
-                            text: 'Part added successfully!',
+                            text: 'Item added successfully!',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then(() => {
