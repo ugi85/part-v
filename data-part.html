@@ -636,7 +636,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menghapus data jika pengguna mengonfirmasi
-                    fetch(`https://script.google.com/macros/s/AKfycby5vRpu8QGk0Hhq-cxiDOfs7WCtv_NYyUDZ3Yj8_uNBTI1-2YMsExfZuFoN_0u4jyQN8A/exec?action=delete&id=${userId}`, {
+                    fetch(`https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=delete&id=${userId}`, {
                         method: 'POST', // Metode POST digunakan
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -655,7 +655,9 @@
                                 'Terhapus!',
                                 'Pengguna telah dihapus.',
                                 'success'
-                            );
+                            ).then(() => {
+                                location.reload(); // Refresh page after user confirms
+                            });
                         } else {
                             console.error('Error:', data.message);
                             Swal.fire(
