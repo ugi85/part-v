@@ -415,6 +415,7 @@ window.onload = function() {
                     const users = data.data;
                     users.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     const usersTableBody = document.querySelector('#userTable tbody');
+                    usersTableBody.innerHTML = ''; 
 
                     users.forEach(user => {
                         const row = usersTableBody.insertRow();
