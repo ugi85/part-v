@@ -133,11 +133,18 @@
                             </a>
                         </li>
                         <li>
+                            <a href="add-stock.html">
+                                <i class="ion ion-md-cube"></i>
+                                <span> Data Stock </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="get-barang.html">
                                 <i class="ion ion-ios-basket"></i>
                                 <span> Pengambilan Barang </span>
                             </a>
                         </li>
+                        
                         <!-- <li>
                             <a href="pengadaan.html">
                                 <i class="ion ion-ios-basket"></i>
@@ -162,11 +169,11 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Data Parts</h4>
-                                <div class="page-title-box">
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#registerModal">Tambah Item</button>
-                                    <button id="showMinDataButton" class="btn btn-primary">Tampilkan Data Minimal</button>
-                                </div>                                
-                                <!-- <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Item</button> -->
+                                <!-- <div class="page-title-box">
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#registerModal">Tambah Item</button> -->
+                                    <!-- <button id="showMinDataButton" class="btn btn-primary">Tampilkan Data Minimal</button> -->
+                                <!-- </div>                                 -->
+                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Item</button>
                             </div>
                         </div>
                     </div>
@@ -174,7 +181,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="card">
+                            <div class="card">       
                                 <div class="card-body table-responsive">
                                     <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -606,7 +613,7 @@
 
             // Warnai baris merah jika stock di bawah nilai minimal
             if (user.stock < user.min) {
-                row.style.backgroundColor = 'pink';
+                row.style.backgroundColor = 'red';
                 row.style.color = 'white'; // Untuk teks putih di atas latar belakang merah
             }
         });

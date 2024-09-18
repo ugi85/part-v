@@ -19,6 +19,54 @@
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
+     <!-- third party css -->
+     <link href="assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+     <link href="assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+     <link href="assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+     <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+     <!-- Tambahkan CSS CounterUp -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.counterup/1.0.8/jquery.counterup.min.css">
+
+    <!-- Custom CSS for Loading Spinner -->
+      <style>
+        #loadingSpinner {
+            margin: 20px 0;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: .4em;
+            color: rgb(47, 47, 230);
+        }
+            .hidden {
+        display: none;
+        }
+        .ion-md-eye {
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .ion-md-eye:hover {
+            color: #ff4081; /* Ganti dengan warna yang Anda inginkan */
+            transform: scale(1.1); /* Efek zoom sedikit untuk menambahkan efek interaktif */
+        }
+        .ion-md-construct {
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .ion-md-construct:hover {
+            color: #6023da; /* Ganti dengan warna yang Anda inginkan */
+            transform: scale(1.1); /* Efek zoom sedikit untuk menambahkan efek interaktif */
+        }
+       
+
+        
+
+    </style>
+
       <!-- Script to check login status -->
       <script>
         // Periksa status login ketika halaman dimuat
@@ -149,6 +197,13 @@
                                 <span> Pengambilan Barang </span>
                             </a>
                         </li>
+
+                        <li>
+                            <a href="add-stock.html">
+                                <i class="ion ion-md-cube"></i>
+                                <span> Data Stock </span>
+                            </a>
+                        </li>
                         <!-- <li>
                             <a href="pengadaan.html">
                                 <i class="ion ion-ios-basket"></i>
@@ -205,10 +260,10 @@
                                 <div class="card-body widget-style-2">
                                     <div class="text-white media">
                                         <div class="media-body align-self-center">
-                                            <h2 class="my-0 text-white"><span data-plugin="counterup">50</span></h2>
-                                            <p class="mb-0">Daily Visits</p>
+                                            <h2 class="my-0 text-white"><span id="lowStockCount">0</span></h2>
+                                            <p class="mb-0">Stock Minim</p>
                                         </div>
-                                        <i class="ion-md-eye"></i>
+                                        <i class="ion-md-eye" id="showTable" style="cursor: pointer;"></i>
                                     </div>
                                 </div>
                             </div>
@@ -219,10 +274,10 @@
                                 <div class="card-body widget-style-2">
                                     <div class="text-white media">
                                         <div class="media-body align-self-center">
-                                            <h2 class="my-0 text-white"><span data-plugin="counterup">12056</span></h2>
-                                            <p class="mb-0">Sales</p>
+                                            <h2 class="my-0 text-white"><span id="totalDataCount">0</span></h2>
+                                            <p class="mb-0">Total Parts</p>
                                         </div>
-                                        <i class="ion-md-paper-plane"></i>
+                                        <i class="ion-md-construct" id="dataPart"  style="cursor: pointer;"></i>
                                     </div>
                                 </div>
                             </div>
@@ -233,8 +288,8 @@
                                 <div class="card-body widget-style-2">
                                     <div class="text-white media">
                                         <div class="media-body align-self-center">
-                                            <h2 class="my-0 text-white"><span data-plugin="counterup">1268</span></h2>
-                                            <p class="mb-0">New Orders</p>
+                                            <h2 class="my-0 text-white"><span id="totalPrice">0</span></h2>
+                                            <p class="mb-0">Total Price</p>
                                         </div>
                                         <i class="ion-ios-pricetag"></i>
                                     </div>
@@ -248,7 +303,7 @@
                                     <div class="text-white media">
                                         <div class="media-body align-self-center">
                                             <h2 class="my-0 text-white"><span data-plugin="counterup">145</span></h2>
-                                            <p class="mb-0">New Users</p>
+                                            <p class="mb-0">LT Days</p>
                                         </div>
                                         <i class="mdi mdi-comment-multiple"></i>
                                     </div>
@@ -258,6 +313,87 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-12">
+                            <div class="card" id="showTableCard" style="display: none;">
+                                
+                                <div class="card-body table-responsive">
+                                    <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>ID Part</th>
+                                                <th>Description</th>
+                                                <th>Specification</th>
+                                                <th>Machine</th>
+                                                <th>Supplier1</th>
+                                                <th>Supplier2</th>
+                                                <th>Location</th>
+                                                <th>Type Part</th>
+                                                <th>Min</th>
+                                                <th>Max</th>
+                                                <th>Unit</th>
+                                                <th>LT DAY</th>
+                                                <th>Stock</th>
+                                                <th>Price</th>
+                                                <th>Total Value</th>
+                                                <th>Total Sparepart Cost</th>
+                                                <th>Condition</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data akan ditambahkan di sini -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="loadingSpinner" class="text-center" style="display: none;">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
+
+                    
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box">
+
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table table-striped mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID Part</th>
+                                                <th>Description</th>
+                                                <th>Specification</th>
+                                                <th>Machine</th>
+                                                <th>Supplier1</th>
+                                                <th>Supplier2</th>
+                                                <th>Location</th>
+                                                <th>Type Part</th>
+                                                <th>Min</th>
+                                                <th>Max</th>
+                                                <th>Unit</th>
+                                                <th>LT DAY</th>
+                                                <th>Stock</th>
+                                                <th>Price</th>
+                                                <th>Total Value</th>
+                                                <th>Total Sparepart Cost</th>
+                                                <th>Condition</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row">
                         <div class="col-xl-7">
                             <div class="card">
                                 <div class="card-header py-3 bg-transparent">
@@ -285,9 +421,9 @@
                             </div>
                             <!-- end card-->
 
-                        </div>
+                        <!-- </div> -->
                         <!-- end col -->
-                        <div></div>
+                        <!-- <div></div>
                         <div class="col-xl-5">
                             <div class="card">
                                 <div class="card-header py-3 bg-transparent">
@@ -314,9 +450,9 @@
                             <!-- end card-->
 
                           
-                        </div>
+                        <!-- </div> -->
 
-                    </div>
+                    </div> 
 
                     <div class="row">
                         <div class="col-xl-8">
@@ -479,12 +615,38 @@
     <!-- App js -->
     <script src="assets/js/app.min.js"></script>
 
+      <!-- Datatables init -->
+      <script src="assets/js/pages/datatables.init.js"></script>
+
+       <!-- Responsive examples -->
+    <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
+    <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
+    <script src="assets/libs/datatables/dataTables.select.min.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="assets/libs/datatables/dataTables.buttons.min.js"></script>
+    <script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="assets/libs/jszip/jszip.min.js"></script>
+    <script src="assets/libs/pdfmake/pdfmake.min.js"></script>
+    <script src="assets/libs/pdfmake/vfs_fonts.js"></script>
+    <script src="assets/libs/datatables/buttons.html5.min.js"></script>
+    <script src="assets/libs/datatables/buttons.print.min.js"></script>
+
+
+<!-- Memuat plugin CounterUp -->
+<script src="https://cdn.jsdelivr.net/npm/jquery.counterup@1.0.8/jquery.counterup.min.js"></script>
+
+    
+
     <!-- Logout Script -->
     <script>
         document.getElementById('logoutButton').addEventListener('click', function() {
             // Hapus status login dari sessionStorage
             sessionStorage.removeItem('isLoggedIn');
-            // Alihkan ke halaman login
+            // Alihkan ke halaman loginF
             window.location.href = 'index.html';
         });
     </script>
@@ -529,6 +691,176 @@
             }
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=readLowStock';
+    const allDataURL = 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=read';
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const lowStockCountElement = document.getElementById('lowStockCount');
+    const totalDataCountElement = document.getElementById('totalDataCount'); 
+    const showTableButton = document.getElementById('showTable');
+    const userTableCard = document.getElementById('showTableCard');
+    const totalPriceElement = document.getElementById('totalPrice');
+
+    // Ambil peran pengguna dari sessionStorage
+    const userRole = sessionStorage.getItem('role');
+
+    // Menyembunyikan tombol "Tambah Item" jika pengguna bukan admin
+    const addButton = document.getElementById('addButton'); // Pastikan id ini sesuai dengan tombol Anda
+    if (userRole !== 'admin' && addButton) {
+        addButton.style.display = 'none';
+    }
+
+    function displayData(users) {
+        const usersTableBody = document.querySelector('#userTable tbody');
+        usersTableBody.innerHTML = ''; // Kosongkan tabel sebelum memuat data baru
+        let lowStockCount = 0;
+        let totalPrice = 0;
+
+        users.forEach(user => {
+            const row = usersTableBody.insertRow();
+            row.insertCell(0).textContent = user.id_part;
+            row.insertCell(1).textContent = user.description;
+            row.insertCell(2).textContent = user.specification;
+            row.insertCell(3).textContent = user.machine;
+            row.insertCell(4).textContent = user.supplier1;
+            row.insertCell(5).textContent = user.supplier2;
+            row.insertCell(6).textContent = user.location;
+            row.insertCell(7).textContent = user.type_part;
+            row.insertCell(8).textContent = user.min;
+            row.insertCell(9).textContent = user.max;
+            row.insertCell(10).textContent = user.unit;
+            row.insertCell(11).textContent = user.lt_day;
+            row.insertCell(12).textContent = user.stock;
+            row.insertCell(13).textContent = user.price;
+            row.insertCell(14).textContent = user.total_value;
+            row.insertCell(15).textContent = user.total_sparepart_cost;
+            row.insertCell(16).textContent = user.condition;
+
+            const actionsCell = row.insertCell(17);
+
+            totalPrice += parseFloat(user.price);
+           
+        });
+
+        // Tampilkan jumlah stok minimal di card
+        // lowStockCountElement.textContent = users.length;
+        $(lowStockCountElement).text(users.length).counterUp({
+            delay: 10, 
+            time: 1000
+        });
+       
+
+        // Inisialisasi ulang DataTable setelah memuat data
+        if ($.fn.DataTable.isDataTable('#userTable')) {
+            $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+        }
+
+        $('#userTable').DataTable({
+            responsive: true,  // Menjaga agar tabel tetap responsif
+            columnDefs: [
+                {
+                    // Sembunyikan kolom Actions jika user bukan admin
+                    targets: 17, // Indeks kolom Actions (dimulai dari 0)
+                    visible: userRole === 'admin', // Sembunyikan jika bukan admin
+                    searchable: false // Tidak perlu kolom ini masuk dalam pencarian
+                }
+            ],
+            initComplete: function() {
+                // Jika userRole bukan admin, kita juga sembunyikan <th> header kolom Action
+                if (userRole !== 'admin') {
+                    const actionsHeader = document.querySelector('thead th:nth-child(18)');
+                    if (actionsHeader) actionsHeader.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    function fetchAllData() {
+    fetch(allDataURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const totalDataCount = data.data.length;
+                $(totalDataCountElement).text(totalDataCount).counterUp({
+                    delay: 10,
+                    time: 1000
+                });
+
+                // Menghitung total harga dari kolom 'price'
+                let totalPrice = 0;
+                data.data.forEach(item => {
+                    // Periksa apakah item.price ada dan valid
+                    if (item.price && !isNaN(item.price)) { 
+                        totalPrice += parseFloat(item.price);
+                    } else {
+                        console.warn(`Invalid price for item: `, item);
+                    }
+                });
+                $(totalPriceElement).text(totalPrice).counterUp({
+                    delay: 10,
+                    time: 1000,
+                    callback: function() {
+        // Setelah animasi selesai, tambahkan simbol 'Rp'
+                 $('#totalPrice').text(`${totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+                 }
+                });
+                // Tampilkan total harga dalam format Rupiah
+                // $('#totalPrice').text(`${totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`).counterUp({
+                //     delay: 10,
+                //     time: 1000
+                // });
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+    function fetchData() {
+        // Menampilkan spinner
+        loadingSpinner.style.display = 'block';
+
+        // Mengambil data pengguna dan menampilkannya dalam tabel
+        fetch(scriptURL)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const users = data.data;
+                    displayData(users);
+                } else {
+                    console.error('Error:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error))
+            .finally(() => {            
+                // Menyembunyikan spinner setelah data selesai dimuat
+                loadingSpinner.style.display = 'none';
+            });
+    }
+
+     // Event listener untuk menampilkan tabel saat card diklik
+     if (showTableButton) {
+        showTableButton.addEventListener('click', () => {
+            if (userTableCard.style.display === 'none') {
+                userTableCard.style.display = 'block'; // Tampilkan tabel
+                // fetchData();
+            } else {
+                userTableCard.style.display = 'none';
+            }
+        });
+    }
+
+    // Fetch data saat halaman dimuat
+    fetchData();
+    fetchAllData();
+});
+
+document.getElementById('dataPart').addEventListener('click', function() {
+    window.location.href = 'data-part.html'; 
+});
+
 </script>
 
 
