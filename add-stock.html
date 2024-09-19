@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard 1 | Velonic - Responsive Bootstrap 4 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Plugins css-->
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <!-- third party css -->
+    <link href="assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+
+    <!-- Toastr css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
+
+
+     <!-- Script to check login status -->
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+
+      <!-- Custom CSS for Loading Spinner -->
+      <style>
+        #loadingSpinner {
+            margin: 20px 0;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: .4em;
+            color: rgb(47, 47, 230);
+        }
+    </style>  
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Topbar Start -->
+        <div class="navbar-custom">
+            <ul class="list-unstyled topnav-menu float-right mb-0">
+                <li class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <span class="pro-user-name ml-1">
+                        <span id="tampil_nama1"></span>
+                            <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+                        <div class="dropdown-header noti-title">
+                            <h6 class="text-overflow m-0">Welcome !</h6>
+                        </div>
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-account-outline"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-settings-outline"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lock-outline"></i>
+                            <span>Lock Screen</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0);" id="logoutButton" class="dropdown-item notify-item">
+                            <i class="mdi mdi-logout-variant"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <div class="logo-box">
+                <a href="main.html" class="logo text-center ">
+                    <span class="logo-lg">
+                        <img src="assets/images/logo-dark1.png" alt="" height="30">
+                        <!-- <span class="logo-lg-text-dark">Velonic</span> -->
+                    </span>
+                    <span class="logo-sm">
+                        <!-- <span class="logo-lg-text-dark">V</span> -->
+                        <img src="assets/images/logo-smb.png" alt="" height="22">
+                    </span>
+                </a>
+
+            </div>
+
+            <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+                <li>
+                    <button class="button-menu-mobile waves-effect">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <!-- end Topbar -->
+
+        <!-- Left Sidebar Start -->
+        <div class="left-side-menu">
+            <div class="slimscroll-menu">
+                <div id="sidebar-menu">
+                    <ul class="metismenu" id="side-menu">
+                        <li id="menu-data-users">
+                            <a href="data-users.html">
+                                <i class="ion ion-ios-contacts"></i>
+                                <span> Data Users </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="data-part.html">
+                                <i class="ion ion-ios-construct"></i>
+                                <span> Data Parts </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="add-stock.html">
+                                <i class="ion ion-md-cube"></i>
+                                <span> Data Stock </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="get-barang.html">
+                                <i class="ion ion-ios-basket"></i>
+                                <span> Pengambilan Barang </span>
+                            </a>
+                        </li>
+                       
+                        <!-- <li>
+                            <a href="pengadaan.html">
+                                <i class="ion ion-ios-basket"></i>
+                                <span> Pengadaan </span>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex justify-content-between align-items-center">
+                                <h4 class="page-title mb-0">Data Penambahan Stock</h4>
+                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addItemModal">Tambah Stock</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->           
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body table-responsive">
+                                    <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Tanggal</th>
+                                                <th>Time</th>
+                                                <th>No PR/WO</th>
+                                                <th>Requester</th>
+                                                <th>ID Part</th>
+                                                <th>Description</th>
+                                                <th>Specification</th>
+                                                <th>Machine</th>
+                                                <th>Supplier1</th>
+                                                <th>Supplier2</th>
+                                                <th>Location</th>
+                                                <th>Type Part</th>
+                                                <th>Min</th>
+                                                <th>Max</th>
+                                                <th>Unit</th>
+                                                <th>LT Day</th>
+                                                <th>Add Stocks</th>
+                                                <th>Price</th>
+                                                <th>Total Value</th>
+                                                <th>Total Sparepart Cost</th>
+                                                <th>Condition</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data akan ditambahkan di sini -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="loadingSpinner" class="text-center" style="display: none;">
+                                    <div class="spinner-border" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end container-fluid -->
+            </div>
+            <!-- end content -->
+
+            <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addItemModalLabel">Form Pengambilan Barang</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createItemForm">
+                                <div class="form-group">
+                                    <label for="date">Tanggal</label>
+                                    <input type="date" class="form-control" id="date" name="tanggal" required readonly>
+                                    <div class="invalid-feedback">Date is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time">Waktu</label>
+                                    <input type="time" class="form-control" id="time" name="waktu" required readonly>
+                                    <div class="invalid-feedback">Time is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="departemen">Departemen</label>
+                                    <select class="form-control" id="departemen" name="departemen" required>
+                                        <option value="" disabled selected>Select Department</option>
+                                        <option value="FMEHSS EHS">FMEHSS EHS</option>
+                                        <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
+                                        <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
+                                        <option value="SOLID">SOLID</option>
+                                        <option value="FMEHSS GA">FMEHSS GA</option>
+                                        <option value="MIXTECH">MIXTECH</option>
+                                        <option value="QUALITY CONTROL">QUALITY CONTROL</option>
+                                        <option value="WAREHOUSE">WAREHOUSE</option>
+                                        <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
+                                        <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
+                                        <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
+                                    </select>
+                                    <div class="invalid-feedback">Department is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mesin">Mesin</label>
+                                    <input type="text" class="form-control" id="mesin" name="mesin" required>
+                                    <div class="invalid-feedback">Machine is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="remark">Remark</label>
+                                    <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
+                                </div>
+                                
+            
+                                <div id="itemsContainer">
+                                    <div class="item-row row">
+                                        <div class="col-md-4">
+                                            <label for="partId">Part Id</label>
+                                            <select class="form-control partId" name="id_part" required>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="specification">Specification</label>
+                                            <input type="text" class="form-control specification" name="specification" required readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="description">Stock</label>
+                                            <input type="text" class="form-control description" name="description" readonly>
+                                        </div>
+                                        <!-- <div class="col-md-2">
+                                            <label for="qty">Qty</label>
+                                            <input type="number" class="form-control qty" name="qty" required>
+                                        </div> -->
+                                       
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group mt-4">
+                                    <label for="requester">Requester</label>
+                                    <input type="text" class="form-control" id="requester" name="requester" required readonly>
+                                    <div class="invalid-feedback">Requester is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="storeKeeper">Store Keeper/Security</label>
+                                    <input type="text" class="form-control" id="storeKeeper" name="security" required>
+                                    <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                                </div>
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end add modal -->
+
+
+            <!-- edit modal   -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editItemModalLabel">Edit Pengambilan Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editId" name="id">
+                    <div class="form-group">
+                        <label for="editTanggal">Tanggal</label>
+                        <input type="date" class="form-control" id="editTanggal" name="tanggal" required>
+                        <div class="invalid-feedback">Date is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editWaktu">Waktu</label>
+                        <input type="time" class="form-control" id="editWaktu" name="waktu" required>
+                        <div class="invalid-feedback">Time is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDepartemen">Departemen</label>
+                        <select class="form-control" id="editDepartemen" name="departemen" required>
+                            <option value="" disabled selected>Select Department</option>
+                            <option value="FMEHSS EHS">FMEHSS EHS</option>
+                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
+                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
+                            <option value="SOLID">SOLID</option>
+                            <option value="FMEHSS GA">FMEHSS GA</option>
+                            <option value="MIXTECH">MIXTECH</option>
+                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
+                            <option value="WAREHOUSE">WAREHOUSE</option>
+                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
+                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
+                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
+                        </select>
+                        <div class="invalid-feedback">Department is required.</div>
+                    </div>          
+                    <div class="form-group">
+                        <label for="editMesin">Mesin</label>
+                        <input type="text" class="form-control" id="editMesin" name="mesin" required>
+                        <div class="invalid-feedback">Machine is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editRemark">Remark</label>
+                        <textarea class="form-control" id="editRemark" name="remark" rows="3"></textarea>
+                    </div>
+
+                    <div id="ItemsContainer">
+                        <div class="item-row row">
+                            <div class="col-md-4">
+                                <label for="editPartName">Part Name</label>
+                                <select class="form-control" id="editPartName" name="part_name" required>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="editSpecification">Specification</label>
+                                <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="editQty">Stock</label>
+                                <input type="text" class="form-control" id="editStock" name="stock" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="editQty">Qty</label>
+                                <input type="number" class="form-control" id="editQty" name="qty" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        <label for="editRequester">Requester</label>
+                        <input type="text" class="form-control" id="editRequester" name="requester" required>
+                        <div class="invalid-feedback">Requester is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStoreKeeper">Store Keeper/Security</label>
+                        <input type="text" class="form-control" id="editStoreKeeper" name="security" required>
+                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                    </div>
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- end edit modal  -->
+
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            2024 &copy; powered by <a href="">BiCoder</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+
+  <!-- Vendor js -->
+  <script src="assets/js/vendor.min.js"></script>
+
+  <!-- Required datatable js -->
+  <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.buttons.min.js"></script>
+  <script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+  <script src="assets/libs/jszip/jszip.min.js"></script>
+  <script src="assets/libs/pdfmake/pdfmake.min.js"></script>
+  <script src="assets/libs/pdfmake/vfs_fonts.js"></script>
+  <script src="assets/libs/datatables/buttons.html5.min.js"></script>
+  <script src="assets/libs/datatables/buttons.print.min.js"></script>
+
+  <!-- Responsive examples -->
+  <script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
+  <script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
+  <script src="assets/libs/datatables/dataTables.select.min.js"></script>
+
+  <!-- Datatables init -->
+  <script src="assets/js/pages/datatables.init.js"></script>
+
+  <!-- App js -->
+  <script src="assets/js/app.min.js"></script>
+
+  <!-- Toastr js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+   <!-- SweetAlert2 JS -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Logout Script -->
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Hapus status login dari sessionStorage
+            sessionStorage.removeItem('isLoggedIn');
+            // Alihkan ke halaman login
+            window.location.href = 'index.html';
+        });
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role');
+
+        // Sembunyikan menu "Data Users" jika bukan admin
+        if (userRole !== 'admin') {
+            const menuDataUsers = document.getElementById('menu-data-users');
+            if (menuDataUsers) {
+                menuDataUsers.style.display = 'none';
+            }
+        }
+    });
+</script>
+
+
+
+<script>
+    // format date
+    function formatDate(dateValue) {
+    if (typeof dateValue === 'number') {
+        return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
+    }
+    return new Date(dateValue).toISOString().split('T')[0];
+    }
+
+    // format time
+    function formatTime(timeValue) {
+    if (typeof timeValue === 'number') {
+        const date = new Date((timeValue - 25569) * 86400 * 1000);
+        return date.toTimeString().split(' ')[0];
+    }
+    return new Date(timeValue).toISOString().split('T')[1].split('.')[0];
+    }
+
+     // read data
+    document.addEventListener('DOMContentLoaded', function() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyD6RnQ_zawbjnf3kqrNZN2bWEMerMCYc-zY6EkBAaaE378SPQuim_VUTlvOEOKZtCLzQ/exec?action=read';
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    // Menampilkan spinner
+    loadingSpinner.style.display = 'block';
+
+         // Ambil peran pengguna dari sessionStorage
+         const userRole = sessionStorage.getItem('role');
+
+             // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+        fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const rows = data.data;
+                const usersTableBody = document.querySelector('#userTable tbody');
+
+                // Kosongkan tabel sebelum menambahkan data
+                usersTableBody.innerHTML = '';
+
+                rows.forEach(row => {
+                    const tableRow = usersTableBody.insertRow();
+                    tableRow.insertCell(0).textContent = formatDate(row.tanggal) || '';
+                    tableRow.insertCell(1).textContent = formatTime(row.waktu) || '';
+                    tableRow.insertCell(2).textContent = row.no_pr || '';
+                    tableRow.insertCell(3).textContent = row.requester || '';
+                    tableRow.insertCell(4).textContent = row.id_part || '';
+                    tableRow.insertCell(5).textContent = row.description || '';
+                    tableRow.insertCell(6).textContent = row.specification || '';
+                    tableRow.insertCell(7).textContent = row.machine || '';
+                    tableRow.insertCell(8).textContent = row.supplier1 || '';
+                    tableRow.insertCell(9).textContent = row.supplier2 || '';
+                    tableRow.insertCell(10).textContent = row.location || '';
+                    tableRow.insertCell(11).textContent = row.type_part || '';
+                    tableRow.insertCell(12).textContent = row.min || '';
+                    tableRow.insertCell(13).textContent = row.max || '';
+                    tableRow.insertCell(14).textContent = row.unit || '';
+                    tableRow.insertCell(15).textContent = row.lt_day || '';
+                    tableRow.insertCell(16).textContent = row.add_stock || '';
+                    tableRow.insertCell(17).textContent = row.price || '';
+                    tableRow.insertCell(18).textContent = row.total_value || '';
+                    tableRow.insertCell(19).textContent = row.total_sparepart_cost || '';
+                    tableRow.insertCell(20).textContent = row.condition || '';
+
+                    // Tambahkan kolom Edit dan Delete
+                    const actionCell = tableRow.insertCell(21);
+                    actionCell.innerHTML = `
+                    <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
+                    <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                `;
+            });
+
+        // Initialize or reinitialize DataTable
+        if ($.fn.DataTable.isDataTable('#userTable')) {
+                        $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                    }
+                    $('#userTable').DataTable(); // Buat instance DataTable baru
+                    // Sembunyikan kolom Actions jika user bukan admin
+            if (userRole !== 'admin') {
+                // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
+                setTimeout(() => {
+                    const table = document.getElementById('userTable');
+                    const actionsColumnIndex = 10; // Indeks kolom Actions (0-based)
+                    // Sembunyikan header kolom
+                    table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                    // Sembunyikan semua cell di kolom Actions
+                    table.querySelectorAll(`tbody tr`).forEach(row => {
+                        row.children[actionsColumnIndex].style.display = 'none';
+                    });
+                }, 100); // Sesuaikan timeout sesuai kebutuhan
+            }
+                } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            // Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
+        })
+        .finally(() => {
+            // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
+            loadingSpinner.style.display = 'none';
+        });
+    });
+
+
+        // create
+    $(document).ready(function() {     
+    // Set nilai default untuk tanggal dan waktu ke waktu saat ini
+    var today = new Date().toISOString().split('T')[0];
+    var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+    $('#date').val(today);
+    $('#time').val(timeNow);
+
+    // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
+    var userName = sessionStorage.getItem('username');
+    if (userName) {
+        $('#requester').val(userName);
+    }
+
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbyD6RnQ_zawbjnf3kqrNZN2bWEMerMCYc-zY6EkBAaaE378SPQuim_VUTlvOEOKZtCLzQ/exec?action=getIdParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbyD6RnQ_zawbjnf3kqrNZN2bWEMerMCYc-zY6EkBAaaE378SPQuim_VUTlvOEOKZtCLzQ/exec?action=getAllPart';
+
+        function populatePartNameDropdown($dropdown, data) {
+            $dropdown.empty();
+            $dropdown.append('<option value="" disabled selected>Select Part Id </option>');
+            data.forEach(item => {
+                if (item.partId) {
+                    $dropdown.append(`<option value="${item.partId}">${item.partId}</option>`);
+                }
+            });
+        }
+
+        function populateAllDropdowns() {
+            $.get(apiUrl, function(response) {
+                if (response.status === 'success') {
+                    const $dropdowns = $('.partId');
+                    $dropdowns.each(function() {
+                        populatePartNameDropdown($(this), response.data);
+                    });
+                } else {
+                    console.error('Error fetching spare parts data:', response.message);
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Request failed:', textStatus, errorThrown);
+            });
+        }
+
+        populateAllDropdowns();
+
+        $('#itemsContainer').on('change', '.partId', function() {
+    const selectedPartId = $(this).val();
+    const $descField = $(this).closest('.item-row').find('.description');
+    const $specField = $(this).closest('.item-row').find('.specification');
+    
+    if (selectedPartId) {
+        $.get(apiUrlSpecification, { partId: selectedPartId }, function(response) {
+            console.log('Part Response:', response);
+            if (response && response.partId === selectedPartId) {
+                $descField.val(response.description || '');
+                $specField.val(response.specification || '');
+            } else {
+                console.error('Part Id data missing or response is incorrect');
+            }
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('Request failed:', textStatus, errorThrown);
+        });
+    } else {
+        $specField.val('');
+        $descField.val('');
+    }
+});
+
+
+
+            // Form submission
+     document.getElementById('createItemForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        var form = event.target;
+        var isValid = true;
+        
+        // Validate each field
+        Array.from(form.elements).forEach(function(element) {
+            if (element.required && !element.value) {
+                element.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                element.classList.remove('is-invalid');
+            }
+        });
+
+        // Collect data from each item row
+        var itemsData = [];
+        document.querySelectorAll('#itemsContainer .item-row').forEach(function(row) {
+            var item = {
+                part_name: row.querySelector('.partName').value,
+                specification: row.querySelector('.specification').value,
+                qty: row.querySelector('.qty').value
+            };
+            itemsData.push(item);
+        });
+
+        // If form is valid, submit it
+        if (isValid) {
+            var formData = new FormData(form);
+            formData.append('items', JSON.stringify(itemsData)); // Add items data
+
+              // Add current date and time
+    var currentDate = new Date();
+    formData.append('tanggal', currentDate.toISOString().split('T')[0]); // YYYY-MM-DD format
+    formData.append('waktu', currentDate.toTimeString().split(' ')[0]);  // HH:MM:SS format
+
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=create', true);
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    var response = JSON.parse(xhr.responseText);
+
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Data saved successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            location.reload(); // Reload the page to update the data
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: response.message || 'An error occurred while submitting the form.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An error occurred while submitting the form.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            };
+
+            xhr.onerror = function() {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred while sending the request.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            };
+
+            xhr.send(formData);
+        } else {
+            Swal.fire({
+                title: 'Validation Error',
+                text: 'Please fill in all required fields.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+});
+    
+
+</script>
+
+<script>
+    // Tampilkan nama pengguna di navbar saat halaman utama dimuat
+    window.onload = function() {
+ const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+ const show_username = sessionStorage.getItem('username'); 
+
+ if (isLoggedIn === 'true' && show_username) {
+     // Untuk ID unik
+     document.getElementById('tampil_nama1').textContent = show_username;
+     document.getElementById('tampil_nama2').textContent = show_username;
+     
+ }
+}
+</script>
+
+</body>
+
+</html>
