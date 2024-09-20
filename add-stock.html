@@ -136,7 +136,7 @@
                         <li>
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
-                                <span> Data Stock </span>
+                                <span> Penambahan Stock </span>
                             </a>
                         </li>
                         <li>
@@ -186,7 +186,10 @@
                                                 <th>Tanggal</th>
                                                 <th>Time</th>
                                                 <th>No PR/WO</th>
-                                                <th>Requester</th>
+                                                <th>Requester</th>     
+                                                <th>Add Stocks</th>
+                                                <th>Price</th>
+                                                <th>Stock</th>
                                                 <th>ID Part</th>
                                                 <th>Description</th>
                                                 <th>Specification</th>
@@ -199,8 +202,7 @@
                                                 <th>Max</th>
                                                 <th>Unit</th>
                                                 <th>LT Day</th>
-                                                <th>Add Stocks</th>
-                                                <th>Price</th>
+                                                
                                                 <th>Total Value</th>
                                                 <th>Total Sparepart Cost</th>
                                                 <th>Condition</th>
@@ -226,11 +228,12 @@
             </div>
             <!-- end content -->
 
+            <!-- add item modal start -->
             <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addItemModalLabel">Form Pengambilan Barang</h5>
+                            <h5 class="modal-title" id="addItemModalLabel">Form Penambahan Stock</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -247,68 +250,98 @@
                                     <input type="time" class="form-control" id="time" name="waktu" required readonly>
                                     <div class="invalid-feedback">Time is required.</div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="departemen">Departemen</label>
-                                    <select class="form-control" id="departemen" name="departemen" required>
-                                        <option value="" disabled selected>Select Department</option>
-                                        <option value="FMEHSS EHS">FMEHSS EHS</option>
-                                        <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
-                                        <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
-                                        <option value="SOLID">SOLID</option>
-                                        <option value="FMEHSS GA">FMEHSS GA</option>
-                                        <option value="MIXTECH">MIXTECH</option>
-                                        <option value="QUALITY CONTROL">QUALITY CONTROL</option>
-                                        <option value="WAREHOUSE">WAREHOUSE</option>
-                                        <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
-                                        <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
-                                        <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
-                                    </select>
-                                    <div class="invalid-feedback">Department is required.</div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="mesin">Mesin</label>
-                                    <input type="text" class="form-control" id="mesin" name="mesin" required>
-                                    <div class="invalid-feedback">Machine is required.</div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="remark">Remark</label>
-                                    <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
-                                </div>
-                                
-            
-                                <div id="itemsContainer">
-                                    <div class="item-row row">
-                                        <div class="col-md-4">
-                                            <label for="partId">Part Id</label>
-                                            <select class="form-control partId" name="id_part" required>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="specification">Specification</label>
-                                            <input type="text" class="form-control specification" name="specification" required readonly>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="description">Stock</label>
-                                            <input type="text" class="form-control description" name="description" readonly>
-                                        </div>
-                                        <!-- <div class="col-md-2">
-                                            <label for="qty">Qty</label>
-                                            <input type="number" class="form-control qty" name="qty" required>
-                                        </div> -->
-                                       
-                                    </div>
-                                </div>
-                                
                                 <div class="form-group mt-4">
                                     <label for="requester">Requester</label>
                                     <input type="text" class="form-control" id="requester" name="requester" required readonly>
                                     <div class="invalid-feedback">Requester is required.</div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="storeKeeper">Store Keeper/Security</label>
-                                    <input type="text" class="form-control" id="storeKeeper" name="security" required>
-                                    <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                                
+                                <div id="itemsContainer">
+                                    <div class="item-row">
+                                        <div class="form-group">
+                                            <label for="partId">Part Id tes</label>
+                                            <select class="form-control partId" name="id_part" required>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_stock">ADD Stock</label>
+                                            <input type="text" class="form-control" id="add_stock" name="add_stock" required>
+                                            <div class="invalid-feedback">ADD Stock is required.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_stock">Price</label>
+                                            <input type="text" class="form-control" id="add_price" name="add_price" required>
+                                            <div class="invalid-feedback">ADD Price is required.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_stock">Stock Saat Ini</label>
+                                            <input type="text" class="form-control stock" name="stock" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control description" name="description" readonly >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="specification">Specification</label>
+                                            <input type="text" class="form-control specification" name="specification" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="machine">Machine</label>
+                                            <input type="text" class="form-control machine" name="machine" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="supplier1">Supplier1</label>
+                                            <input type="text" class="form-control supplier1" name="supplier1" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="supplier2">Supplier2</label>
+                                            <input type="text" class="form-control supplier2" name="supplier2" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="location">Location</label>
+                                            <input type="text" class="form-control location" name="location" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="type_part">Type Part</label>
+                                            <input type="text" class="form-control type_part" name="type_part" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="min">Min</label>
+                                            <input type="text" class="form-control min" name="min" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="max">Max</label>
+                                            <input type="text" class="form-control max" name="max" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="unit">Unit</label>
+                                            <input type="text" class="form-control unit" name="unit" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lt_day">LT Day</label>
+                                            <input type="text" class="form-control lt_day" name="lt_day" readonly>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="price">Price</label>
+                                            <input type="text" class="form-control price" name="price" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total_value">Total Value</label>
+                                            <input type="text" class="form-control total_value" name="total_value" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total_sparepart_cost">Total Sparepart Cost</label>
+                                            <input type="text" class="form-control total_sparepart_cost" name="total_sparepart_cost" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="condition">Condition</label>
+                                            <input type="text" class="form-control condition" name="condition" readonly>
+                                        </div>
+                                       
+                                     </div>
                                 </div>
+                                                               
                                 <div class="col-12 text-right">
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
@@ -317,8 +350,8 @@
                     </div>
                 </div>
             </div>
+            <!-- end add item modal  -->
 
-            <!-- end add modal -->
 
 
             <!-- edit modal   -->
@@ -539,26 +572,27 @@
                     tableRow.insertCell(1).textContent = formatTime(row.waktu) || '';
                     tableRow.insertCell(2).textContent = row.no_pr || '';
                     tableRow.insertCell(3).textContent = row.requester || '';
-                    tableRow.insertCell(4).textContent = row.id_part || '';
-                    tableRow.insertCell(5).textContent = row.description || '';
-                    tableRow.insertCell(6).textContent = row.specification || '';
-                    tableRow.insertCell(7).textContent = row.machine || '';
-                    tableRow.insertCell(8).textContent = row.supplier1 || '';
-                    tableRow.insertCell(9).textContent = row.supplier2 || '';
-                    tableRow.insertCell(10).textContent = row.location || '';
-                    tableRow.insertCell(11).textContent = row.type_part || '';
-                    tableRow.insertCell(12).textContent = row.min || '';
-                    tableRow.insertCell(13).textContent = row.max || '';
-                    tableRow.insertCell(14).textContent = row.unit || '';
-                    tableRow.insertCell(15).textContent = row.lt_day || '';
-                    tableRow.insertCell(16).textContent = row.add_stock || '';
-                    tableRow.insertCell(17).textContent = row.price || '';
-                    tableRow.insertCell(18).textContent = row.total_value || '';
-                    tableRow.insertCell(19).textContent = row.total_sparepart_cost || '';
-                    tableRow.insertCell(20).textContent = row.condition || '';
+                    tableRow.insertCell(4).textContent = row.add_stock || '';
+                    tableRow.insertCell(5).textContent = row.add_price || '';
+                    tableRow.insertCell(6).textContent = row.stock || '';
+                    tableRow.insertCell(7).textContent = row.id_part || '';
+                    tableRow.insertCell(8).textContent = row.description || '';
+                    tableRow.insertCell(9).textContent = row.specification || '';
+                    tableRow.insertCell(10).textContent = row.machine || '';
+                    tableRow.insertCell(11).textContent = row.supplier1 || '';
+                    tableRow.insertCell(12).textContent = row.supplier2 || '';
+                    tableRow.insertCell(13).textContent = row.location || '';
+                    tableRow.insertCell(14).textContent = row.type_part || '';
+                    tableRow.insertCell(15).textContent = row.min || '';
+                    tableRow.insertCell(16).textContent = row.max || '';
+                    tableRow.insertCell(17).textContent = row.unit || '';
+                    tableRow.insertCell(18).textContent = row.lt_day || '';
+                    tableRow.insertCell(19).textContent = row.total_value || '';
+                    tableRow.insertCell(20).textContent = row.total_sparepart_cost || '';
+                    tableRow.insertCell(21).textContent = row.condition || '';
 
                     // Tambahkan kolom Edit dan Delete
-                    const actionCell = tableRow.insertCell(21);
+                    const actionCell = tableRow.insertCell(22);
                     actionCell.innerHTML = `
                     <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
                     <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
@@ -646,15 +680,43 @@
 
         $('#itemsContainer').on('change', '.partId', function() {
     const selectedPartId = $(this).val();
+    const $stockField = $(this).closest('.item-row').find('.stock');
     const $descField = $(this).closest('.item-row').find('.description');
     const $specField = $(this).closest('.item-row').find('.specification');
+    const $machField = $(this).closest('.item-row').find('.machine');
+    const $supp1Field = $(this).closest('.item-row').find('.supplier1');
+    const $supp2Field = $(this).closest('.item-row').find('.supplier2');
+    const $locField = $(this).closest('.item-row').find('.location');
+    const $typeField = $(this).closest('.item-row').find('.type_part');
+    const $minField = $(this).closest('.item-row').find('.min');
+    const $maxField = $(this).closest('.item-row').find('.max');
+    const $unitField = $(this).closest('.item-row').find('.unit');
+    const $ltField = $(this).closest('.item-row').find('.lt_day');
+    const $priceField = $(this).closest('.item-row').find('.price');
+    const $totalvField = $(this).closest('.item-row').find('.total_value');
+    const $totalsField = $(this).closest('.item-row').find('.total_sparepart_cost');
+    const $conditionField = $(this).closest('.item-row').find('.condition');
     
     if (selectedPartId) {
         $.get(apiUrlSpecification, { partId: selectedPartId }, function(response) {
             console.log('Part Response:', response);
             if (response && response.partId === selectedPartId) {
+                $stockField.val(response.stock || 0);
                 $descField.val(response.description || '');
                 $specField.val(response.specification || '');
+                $machField.val(response.machine || '');
+                $supp1Field.val(response.supplier1 || '');
+                $supp2Field.val(response.supplier2 || '');
+                $locField.val(response.location || '');
+                $typeField.val(response.type_part || '');
+                $minField.val(response.min || '');
+                $maxField.val(response.max || '');
+                $unitField.val(response.unit || '');
+                $ltField.val(response.lt_day || '');
+                $priceField.val(response.price || '');
+                $totalvField.val(response.total_value || '');
+                $totalsField.val(response.total_sparepart_cost || '');
+                $conditionField.val(response.condition || '');
             } else {
                 console.error('Part Id data missing or response is incorrect');
             }
@@ -664,6 +726,20 @@
     } else {
         $specField.val('');
         $descField.val('');
+        $stockField.val('');
+        $machField.val('');
+        $supp1Field.val('');
+        $supp2Field.val('');
+        $locField.val('');
+        $typeField.val('');
+        $minField.val('');
+        $maxField.val('');
+        $unitField.val('');
+        $ltField.val('');
+        $priceField.val('');
+        $totalvField.val('');
+        $totalsField.val('');
+        $conditionField.val('');
     }
 });
 
