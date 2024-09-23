@@ -189,8 +189,8 @@
                                                 <th>Requester</th>     
                                                 <th>Add Stocks</th>
                                                 <th>Add Price</th>
-                                                <th>Total Stock </th>
                                                 <th>Add Location</th>
+                                                <th>Total Stock </th>
                                                 <th>Total Price </th>
                                                 <th>ID Part</th>
                                                 <th>Location</th>
@@ -200,16 +200,15 @@
                                                 <th>Machine</th>
                                                 <th>Supplier1</th>
                                                 <th>Supplier2</th>
-                                                <th>Location</th>
                                                 <th>Type Part</th>
                                                 <th>Min</th>
                                                 <th>Max</th>
                                                 <th>Unit</th>
-                                                <th>LT Day</th>
-                                                
+                                                <th>LT Day</th>  
                                                 <th>Total Value</th>
                                                 <th>Total Sparepart Cost</th>
                                                 <th>Condition</th> -->
+
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -457,7 +456,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            2024 &copy; powered by <a href="">BiCoder</a>
+                            2024 &copy; powered by <a href="">BiCoder | Version 2</a>
                         </div>
                     </div>
                 </div>
@@ -550,7 +549,7 @@
 
      // read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyD6RnQ_zawbjnf3kqrNZN2bWEMerMCYc-zY6EkBAaaE378SPQuim_VUTlvOEOKZtCLzQ/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwYqZ_nz42Mikd7dcpwvC0GNxi2ARSR3ap4Y_OaNybfFpkvTVkhmTMHnLAq-zB48yNKtg/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
 
     // Menampilkan spinner
@@ -576,33 +575,30 @@
                     tableRow.insertCell(1).textContent = formatTime(row.waktu) || '';
                     tableRow.insertCell(2).textContent = row.no_pr || '';
                     tableRow.insertCell(3).textContent = row.requester || '';
-                    tableRow.insertCell(4).textContent = row.add_stock || '';
-                    tableRow.insertCell(5).textContent = row.add_price || '';
-                    tableRow.insertCell(6).textContent = row.stock_part || '';
-                    tableRow.insertCell(7).textContent = row.price || '';
-                    tableRow.insertCell(8).textContent = row.add_location || '';
-
-                    tableRow.insertCell(9).textContent = row.id_part || '';
-
+                    tableRow.insertCell(4).textContent = row.add_stock || 0;
+                    tableRow.insertCell(5).textContent = row.add_price || 0;
+                    tableRow.insertCell(6).textContent = row.add_location || '';
+                    tableRow.insertCell(7).textContent = row.stock_part || 0;
+                    tableRow.insertCell(8).textContent = row.price_part || 0;
+                    tableRow.insertCell(9).textContent = row.partId || '';
                     // Menghapus lokasi duplikat dan menampilkan hanya lokasi unik
                     const uniqueLocations = Array.from(new Set(row.location.split(';').map(loc => loc.trim()))).join('; ');
                     tableRow.insertCell(10).textContent = uniqueLocations || '';
 
-
-                    // tableRow.insertCell(9).textContent = row.description || '';
-                    // tableRow.insertCell(10).textContent = row.specification || '';
-                    // tableRow.insertCell(11).textContent = row.machine || '';
-                    // tableRow.insertCell(12).textContent = row.supplier1 || '';
-                    // tableRow.insertCell(13).textContent = row.supplier2 || '';
-                    // tableRow.insertCell(14).textContent = row.location || '';
-                    // tableRow.insertCell(15).textContent = row.type_part || '';
-                    // tableRow.insertCell(16).textContent = row.min || '';
-                    // tableRow.insertCell(17).textContent = row.max || '';
-                    // tableRow.insertCell(18).textContent = row.unit || '';
-                    // tableRow.insertCell(19).textContent = row.lt_day || '';
-                    // tableRow.insertCell(20).textContent = row.total_value || '';
-                    // tableRow.insertCell(21).textContent = row.total_sparepart_cost || '';
-                    // tableRow.insertCell(22).textContent = row.condition || '';
+                    // tableRow.insertCell(11).textContent = row.description || '';
+                    // tableRow.insertCell(12).textContent = row.specification || '';
+                    // tableRow.insertCell(13).textContent = row.machine || '';
+                    // tableRow.insertCell(14).textContent = row.supplier1 || '';
+                    // tableRow.insertCell(15).textContent = row.supplier2 || '';
+                    // tableRow.insertCell(16).textContent = row.type_part || '';
+                    // tableRow.insertCell(17).textContent = row.min || '';
+                    // tableRow.insertCell(18).textContent = row.max || '';
+                    // tableRow.insertCell(19).textContent = row.unit || '';
+                    // tableRow.insertCell(20).textContent = row.lt_day || '';
+                    // tableRow.insertCell(21).textContent = row.total_value || '';
+                    // tableRow.insertCell(22).textContent = row.total_sparepart_cost || '';
+                    // tableRow.insertCell(23).textContent = row.condition || '';
+                    
 
                     // Tambahkan kolom Edit dan Delete
                     const actionCell = tableRow.insertCell(11);
