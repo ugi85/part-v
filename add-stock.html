@@ -189,8 +189,8 @@
                                                 <th>Requester</th>     
                                                 <th>Add Stocks</th>
                                                 <th>Add Price</th>
-                                                <th>Total Stock </th>
                                                 <th>Add Location</th>
+                                                <th>Total Stock </th>
                                                 <th>Total Price </th>
                                                 <th>ID Part</th>
                                                 <th>Location</th>
@@ -579,10 +579,11 @@
                     tableRow.insertCell(4).textContent = row.add_stock || '';
                     tableRow.insertCell(5).textContent = row.add_price || '';
                     tableRow.insertCell(6).textContent = row.stock_part || '';
-                    tableRow.insertCell(7).textContent = row.price || '';
-                    tableRow.insertCell(8).textContent = row.add_location || '';
+                    tableRow.insertCell(7).textContent = row.add_location || '';
 
-                    tableRow.insertCell(9).textContent = row.id_part || '';
+                    tableRow.insertCell(8).textContent = row.price || '';
+
+                    tableRow.insertCell(9).textContent = row.partId || '';
 
                     // Menghapus lokasi duplikat dan menampilkan hanya lokasi unik
                     const uniqueLocations = Array.from(new Set(row.location.split(';').map(loc => loc.trim()))).join('; ');
