@@ -86,7 +86,7 @@
             const password = document.getElementById('password').value;
 
             // Kirim data menggunakan method POST
-            fetch('https://script.google.com/macros/s/AKfycbxQxuG4l-XshlJL20FUXID_b_KuSh4Wy7G6534vbTF7jPLS_qw7P4SfRHNf39O9UP_gJA/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbyxyghBP2mmIySNM4lvzWs3Z1L4L2pGYm7_r0CJ6c9GWpfdOOXkzpoFI8rXNZTsfZmKZw/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -103,6 +103,7 @@
                     sessionStorage.setItem('isLoggedIn', 'true'); // Simpan status login
                     sessionStorage.setItem('username', data.username); // Simpan nama pengguna
                     sessionStorage.setItem('role', data.role); // Simpan role pengguna
+                    sessionStorage.setItem('id', data.id); // Simpan id
                     document.getElementById('notification').style.display = 'block';
                     setTimeout(() => {
                         window.location.href = 'main.html';
