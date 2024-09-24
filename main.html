@@ -186,8 +186,15 @@
 
                         <li>
                             <a href="data-part.html">
-                                <i class=" ion ion-ios-construct"></i>
+                                <i class="ion ion-ios-construct"></i>
                                 <span> Data Parts </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="add-stock.html">
+                                <i class="ion ion-md-cube"></i>
+                                <span> Penambahan Stock </span>
                             </a>
                         </li>
 
@@ -195,20 +202,6 @@
                             <a href="get-barang.html">
                                 <i class="ion ion-ios-basket"></i>
                                 <span> Pengambilan Barang </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="add-stock.html">
-                                <i class="ion ion-md-cube"></i>
-                                <span> Data Stock </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="data-coba.html">
-                                <i class="ion ion-md-cube"></i>
-                                <span> Coba update username </span>
                             </a>
                         </li>
                         <!-- <li>
@@ -579,7 +572,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            2024 &copy; powered by <a href="">BiCoder</a>
+                            2024 &copy; powered by <a href="">BiCoder | Version 2</a>
                         </div>
                     </div>
                 </div>
@@ -677,7 +670,8 @@
     window.onload = function() {
         const isLoggedIn = sessionStorage.getItem('isLoggedIn');
         const show_username = sessionStorage.getItem('username'); 
-        const userRole = sessionStorage.getItem('role'); // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role'); 
+        const showId = sessionStorage.getItem('id'); 
 
         if (isLoggedIn === 'true') {
             // Tampilkan nama pengguna
@@ -685,6 +679,9 @@
                 document.getElementById('tampil_nama1').textContent = show_username;
                 document.getElementById('tampil_nama2').textContent = show_username;
             }
+
+            console.log('user: ', show_username);
+            console.log('id: ', showId);
 
             // Sesuaikan tampilan tombol berdasarkan peran
             if (userRole === 'admin') {

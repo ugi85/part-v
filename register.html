@@ -36,8 +36,8 @@
                                     Registration failed: <span id="errorMessage"></span>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="emailaddress">Email :</label>
-                                    <input class="form-control" type="email" id="emailaddress" required="" placeholder="john@deo.com">
+                                    <label for="email">Email :</label>
+                                    <input class="form-control" type="email" id="email" required="" placeholder="john@deo.com">
                                 </div>
 
                                 <div class="form-group mb-3">
@@ -81,7 +81,7 @@
         document.getElementById('registerForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            const email = document.getElementById('emailaddress').value.trim();
+            const email = document.getElementById('email').value.trim();
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
 
@@ -93,7 +93,7 @@
 
             try {
                 // Kirim data menggunakan method POST
-                const response = await fetch(`https://script.google.com/macros/s/AKfycbwhcI3CqOd0h0Jk9PMk8QWqCQ2dkp7-1qnYh9NbhmXSoIdzST0qX19OFSMsoBJjByge/exec?action=register`, {
+                const response = await fetch(`https://script.google.com/macros/s/AKfycbyxyghBP2mmIySNM4lvzWs3Z1L4L2pGYm7_r0CJ6c9GWpfdOOXkzpoFI8rXNZTsfZmKZw/exec?action=register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
