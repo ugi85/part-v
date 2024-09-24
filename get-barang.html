@@ -136,7 +136,7 @@
                         <li>
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
-                                <span> Data Stock </span>
+                                <span> Penambahan Stock </span>
                             </a>
                         </li>
                         <li>
@@ -496,6 +496,210 @@
                 <!-- end container-fluid -->
 
             </div>
+<<<<<<< HEAD
+=======
+            <!-- end content -->
+
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addItemModalLabel">Form Pengambilan Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createItemForm">
+                    <div class="form-group">
+                        <label for="date">Tanggal</label>
+                        <input type="date" class="form-control" id="date" name="tanggal" required readonly>
+                        <div class="invalid-feedback">Date is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Waktu</label>
+                        <input type="time" class="form-control" id="time" name="waktu" required readonly>
+                        <div class="invalid-feedback">Time is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="departemen">Departemen</label>
+                        <select class="form-control" id="departemen" name="departemen" required>
+                            <option value="" disabled selected>Select Department</option>
+                            <option value="FMEHSS EHS">FMEHSS EHS</option>
+                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
+                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
+                            <option value="SOLID">SOLID</option>
+                            <option value="FMEHSS GA">FMEHSS GA</option>
+                            <option value="MIXTECH">MIXTECH</option>
+                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
+                            <option value="WAREHOUSE">WAREHOUSE</option>
+                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
+                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
+                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
+                        </select>
+                        <div class="invalid-feedback">Department is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mesin">Mesin</label>
+                        <input type="text" class="form-control" id="mesin" name="mesin" required>
+                        <div class="invalid-feedback">Machine is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="remark">Remark</label>
+                        <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
+                    </div>
+                    
+
+                    <div id="itemsContainer">
+                        <div class="item-row row">
+                            <div class="col-md-4">
+                                <label for="partName">Part Name</label>
+                                <select class="form-control partName" name="part_name" required>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="specification">Specification</label>
+                                <input type="text" class="form-control specification" name="specification" required readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="qty">Stock</label>
+                                <input type="text" class="form-control stock" name="stock" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="qty">Qty</label>
+                                <input type="number" class="form-control qty" name="qty" required>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        <label for="requester">Requester</label>
+                        <input type="text" class="form-control" id="requester" name="requester" required readonly>
+                        <div class="invalid-feedback">Requester is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="storeKeeper">Store Keeper/Security</label>
+                        <input type="text" class="form-control" id="storeKeeper" name="security" required>
+                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                    </div>
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Add Item Modal -->
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editItemModalLabel">Edit Pengambilan Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editId" name="id">
+                    <div class="form-group">
+                        <label for="editTanggal">Tanggal</label>
+                        <input type="date" class="form-control" id="editTanggal" name="tanggal" required>
+                        <div class="invalid-feedback">Date is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editWaktu">Waktu</label>
+                        <input type="time" class="form-control" id="editWaktu" name="waktu" required>
+                        <div class="invalid-feedback">Time is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDepartemen">Departemen</label>
+                        <select class="form-control" id="editDepartemen" name="departemen" required>
+                            <option value="" disabled selected>Select Department</option>
+                            <option value="FMEHSS EHS">FMEHSS EHS</option>
+                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
+                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
+                            <option value="SOLID">SOLID</option>
+                            <option value="FMEHSS GA">FMEHSS GA</option>
+                            <option value="MIXTECH">MIXTECH</option>
+                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
+                            <option value="WAREHOUSE">WAREHOUSE</option>
+                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
+                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
+                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
+                        </select>
+                        <div class="invalid-feedback">Department is required.</div>
+                    </div>          
+                    <div class="form-group">
+                        <label for="editMesin">Mesin</label>
+                        <input type="text" class="form-control" id="editMesin" name="mesin" required>
+                        <div class="invalid-feedback">Machine is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editRemark">Remark</label>
+                        <textarea class="form-control" id="editRemark" name="remark" rows="3"></textarea>
+                    </div>
+
+                    <div id="ItemsContainer">
+                        <div class="item-row row">
+                            <div class="col-md-4">
+                                <label for="editPartName">Part Name</label>
+                                <select class="form-control" id="editPartName" name="part_name" required>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="editSpecification">Specification</label>
+                                <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="editQty">Stock</label>
+                                <input type="text" class="form-control" id="editStock" name="stock" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="editQty">Qty</label>
+                                <input type="number" class="form-control" id="editQty" name="qty" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        <label for="editRequester">Requester</label>
+                        <input type="text" class="form-control" id="editRequester" name="requester" required>
+                        <div class="invalid-feedback">Requester is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStoreKeeper">Store Keeper/Security</label>
+                        <input type="text" class="form-control" id="editStoreKeeper" name="security" required>
+                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                    </div>
+                    <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            2024 &copy; powered by <a href="">BiCoder | Version 2</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+        </div>
+>>>>>>> 384361562ca82f46f3c2479d8b0e1cc829672b4f
         <!-- ============================================================== -->
         <!-- End Page content -->
         <!-- ============================================================== -->
