@@ -672,7 +672,8 @@
     window.onload = function() {
         const isLoggedIn = sessionStorage.getItem('isLoggedIn');
         const show_username = sessionStorage.getItem('username'); 
-        const userRole = sessionStorage.getItem('role'); // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role'); 
+        const showId = sessionStorage.getItem('id'); 
 
         if (isLoggedIn === 'true') {
             // Tampilkan nama pengguna
@@ -680,6 +681,9 @@
                 document.getElementById('tampil_nama1').textContent = show_username;
                 document.getElementById('tampil_nama2').textContent = show_username;
             }
+
+            console.log('user: ', show_username);
+            console.log('id: ', showId);
 
             // Sesuaikan tampilan tombol berdasarkan peran
             if (userRole === 'admin') {
