@@ -374,98 +374,146 @@
 
 
 
-            <!-- edit modal   -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editItemModalLabel">Edit Pengambilan Barang</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="editForm">
-                    <input type="hidden" id="editId" name="id">
-                    <div class="form-group">
-                        <label for="editTanggal">Tanggal</label>
-                        <input type="date" class="form-control" id="editTanggal" name="tanggal" required>
-                        <div class="invalid-feedback">Date is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editWaktu">Waktu</label>
-                        <input type="time" class="form-control" id="editWaktu" name="waktu" required>
-                        <div class="invalid-feedback">Time is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editDepartemen">Departemen</label>
-                        <select class="form-control" id="editDepartemen" name="departemen" required>
-                            <option value="" disabled selected>Select Department</option>
-                            <option value="FMEHSS EHS">FMEHSS EHS</option>
-                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
-                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
-                            <option value="SOLID">SOLID</option>
-                            <option value="FMEHSS GA">FMEHSS GA</option>
-                            <option value="MIXTECH">MIXTECH</option>
-                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
-                            <option value="WAREHOUSE">WAREHOUSE</option>
-                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
-                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
-                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
-                        </select>
-                        <div class="invalid-feedback">Department is required.</div>
-                    </div>          
-                    <div class="form-group">
-                        <label for="editMesin">Mesin</label>
-                        <input type="text" class="form-control" id="editMesin" name="mesin" required>
-                        <div class="invalid-feedback">Machine is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editRemark">Remark</label>
-                        <textarea class="form-control" id="editRemark" name="remark" rows="3"></textarea>
-                    </div>
 
-                    <div id="ItemsContainer">
-                        <div class="item-row row">
-                            <div class="col-md-4">
-                                <label for="editPartName">Part Name</label>
-                                <select class="form-control" id="editPartName" name="part_name" required>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="editSpecification">Specification</label>
-                                <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="editQty">Stock</label>
-                                <input type="text" class="form-control" id="editStock" name="stock" readonly>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="editQty">Qty</label>
-                                <input type="number" class="form-control" id="editQty" name="qty" required>
-                            </div>
+                    
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editItemModalLabel">Edit Penambahan Stock</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editForm">
+                                <input type="hidden" id="editId" name="id">
+                                <div class="form-group">
+                                    <label for="editTanggal">Tanggal</label>
+                                    <input type="date" class="form-control" id="editTanggal" name="tanggal" required>
+                                    <div class="invalid-feedback">Date is required.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editWaktu">Waktu</label>
+                                    <input type="time" class="form-control" id="editWaktu" name="waktu" required>
+                                    <div class="invalid-feedback">Time is required.</div>
+                                </div>
+                                <div class="form-group mt-4">
+                                    <label for="editRequester">Requester</label>
+                                    <input type="text" class="form-control" id="editRequester" name="requester" required>
+                                    <div class="invalid-feedback">Requester is required.</div>
+                                </div>                
+                                <div id="itemsContainer">
+                                    <div class="item-row">
+                                        
+                                        <div class="form-group">
+                                            <label for="editNopr">No PR/WO</label>
+                                            <input type="text" class="form-control" id="editNopr" name="no_pr" required>
+                                            <div class="invalid-feedback">No Pr is required.</div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="editAddstock">ADD Stock</label>
+                                            <input type="text" class="form-control" id="editAddstock" name="add_stock" required>
+                                            <div class="invalid-feedback">ADD Stock is required.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editAddprice">Add Price</label>
+                                            <input type="text" class="form-control" id="editAddprice" name="add_price" required>
+                                            <div class="invalid-feedback">ADD Price is required.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editAddlocation">Add Location</label>
+                                            <input type="text" class="form-control" id="editAddlocation" name="add_location" required>
+                                            <div class="invalid-feedback">ADD Location is required.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editAddsupplier">Add Supplier</label>
+                                            <input type="text" class="form-control" id="editAddsupplier" name="add_supplier" required>
+                                            <div class="invalid-feedback">ADD Supplier is required.</div>
+                                        </div>
+                                        <div class="form-group"></div>
+                                            <label for="editPartid">Part Id tes</label>
+                                            <select class="form-control partId" id="editPartid" name="partId" required>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="stock">Total Stock</label>
+                                            <input type="text" class="form-control stock" name="stock" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control description" name="description" readonly >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="specification">Specification</label>
+                                            <input type="text" class="form-control specification" name="specification" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="machine">Machine</label>
+                                            <input type="text" class="form-control machine" name="machine" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="supplier1">Supplier1</label>
+                                            <input type="text" class="form-control supplier1" name="supplier1" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="supplier2">Supplier2</label>
+                                            <input type="text" class="form-control supplier2" name="supplier2" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="location">Location</label>
+                                            <input type="text" class="form-control location" name="location" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="type_part">Type Part</label>
+                                            <input type="text" class="form-control type_part" name="type_part" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="min">Min</label>
+                                            <input type="text" class="form-control min" name="min" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="max">Max</label>
+                                            <input type="text" class="form-control max" name="max" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="unit">Unit</label>
+                                            <input type="text" class="form-control unit" name="unit" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lt_day">LT Day</label>
+                                            <input type="text" class="form-control lt_day" name="lt_day" readonly>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="price">Price</label>
+                                            <input type="text" class="form-control price" name="price" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total_value">Total Value</label>
+                                            <input type="text" class="form-control total_value" name="total_value" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total_sparepart_cost">Total Sparepart Cost</label>
+                                            <input type="text" class="form-control total_sparepart_cost" name="total_sparepart_cost" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="condition">Condition</label>
+                                            <input type="text" class="form-control condition" name="condition" readonly>
+                                        </div>
+                                       
+                                     </div>
+                                </div>
+                                                               
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    
-                    <div class="form-group mt-4">
-                        <label for="editRequester">Requester</label>
-                        <input type="text" class="form-control" id="editRequester" name="requester" required>
-                        <div class="invalid-feedback">Requester is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="editStoreKeeper">Store Keeper/Security</label>
-                        <input type="text" class="form-control" id="editStoreKeeper" name="security" required>
-                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
-                    </div>
-                    <div class="col-12 text-right">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-            <!-- end edit modal  -->
 
 
             <!-- Footer Start -->
@@ -566,7 +614,7 @@
 
      // read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwYqZ_nz42Mikd7dcpwvC0GNxi2ARSR3ap4Y_OaNybfFpkvTVkhmTMHnLAq-zB48yNKtg/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
 
     // Menampilkan spinner
@@ -659,6 +707,199 @@
         });
     });
 
+    // Fungsi untuk memformat waktu dan tanggal sebelum mengisi form
+        function formatDateForInput(dateValue) {
+        if (typeof dateValue === 'number') {
+        return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
+        }
+        return new Date(dateValue).toISOString().split('T')[0];
+        }
+
+        function formatTimeForInput(timeValue) {
+        if (typeof timeValue === 'number') {
+        const date = new Date((timeValue - 25569) * 86400 * 1000);
+        return date.toTimeString().split(' ')[0].slice(0, 5); // HH:MM
+        }
+        return new Date(timeValue).toISOString().split('T')[1].split('.')[0].slice(0, 5); // HH:MM
+        }
+
+        // edit btn
+         $(document).on('click', '.edit-btn', function() {
+            const userId = $(this).data('id');
+
+            // Ambil data item berdasarkan ID
+            $.get(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getItemById&id=${userId}`,function(data) {
+                if (data.status === 'success') {
+                    const user = data.data;
+
+                        $('#editId').val(user.id);
+                        $('#editTanggal').val(formatDateForInput(user.tanggal));
+                        $('#editWaktu').val(formatTimeForInput(user.waktu));
+                        $('#editRequester').val(user.requester);
+                        $('#editNopr').val(user.no_pr);
+                        $('#editAddstock').val(user.add_stock);
+                        $('#editAddprice').val(user.add_price);
+                        $('#editAddlocation').val(user.add_location);
+                        $('#editAddsupplier').val(user.add_supplier);
+
+                        $('#editPartid').val(user.partId);
+                        $('#editStock').val(user.stock);
+
+                        // $('#editPartName').val(user.part_name);
+                        // $('#editSpecification').val(user.specification);
+                        // $('#editQty').val(user.qty);
+                        // $('#editStoreKeeper').val(user.security);
+                    // Ambil data stock berdasarkan part_name
+                if (user.part_name) {
+                    $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
+                        if (response.partName === user.part_name) {
+                            $('#editStock').val(response.stock || 0);  // Tampilkan stock
+                        } else {
+                            console.error('Part name mismatch or specification data missing');
+                        }
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        console.error('Request failed:', textStatus, errorThrown);
+                    });
+                } else {
+                    $('#editStock').val(0);  // Default ke 0 jika part_name kosong
+                }
+
+                        $('#editModal').modal('show');
+                } else {
+                    console.error('Error:', data.message);
+                    Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Request failed:', textStatus, errorThrown);
+                Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
+            });
+         });
+
+                        // Form submission untuk modal edit
+                $('#editForm').submit(function(e) {
+                e.preventDefault();
+
+                const formData = $(this).serialize();
+
+                $.ajax({
+                url: 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=update',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            title: 'Updated!',
+                            text: 'Item has been updated.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#editModal').modal('hide');
+                                location.reload(); // Refresh page after user confirms
+                            }
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                    Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
+                }
+                });
+                });
+
+
+
+
+    // Event Listener untuk tombol Edit dan Delete
+    // document.addEventListener('click', function(event) {
+    //     if (event.target.classList.contains('edit-btn')) {
+    //         const userId = event.target.dataset.id;
+    //         console.log('Edit user with ID:', userId);
+
+    //         // Mengambil data pengguna untuk diisi dalam form edit
+    //         fetch(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getItemById&id=${userId}`)
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 if (data.status === 'success') {
+    //                     const user = data.data;
+    //                     document.querySelector('#editForm #editId').value = user.id;
+    //                     document.querySelector('#editForm #editRequester').value = user.requester;
+    //                     document.querySelector('#editForm #editTanggal').value =(formatDateForInput(user.tanggal));
+    //                     document.querySelector('#editForm #editWaktu').value =(formatTimeForInput(user.waktu));
+    //                     // document.querySelector('#editForm #editUsername').value = user.username;
+    //                     // document.querySelector('#editForm #editPassword').value = user.password.substring(0, 10);
+    //                     // document.querySelector('#editForm #editEmail').value = user.email;
+    //                     // document.querySelector('#editForm #editRole').value = user.role;
+                        
+    //                     // Menampilkan modal edit
+    //                     $('#editModal').modal('show');
+    //                 } else {
+    //                     console.error('Error:', data.message);
+    //                 }
+    //             })
+    //             .catch(error => console.error('Error:', error));
+    //     }
+
+    //     // Event Listener untuk tombol Delete
+    //     if (event.target.classList.contains('delete-btn')) {
+    //         const userId = event.target.dataset.id;
+
+    //         // Konfirmasi penghapusan menggunakan SweetAlert2
+    //         Swal.fire({
+    //             title: 'Konfirmasi Hapus',
+    //             text: 'Apakah Anda yakin ingin menghapus pengguna ini?',
+    //             icon: 'warning',
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Hapus',
+    //             cancelButtonText: 'Batal',
+    //             reverseButtons: true
+    //         }).then((result) => {
+    //             if (result.isConfirmed) {
+    //                 // Menghapus data jika pengguna mengonfirmasi
+    //                 fetch(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=delete&id=${userId}`, {
+    //                     method: 'POST', // Metode POST digunakan
+    //                     headers: {
+    //                         'Content-Type': 'application/x-www-form-urlencoded'
+    //                     },
+    //                     body: new URLSearchParams({
+    //                         'id': userId
+    //                     })
+    //                 })
+    //                 .then(response => response.json())
+    //                 .then(data => {
+    //                     console.log('Response:', data); // Debug response
+    //                     if (data.status === 'success') {
+    //                         // Menghapus baris dari tabel
+    //                         event.target.closest('tr').remove();
+    //                         Swal.fire(
+    //                             'Terhapus!',
+    //                             'Pengguna telah dihapus.',
+    //                             'success'
+    //                         );
+    //                     } else {
+    //                         console.error('Error:', data.message);
+    //                         Swal.fire(
+    //                             'Gagal!',
+    //                             'Terjadi kesalahan saat menghapus pengguna.',
+    //                             'error'
+    //                         );
+    //                     }
+    //                 })
+    //                 .catch(error => {
+    //                     console.error('Error:', error);
+    //                     Swal.fire(
+    //                         'Gagal!',
+    //                         'Terjadi kesalahan saat menghapus pengguna.',
+    //                         'error'
+    //                     );
+    //                 });
+    //             }
+    //         });
+    //     }
+    // });
+
 
         // create
     $(document).ready(function() {     
@@ -675,8 +916,8 @@
         $('#requester').val(userName);
     }
 
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbwYqZ_nz42Mikd7dcpwvC0GNxi2ARSR3ap4Y_OaNybfFpkvTVkhmTMHnLAq-zB48yNKtg/exec?action=getIdParts';
-        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwYqZ_nz42Mikd7dcpwvC0GNxi2ARSR3ap4Y_OaNybfFpkvTVkhmTMHnLAq-zB48yNKtg/exec?action=getAllPart';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getIdParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getAllPart';
 
     
         function populatePartNameDropdown($dropdown, data) {
@@ -815,7 +1056,7 @@
 
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwYqZ_nz42Mikd7dcpwvC0GNxi2ARSR3ap4Y_OaNybfFpkvTVkhmTMHnLAq-zB48yNKtg/exec?action=create', true);
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=create', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -868,7 +1109,7 @@
         }
     });
 });
-    
+                 
 
 </script>
 
