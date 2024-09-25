@@ -390,17 +390,17 @@
                                 <input type="hidden" id="editId" name="id">
                                 <div class="form-group">
                                     <label for="editTanggal">Tanggal</label>
-                                    <input type="date" class="form-control" id="editTanggal" name="tanggal" required>
+                                    <input type="date" class="form-control" id="editTanggal" name="tanggal" required readonly>
                                     <div class="invalid-feedback">Date is required.</div>
                                 </div>
                                 <div class="form-group">
                                     <label for="editWaktu">Waktu</label>
-                                    <input type="time" class="form-control" id="editWaktu" name="waktu" required>
+                                    <input type="time" class="form-control" id="editWaktu" name="waktu" required readonly>
                                     <div class="invalid-feedback">Time is required.</div>
                                 </div>
                                 <div class="form-group mt-4">
                                     <label for="editRequester">Requester</label>
-                                    <input type="text" class="form-control" id="editRequester" name="requester" required>
+                                    <input type="text" class="form-control" id="editRequester" name="requester" required readonly>
                                     <div class="invalid-feedback">Requester is required.</div>
                                 </div>                
                                 <div id="itemsContainer">
@@ -438,10 +438,22 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="stock">Total Stock</label>
-                                            <input type="text" class="form-control stock" name="stock" readonly>
+                                            <label for="editStock">Total Stock</label>
+                                            <input type="text" class="form-control" id="editStock" name="stock" readonly>
                                         </div>
                                         <div class="form-group">
+                                            <label for="editPrice">Total Price</label>
+                                            <input type="text" class="form-control" id="editPrice" name="price" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editLocation">Location</label>
+                                            <input type="text" class="form-control" id="editLocation" name="location" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editSupplier1">Supplier1</label>
+                                            <input type="text" class="form-control" id="editSupplier1" name="supplier1" readonly>
+                                        </div>
+                                        <!-- <div class="form-group">
                                             <label for="description">Description</label>
                                             <input type="text" class="form-control description" name="description" readonly >
                                         </div>
@@ -453,18 +465,12 @@
                                             <label for="machine">Machine</label>
                                             <input type="text" class="form-control machine" name="machine" readonly>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="supplier1">Supplier1</label>
-                                            <input type="text" class="form-control supplier1" name="supplier1" readonly>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label for="supplier2">Supplier2</label>
                                             <input type="text" class="form-control supplier2" name="supplier2" readonly>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="location">Location</label>
-                                            <input type="text" class="form-control location" name="location" readonly>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label for="type_part">Type Part</label>
                                             <input type="text" class="form-control type_part" name="type_part" readonly>
@@ -486,10 +492,7 @@
                                             <input type="text" class="form-control lt_day" name="lt_day" readonly>
                                         </div>
                                         
-                                        <div class="form-group">
-                                            <label for="price">Price</label>
-                                            <input type="text" class="form-control price" name="price" readonly>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label for="total_value">Total Value</label>
                                             <input type="text" class="form-control total_value" name="total_value" readonly>
@@ -501,7 +504,7 @@
                                         <div class="form-group">
                                             <label for="condition">Condition</label>
                                             <input type="text" class="form-control condition" name="condition" readonly>
-                                        </div>
+                                        </div> -->
                                        
                                      </div>
                                 </div>
@@ -577,160 +580,509 @@
         });
     </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Ambil peran pengguna dari sessionStorage
-        const userRole = sessionStorage.getItem('role');
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Ambil peran pengguna dari sessionStorage
+                            const userRole = sessionStorage.getItem('role');
 
-        // Sembunyikan menu "Data Users" jika bukan admin
-        if (userRole !== 'admin') {
-            const menuDataUsers = document.getElementById('menu-data-users');
-            if (menuDataUsers) {
-                menuDataUsers.style.display = 'none';
-            }
-        }
-    });
-</script>
+                            // Sembunyikan menu "Data Users" jika bukan admin
+                            if (userRole !== 'admin') {
+                                const menuDataUsers = document.getElementById('menu-data-users');
+                                if (menuDataUsers) {
+                                    menuDataUsers.style.display = 'none';
+                                }
+                            }
+                        });
+                    </script>
 
 
+  <script>
+                        // format date
+                        function formatDate(dateValue) {
+                        if (typeof dateValue === 'number') {
+                            return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
+                        }
+                        return new Date(dateValue).toISOString().split('T')[0];
+                        }
 
-<script>
-    // format date
-    function formatDate(dateValue) {
-    if (typeof dateValue === 'number') {
-        return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-    }
-    return new Date(dateValue).toISOString().split('T')[0];
-    }
+                        // format time
+                        function formatTime(timeValue) {
+                        if (typeof timeValue === 'number') {
+                            const date = new Date((timeValue - 25569) * 86400 * 1000);
+                            return date.toTimeString().split(' ')[0];
+                        }
+                        return new Date(timeValue).toISOString().split('T')[1].split('.')[0];
+                        }
 
-    // format time
-    function formatTime(timeValue) {
-    if (typeof timeValue === 'number') {
-        const date = new Date((timeValue - 25569) * 86400 * 1000);
-        return date.toTimeString().split(' ')[0];
-    }
-    return new Date(timeValue).toISOString().split('T')[1].split('.')[0];
-    }
+                        // read data
+                        document.addEventListener('DOMContentLoaded', function() {
+                        const scriptURL = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=read';
+                        const loadingSpinner = document.getElementById('loadingSpinner');
 
-     // read data
-    document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=read';
-    const loadingSpinner = document.getElementById('loadingSpinner');
+                        // Menampilkan spinner
+                        loadingSpinner.style.display = 'block';
 
-    // Menampilkan spinner
-    loadingSpinner.style.display = 'block';
+                            // Ambil peran pengguna dari sessionStorage
+                            const userRole = sessionStorage.getItem('role');
 
-         // Ambil peran pengguna dari sessionStorage
-         const userRole = sessionStorage.getItem('role');
+                                // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+                            fetch(scriptURL)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    const rows = data.data;
+                                    const usersTableBody = document.querySelector('#userTable tbody');
 
-             // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
-        fetch(scriptURL)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                const rows = data.data;
-                const usersTableBody = document.querySelector('#userTable tbody');
+                                    // Kosongkan tabel sebelum menambahkan data
+                                    usersTableBody.innerHTML = '';
 
-                // Kosongkan tabel sebelum menambahkan data
-                usersTableBody.innerHTML = '';
+                                    rows.forEach(row => {
+                                        const tableRow = usersTableBody.insertRow();
+                                        tableRow.insertCell(0).textContent = formatDate(row.tanggal) || '';
+                                        // tableRow.insertCell(1).textContent = formatTime(row.waktu) || '';
+                                        tableRow.insertCell(1).textContent = row.no_pr || '';
+                                        tableRow.insertCell(2).textContent = row.partId || '';
+                                        tableRow.insertCell(3).textContent = row.requester || '';
+                                        tableRow.insertCell(4).textContent = row.add_stock || 0;
+                                        tableRow.insertCell(5).textContent = row.add_price || 0;
+                                        tableRow.insertCell(6).textContent = row.add_location || '';
+                                        tableRow.insertCell(7).textContent = row.add_supplier || '';
+                                        tableRow.insertCell(8).textContent = row.stock_part || 0;
+                                        tableRow.insertCell(9).textContent = row.price_part || 0;
+                                        // Menghapus lokasi duplikat dan menampilkan hanya lokasi unik
+                                        const uniqueLocations = Array.from(new Set(row.location.split(';').map(loc => loc.trim()))).join('; ');
+                                        tableRow.insertCell(10).textContent = uniqueLocations || '';
+                                        tableRow.insertCell(11).textContent = row.supplier1 || '';
 
-                rows.forEach(row => {
-                    const tableRow = usersTableBody.insertRow();
-                    tableRow.insertCell(0).textContent = formatDate(row.tanggal) || '';
-                    // tableRow.insertCell(1).textContent = formatTime(row.waktu) || '';
-                    tableRow.insertCell(1).textContent = row.no_pr || '';
-                    tableRow.insertCell(2).textContent = row.partId || '';
-                    tableRow.insertCell(3).textContent = row.requester || '';
-                    tableRow.insertCell(4).textContent = row.add_stock || 0;
-                    tableRow.insertCell(5).textContent = row.add_price || 0;
-                    tableRow.insertCell(6).textContent = row.add_location || '';
-                    tableRow.insertCell(7).textContent = row.add_supplier || '';
-                    tableRow.insertCell(8).textContent = row.stock_part || 0;
-                    tableRow.insertCell(9).textContent = row.price_part || 0;
-                    // Menghapus lokasi duplikat dan menampilkan hanya lokasi unik
-                    const uniqueLocations = Array.from(new Set(row.location.split(';').map(loc => loc.trim()))).join('; ');
-                    tableRow.insertCell(10).textContent = uniqueLocations || '';
-                    tableRow.insertCell(11).textContent = row.supplier1 || '';
+                                        // tableRow.insertCell(11).textContent = row.description || '';
+                                        // tableRow.insertCell(12).textContent = row.specification || '';
+                                        // tableRow.insertCell(13).textContent = row.machine || '';
+                                        // tableRow.insertCell(15).textContent = row.supplier2 || '';
+                                        // tableRow.insertCell(16).textContent = row.type_part || '';
+                                        // tableRow.insertCell(17).textContent = row.min || '';
+                                        // tableRow.insertCell(18).textContent = row.max || '';
+                                        // tableRow.insertCell(19).textContent = row.unit || '';
+                                        // tableRow.insertCell(20).textContent = row.lt_day || '';
+                                        // tableRow.insertCell(21).textContent = row.total_value || '';
+                                        // tableRow.insertCell(22).textContent = row.total_sparepart_cost || '';
+                                        // tableRow.insertCell(23).textContent = row.condition || '';
+                                        
 
-                    // tableRow.insertCell(11).textContent = row.description || '';
-                    // tableRow.insertCell(12).textContent = row.specification || '';
-                    // tableRow.insertCell(13).textContent = row.machine || '';
-                    // tableRow.insertCell(15).textContent = row.supplier2 || '';
-                    // tableRow.insertCell(16).textContent = row.type_part || '';
-                    // tableRow.insertCell(17).textContent = row.min || '';
-                    // tableRow.insertCell(18).textContent = row.max || '';
-                    // tableRow.insertCell(19).textContent = row.unit || '';
-                    // tableRow.insertCell(20).textContent = row.lt_day || '';
-                    // tableRow.insertCell(21).textContent = row.total_value || '';
-                    // tableRow.insertCell(22).textContent = row.total_sparepart_cost || '';
-                    // tableRow.insertCell(23).textContent = row.condition || '';
+                                        // Tambahkan kolom Edit dan Delete
+                                        const actionCell = tableRow.insertCell(12);
+                                        actionCell.innerHTML = `
+                                        <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
+                                        <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                                    `;
+                                });
+
+                            // Initialize or reinitialize DataTable
+                            if ($.fn.DataTable.isDataTable('#userTable')) {
+                                            $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                                        }
+                                        $('#userTable').DataTable(); // Buat instance DataTable baru
+                                        // Sembunyikan kolom Actions jika user bukan admin
+                                if (userRole !== 'admin') {
+                                    // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
+                                    setTimeout(() => {
+                                        const table = document.getElementById('userTable');
+                                        const actionsColumnIndex = 10; // Indeks kolom Actions (0-based)
+                                        // Sembunyikan header kolom
+                                        table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                                        // Sembunyikan semua cell di kolom Actions
+                                        table.querySelectorAll(`tbody tr`).forEach(row => {
+                                            row.children[actionsColumnIndex].style.display = 'none';
+                                        });
+                                    }, 100); // Sesuaikan timeout sesuai kebutuhan
+                                }
+                                    } else {
+                                    console.error('Error:', data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching data:', error);
+                                // Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
+                            })
+                            .finally(() => {
+                                // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
+                                loadingSpinner.style.display = 'none';
+                            });
+                        });
+
+
+                                    // create
+                            $(document).ready(function() {     
+                        // Set nilai default untuk tanggal dan waktu ke waktu saat ini
+                        var today = new Date().toISOString().split('T')[0];
+                        var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+                        $('#date').val(today);
+                        $('#time').val(timeNow);
+
+                        // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
+                        var userName = sessionStorage.getItem('username');
+                        if (userName) {
+                            $('#requester').val(userName);
+                        }
+
+                        const apiUrl = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getIdParts';
+                        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getAllPart';
+
+                        function populatePartNameDropdown($dropdown, data) {
+                            $dropdown.empty();
+                            $dropdown.append('<option value="" disabled selected>Select Part Id </option>');
+                            data.forEach(item => {
+                                if (item.partId) {
+                                    $dropdown.append(`<option value="${item.partId}">${item.partId}</option>`);
+                                }
+                            });
+                        }
+
+                        function populateAllDropdowns() {
+                            $('#loadingSpinner').show(); 
+                            $.get(apiUrl, function(response) {
+                                $('#loadingSpinner').hide(); 
+                                if (response.status === 'success') {
+                                    const $dropdowns = $('.partId');
+                                    $dropdowns.each(function() {
+                                        populatePartNameDropdown($(this), response.data);
+                                    });
+                                } else {
+                                    console.error('Error fetching spare parts data:', response.message);
+                                }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.error('Request failed:', textStatus, errorThrown);
+                            });
+                        }
+
+                        populateAllDropdowns();
+
+                        $('#itemsContainer').on('change', '.partId', function() {
+                    const selectedPartId = $(this).val();
+                    const $stockField = $(this).closest('.item-row').find('.stock');
+                    const $descField = $(this).closest('.item-row').find('.description');
+                    const $specField = $(this).closest('.item-row').find('.specification');
+                    const $machField = $(this).closest('.item-row').find('.machine');
+                    const $supp1Field = $(this).closest('.item-row').find('.supplier1');
+                    const $supp2Field = $(this).closest('.item-row').find('.supplier2');
+                    const $locField = $(this).closest('.item-row').find('.location');
+                    const $typeField = $(this).closest('.item-row').find('.type_part');
+                    const $minField = $(this).closest('.item-row').find('.min');
+                    const $maxField = $(this).closest('.item-row').find('.max');
+                    const $unitField = $(this).closest('.item-row').find('.unit');
+                    const $ltField = $(this).closest('.item-row').find('.lt_day');
+                    const $priceField = $(this).closest('.item-row').find('.price');
+                    const $totalvField = $(this).closest('.item-row').find('.total_value');
+                    const $totalsField = $(this).closest('.item-row').find('.total_sparepart_cost');
+                    const $conditionField = $(this).closest('.item-row').find('.condition');
                     
-
-                    // Tambahkan kolom Edit dan Delete
-                    const actionCell = tableRow.insertCell(12);
-                    actionCell.innerHTML = `
-                    <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
-                    <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
-                `;
-            });
-
-        // Initialize or reinitialize DataTable
-        if ($.fn.DataTable.isDataTable('#userTable')) {
-                        $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                    if (selectedPartId) {
+                        $.get(apiUrlSpecification, { partId: selectedPartId }, function(response) {
+                            console.log('Part Response:', response);
+                            if (response && response.partId === selectedPartId) {
+                                $stockField.val(response.stock || 0);
+                                $descField.val(response.description || '');
+                                $specField.val(response.specification || '');
+                                $machField.val(response.machine || '');
+                                $supp1Field.val(response.supplier1 || '');
+                                $supp2Field.val(response.supplier2 || '');
+                                $locField.val(response.location || '');
+                                $typeField.val(response.type_part || '');
+                                $minField.val(response.min || '');
+                                $maxField.val(response.max || '');
+                                $unitField.val(response.unit || '');
+                                $ltField.val(response.lt_day || '');
+                                $priceField.val(response.price || '');
+                                $totalvField.val(response.total_value || '');
+                                $totalsField.val(response.total_sparepart_cost || '');
+                                $conditionField.val(response.condition || '');
+                            } else {
+                                console.error('Part Id data missing or response is incorrect');
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Request failed:', textStatus, errorThrown);
+                        });
+                    } else {
+                        $specField.val('');
+                        $descField.val('');
+                        $stockField.val('');
+                        $machField.val('');
+                        $supp1Field.val('');
+                        $supp2Field.val('');
+                        $locField.val('');
+                        $typeField.val('');
+                        $minField.val('');
+                        $maxField.val('');
+                        $unitField.val('');
+                        $ltField.val('');
+                        $priceField.val('');
+                        $totalvField.val('');
+                        $totalsField.val('');
+                        $conditionField.val('');
                     }
-                    $('#userTable').DataTable(); // Buat instance DataTable baru
-                    // Sembunyikan kolom Actions jika user bukan admin
-            if (userRole !== 'admin') {
-                // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
-                setTimeout(() => {
-                    const table = document.getElementById('userTable');
-                    const actionsColumnIndex = 10; // Indeks kolom Actions (0-based)
-                    // Sembunyikan header kolom
-                    table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
-                    // Sembunyikan semua cell di kolom Actions
-                    table.querySelectorAll(`tbody tr`).forEach(row => {
-                        row.children[actionsColumnIndex].style.display = 'none';
+                });
+
+
+                                // Form submission
+                        document.getElementById('createItemForm').addEventListener('submit', function(event) {
+                            event.preventDefault(); // Prevent the form from submitting normally
+
+                            var form = event.target;
+                            var isValid = true;
+                            
+                            // Validate each field
+                            Array.from(form.elements).forEach(function(element) {
+                                if (element.required && !element.value) {
+                                    element.classList.add('is-invalid');
+                                    isValid = false;
+                                } else {
+                                    element.classList.remove('is-invalid');
+                                }
+                            });
+
+                            // Collect data from each item row
+                            var itemsData = [];
+                            document.querySelectorAll('#itemsContainer .item-row').forEach(function(row) {
+                                var item = {
+                                    partId: row.querySelector('.partId').value,
+                                    // specification: row.querySelector('.specification').value,
+                                    // qty: row.querySelector('.qty').value
+                                };
+                                itemsData.push(item);
+                            });
+
+                            // If form is valid, submit it
+                            if (isValid) {
+                                var formData = new FormData(form);
+                                formData.append('items', JSON.stringify(itemsData)); // Add items data
+
+                                // Add current date and time
+                        var currentDate = new Date();
+                        formData.append('tanggal', currentDate.toISOString().split('T')[0]); // YYYY-MM-DD format
+                        formData.append('waktu', currentDate.toTimeString().split(' ')[0]);  // HH:MM:SS format
+
+
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=create', true);
+
+                                xhr.onload = function () {
+                                    if (xhr.status >= 200 && xhr.status < 400) {
+                                        var response = JSON.parse(xhr.responseText);
+
+                                        if (response.status === 'success') {
+                                            Swal.fire({
+                                                title: 'Success!',
+                                                text: 'Data saved successfully!',
+                                                icon: 'success',
+                                                confirmButtonText: 'OK'
+                                            }).then(() => {
+                                                location.reload(); // Reload the page to update the data
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                title: 'Error!',
+                                                text: response.message || 'An error occurred while submitting the form.',
+                                                icon: 'error',
+                                                confirmButtonText: 'OK'
+                                            });
+                                        }
+                                    } else {
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            text: 'An error occurred while submitting the form.',
+                                            icon: 'error',
+                                            confirmButtonText: 'OK'
+                                        });
+                                    }
+                                };
+
+                                xhr.onerror = function() {
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'An error occurred while sending the request.',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
+                                };
+
+                                xhr.send(formData);
+                            } else {
+                                Swal.fire({
+                                    title: 'Validation Error',
+                                    text: 'Please fill in all required fields.',
+                                    icon: 'warning',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        });
                     });
-                }, 100); // Sesuaikan timeout sesuai kebutuhan
-            }
-                } else {
-                console.error('Error:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            // Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
-        })
-        .finally(() => {
-            // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
-            loadingSpinner.style.display = 'none';
-        });
-    });
 
-    // Fungsi untuk memformat waktu dan tanggal sebelum mengisi form
-        function formatDateForInput(dateValue) {
-        if (typeof dateValue === 'number') {
-        return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-        }
-        return new Date(dateValue).toISOString().split('T')[0];
-        }
 
-        function formatTimeForInput(timeValue) {
-        if (typeof timeValue === 'number') {
-        const date = new Date((timeValue - 25569) * 86400 * 1000);
-        return date.toTimeString().split(' ')[0].slice(0, 5); // HH:MM
-        }
-        return new Date(timeValue).toISOString().split('T')[1].split('.')[0].slice(0, 5); // HH:MM
-        }
 
-        // edit btn
-         $(document).on('click', '.edit-btn', function() {
-            const userId = $(this).data('id');
 
-            // Ambil data item berdasarkan ID
-            $.get(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getItemById&id=${userId}`,function(data) {
-                if (data.status === 'success') {
-                    const user = data.data;
+                            // get part name sheet barang
+                   document.addEventListener('DOMContentLoaded', function() {
+                    const partSheetURL = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=read';
+                    const apiUrl = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getIdParts';
+                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getAllPart';
+
+                    let partData = [];
+
+                    // Fetch data part_name dari sheet part
+                    fetch(partSheetURL)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Raw part data:', data); // Debug: Cek data mentah
+                            if (data.status === 'success') {
+                                partData = data.data;
+                                console.log('Part data:', partData); // Debug: Cek data setelah parsing
+                            } else {
+                                console.error('Error fetching part data:', data.message);
+                                Swal.fire('Error!', 'Failed to fetch part data. Please try again.', 'error');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching part data:', error);
+                            Swal.fire('Error!', 'An error occurred while fetching part data.', 'error');
+                        });
+
+
+
+                    function populatePartNameDropdown($dropdown, data) {
+                        $dropdown.empty();
+                        $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
+                        data.forEach(item => {
+                            if (item.partId) {
+                                $dropdown.append(`<option value="${item.partId}">${item.partId}</option>`);
+                            }
+                        });
+                    }
+
+                    function populateAllDropdowns() {
+                        $.get(apiUrl, function(response) {
+                            if (response.status === 'success') {
+                                const $dropdowns = $('#editPartId');
+                                populatePartNameDropdown($dropdowns, response.data);
+                            } else {
+                                console.error('Error fetching spare parts data:', response.message);
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Request failed:', textStatus, errorThrown);
+                        });
+                    }
+
+                    populateAllDropdowns();
+
+                    $('#itemsContainer').on('change', '.partId', function() {
+                        const selectedPartName = $(this).val();
+                        const $specField = $(this).closest('.item-row').find('.specification');
+                        
+                        if (selectedPartName) {
+                            $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                                console.log('Specification Response:', response);
+                                if (response.partName === selectedPartName) {
+                                    $specField.val(response.specification || '');
+                                } else {
+                                    console.error('Part name mismatch or specification data missing');
+                                }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.error('Request failed:', textStatus, errorThrown);
+                            });
+                        } else {
+                            $specField.val('');
+                        }
+                    });
+
+
+                    // Fungsi untuk memformat waktu dan tanggal sebelum mengisi form
+                    function formatDateForInput(dateValue) {
+                    if (typeof dateValue === 'number') {
+                    return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
+                    }
+                    return new Date(dateValue).toISOString().split('T')[0];
+                    }
+
+                    function formatTimeForInput(timeValue) {
+                    if (typeof timeValue === 'number') {
+                    const date = new Date((timeValue - 25569) * 86400 * 1000);
+                    return date.toTimeString().split(' ')[0].slice(0, 5); // HH:MM
+                    }
+                    return new Date(timeValue).toISOString().split('T')[1].split('.')[0].slice(0, 5); // HH:MM
+                    }
+
+
+
+
+                    document.addEventListener('click', function(event) {
+
+                    // Event Listener untuk tombol Delete
+                    if (event.target.classList.contains('delete-btn')) {
+                        const userId = event.target.dataset.id;
+
+                        // Konfirmasi penghapusan menggunakan SweetAlert2
+                        Swal.fire({
+                            title: 'Konfirmasi Hapus',
+                            text: 'Apakah Anda yakin ingin menghapus part ini?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Hapus',
+                            cancelButtonText: 'Batal',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Menghapus data jika pengguna mengonfirmasi
+                                fetch(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=delete&id=${userId}`, {
+                                    method: 'POST', // Metode POST digunakan
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                    },
+                                    body: new URLSearchParams({
+                                        'id': userId
+                                    })
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('Response:', data); // Debug response
+                                    if (data.status === 'success') {
+                                        // Menghapus baris dari tabel
+                                        event.target.closest('tr').remove();
+                                        Swal.fire(
+                                            'Terhapus!',
+                                            'Pengguna telah dihapus.',
+                                            'success'
+                                        );
+                                    } else {
+                                        console.error('Error:', data.message);
+                                        Swal.fire(
+                                            'Gagal!',
+                                            'Terjadi kesalahan saat menghapus pengguna.',
+                                            'error'
+                                        );
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    Swal.fire(
+                                        'Gagal!',
+                                        'Terjadi kesalahan saat menghapus pengguna.',
+                                        'error'
+                                    );
+                                });
+                            }
+                        });
+                    }
+                    });
+
+
+                    // edit btn
+                    $(document).on('click', '.edit-btn', function() {
+                    const userId = $(this).data('id');
+
+                    // Ambil data item berdasarkan ID
+                    $.get(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getItemById&id=${userId}`, function(data) {
+
+                        if (data.status === 'success') {
+                            const user = data.data;
 
                         $('#editId').val(user.id);
                         $('#editTanggal').val(formatDateForInput(user.tanggal));
@@ -743,375 +1095,100 @@
                         $('#editAddsupplier').val(user.add_supplier);
 
                         $('#editPartid').val(user.partId);
-                        $('#editStock').val(user.stock);
-
-                        // $('#editPartName').val(user.part_name);
-                        // $('#editSpecification').val(user.specification);
-                        // $('#editQty').val(user.qty);
-                        // $('#editStoreKeeper').val(user.security);
-                    // Ambil data stock berdasarkan part_name
-                if (user.part_name) {
-                    $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
-                        if (response.partName === user.part_name) {
-                            $('#editStock').val(response.stock || 0);  // Tampilkan stock
+                       
+                                // Ambil data stock berdasarkan part_name
+                        if (user.partId) {
+                            $.get(apiUrlSpecification, { partId: user.partId }, function(response) {
+                                if (response.partId === user.partId) {
+                                    $('#editStock').val(response.stock || 0);  
+                                    $('#editPrice').val(response.price || 0);  
+                                    $('#editLocation').val(response.location || '');  
+                                    $('#editSupplier1').val(response.supplier1 || '');   
+                                } else {
+                                    console.error('Part name mismatch or specification data missing');
+                                }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.error('Request failed:', textStatus, errorThrown);
+                            });
                         } else {
-                            console.error('Part name mismatch or specification data missing');
+                            $('#editStock').val(0);  // Default ke 0 jika part_name kosong
+                        }
+
+                                $('#editModal').modal('show');
+                        } else {
+                            console.error('Error:', data.message);
+                            Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
                         }
                     }).fail(function(jqXHR, textStatus, errorThrown) {
                         console.error('Request failed:', textStatus, errorThrown);
+                        Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
                     });
-                } else {
-                    $('#editStock').val(0);  // Default ke 0 jika part_name kosong
-                }
+                    });
 
-                        $('#editModal').modal('show');
-                } else {
-                    console.error('Error:', data.message);
-                    Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
-                }
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.error('Request failed:', textStatus, errorThrown);
-                Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
-            });
-         });
 
-                        // Form submission untuk modal edit
-                $('#editForm').submit(function(e) {
-                e.preventDefault();
+                    $('#editPartid').on('change', function() {
+                        const selectedPartName = $(this).val();
+                        const $stockField = $('#editStock');
+                        const $priceField = $('#editPrice');
+                        const $locField = $('#editLocation');
+                        const $suppField = $('#editSupplier1');
 
-                const formData = $(this).serialize();
+                        if (selectedPartName) {
+                            $.get(apiUrlSpecification, { partId: selectedPartName }, function(response) {
+                                if (response.partId === selectedPartName) {
+                                    $stockField.val(response.stock || 0);
+                                    $priceField.val(response.price || 0);
+                                    $locField.val(response.location || '');
+                                    $suppField.val(response.supplier1 || '');
+                                } else {
+                                    console.error('Part name mismatch or specification data missing');
+                                }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.error('Request failed:', textStatus, errorThrown);
+                            });
+                        } else {
+                            $specField.val('');
+                        }
+                    });
 
-                $.ajax({
-                url: 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=update',
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        Swal.fire({
-                            title: 'Updated!',
-                            text: 'Item has been updated.',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $('#editModal').modal('hide');
-                                location.reload(); // Refresh page after user confirms
-                            }
-                        });
-                    } else {
-                        Swal.fire('Error!', response.message, 'error');
+                    // Form submission untuk modal edit
+                    $('#editForm').submit(function(e) {
+                    e.preventDefault();
+
+                    const formData = $(this).serialize();
+
+                    $.ajax({
+                    url: 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=update',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: 'Updated!',
+                                text: 'Item has been updated.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $('#editModal').modal('hide');
+                                    location.reload(); // Refresh page after user confirms
+                                }
+                            });
+                        } else {
+                            Swal.fire('Error!', response.message, 'error');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Request failed:', textStatus, errorThrown);
+                        Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Request failed:', textStatus, errorThrown);
-                    Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
-                }
-                });
+             });
+               });
                 });
 
+ </script>
 
 
-
-    // Event Listener untuk tombol Edit dan Delete
-    // document.addEventListener('click', function(event) {
-    //     if (event.target.classList.contains('edit-btn')) {
-    //         const userId = event.target.dataset.id;
-    //         console.log('Edit user with ID:', userId);
-
-    //         // Mengambil data pengguna untuk diisi dalam form edit
-    //         fetch(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getItemById&id=${userId}`)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 if (data.status === 'success') {
-    //                     const user = data.data;
-    //                     document.querySelector('#editForm #editId').value = user.id;
-    //                     document.querySelector('#editForm #editRequester').value = user.requester;
-    //                     document.querySelector('#editForm #editTanggal').value =(formatDateForInput(user.tanggal));
-    //                     document.querySelector('#editForm #editWaktu').value =(formatTimeForInput(user.waktu));
-    //                     // document.querySelector('#editForm #editUsername').value = user.username;
-    //                     // document.querySelector('#editForm #editPassword').value = user.password.substring(0, 10);
-    //                     // document.querySelector('#editForm #editEmail').value = user.email;
-    //                     // document.querySelector('#editForm #editRole').value = user.role;
-                        
-    //                     // Menampilkan modal edit
-    //                     $('#editModal').modal('show');
-    //                 } else {
-    //                     console.error('Error:', data.message);
-    //                 }
-    //             })
-    //             .catch(error => console.error('Error:', error));
-    //     }
-
-    //     // Event Listener untuk tombol Delete
-    //     if (event.target.classList.contains('delete-btn')) {
-    //         const userId = event.target.dataset.id;
-
-    //         // Konfirmasi penghapusan menggunakan SweetAlert2
-    //         Swal.fire({
-    //             title: 'Konfirmasi Hapus',
-    //             text: 'Apakah Anda yakin ingin menghapus pengguna ini?',
-    //             icon: 'warning',
-    //             showCancelButton: true,
-    //             confirmButtonText: 'Hapus',
-    //             cancelButtonText: 'Batal',
-    //             reverseButtons: true
-    //         }).then((result) => {
-    //             if (result.isConfirmed) {
-    //                 // Menghapus data jika pengguna mengonfirmasi
-    //                 fetch(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=delete&id=${userId}`, {
-    //                     method: 'POST', // Metode POST digunakan
-    //                     headers: {
-    //                         'Content-Type': 'application/x-www-form-urlencoded'
-    //                     },
-    //                     body: new URLSearchParams({
-    //                         'id': userId
-    //                     })
-    //                 })
-    //                 .then(response => response.json())
-    //                 .then(data => {
-    //                     console.log('Response:', data); // Debug response
-    //                     if (data.status === 'success') {
-    //                         // Menghapus baris dari tabel
-    //                         event.target.closest('tr').remove();
-    //                         Swal.fire(
-    //                             'Terhapus!',
-    //                             'Pengguna telah dihapus.',
-    //                             'success'
-    //                         );
-    //                     } else {
-    //                         console.error('Error:', data.message);
-    //                         Swal.fire(
-    //                             'Gagal!',
-    //                             'Terjadi kesalahan saat menghapus pengguna.',
-    //                             'error'
-    //                         );
-    //                     }
-    //                 })
-    //                 .catch(error => {
-    //                     console.error('Error:', error);
-    //                     Swal.fire(
-    //                         'Gagal!',
-    //                         'Terjadi kesalahan saat menghapus pengguna.',
-    //                         'error'
-    //                     );
-    //                 });
-    //             }
-    //         });
-    //     }
-    // });
-
-
-        // create
-    $(document).ready(function() {     
-    // Set nilai default untuk tanggal dan waktu ke waktu saat ini
-    var today = new Date().toISOString().split('T')[0];
-    var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-
-    $('#date').val(today);
-    $('#time').val(timeNow);
-
-    // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
-    var userName = sessionStorage.getItem('username');
-    if (userName) {
-        $('#requester').val(userName);
-    }
-
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getIdParts';
-        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getAllPart';
-
-    
-        function populatePartNameDropdown($dropdown, data) {
-            $dropdown.empty();
-            $dropdown.append('<option value="" disabled selected>Select Part Id </option>');
-            data.forEach(item => {
-                if (item.partId) {
-                    $dropdown.append(`<option value="${item.partId}">${item.partId}</option>`);
-                }
-            });
-        }
-
-        function populateAllDropdowns() {
-            $('#loadingSpinner').show(); 
-            $.get(apiUrl, function(response) {
-                $('#loadingSpinner').hide(); 
-                if (response.status === 'success') {
-                    const $dropdowns = $('.partId');
-                    $dropdowns.each(function() {
-                        populatePartNameDropdown($(this), response.data);
-                    });
-                } else {
-                    console.error('Error fetching spare parts data:', response.message);
-                }
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.error('Request failed:', textStatus, errorThrown);
-            });
-        }
-
-        populateAllDropdowns();
-
-        $('#itemsContainer').on('change', '.partId', function() {
-    const selectedPartId = $(this).val();
-    const $stockField = $(this).closest('.item-row').find('.stock');
-    const $descField = $(this).closest('.item-row').find('.description');
-    const $specField = $(this).closest('.item-row').find('.specification');
-    const $machField = $(this).closest('.item-row').find('.machine');
-    const $supp1Field = $(this).closest('.item-row').find('.supplier1');
-    const $supp2Field = $(this).closest('.item-row').find('.supplier2');
-    const $locField = $(this).closest('.item-row').find('.location');
-    const $typeField = $(this).closest('.item-row').find('.type_part');
-    const $minField = $(this).closest('.item-row').find('.min');
-    const $maxField = $(this).closest('.item-row').find('.max');
-    const $unitField = $(this).closest('.item-row').find('.unit');
-    const $ltField = $(this).closest('.item-row').find('.lt_day');
-    const $priceField = $(this).closest('.item-row').find('.price');
-    const $totalvField = $(this).closest('.item-row').find('.total_value');
-    const $totalsField = $(this).closest('.item-row').find('.total_sparepart_cost');
-    const $conditionField = $(this).closest('.item-row').find('.condition');
-    
-    if (selectedPartId) {
-        $.get(apiUrlSpecification, { partId: selectedPartId }, function(response) {
-            console.log('Part Response:', response);
-            if (response && response.partId === selectedPartId) {
-                $stockField.val(response.stock || 0);
-                $descField.val(response.description || '');
-                $specField.val(response.specification || '');
-                $machField.val(response.machine || '');
-                $supp1Field.val(response.supplier1 || '');
-                $supp2Field.val(response.supplier2 || '');
-                $locField.val(response.location || '');
-                $typeField.val(response.type_part || '');
-                $minField.val(response.min || '');
-                $maxField.val(response.max || '');
-                $unitField.val(response.unit || '');
-                $ltField.val(response.lt_day || '');
-                $priceField.val(response.price || '');
-                $totalvField.val(response.total_value || '');
-                $totalsField.val(response.total_sparepart_cost || '');
-                $conditionField.val(response.condition || '');
-            } else {
-                console.error('Part Id data missing or response is incorrect');
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('Request failed:', textStatus, errorThrown);
-        });
-    } else {
-        $specField.val('');
-        $descField.val('');
-        $stockField.val('');
-        $machField.val('');
-        $supp1Field.val('');
-        $supp2Field.val('');
-        $locField.val('');
-        $typeField.val('');
-        $minField.val('');
-        $maxField.val('');
-        $unitField.val('');
-        $ltField.val('');
-        $priceField.val('');
-        $totalvField.val('');
-        $totalsField.val('');
-        $conditionField.val('');
-    }
- });
-
-
-
-            // Form submission
-     document.getElementById('createItemForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
-
-        var form = event.target;
-        var isValid = true;
-        
-        // Validate each field
-        Array.from(form.elements).forEach(function(element) {
-            if (element.required && !element.value) {
-                element.classList.add('is-invalid');
-                isValid = false;
-            } else {
-                element.classList.remove('is-invalid');
-            }
-        });
-
-        // Collect data from each item row
-        var itemsData = [];
-        document.querySelectorAll('#itemsContainer .item-row').forEach(function(row) {
-            var item = {
-                partId: row.querySelector('.partId').value,
-                // specification: row.querySelector('.specification').value,
-                // qty: row.querySelector('.qty').value
-            };
-            itemsData.push(item);
-        });
-
-        // If form is valid, submit it
-        if (isValid) {
-            var formData = new FormData(form);
-            formData.append('items', JSON.stringify(itemsData)); // Add items data
-
-              // Add current date and time
-    var currentDate = new Date();
-    formData.append('tanggal', currentDate.toISOString().split('T')[0]); // YYYY-MM-DD format
-    formData.append('waktu', currentDate.toTimeString().split(' ')[0]);  // HH:MM:SS format
-
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=create', true);
-
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 400) {
-                    var response = JSON.parse(xhr.responseText);
-
-                    if (response.status === 'success') {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Data saved successfully!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then(() => {
-                            location.reload(); // Reload the page to update the data
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: response.message || 'An error occurred while submitting the form.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                } else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'An error occurred while submitting the form.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            };
-
-            xhr.onerror = function() {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'An error occurred while sending the request.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            };
-
-            xhr.send(formData);
-        } else {
-            Swal.fire({
-                title: 'Validation Error',
-                text: 'Please fill in all required fields.',
-                icon: 'warning',
-                confirmButtonText: 'OK'
-            });
-        }
-    });
-});
-                 
-
-</script>
 
 <script>
     // Tampilkan nama pengguna di navbar saat halaman utama dimuat
