@@ -403,7 +403,7 @@ window.onload = function() {
     }
 
     document.addEventListener('DOMContentLoaded',async function() {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyxyghBP2mmIySNM4lvzWs3Z1L4L2pGYm7_r0CJ6c9GWpfdOOXkzpoFI8rXNZTsfZmKZw/exec?action=read';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=read';
         const loadingSpinner = document.getElementById('loadingSpinner');
 
         // Menampilkan spinner
@@ -477,7 +477,7 @@ window.onload = function() {
             console.log('Edit user with ID:', userId);
 
             // Mengambil data pengguna untuk diisi dalam form edit
-            fetch(`https://script.google.com/macros/s/AKfycbyxyghBP2mmIySNM4lvzWs3Z1L4L2pGYm7_r0CJ6c9GWpfdOOXkzpoFI8rXNZTsfZmKZw/exec?action=getUserById&id=${userId}`)
+            fetch(`https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=getUserById&id=${userId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
@@ -513,7 +513,7 @@ window.onload = function() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menghapus data jika pengguna mengonfirmasi
-                    fetch(`https://script.google.com/macros/s/AKfycbyxyghBP2mmIySNM4lvzWs3Z1L4L2pGYm7_r0CJ6c9GWpfdOOXkzpoFI8rXNZTsfZmKZw/exec?action=delete&id=${userId}`, {
+                    fetch(`https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=delete&id=${userId}`, {
                         method: 'POST', // Metode POST digunakan
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -565,7 +565,7 @@ window.onload = function() {
         const email = document.querySelector('#editForm #editEmail').value;
         const role = document.querySelector('#editForm #editRole').value;
 
-        fetch('https://script.google.com/macros/s/AKfycbyxyghBP2mmIySNM4lvzWs3Z1L4L2pGYm7_r0CJ6c9GWpfdOOXkzpoFI8rXNZTsfZmKZw/exec?action=update', {
+        fetch('https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=update', {
             method: 'POST',
             body: new URLSearchParams({
                 id: id,
@@ -617,7 +617,7 @@ window.onload = function() {
         if (isValid) {
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyxyghBP2mmIySNM4lvzWs3Z1L4L2pGYm7_r0CJ6c9GWpfdOOXkzpoFI8rXNZTsfZmKZw/exec?action=register', true);
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=register', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
