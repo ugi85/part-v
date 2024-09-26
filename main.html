@@ -76,6 +76,7 @@
                 window.location.href = 'index.html';
             }
         });
+        
     </script>
 
 </head>
@@ -110,6 +111,11 @@
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
+                        <!-- item -->
+<a href="#" class="dropdown-item notify-item edit-btn" data-toggle="modal" data-target="#editModal">
+    <i class="mdi mdi-account-outline"></i>
+    <span>Profile</span>
+</a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
@@ -253,6 +259,49 @@
                         </div>
                     </div>
                     <!-- end page title -->
+
+                    <!-- Modal Edit -->
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editForm">
+                                <input type="hidden" id="editId" name="id">
+                                <div class="form-group">
+                                    <label for="editUsername">Username</label>
+                                    <input type="text" class="form-control" id="editUsername" name="username">
+                                </div> 
+                                <div class="form-group">
+                                    <label for="editEmail">Email</label>
+                                    <input type="email" class="form-control" id="editEmail" name="email">
+                                </div>
+                                <div class="form-group"></div>
+                                    <label for="editPassword">Password</label>
+                                    <input type="password" class="form-control" id="editPassword" name="password">
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label for="editRole">Role</label>
+                                    <select class="form-control" id="editRole" name="role" required>
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                </div> -->
+                                <div class="col-12 text-right">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end content -->
+
 
                     <div class="row">
                         <div class="col-xl-3 col-sm-6">
@@ -672,16 +721,20 @@
         const show_username = sessionStorage.getItem('username'); 
         const userRole = sessionStorage.getItem('role'); 
         const showId = sessionStorage.getItem('id'); 
+        const email = sessionStorage.getItem('email') 
+        const password = sessionStorage.getItem('password')
 
         if (isLoggedIn === 'true') {
             // Tampilkan nama pengguna
-            if (show_username) {
+            if (show_username && userId && email) {
                 document.getElementById('tampil_nama1').textContent = show_username;
                 document.getElementById('tampil_nama2').textContent = show_username;
             }
 
             console.log('user: ', show_username);
             console.log('id: ', showId);
+            console.log('Username:', show_username);
+            console.log('Email:', email);
 
             // Sesuaikan tampilan tombol berdasarkan peran
             if (userRole === 'admin') {
@@ -780,6 +833,97 @@
         });
     }
 
+
+     // Mengambil data pengguna dan menampilkannya dalam tabel
+     fetch(scriptURL)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const users = data.data;
+                    users.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    const usersTableBody = document.querySelector('#userTable tbody');
+                    usersTableBody.innerHTML = ''; 
+
+                    users.forEach(user => {
+                        const row = usersTableBody.insertRow();
+                        row.insertCell(0).textContent = user.username;
+                        row.insertCell(1).textContent = user.email;
+                        row.insertCell(2).textContent = user.role;
+
+                        const actionsCell = row.insertCell(3);
+                  // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
+                  actionsCell.innerHTML = `
+                        <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                    `;
+                });
+
+                 // Initialize or reinitialize DataTable
+                 if ($.fn.DataTable.isDataTable('#userTable')) {
+                            $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                        }
+                        $('#userTable').DataTable(); // Buat instance DataTable baru
+                        // Sembunyikan kolom Actions jika user bukan admin
+                if (userRole !== 'admin') {
+                    // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
+                    setTimeout(() => {
+                        const table = document.getElementById('userTable');
+                        const actionsColumnIndex = 3; // Indeks kolom Actions (0-based)
+                        // Sembunyikan header kolom
+                        table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                        // Sembunyikan semua cell di kolom Actions
+                        table.querySelectorAll(`tbody tr`).forEach(row => {
+                            row.children[actionsColumnIndex].style.display = 'none';
+                        });
+                    }, 100); // Sesuaikan timeout sesuai kebutuhan
+                }
+                    } else {
+                    console.error('Error:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error))
+            .finally(() => {
+            // Menyembunyikan spinner setelah data selesai dimuat
+            loadingSpinner.style.display = 'none';
+        });
+    });
+
+    // Event Listener untuk tombol Edit dan Delete
+    document.addEventListener('click', function(event) {
+    
+     
+    if (event.target.classList.contains('edit-btn')) {
+        const userId = sessionStorage.getItem('id');  // Ambil ID pengguna yang login dari sessionStorage
+
+    if (!userId) {
+        alert('Pengguna belum login!');
+        window.location.href = 'login.html';  // Arahkan ke halaman login jika tidak ada ID login
+        return;
+    }
+        console.log('Edit user with ID:', userId);
+
+        // Mengambil data pengguna untuk diisi dalam form edit
+        fetch(`https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=getUserById&id=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const user = data.data;
+                    document.querySelector('#editForm #editId').value = user.id;
+                    document.querySelector('#editForm #editUsername').value = user.username;
+                    document.querySelector('#editForm #editPassword').value = user.password.substring(0, 10);
+                    // document.querySelector('#editForm #editRole').value = user.role;
+                    document.querySelector('#editForm #editEmail').value = user.email;
+
+                    
+                    // Menampilkan modal edit
+                    $('#editModal').modal('show');
+                } else {
+                    console.error('Error:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
     function fetchAllData() {
     fetch(allDataURL)
         .then(response => response.json())
@@ -873,6 +1017,7 @@ document.getElementById('dataPart').addEventListener('click', function() {
 });
 
 </script>
+
 
 </body>
 
