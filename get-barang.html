@@ -500,7 +500,7 @@
 
      // read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
 
     // Menampilkan spinner
@@ -590,8 +590,8 @@
         $('#requester').val(userName);
     }
 
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpareParts';
-        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpecification';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpareParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpecification';
 
         function populatePartNameDropdown($dropdown, data) {
             $dropdown.empty();
@@ -683,7 +683,7 @@
 
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=create', true);
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=create', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -742,9 +742,9 @@
 
         // get part name sheet barang
         document.addEventListener('DOMContentLoaded', function() {
-const partSheetURL = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=read';
-const apiUrl = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpareParts';
-const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getSpecification';
+const partSheetURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
+const apiUrl = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpareParts';
+const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpecification';
 
 let partData = [];
 
@@ -851,7 +851,7 @@ if (event.target.classList.contains('delete-btn')) {
     }).then((result) => {
         if (result.isConfirmed) {
             // Menghapus data jika pengguna mengonfirmasi
-            fetch(`https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=delete&id=${userId}`, {
+            fetch(`https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=delete&id=${userId}`, {
                 method: 'POST', // Metode POST digunakan
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -899,7 +899,7 @@ $(document).on('click', '.edit-btn', function() {
 const userId = $(this).data('id');
 
 // Ambil data item berdasarkan ID
-$.get(`https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=getItemById&id=${userId}`, function(data) {
+$.get(`https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getItemById&id=${userId}`, function(data) {
 
     if (data.status === 'success') {
         const user = data.data;
@@ -971,7 +971,7 @@ e.preventDefault();
 const formData = $(this).serialize();
 
 $.ajax({
-url: 'https://script.google.com/macros/s/AKfycbwMmSlRrX24kKwm_9DRq7mmApOnxqlwsVH8FXaBVBQaGk9ZedVKg3pMErVOgW8fhM_AlQ/exec?action=update',
+url: 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=update',
 type: 'POST',
 data: formData,
 success: function(response) {

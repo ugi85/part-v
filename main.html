@@ -325,20 +325,20 @@
                                                 <th>ID Part</th>
                                                 <th>Description</th>
                                                 <th>Specification</th>
-                                                <th>Machine</th>
+                                                <!-- <th>Machine</th> -->
                                                 <th>Supplier1</th>
                                                 <th>Supplier2</th>
                                                 <th>Location</th>
                                                 <th>Type Part</th>
                                                 <th>Min</th>
                                                 <th>Max</th>
-                                                <th>Unit</th>
-                                                <th>LT DAY</th>
+                                                <!-- <th>Unit</th>
+                                                <th>LT DAY</th> -->
                                                 <th>Stock</th>
-                                                <th>Price</th>
-                                                <th>Total Value</th>
-                                                <th>Total Sparepart Cost</th>
-                                                <th>Condition</th>
+                                                <!-- <th>Price</th>
+                                                <th>Total Value</th> -->
+                                                <!-- <th>Total Sparepart Cost</th>
+                                                <th>Condition</th>  -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -728,22 +728,22 @@
             row.insertCell(0).textContent = user.id_part;
             row.insertCell(1).textContent = user.description;
             row.insertCell(2).textContent = user.specification;
-            row.insertCell(3).textContent = user.machine;
-            row.insertCell(4).textContent = user.supplier1;
-            row.insertCell(5).textContent = user.supplier2;
-            row.insertCell(6).textContent = user.location;
-            row.insertCell(7).textContent = user.type_part;
-            row.insertCell(8).textContent = user.min;
-            row.insertCell(9).textContent = user.max;
-            row.insertCell(10).textContent = user.unit;
-            row.insertCell(11).textContent = user.lt_day;
-            row.insertCell(12).textContent = user.stock;
-            row.insertCell(13).textContent = user.price;
-            row.insertCell(14).textContent = user.total_value;
-            row.insertCell(15).textContent = user.total_sparepart_cost;
-            row.insertCell(16).textContent = user.condition;
+            // row.insertCell(3).textContent = user.machine;
+            row.insertCell(3).textContent = user.supplier1;
+            row.insertCell(4).textContent = user.supplier2;
+            row.insertCell(5).textContent = user.location;
+            row.insertCell(6).textContent = user.type_part;
+            row.insertCell(7).textContent = user.min;
+            row.insertCell(8).textContent = user.max;
+            // row.insertCell(10).textContent = user.unit;
+            // row.insertCell(11).textContent = user.lt_day;
+            row.insertCell(9).textContent = user.stock;
+            // row.insertCell(10).textContent = user.price;
+            // row.insertCell(14).textContent = user.total_value;
+            // row.insertCell(15).textContent = user.total_sparepart_cost;
+            // row.insertCell(16).textContent = user.condition;
 
-            const actionsCell = row.insertCell(17);
+            // const actionsCell = row.insertCell(11);
 
             totalPrice += parseFloat(user.price);
            
@@ -767,7 +767,7 @@
             columnDefs: [
                 {
                     // Sembunyikan kolom Actions jika user bukan admin
-                    targets: 17, // Indeks kolom Actions (dimulai dari 0)
+                    targets: 9, // Indeks kolom Actions (dimulai dari 0)
                     visible: userRole === 'admin', // Sembunyikan jika bukan admin
                     searchable: false // Tidak perlu kolom ini masuk dalam pencarian
                 }
