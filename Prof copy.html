@@ -108,14 +108,20 @@
                         </div>
 
                         <!-- item-->
-                        <a href="javascript:void(0)" class="dropdown-item notify-item">
-                            <i class="mdi mdi-account-outline edit-btn" data-toggle="modal" data-target="#editModal"></i>
+                        <a href="Prof copy.html" class="dropdown-item notify-item">
+                            <i class="mdi mdi-account-outline edit-btn" data-target="#editTabel"></i>
                             <span>Profile</span>
                             <!-- <button type="button" class="btn btn-success waves-effect waves-light edit-btn"
                                                 data-toggle="modal" data-target="#editModal">Edit Profile</button> -->
                         </a>
 
-                        <!-- item-->
+                        <!-- item -->
+                        <!-- <a href="#" class="dropdown-item notify-item edit-btn" data-toggle="modal" data-target="#editModal">
+                            <i class="mdi mdi-account-outline"></i>
+                            <span>Profile</span>
+                        </a> -->
+
+                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <i class="mdi mdi-settings-outline"></i>
                             <span>Settings</span>
@@ -248,16 +254,15 @@
                                         <div class="">
                                             <h4 class="mt-5 font-18 ellipsis"><span id="tampil_nama1"></span></h4>
                                             <h5 class="font-13"><span id="role"></span></h5>
-                                    
+                                            <!-- <input type="file" id="profileImageInput" accept="image/*" /> -->
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <!-- <div class="col-sm-6">
                                         <div class="text-right">
                                             <button type="button" class="btn btn-success waves-effect waves-light edit-btn"
                                                 data-toggle="modal" data-target="#editModal">Edit Profile</button>
                         <!-- <button class="btn btn-warning btn-sm edit-btn" id= "loadUserid"  data-toggle="modal" data-target="#editModal">Edit</button> -->
-
-                                                                      
+                    
                                         </div>
                                     </div>
                                 </div>
@@ -272,13 +277,13 @@
                             <div class="card p-0">
                                 <div class="card-body p-0">
                                     <ul class=" nav nav-tabs tabs-bordered nav-justified">
-                                        <li class="nav-item"><a class="nav-link" data-toggle="editTable" href="#editTabel">Settings</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#edit-profile">Settings</a></li>
                                     </ul>
                                          
                                    <!--settings--> 
                                             <div id="editTable" class="tab-pane">
                                                 <div class="user-profile-content">
-                                                    <form>
+                                                    <form id="editForm">
                                                         <input type="hidden" id="editId" name="id">
                                                         <div class="form-group">
                                                             <label for="editUsername">Username</label>
@@ -286,11 +291,11 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="editEmail">Email</label>
-                                                            <input type="email" class="form-control" id="editEmail" name="email" readonly>
+                                                            <input type="email" class="form-control" id="editEmail" name="email">
                                                         </div>
                                                        <div class="form-group">
                                                             <label for="editPassword">Password</label>
-                                                            <input type="password" class="form-control" id="editPassword" name="password" readonly>
+                                                            <input type="password" class="form-control" id="editPassword" name="password">
                                                         </div>
                                                         <div class="col-12 text-right">
                                                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -307,7 +312,7 @@
                         <!-- end page title -->
                              
        <!-- Modal Edit -->
-            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <!-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -315,8 +320,8 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
-                        <div class="modal-body">
+                        </div> -->
+                        <!-- <div class="modal-body">
                             <form id="editForm">
                                 <input type="hidden" id="editId" name="id">
                                 <div class="form-group">
@@ -331,13 +336,6 @@
                                     <label for="editPassword">Password</label>
                                     <input type="password" class="form-control" id="editPassword" name="password">
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label for="editRole">Role</label>
-                                    <select class="form-control" id="editRole" name="role" required>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
-                                    </select>
-                                </div> -->
                                 <div class="col-12 text-right">
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
@@ -345,7 +343,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- end content -->
 
 
@@ -471,7 +469,7 @@
                 document.getElementById('tampil_nama1').textContent = show_username;
                 document.getElementById('tampil_nama2').textContent = show_username;
                                
-                console.log('Logged in as:', show_username, 'with ID:', userId);
+                // console.log('Logged in as:', show_username, 'with ID:', userId);
 
                 
             }
@@ -502,7 +500,6 @@
         // Menampilkan spinner
         loadingSpinner.style.display = 'block';
 
-        
 
         // Ambil peran pengguna dari sessionStorage
         const userRole = sessionStorage.getItem('role');
@@ -562,19 +559,12 @@
         });
     });
 
-     // Event Listener untuk tombol Edit dan Delete
-     document.addEventListener('click', function(event) {
-    
-     
+    // Event Listener untuk tombol Edit dan Delete
+    document.addEventListener('click', function(event) {
         if (event.target.classList.contains('edit-btn')) {
-            const userId = sessionStorage.getItem('id');  // Ambil ID pengguna yang login dari sessionStorage
-
-        if (!userId) {
-            alert('Pengguna belum login!');
-            window.location.href = 'login.html';  // Arahkan ke halaman login jika tidak ada ID login
-            return;
-        }
+            const userId = event.target.dataset.id;
             console.log('Edit user with ID:', userId);
+
 
             // Mengambil data pengguna untuk diisi dalam form edit
             fetch(`https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=getUserById&id=${userId}`)
@@ -585,20 +575,20 @@
                         document.querySelector('#editForm #editId').value = user.id;
                         document.querySelector('#editForm #editUsername').value = user.username;
                         document.querySelector('#editForm #editPassword').value = user.password.substring(0, 10);
-                        // document.querySelector('#editForm #editRole').value = user.role;
                         document.querySelector('#editForm #editEmail').value = user.email;
-
+                        
                         
                         // Menampilkan modal edit
-                        $('#editModal').modal('show');
+                        $('#editTabel').modal('show');
                     } else {
                         console.error('Error:', data.message);
                     }
                 })
                 .catch(error => console.error('Error:', error));
         }
-        // Panggil fungsi loadUserid saat halaman dimuat
-    window.onload = loadUserid;
+    //     Panggil fungsi loadUserid saat halaman dimuat
+    // window.onload = function()
+    // {loadUserid};
 
         // Event Listener untuk tombol Delete
         if (event.target.classList.contains('delete-btn')) {
@@ -676,13 +666,22 @@ function displayUserData() {
         .then(data => {
             if (data.status === 'success') {
                 const user = data.data;
-                document.getElementById('editUsername').value = user.username;
-                document.getElementById('editEmail').value = user.email;
-                document.getElementById('editPassword').value = user.password;  // Kosongkan password
-                document.getElementById('RePassword').value = '';    // Kosongkan re-password
+                const editUsername = document.getElementById('editUsername');
+                const editEmail = document.getElementById('editEmail');
+                const editPassword = document.getElementById('editPassword');
+                const editTable = document.getElementById('editTable');
 
-                // Tampilkan data dalam editTable
-                document.getElementById('editTable').style.display = 'block';
+                if (editUsername && editEmail && editPassword && editTable) {
+                    editUsername.value = user.username || '';  // Isi data username
+                    editEmail.value = user.email || '';        // Isi data email
+                    editPassword.value = (user.password && user.password.length >= 10) ? user.password.substring(0, 10) : '';  // Isi data password, potong 10 karakter
+                    // rePassword.value = '';  // Kosongkan re-password
+
+                    // Tampilkan table edit
+                    editTable.style.display = 'block';
+                } else {
+                    console.error('Beberapa elemen tidak ditemukan di dalam DOM.');
+                }
             } else {
                 console.error('Error:', data.message);
             }
@@ -690,7 +689,7 @@ function displayUserData() {
         .catch(error => console.error('Error:', error));
 }
 
-// Event listener untuk halaman dimuat
+// Event listener saat halaman dimuat
 window.onload = function() {
     displayUserData();  // Panggil fungsi untuk menampilkan data pengguna saat halaman dimuat
 };
@@ -698,8 +697,8 @@ window.onload = function() {
 // Event Listener untuk tombol Edit dan Delete
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('edit-btn')) {
-        // Anda bisa menambahkan logika lain di sini jika diperlukan saat tombol edit diklik
-        console.log('Edit button clicked.'); 
+        const userId = event.target.dataset.id;
+        console.log('Editing user ID:', userId);
     }
 });
 
@@ -712,9 +711,9 @@ document.addEventListener('click', function(event) {
         const username = document.querySelector('#editForm #editUsername').value;
         const password = document.querySelector('#editForm #editPassword').value;
         const email = document.querySelector('#editForm #editEmail').value;
-        // const role = document.querySelector('#editForm #editRole').value;
+       
 
-        fetch('https://script.google.com/macros/s/AKfycbzL2dQ87hEnr8ECHXgSRvWi5QQ-P6292bD46m5GMWYQFZMFmXEcK_LhmXy5_jloWyEDhw/exec?action=update', {
+        fetch('https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=update', {
             method: 'POST',
             body: new URLSearchParams({
                 id: id,
@@ -732,10 +731,12 @@ document.addEventListener('click', function(event) {
                         const row = document.querySelector(`button.edit-btn[data-id="${id}"]`).closest('tr');
                         row.cells[0].textContent = username;
                         row.cells[1].textContent = email;
+                        row.cells[2].textContent = password;
+
                        
 
            
-                        $('#editModal').modal('hide');
+                        $('#editTabel').modal('hide');
                     });
             } else {
                 Swal.fire('Error!', 'There was an error updating the user.', 'error');
@@ -765,7 +766,7 @@ document.addEventListener('click', function(event) {
         if (isValid) {
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzL2dQ87hEnr8ECHXgSRvWi5QQ-P6292bD46m5GMWYQFZMFmXEcK_LhmXy5_jloWyEDhw/exec?action=register', true);
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=register', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -821,6 +822,26 @@ document.addEventListener('click', function(event) {
     });
 </script>
    
+
+<script>
+    document.getElementById('profileImageInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.querySelector('.profile-user-img img').src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            alert('Tidak ada file yang dipilih');
+        }
+    });
+</script>
+
+
  
 </body>
 

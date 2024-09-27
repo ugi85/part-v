@@ -109,7 +109,7 @@
 
                         <!-- item-->
                         <a href="Prof.html" class="dropdown-item notify-item">
-                            <i class="mdi mdi-account-outline edit-btn" data-toggle="modal" data-target="#editModal"></i>
+                            <i class="mdi mdi-account-outline edit-btn" data-toggle="modal" data-target="#editTabel"></i>
                             <span>Profile</span>
                             <!-- <button type="button" class="btn btn-success waves-effect waves-light edit-btn"
                                                 data-toggle="modal" data-target="#editModal">Edit Profile</button> -->
@@ -283,7 +283,7 @@
                                    <!--settings--> 
                                             <div id="editTable" class="tab-pane">
                                                 <div class="user-profile-content">
-                                                    <form>
+                                                    <form id="editform">
                                                         <input type="hidden" id="editId" name="id">
                                                         <div class="form-group">
                                                             <label for="editUsername">Username</label>
@@ -291,11 +291,11 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="editEmail">Email</label>
-                                                            <input type="email" class="form-control" id="editEmail" name="email" readonly>
+                                                            <input type="email" class="form-control" id="editEmail" name="email">
                                                         </div>
                                                        <div class="form-group">
                                                             <label for="editPassword">Password</label>
-                                                            <input type="password" class="form-control" id="editPassword" name="password" readonly>
+                                                            <input type="password" class="form-control" id="editPassword" name="password">
                                                         </div>
                                                         <div class="col-12 text-right">
                                                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -336,13 +336,6 @@
                                     <label for="editPassword">Password</label>
                                     <input type="password" class="form-control" id="editPassword" name="password">
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label for="editRole">Role</label>
-                                    <select class="form-control" id="editRole" name="role" required>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
-                                    </select>
-                                </div> -->
                                 <div class="col-12 text-right">
                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
@@ -683,7 +676,7 @@ function displayUserData() {
                 const user = data.data;
                 document.getElementById('editUsername').value = user.username;
                 document.getElementById('editEmail').value = user.email;
-                document.getElementById('editPassword').value = user.password;  // Kosongkan password
+                document.getElementById('editPassword').value = user.password.substring(0,10);  // Kosongkan password
                 document.getElementById('RePassword').value = '';    // Kosongkan re-password
 
                 // Tampilkan data dalam editTable
