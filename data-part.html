@@ -169,10 +169,6 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Data Parts</h4>
-                                <!-- <div class="page-title-box">
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#registerModal">Tambah Item</button> -->
-                                    <!-- <button id="showMinDataButton" class="btn btn-primary">Tampilkan Data Minimal</button> -->
-                                <!-- </div>                                 -->
                                 <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Item</button>
                             </div>
                         </div>
@@ -242,8 +238,20 @@
                                 <!-- Kolom pertama -->
                                 <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                                     <div class="form-group">
+                                        <label for="type_part">Type Part</label>
+                                        <select class="form-control" id="type_part" name="type_part" required>
+                                            <option value="" disabled selected>Pilih Type</option>
+                                            <option value="BD">BD</option>
+                                            <option value="CP">CP</option>
+                                            <option value="CS">CS</option>
+                                            <option value="GE">GE</option>
+                                            <option value="GM">GM</option>
+                                        </select>
+                                        <div class="invalid-feedback">Type Part is required.</div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="id_part">ID Part</label>
-                                        <input type="text" class="form-control" id="id_part" name="id_part" required>
+                                        <input type="text" class="form-control id_part" id="id_part" name="id_part" required readonly>
                                         <div class="invalid-feedback">ID Part is required.</div>
                                     </div>
                                     <div class="form-group">
@@ -275,39 +283,15 @@
                                         <label for="location">Location</label>
                                         <input type="text" class="form-control" id="location" name="location" required>
                                         <div class="invalid-feedback">Location is required.</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="type_part">Type Part</label>
-                                        <select class="form-control" id="type_part" name="type_part" required>
-                                            <option value="" disabled selected>Pilih Type</option>
-                                            <option value="BD">BD</option>
-                                            <option value="CP">CP</option>
-                                            <option value="CS">CS</option>
-                                            <option value="GE">GE</option>
-                                            <option value="GM">GM</option>
-                                        </select>
-                                        <div class="invalid-feedback">Type Part is required.</div>
-                                    </div>
+                                    </div>                                   
                                     <div class="form-group">
                                         <label for="condition">Condition</label>
                                         <input type="text" class="form-control" id="condition" name="condition">
                                         <div class="invalid-feedback">Total_value is required.</div>
                                     </div>
-                                </div>
-        
+                                </div>       
                                 <!-- Kolom kedua -->
                                 <div class="col-md-6"> 
-                                    
-                                    <div class="form-group">
-                                        <label for="min">Min</label>
-                                        <input type="text" class="form-control" id="min" name="min" required>
-                                        <div class="invalid-feedback">Min is required.</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="max">Max</label>
-                                        <input type="text" class="form-control" id="max" name="max" required>
-                                        <div class="invalid-feedback">Max is required.</div>
-                                    </div>
                                     <div class="form-group">
                                         <label for="unit">Unit</label>
                                         <select class="form-control" id="unit" name="unit" required>
@@ -326,7 +310,16 @@
                                         </select>
                                         <div class="invalid-feedback">Unit is required.</div>
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <label for="min">Min</label>
+                                        <input type="text" class="form-control" id="min" name="min" required>
+                                        <div class="invalid-feedback">Min is required.</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="max">Max</label>
+                                        <input type="text" class="form-control" id="max" name="max" required>
+                                        <div class="invalid-feedback">Max is required.</div>
+                                    </div>                   
                                     <div class="form-group">
                                         <label for="lt_day">LT Day</label>
                                         <input type="text" class="form-control" id="lt_day" name="lt_day" required>
@@ -383,6 +376,16 @@
                                 <!-- Kolom pertama -->
                                 <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                                     <div class="form-group">
+                                        <label for="editTypepart">Type Part</label>
+                                        <select class="form-control" id="editTypepart" name="type_part" required>
+                                            <option value="BD">BD</option>
+                                            <option value="CP">CP</option>
+                                            <option value="CS">CS</option>
+                                            <option value="GE">GE</option>
+                                            <option value="GM">GM</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="editIdpart">ID Part</label>
                                         <input type="text" class="form-control" id="editIdpart" name="id_part">
                                     </div>
@@ -410,16 +413,7 @@
                                         <label for="editLocation">Location</label>
                                         <input type="text" class="form-control" id="editLocation" name="location">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="editTypepart">Type Part</label>
-                                        <select class="form-control" id="editTypepart" name="type_part" required>
-                                            <option value="BD">BD</option>
-                                            <option value="CP">CP</option>
-                                            <option value="CS">CS</option>
-                                            <option value="GE">GE</option>
-                                            <option value="GM">GM</option>
-                                        </select>
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <label for="editCondition">Condition</label>
                                         <input type="text" class="form-control" id="editCondition" name="condition">
@@ -427,15 +421,6 @@
                                 </div>
 
                                 <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
-                                    
-                                    <div class="form-group">
-                                        <label for="editMin">Min</label>
-                                        <input type="text" class="form-control" id="editMin" name="min">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="editMax">Max</label>
-                                        <input type="text" class="form-control" id="editMax" name="max">
-                                    </div>
                                     <div class="form-group">
                                         <label for="editUnit">Unit</label>
                                         <select class="form-control" id="editUnit" name="unit" required>
@@ -452,7 +437,14 @@
                                             <option value="TABUNG">TABUNG</option>  
                                         </select>
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <label for="editMin">Min</label>
+                                        <input type="text" class="form-control" id="editMin" name="min">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editMax">Max</label>
+                                        <input type="text" class="form-control" id="editMax" name="max">
+                                    </div> 
                                     <div class="form-group">
                                         <label for="editLtday">LT Day</label>
                                         <input type="text" class="form-control" id="editLtday" name="lt_day">
@@ -568,7 +560,7 @@
 <!-- Fetch and Display User Data -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
     const showMinDataButton = document.querySelector('#showMinDataButton'); // Selector untuk tombol tampilkan data minimal
@@ -685,9 +677,6 @@
 });
 
 
-
-    
-
     // Event Listener untuk tombol Edit dan Delete
     document.addEventListener('click', function(event) {
     if (event.target.classList.contains('edit-btn')) {
@@ -696,7 +685,7 @@
 
 
         // Mengambil data pengguna untuk diisi dalam form edit
-        fetch(`https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=getPartById&id=${userId}`)
+        fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=getPartById&id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -748,7 +737,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menghapus data jika pengguna mengonfirmasi
-                    fetch(`https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=delete&id=${userId}`, {
+                    fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=delete&id=${userId}`, {
                         method: 'POST', // Metode POST digunakan
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -791,6 +780,26 @@
             });
         }
 });
+
+        document.getElementById('editTypepart').addEventListener('change', function() {
+            let selectedType = this.value;
+
+            // Request ke API untuk mendapatkan ID Part terbaru berdasarkan type_part
+            fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=getLatestPartByTypePart&type_part=${selectedType}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Tampilkan id_part dari hasil API di field editIdpart
+                        document.getElementById('editIdpart').value = data.data.nextIDpart;
+                    } else {
+                        console.error('Error fetching latest part ID:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching latest part ID:', error);
+                });
+        });
+
     
 
     // Event listener untuk form edit
@@ -818,7 +827,7 @@
     
       
 
-        fetch('https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=update', {
+        fetch('https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=update', {
             method: 'POST',
             body: new URLSearchParams({
                 id: id,
@@ -876,88 +885,104 @@
         .catch(error => Swal.fire('Error!', 'An error occurred.', 'error'));
     });
 
+            // Event listener untuk form tambah pengguna
+            document.getElementById('registerForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Mencegah form submit secara normal
 
-    // Event listener untuk form tambah pengguna
-    document.getElementById('registerForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
+                var form = event.target;
+                var isValid = true;
+                var saveButton = document.getElementById('saveButton');
 
-        var form = event.target;
-        var isValid = true;
-        var saveButton = document.getElementById('saveButton');
-
-        // Validate each field
-        Array.from(form.elements).forEach(function(element) {
-            if (element.required && !element.value) {
-                element.classList.add('is-invalid');
-                isValid = false;
-            } else {
-                element.classList.remove('is-invalid');
-            }
-        });
-
-        // If form is valid, submit it
-        if (isValid) {
-            saveButton.disabled = true;
-            saveButton.textContent = 'Loading...';
-            var formData = new FormData(form);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=create', true);
-
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 400) {
-                    var response = JSON.parse(xhr.responseText);
-
-                    if (response.status === 'success') {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Item added successfully!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then(() => {
-                            $('#registerModal').modal('hide'); // Close the modal
-                            // Reload the data to update the table
-                            location.reload();
-                        });
+                // Validasi setiap field
+                Array.from(form.elements).forEach(function(element) {
+                    if (element.required && !element.value) {
+                        element.classList.add('is-invalid');
+                        isValid = false;
                     } else {
+                        element.classList.remove('is-invalid');
+                    }
+                });
+
+                // Jika form valid, submit
+                if (isValid) {
+                    saveButton.disabled = true;
+                    saveButton.textContent = 'Loading...';
+                    var formData = new FormData(form);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=create', true);
+
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 400) {
+                            var response = JSON.parse(xhr.responseText);
+
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'Item added successfully!',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then(() => {
+                                    $('#registerModal').modal('hide'); // Tutup modal
+                                    location.reload(); // Muat ulang data
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: response.message || 'An error occurred while submitting the form.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'An error occurred while submitting the form.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    };
+
+                    xhr.onerror = function() {
                         Swal.fire({
                             title: 'Error!',
-                            text: response.message || 'An error occurred while submitting the form.',
+                            text: 'An error occurred while sending the request.',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
-                    }
+                    };
+
+                    xhr.send(formData);
                 } else {
                     Swal.fire({
-                        title: 'Error!',
-                        text: 'An error occurred while submitting the form.',
-                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please fill in all required fields.',
+                        icon: 'warning',
                         confirmButtonText: 'OK'
                     });
                 }
-            };
-
-            xhr.onerror = function() {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'An error occurred while sending the request.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            };
-
-            xhr.send(formData);
-        } else {
-            Swal.fire({
-                title: 'Validation Error',
-                text: 'Please fill in all required fields.',
-                icon: 'warning',
-                confirmButtonText: 'OK'
             });
-        }
-    });
 
-        
-    
+
+            document.getElementById('type_part').addEventListener('change', function() {
+                let selectedType = this.value;
+
+                // Request ke API untuk mendapatkan ID Part terbaru berdasarkan type_part
+                fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=getLatestPartByTypePart&type_part=${selectedType}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // Tampilkan id_part dari hasil API di field id_part
+                            document.getElementById('id_part').value = data.data.nextIDpart;
+                        } else {
+                            console.error('Error fetching latest part ID:', data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching latest part ID:', error);
+                    });
+            });
+ 
 </script>
 
 <script>
