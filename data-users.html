@@ -77,14 +77,6 @@
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="mdi mdi-settings-outline"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="mdi mdi-lock-outline"></i>
-                            <span>Lock Screen</span>
-                        </a>
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0);" id="logoutButton" class="dropdown-item notify-item">
                             <i class="mdi mdi-logout-variant"></i>
@@ -247,7 +239,7 @@
                                     <div class="invalid-feedback">Role is required.</div>
                                 </div>
                                 <div class="col-12 text-right">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" id="saveButton" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -288,7 +280,7 @@
                         </select>
                     </div>
                     <div class="col-12 text-right">
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="saveChanges" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -558,6 +550,10 @@ window.onload = function() {
     // Event listener untuk form edit
     document.querySelector('#editForm').addEventListener('submit', function(event) {
         event.preventDefault();
+        var saveChanges = document.querySelector('#saveChanges');
+
+        saveChanges.disabled = true;
+        saveChanges.textContent = 'Loading...';
 
         const id = document.querySelector('#editForm #editId').value;
         const username = document.querySelector('#editForm #editUsername').value;
@@ -593,7 +589,14 @@ window.onload = function() {
                 Swal.fire('Error!', 'There was an error updating the user.', 'error');
             }
         })
-        .catch(error => Swal.fire('Error!', 'An error occurred.', 'error'));
+        .catch(error => {
+            Swal.fire('Error!', 'An error occurred.', 'error');
+        })
+        .finally(() => {
+            // Re-enable the saveChanges button and reset text
+            saveChanges.disabled = false;
+            saveChanges.textContent = 'Save Changes';
+        });
     });
 
     // Event listener untuk form tambah pengguna
@@ -602,6 +605,7 @@ window.onload = function() {
 
         var form = event.target;
         var isValid = true;
+        var saveButton = document.getElementById('saveButton');
 
         // Validate each field
         Array.from(form.elements).forEach(function(element) {
@@ -615,6 +619,8 @@ window.onload = function() {
 
         // If form is valid, submit it
         if (isValid) {
+            saveButton.disabled = true;
+            saveButton.textContent = 'Loading...';
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=register', true);

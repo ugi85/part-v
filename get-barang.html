@@ -76,14 +76,7 @@
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="mdi mdi-settings-outline"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="mdi mdi-lock-outline"></i>
-                            <span>Lock Screen</span>
-                        </a>
+                        
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0);" id="logoutButton" class="dropdown-item notify-item">
                             <i class="mdi mdi-logout-variant"></i>
@@ -300,7 +293,7 @@
                         <div class="invalid-feedback">Store Keeper/Security is required.</div>
                     </div>
                     <div class="col-12 text-right">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" id="saveButton" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>
@@ -392,7 +385,7 @@
                         <div class="invalid-feedback">Store Keeper/Security is required.</div>
                     </div>
                     <div class="col-12 text-right">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
             </div>
@@ -649,6 +642,7 @@
 
         var form = event.target;
         var isValid = true;
+        var saveButton = document.getElementById('saveButton');
         
         // Validate each field
         Array.from(form.elements).forEach(function(element) {
@@ -673,6 +667,8 @@
 
         // If form is valid, submit it
         if (isValid) {
+            saveButton.disabled = true;
+            saveButton.textContent = 'Loading...';
             var formData = new FormData(form);
             formData.append('items', JSON.stringify(itemsData)); // Add items data
 
@@ -967,6 +963,10 @@ $('#editPartName').on('change', function() {
 // Form submission untuk modal edit
 $('#editForm').submit(function(e) {
 e.preventDefault();
+var saveChanges = document.querySelector('#saveChanges');
+
+        saveChanges.disabled = true;
+        saveChanges.textContent = 'Loading...';
 
 const formData = $(this).serialize();
 
@@ -995,7 +995,12 @@ error: function(jqXHR, textStatus, errorThrown) {
     console.error('Request failed:', textStatus, errorThrown);
     Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
 }
-});
+})
+.finally(() => {
+            // Re-enable the saveChanges button and reset text
+            saveChanges.disabled = false;
+            saveChanges.textContent = 'Save Changes';
+        });
 });
 });
 
