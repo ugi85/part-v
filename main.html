@@ -292,8 +292,8 @@
                                 <div class="card-body widget-style-2">
                                     <div class="text-white media">
                                         <div class="media-body align-self-center">
-                                            <h2 class="my-0 text-white"><span data-plugin="counterup">145</span></h2>
-                                            <p class="mb-0">LT Days</p>
+                                            <h2 class="my-0 text-white"><span id="totalDataStock">0</span></h2>
+                                            <p class="mb-0">Total Stock</p>
                                         </div>
                                         <i class="mdi mdi-comment-multiple"></i>
                                     </div>
@@ -316,7 +316,7 @@
                                                 <!-- <th>Machine</th> -->
                                                 <th>Supplier1</th>
                                                 <th>Supplier2</th>
-                                                <th>Location</th>
+                                                <!-- <th>Location</th> -->
                                                 <th>Type Part</th>
                                                 <th>Min</th>
                                                 <th>Max</th>
@@ -687,11 +687,13 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=readLowStock';
-    const allDataURL = 'https://script.google.com/macros/s/AKfycbwIKuJXHwIYbDdCgQBRz6P4UxZx_9uo2Tlxe_TQ4zCz-5GFkA5IBTtNYyaqUVo1l1yjBg/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=readLowStock';
+    const allDataURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
+    const stockURL = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const lowStockCountElement = document.getElementById('lowStockCount');
     const totalDataCountElement = document.getElementById('totalDataCount'); 
+    const totalDataStockElement = document.getElementById('totalDataStock'); 
     const showTableButton = document.getElementById('showTable');
     const userTableCard = document.getElementById('showTableCard');
     const totalPriceElement = document.getElementById('totalPrice');
@@ -704,6 +706,24 @@
     if (userRole !== 'admin' && addButton) {
         addButton.style.display = 'none';
     }
+
+    function fetchStockData() {
+    fetch(stockURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const totalDataStock = data.data.length;
+                $(totalDataStockElement).text(totalDataStock).counterUp({
+                    delay: 10,
+                    time: 1000
+                });
+                
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
 
     function displayData(users) {
         const usersTableBody = document.querySelector('#userTable tbody');
@@ -719,13 +739,13 @@
             // row.insertCell(3).textContent = user.machine;
             row.insertCell(3).textContent = user.supplier1;
             row.insertCell(4).textContent = user.supplier2;
-            row.insertCell(5).textContent = user.location;
-            row.insertCell(6).textContent = user.type_part;
-            row.insertCell(7).textContent = user.min;
-            row.insertCell(8).textContent = user.max;
+            // row.insertCell(5).textContent = user.location;
+            row.insertCell(5).textContent = user.type_part;
+            row.insertCell(6).textContent = user.min;
+            row.insertCell(7).textContent = user.max;
             // row.insertCell(10).textContent = user.unit;
             // row.insertCell(11).textContent = user.lt_day;
-            row.insertCell(9).textContent = user.stock;
+            row.insertCell(8).textContent = user.stock;
             // row.insertCell(10).textContent = user.price;
             // row.insertCell(14).textContent = user.total_value;
             // row.insertCell(15).textContent = user.total_sparepart_cost;
@@ -755,7 +775,7 @@
             columnDefs: [
                 {
                     // Sembunyikan kolom Actions jika user bukan admin
-                    targets: 9, // Indeks kolom Actions (dimulai dari 0)
+                    targets: 8, // Indeks kolom Actions (dimulai dari 0)
                     visible: userRole === 'admin', // Sembunyikan jika bukan admin
                     searchable: false // Tidak perlu kolom ini masuk dalam pencarian
                 }
@@ -849,6 +869,7 @@
     // Fetch data saat halaman dimuat
     fetchData();
     fetchAllData();
+    fetchStockData();
 });
 
 document.getElementById('dataPart').addEventListener('click', function() {
