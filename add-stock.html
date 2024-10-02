@@ -278,7 +278,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="add_location">Add Location</label>
-                                            <input type="text" class="form-control" id="add_location" name="add_location" required>
+                                            <input type="text" class="form-control" id="add_location" name="add_location">
                                             <div class="invalid-feedback">ADD Location is required.</div>
                                         </div>
                                         <div class="form-group">
@@ -289,6 +289,10 @@
                                         <div class="form-group">
                                             <label for="stock">Total Stock</label>
                                             <input type="text" class="form-control stock" name="stock" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="no_po">No PO</label>
+                                            <input type="text" class="form-control no_po" name="no_po" readonly >
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Description</label>
@@ -416,7 +420,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="editAddlocation">Add Location</label>
-                                            <input type="text" class="form-control" id="editAddlocation" name="add_location" required>
+                                            <input type="text" class="form-control" id="editAddlocation" name="add_location">
                                             <div class="invalid-feedback">ADD Location is required.</div>
                                         </div>
                                         <div class="form-group">
@@ -609,7 +613,7 @@
 
                         // read data
                         document.addEventListener('DOMContentLoaded', function() {
-                        const scriptURL = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=read';
+                        const scriptURL = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=read';
                         const loadingSpinner = document.getElementById('loadingSpinner');
 
                         // Menampilkan spinner
@@ -718,8 +722,8 @@
                             $('#requester').val(userName);
                         }
 
-                        const apiUrl = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getIdParts';
-                        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getAllPart';
+                        const apiUrl = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=getIdParts';
+                        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=getAllPart';
 
                         function populatePartNameDropdown($dropdown, data) {
                             $dropdown.empty();
@@ -859,7 +863,7 @@
 
 
                                 var xhr = new XMLHttpRequest();
-                                xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=create', true);
+                                xhr.open('POST', 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=create', true);
 
                                 xhr.onload = function () {
                                     if (xhr.status >= 200 && xhr.status < 400) {
@@ -918,9 +922,9 @@
 
                             // get part name sheet barang
                    document.addEventListener('DOMContentLoaded', function() {
-                    const partSheetURL = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=read';
-                    const apiUrl = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getIdParts';
-                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getAllPart';
+                    const partSheetURL = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=read';
+                    const apiUrl = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=getIdParts';
+                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=getAllPart';
 
                     let partData = [];
 
@@ -1027,7 +1031,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Menghapus data jika pengguna mengonfirmasi
-                                fetch(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=delete&id=${userId}`, {
+                                fetch(`https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=delete&id=${userId}`, {
                                     method: 'POST', // Metode POST digunakan
                                     headers: {
                                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -1075,7 +1079,7 @@
                     const userId = $(this).data('id');
 
                     // Ambil data item berdasarkan ID
-                    $.get(`https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=getItemById&id=${userId}`, function(data) {
+                    $.get(`https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=getItemById&id=${userId}`, function(data) {
 
                         if (data.status === 'success') {
                             const user = data.data;
@@ -1158,7 +1162,7 @@
                     const formData = $(this).serialize();
 
                     $.ajax({
-                    url: 'https://script.google.com/macros/s/AKfycbwV9L01QNJjUChKdFrrQdD9SBn0jRlx5nccXbi5aFKYZzBJz4A5w1oS7y7aUfBZs-e9pA/exec?action=update',
+                    url: 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=update',
                     type: 'POST',
                     data: formData,
                     success: function(response) {
