@@ -493,7 +493,7 @@
 
      // read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
 
     // Menampilkan spinner
@@ -583,8 +583,8 @@
         $('#requester').val(userName);
     }
 
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpareParts';
-        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpecification';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getSpareParts';
+        const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getSpecification';
 
         function populatePartNameDropdown($dropdown, data) {
             $dropdown.empty();
@@ -679,7 +679,7 @@
 
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=create', true);
+            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=create', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {
@@ -700,6 +700,9 @@
                             text: response.message || 'An error occurred while submitting the form.',
                             icon: 'error',
                             confirmButtonText: 'OK'
+                        }).then(() => {
+                            saveButton.disabled = false;  // Aktifkan kembali tombol
+                            saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
                         });
                     }
                 } else {
@@ -708,6 +711,9 @@
                         text: 'An error occurred while submitting the form.',
                         icon: 'error',
                         confirmButtonText: 'OK'
+                    }).then(() => {
+                        saveButton.disabled = false;  // Aktifkan kembali tombol
+                        saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
                     });
                 }
             };
@@ -734,13 +740,11 @@
 });
 
 
-
-
         // get part name sheet barang
         document.addEventListener('DOMContentLoaded', function() {
-const partSheetURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
-const apiUrl = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpareParts';
-const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getSpecification';
+const partSheetURL = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=read';
+const apiUrl = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getSpareParts';
+const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getSpecification';
 
 let partData = [];
 
@@ -847,7 +851,7 @@ if (event.target.classList.contains('delete-btn')) {
     }).then((result) => {
         if (result.isConfirmed) {
             // Menghapus data jika pengguna mengonfirmasi
-            fetch(`https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=delete&id=${userId}`, {
+            fetch(`https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=delete&id=${userId}`, {
                 method: 'POST', // Metode POST digunakan
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -890,119 +894,119 @@ if (event.target.classList.contains('delete-btn')) {
 });
 
 
-// edit btn
-$(document).on('click', '.edit-btn', function() {
-const userId = $(this).data('id');
+                // edit btn
+                $(document).on('click', '.edit-btn', function() {
+                const userId = $(this).data('id');
 
-// Ambil data item berdasarkan ID
-$.get(`https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=getItemById&id=${userId}`, function(data) {
+                // Ambil data item berdasarkan ID
+                $.get(`https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getItemById&id=${userId}`, function(data) {
 
-    if (data.status === 'success') {
-        const user = data.data;
+                    if (data.status === 'success') {
+                        const user = data.data;
 
-            $('#editId').val(user.id);
-            $('#editTanggal').val(formatDateForInput(user.tanggal));
-            $('#editWaktu').val(formatTimeForInput(user.waktu));
-            $('#editDepartemen').val(user.departemen);
-            $('#editMesin').val(user.mesin);
-            $('#editRemark').val(user.remark);
+                            $('#editId').val(user.id);
+                            $('#editTanggal').val(formatDateForInput(user.tanggal));
+                            $('#editWaktu').val(formatTimeForInput(user.waktu));
+                            $('#editDepartemen').val(user.departemen);
+                            $('#editMesin').val(user.mesin);
+                            $('#editRemark').val(user.remark);
 
-            $('#editPartName').val(user.part_name);
-            $('#editSpecification').val(user.specification);
-            $('#editQty').val(user.qty);
-            $('#editRequester').val(user.requester);
-            $('#editStoreKeeper').val(user.security);
-              // Ambil data stock berdasarkan part_name
-    if (user.part_name) {
-        $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
-            if (response.partName === user.part_name) {
-                $('#editStock').val(response.stock || 0);  // Tampilkan stock
-            } else {
-                console.error('Part name mismatch or specification data missing');
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('Request failed:', textStatus, errorThrown);
-        });
-    } else {
-        $('#editStock').val(0);  // Default ke 0 jika part_name kosong
-    }
+                            $('#editPartName').val(user.part_name);
+                            $('#editSpecification').val(user.specification);
+                            $('#editQty').val(user.qty);
+                            $('#editRequester').val(user.requester);
+                            $('#editStoreKeeper').val(user.security);
+                            // Ambil data stock berdasarkan part_name
+                    if (user.part_name) {
+                        $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
+                            if (response.partName === user.part_name) {
+                                $('#editStock').val(response.stock || 0);  // Tampilkan stock
+                            } else {
+                                console.error('Part name mismatch or specification data missing');
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Request failed:', textStatus, errorThrown);
+                        });
+                    } else {
+                        $('#editStock').val(0);  // Default ke 0 jika part_name kosong
+                    }
 
-            $('#editModal').modal('show');
-    } else {
-        console.error('Error:', data.message);
-        Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
-    }
-}).fail(function(jqXHR, textStatus, errorThrown) {
-    console.error('Request failed:', textStatus, errorThrown);
-    Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
-});
-});
+                            $('#editModal').modal('show');
+                    } else {
+                        console.error('Error:', data.message);
+                        Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                    Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
+                });
+                });
 
 
-$('#editPartName').on('change', function() {
-    const selectedPartName = $(this).val();
-    const $specField = $('#editSpecification');
-    const $stockField = $('#editStock');
+                $('#editPartName').on('change', function() {
+                    const selectedPartName = $(this).val();
+                    const $specField = $('#editSpecification');
+                    const $stockField = $('#editStock');
 
-    if (selectedPartName) {
-        $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-            if (response.partName === selectedPartName) {
-                $specField.val(response.specification || '');
-                $stockField.val(response.stock || 0);
-            } else {
-                console.error('Part name mismatch or specification data missing');
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('Request failed:', textStatus, errorThrown);
-        });
-    } else {
-        $specField.val('');
-    }
-});
+                    if (selectedPartName) {
+                        $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                            if (response.partName === selectedPartName) {
+                                $specField.val(response.specification || '');
+                                $stockField.val(response.stock || 0);
+                            } else {
+                                console.error('Part name mismatch or specification data missing');
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Request failed:', textStatus, errorThrown);
+                        });
+                    } else {
+                        $specField.val('');
+                    }
+                });
 
-// Form submission untuk modal edit
-$('#editForm').submit(function(e) {
-e.preventDefault();
-var saveChanges = document.querySelector('#saveChanges');
+                // Form submission untuk modal edit
+                $('#editForm').submit(function(e) {
+                e.preventDefault();
+                var saveChanges = document.querySelector('#saveChanges');
 
-        saveChanges.disabled = true;
-        saveChanges.textContent = 'Loading...';
+                        saveChanges.disabled = true;
+                        saveChanges.textContent = 'Loading...';
 
-const formData = $(this).serialize();
+                const formData = $(this).serialize();
 
-$.ajax({
-url: 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=update',
-type: 'POST',
-data: formData,
-success: function(response) {
-    if (response.status === 'success') {
-        Swal.fire({
-            title: 'Updated!',
-            text: 'Item has been updated.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $('#editModal').modal('hide');
-                location.reload(); // Refresh page after user confirms
-            }
-        });
-    } else {
-        Swal.fire('Error!', response.message, 'error');
-    }
-},
-error: function(jqXHR, textStatus, errorThrown) {
-    console.error('Request failed:', textStatus, errorThrown);
-    Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
-}
-})
-.finally(() => {
-            // Re-enable the saveChanges button and reset text
-            saveChanges.disabled = false;
-            saveChanges.textContent = 'Save Changes';
-        });
-});
-});
+                $.ajax({
+                url: 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=update',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            title: 'Updated!',
+                            text: 'Item has been updated.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#editModal').modal('hide');
+                                location.reload(); // Refresh page after user confirms
+                            }
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                    Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
+                }
+                })
+                .always(() => {
+                            // Re-enable the saveChanges button and reset text
+                            saveChanges.disabled = false;
+                            saveChanges.textContent = 'Save Changes';
+                        });
+                });
+            });
 
 </script>
 
