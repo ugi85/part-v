@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratinjau Data Parts</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Pratinjau Data Parts</h2>
+    <table id="previewTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        <thead>
+            <tr id="previewTableHead"></tr>
+        </thead>
+        <tbody id="previewTableBody">
+        </tbody>
+    </table>
+    <button id="printPDF" class="btn btn-danger">Cetak PDF</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil data dari session storage
+        const selectedColumns = JSON.parse(sessionStorage.getItem('selectedColumns')) || [];
+        const tableData = JSON.parse(sessionStorage.getItem('tableData')) || [];
+
+        // Render data ke tabel pratinjau
+        const previewTableHead = document.getElementById('previewTableHead');
+        const previewTableBody = document.getElementById('previewTableBody');
+
+        // Buat header berdasarkan kolom yang dipilih
+        selectedColumns.forEach(column => {
+            const thElement = document.createElement('th');
+            thElement.textContent = column;
+            previewTableHead.appendChild(thElement);
+        });
+
+        // Buat isi tabel berdasarkan data yang dipilih
+        tableData.forEach(row => {
+            const trElement = document.createElement('tr');
+            selectedColumns.forEach(column => {
+                const tdElement = document.createElement('td');
+                tdElement.textContent = row[column] || '';
+                trElement.appendChild(tdElement);
+            });
+            previewTableBody.appendChild(trElement);
+        });
+
+        // Cetak PDF
+        document.getElementById('printPDF').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const tableHeader = selectedColumns;
+            const tableRows = [];
+
+            tableData.forEach(row => {
+                const rowData = [];
+                selectedColumns.forEach(column => {
+                    rowData.push(row[column] || '');
+                });
+                tableRows.push(rowData);
+            });
+
+            doc.text("Laporan Data Parts", 10, 10);
+            doc.autoTable({
+                head: [tableHeader],
+                body: tableRows
+            });
+            doc.save('laporan_data_parts.pdf');
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -4,64 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Data Parts</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-    <h1>Laporan Data Parts</h1>
-    
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" style="display: none;">
-        <p>Loading...</p>
-    </div>
 
-    <!-- Filter Form -->
-    <div class="form-group">
-        <label for="filterColumn">Filter Berdasarkan Kolom:</label>
-        <select id="filterColumn" class="form-control">
+<div class="content-page">
+    <div class="content">
+        <div class="container-fluid">
 
-            <!-- <option value="">--Pilih--</option> -->
-            <option value="id_part">ID Part</option>
-            <option value="description">Description</option>
-            <option value="specification">Specification</option>
-            <option value="location">Location</option>
-            <!-- Tambahkan kolom lainnya -->
-        </select>
+            <!-- Start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex justify-content-between align-items-center">
+                        <h4 class="page-title mb-0">Laporan Data Parts</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- End page title -->
 
-        <label for="filterValue">Nilai Filter:</label>
-        <input type="text" id="filterValue" class="form-control" placeholder="Masukkan nilai filter">
+            <!-- Filter Form -->
+            <div class="form-group">
+                <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+                <select id="filterColumn" class="form-control form">
+                    <option value="">--Pilih--</option>
+                    <option value="id_part">ID Part</option>
+                    <option value="description">Description</option>
+                    <option value="specification">Specification</option>
+                    <option value="location">Location</option>
+                </select>
 
-        <button id="applyFilter" class="btn btn-primary">Terapkan Filter</button>
-    </div>
+                <label for="filterValue">Nilai Filter:</label>
+                <input type="text" id="filterValue" class="form-control" placeholder="Masukkan nilai filter">
 
-    <!-- Tabel Data -->
-    <table id="userTable" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID Part</th>
-                <th>Description</th>
-                <th>Specification</th>
-                <th>Machine</th>
-                <th>Supplier 1</th>
-                <th>Supplier 2</th>
-                <th>Location</th>
-                <th>Type Part</th>
-                <th>Min</th>
-                <th>Max</th>
-                <th>Unit</th>
-                <th>Lead Time (Day)</th>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Total Value</th>
-                <th>Total Sparepart Cost</th>
-                <th>Condition</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+                <button id="applyFilter" class="btn btn-primary mt-3">Terapkan Filter</button>
+            </div>
+
+            <!-- Daftar Pilihan Kolom untuk Cetak -->
+            <div class="form-group">
+                <h5>Pilih Kolom yang Akan Dicetak:</h5>
+                <div id="columnSelection" class="d-flex flex-wrap">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
+                        <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Description" id="inlineCheckbox2">
+                        <label class="form-check-label" for="inlineCheckbox2">Description</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox3">
+                        <label class="form-check-label" for="inlineCheckbox3">Specification</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
+                        <label class="form-check-label" for="inlineCheckbox4">Machine</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Supplier1" id="inlineCheckbox5">
+                        <label class="form-check-label" for="inlineCheckbox5">Supplier1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Supplier2" id="inlineCheckbox6">
+                        <label class="form-check-label" for="inlineCheckbox6">Supplier2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Location" id="inlineCheckbox7">
+                        <label class="form-check-label" for="inlineCheckbox7">Location</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Type Part" id="inlineCheckbox8">
+                        <label class="form-check-label" for="inlineCheckbox8">Type Part</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Min" id="inlineCheckbox9">
+                        <label class="form-check-label" for="inlineCheckbox9">Min</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Max" id="inlineCheckbox10">
+                        <label class="form-check-label" for="inlineCheckbox10">Max</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Unit" id="inlineCheckbox11">
+                        <label class="form-check-label" for="inlineCheckbox11">Unit</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="LT DAY" id="inlineCheckbox12">
+                        <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Stock" id="inlineCheckbox13">
+                        <label class="form-check-label" for="inlineCheckbox13">Stock</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
+                        <label class="form-check-label" for="inlineCheckbox14">Price</label>
+                    </div>
+                </div>
+
+
+                <!-- Tombol Cetak PDF dan Print Preview -->
+            <div class="form-group">
+                <button id="printPreview" class="btn btn-secondary mt-3">Preview Print</button>
+                <button id="printPDF" class="btn btn-danger mt-3">Cetak PDF</button>
+            </div>
+
+            <!-- Tabel Data -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>ID Part</th>
+                                        <th>Description</th>
+                                        <th>Specification</th>
+                                        <th>Machine</th>
+                                        <th>Supplier1</th>
+                                        <th>Supplier2</th>
+                                        <th>Location</th>
+                                        <th>Type Part</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                        <th>Unit</th>
+                                        <th>LT DAY</th>
+                                        <th>Stock</th>
+                                        <th>Price</th>
+                                        <!-- <th>Total Value</th>
+                                        <th>Total Sparepart Cost</th>
+                                        <th>Condition</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="loadingSpinner" class="text-center" style="display: none;">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- end container-fluid -->
+    </div> <!-- end content -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -70,6 +164,9 @@
             const filterColumn = document.getElementById('filterColumn');
             const filterValue = document.getElementById('filterValue');
             const applyFilterButton = document.getElementById('applyFilter');
+            const printPDFButton = document.getElementById('printPDF');
+            const printPreviewButton = document.getElementById('printPreview');
+            const columnSelection = document.getElementById('columnSelection');
 
             function displayData(users) {
                 const usersTableBody = document.querySelector('#userTable tbody');
@@ -91,22 +188,21 @@
                     row.insertCell(11).textContent = user.lt_day;
                     row.insertCell(12).textContent = user.stock;
                     row.insertCell(13).textContent = user.price;
-                    row.insertCell(14).textContent = user.total_value;
-                    row.insertCell(15).textContent = user.total_sparepart_cost;
-                    row.insertCell(16).textContent = user.condition;
+                    // row.insertCell(14).textContent = user.total_value;
+                    // row.insertCell(15).textContent = user.total_sparepart_cost;
+                    // row.insertCell(16).textContent = user.condition;
                 });
 
-                // Inisialisasi ulang DataTable setelah memuat data
                 if ($.fn.DataTable.isDataTable('#userTable')) {
-                    $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada     
+                    $('#userTable').DataTable().destroy(); 
                 }
 
                 $('#userTable').DataTable({
-                    responsive: true  // Menjaga agar tabel tetap responsif
+                    responsive: true
                 });
             }
 
-            function fetchData(showMinData = false, filter = {}) {
+            function fetchData(filter = {}) {
                 loadingSpinner.style.display = 'block';
 
                 fetch(scriptURL)
@@ -115,11 +211,7 @@
                         if (data.status === 'success') {
                             let users = data.data;
 
-                            if (showMinData) {
-                                users = users.filter(user => user.stock < user.min);
-                            }
-
-                            // Jika ada filter, lakukan filtering
+                            // Filter berdasarkan kolom dan nilai yang diinputkan
                             if (filter.column && filter.value) {
                                 users = users.filter(user => {
                                     const columnValue = user[filter.column].toString().toLowerCase();
@@ -138,17 +230,106 @@
                     });
             }
 
-           // Fetch data saat halaman dimuat
-           fetchData();
+            // Event listener untuk tombol filter
+            applyFilterButton.addEventListener('click', () => {
+                const filterColumnValue = filterColumn.value;
+                const filterValueText = filterValue.value;
 
-           // Event listener untuk tombol filter
-           applyFilterButton.addEventListener('click', () => {
-               const filterColumnValue = filterColumn.value;
-               const filterValueText = filterValue.value;
-               
-               fetchData(false, { column: filterColumnValue, value: filterValueText });
-           });
-       });
-   </script>
+                fetchData({
+                    column: filterColumnValue,
+                    value: filterValueText
+                });
+            });
+
+            // Event listener untuk tombol cetak PDF
+            printPDFButton.addEventListener('click', function() {
+                const selectedColumns = [];
+                const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
+
+                checkboxes.forEach(checkbox => {
+                    selectedColumns.push(checkbox.value);
+                });
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                const tableHeader = [];
+                const tableRows = [];
+                const table = document.getElementById('userTable');
+                const rows = table.querySelectorAll('tr');
+
+                rows[0].querySelectorAll('th').forEach((th, index) => {
+                    if (selectedColumns.includes(th.innerText)) {
+                        tableHeader.push(th.innerText);
+                    }
+                });
+
+                rows.forEach((row, rowIndex) => {
+                    if (rowIndex > 0) {
+                        const rowData = [];
+                        row.querySelectorAll('td').forEach((td, cellIndex) => {
+                            if (selectedColumns.includes(tableHeader[cellIndex])) {
+                                rowData.push(td.innerText);
+                            }
+                        });
+                        tableRows.push(rowData);
+                    }
+                });
+
+                doc.text("Laporan Data Parts", 10, 10);
+                doc.autoTable({
+                    head: [tableHeader],
+                    body: tableRows
+                });
+                doc.save('laporan_data_parts.pdf');
+            });
+
+            // Event listener untuk tombol preview print
+printPreviewButton.addEventListener('click', function() {
+    const selectedColumns = [];
+    const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
+
+    checkboxes.forEach(checkbox => {
+        selectedColumns.push(checkbox.value);
+    });
+
+    const previewWindow = window.open('', 'Print Preview', 'width=800,height=600');
+    previewWindow.document.write(`
+        <html>
+            <head>
+                <title>Preview Print</title>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            </head>
+            <body>
+                <h1>Laporan Data Parts</h1>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            ${selectedColumns.map(col => `<th>${col}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Array.from(document.querySelectorAll('#userTable tbody tr')).map(row => {
+                            const rowData = [];
+                            row.querySelectorAll('td').forEach((td, index) => {
+                                const headerText = document.querySelectorAll('#userTable th')[index].innerText;
+                                if (selectedColumns.includes(headerText)) {
+                                    rowData.push(`<td>${td.innerText}</td>`);
+                                }
+                            });
+                            return `<tr>${rowData.join('')}</tr>`;
+                        }).join('')}
+                    </tbody>
+                </table>
+                <button onclick="window.print()">Print</button>
+            </body>
+        </html>
+    `);
+    previewWindow.document.close();
+    previewWindow.focus();
+});
+        });
+
+    </script>
 </body>
 </html>

@@ -29,12 +29,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Data Parts</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-<script>
+    <script>
     document.addEventListener('DOMContentLoaded', function() {
         if (!sessionStorage.getItem('isLoggedIn')) {
             window.location.href = 'index.html';
@@ -195,11 +198,12 @@
     
 
     <!-- Filter Form -->
-    <div class="form-group">
-        <label for="filterColumn">Filter Berdasarkan Kolom:</label>
-        <select id="filterColumn" class="form-control">
+     
+    <div class="form-group" >
+        <!-- <label for="filterColumn">Filter Berdasarkan Kolom:</label> -->
+        <select id="filterColumn" class="form-control form">
 
-            <!-- <option value="">--Pilih--</option> -->
+            <option value="">--Pilih--</option>
             <option value="id_part">ID Part</option>
             <option value="description">Description</option>
             <option value="specification">Specification</option>
@@ -214,7 +218,7 @@
     </div>
 
     <!-- Tabel Data -->
-    <div class="row">
+    <div class="row" aria-hidden="true">
         <div class="col-12">
             <div class="card">       
                 <div class="card-body table-responsive">
@@ -349,3 +353,70 @@
    </script>
 </body>
 </html>
+
+
+
+
+<div class="form-group">
+    <h5>Pilih Kolom yang Akan Dicetak:</h5>
+    <div id="columnSelection" class="d-flex flex-wrap">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
+            <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Description" id="inlineCheckbox2">
+            <label class="form-check-label" for="inlineCheckbox2">Description</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox3">
+            <label class="form-check-label" for="inlineCheckbox3">Specification</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
+            <label class="form-check-label" for="inlineCheckbox4">Machine</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Supplier1" id="inlineCheckbox5">
+            <label class="form-check-label" for="inlineCheckbox5">Supplier1</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Supplier2" id="inlineCheckbox6">
+            <label class="form-check-label" for="inlineCheckbox6">Supplier2</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Location" id="inlineCheckbox7">
+            <label class="form-check-label" for="inlineCheckbox7">Location</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Type Part" id="inlineCheckbox8">
+            <label class="form-check-label" for="inlineCheckbox8">Type Part</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Min" id="inlineCheckbox9">
+            <label class="form-check-label" for="inlineCheckbox9">Min</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Max" id="inlineCheckbox10">
+            <label class="form-check-label" for="inlineCheckbox10">Max</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Unit" id="inlineCheckbox11">
+            <label class="form-check-label" for="inlineCheckbox11">Unit</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="LT DAY" id="inlineCheckbox12">
+            <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Stock" id="inlineCheckbox13">
+            <label class="form-check-label" for="inlineCheckbox13">Stock</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
+            <label class="form-check-label" for="inlineCheckbox14">Price</label>
+        </div>
+    </div>
+    <button id="printPDF" class="btn btn-danger mt-3">Cetak PDF</button>
+    <button id="printPreview" class="btn btn-warning mt-3">Preview Print</button>
+</div>
