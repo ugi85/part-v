@@ -3,80 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratinjau Data Parts</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
+    <title>Print Preview</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* CSS untuk menyembunyikan elemen-elemen saat cetak */
+        @media print {
+            #printButton {
+                display: none;
+            }
+        }
+        /* Tambahkan padding atau margin jika diperlukan */
+        .print-container {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="row align-items-center my-4"></div>
+        <h1>Laporan Data Parts</h1>
 
-<div class="container">
-    <h2>Pratinjau Data Parts</h2>
-    <table id="previewTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-        <thead>
-            <tr id="previewTableHead"></tr>
-        </thead>
-        <tbody id="previewTableBody">
-        </tbody>
-    </table>
-    <button id="printPDF" class="btn btn-danger">Cetak PDF</button>
-</div>
+        <!-- Tabel yang akan dimasukkan dari halaman utama -->
+        <table id="previewTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <!-- Kolom tabel akan diisi dengan JavaScript -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data tabel akan diisi dengan JavaScript -->
+            </tbody>
+        </table>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Ambil data dari session storage
-        const selectedColumns = JSON.parse(sessionStorage.getItem('selectedColumns')) || [];
-        const tableData = JSON.parse(sessionStorage.getItem('tableData')) || [];
+        <!-- Tambahkan id "printButton" agar CSS print berfungsi -->
+        <button id="printButton" onclick="window.print()" class="btn btn-primary">Print</button>
 
-        // Render data ke tabel pratinjau
-        const previewTableHead = document.getElementById('previewTableHead');
-        const previewTableBody = document.getElementById('previewTableBody');
+    </div>
 
-        // Buat header berdasarkan kolom yang dipilih
-        selectedColumns.forEach(column => {
-            const thElement = document.createElement('th');
-            thElement.textContent = column;
-            previewTableHead.appendChild(thElement);
-        });
+    <script>
+        // Script untuk menambahkan kolom dan baris ke tabel preview
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')); // Mengambil data kolom yang dipilih
+            const tableData = JSON.parse(localStorage.getItem('tableData')); // Mengambil data tabel
 
-        // Buat isi tabel berdasarkan data yang dipilih
-        tableData.forEach(row => {
-            const trElement = document.createElement('tr');
-            selectedColumns.forEach(column => {
-                const tdElement = document.createElement('td');
-                tdElement.textContent = row[column] || '';
-                trElement.appendChild(tdElement);
+            const tableHeader = document.querySelector('#previewTable thead tr');
+            const tableBody = document.querySelector('#previewTable tbody');
+
+            // Membuat header berdasarkan kolom yang dipilih
+            selectedColumns.forEach(col => {
+                const th = document.createElement('th');
+                th.textContent = col;
+                tableHeader.appendChild(th);
             });
-            previewTableBody.appendChild(trElement);
-        });
 
-        // Cetak PDF
-        document.getElementById('printPDF').addEventListener('click', function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            const tableHeader = selectedColumns;
-            const tableRows = [];
-
+            // Membuat baris berdasarkan data yang ada
             tableData.forEach(row => {
-                const rowData = [];
-                selectedColumns.forEach(column => {
-                    rowData.push(row[column] || '');
+                const tr = document.createElement('tr');
+                row.forEach((cellData, index) => {
+                    if (selectedColumns.includes(selectedColumns[index])) {
+                        const td = document.createElement('td');
+                        td.textContent = cellData;
+                        tr.appendChild(td);
+                    }
                 });
-                tableRows.push(rowData);
+                tableBody.appendChild(tr);
             });
-
-            doc.text("Laporan Data Parts", 10, 10);
-            doc.autoTable({
-                head: [tableHeader],
-                body: tableRows
-            });
-            doc.save('laporan_data_parts.pdf');
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>

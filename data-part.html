@@ -26,10 +26,20 @@
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
 
-  
+    <!-- Script to check login status -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</head>
 
-      <!-- Custom CSS for Loading Spinner -->
-      <style>
+<body>
+
+     <!-- Custom CSS for Loading Spinner -->
+     <style>
         #loadingSpinner {
             margin: 20px 0;
         }
@@ -42,17 +52,6 @@
         }
     </style>
 
-    <!-- Script to check login status -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!sessionStorage.getItem('isLoggedIn')) {
-                window.location.href = 'index.html';
-            }
-        });
-    </script>
-</head>
-
-<body>
     <!-- Begin page -->
     <div id="wrapper">
         <!-- Topbar Start -->
@@ -221,15 +220,15 @@
                                 <div id="loadingSpinner" class="text-center" style="display: none;">
                                     <div class="spinner-border" role="status">
                                         <span class="sr-only">Loading...</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- end row -->
                 </div>
-                <!-- end container-fluid -->
+                    <!-- end row -->
             </div>
+                <!-- end container-fluid -->
+        </div>
             <!-- end content -->
 
         <!-- Add Part Modal -->
@@ -1032,9 +1031,8 @@
             }
         }
     }
-</script>
+    </script>
 
 
 </body>
-
 </html>
