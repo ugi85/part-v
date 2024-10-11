@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Data Parts</title>
+    <title>Laporan Data Pengembalian Barang</title>
     <meta content="Responsive bootstrap 4 admin template" name="description">
     <meta content="Coderthemes" name="author">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,10 +20,33 @@
     <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
     
     <!-- Bootstrap and Icons -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+
+    <style>
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .form-control-inline {
+            display: inline-block;
+            width: auto;
+        }
+        .column-selection {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .form-check-inline {
+            margin-right: 10px;
+        }
+    </style>
+
+     <!-- Script to check login status -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (!sessionStorage.getItem('isLoggedIn')) {
@@ -32,24 +55,25 @@
         });
     </script>
 
+
+
+<!-- Custom CSS for Loading Spinner -->
+<style>
+    #loadingSpinner {
+        margin: 20px 0;
+    }
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border-width: .4em;
+        color: rgb(47, 47, 230);
+    }
+</style>
+
 </head>
 
 <body>
-
-     <!-- Custom CSS for Loading Spinner -->
-     <style>
-        #loadingSpinner {
-            margin: 20px 0;
-        }
-
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-            border-width: .4em;
-            color: rgb(47, 47, 230);
-        }
-    </style>
-
    
     <!-- Begin page -->
     <div id="wrapper">
@@ -176,102 +200,110 @@
         <div class="content-page">
             <div class="content">
                 <div class="container-fluid">
-
-            <!-- Start page title -->
-            <div class="container">
-                <div class="row align-items-left my-4">
-
-            <!-- Filter Form -->
-            <div class="col-md-3">
-                <label for="filterColumn">Filter Berdasarkan Kolom:</label>
-                <select class="form-control" id="filterColumn">
-                    <option value="">--Pilih Kategori--</option>
-                    <option value="id_part">ID Part</option>
-                    <option value="description">Time</option>
-                    <option value="specification">Departemen</option>
-                    <option value="location">Mesin</option>
-                    <option value="Type Part">Remark</option>
-                    <option value="Min">Part Name</option>
-                    <option value="Max">Specification</option>
-                    <option value="Unit">Qty</option>
-                    <option value="LT DAY">Store Keeper</option>
-                    <option value="Stock">Stock</option>
-                    <option value="Price">Price</option>
-                </select>
-            </div>
-            
-            <!-- Nilai Filter -->
-            <div class="col-md-3">
-                <label for="filterValue">Nilai Filter:</label>
-                <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
-            </div>
     
-            <!-- Tombol Filter -->
-            <div class="col-md-3 d-flex align-items-end">
-                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
-            </div>
-        </div>
-    </div>
+                    <!-- Start Page Title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex justify-content-between align-items-center">
+                                <h4 class="page-title mb-0">Laporan Pengambilan Barang</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Page Title -->
+    
+                    <!-- Start Filters -->
+                    <div class="row mb-4">
+                        <!-- Filter Berdasarkan Kolom -->
+                        <div class="col-md-3">
+                            <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+                            <select class="form-control" id="filterColumn">
+                                <option value="">--Pilih Kategori--</option>
+                                <option value="tanggal">Tanggal</option>
+                                <option value="waktu">Waktu</option>
+                                <option value="departemen">Departemen</option>
+                                <option value="mesin">Mesin</option>
+                                <option value="remark">Remark</option>
+                                <option value="part_name">Part Name</option>
+                                <option value="specification">Specification</option>
+                                <option value="qty">Qty</option>
+                                <option value="requester">Requester</option>
+                                <option value="storeKeeper">Store Keeper/Security</option>
+                            </select>
+                        </div>
+    
+                        <!-- Nilai Filter -->
+                        <div class="col-md-3">
+                            <label for="filterValue">Nilai Filter:</label>
+                            <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
+                        </div>
+    
+                        <!-- Filter Berdasarkan Tanggal -->
+                        <div class="col-md-6">
+                            <label for="filterDate">Filter Berdasarkan Tanggal:</label>
+                            <div class="filter-container">
+                                <div>
+                                    <label for="startDate">Mulai:</label>
+                                    <input type="date" id="startDate" class="form-control form-control-inline">
+                                </div>
+                                <div>
+                                    <label for="endDate">Akhir:</label>
+                                    <input type="date" id="endDate" class="form-control form-control-inline">
+                                </div>
+                                <div>
+                                    <div class="col-md-3 d-flex align-items-end">
+                                    <button id="applyFilter" class="btn btn-primary ml-2">Filter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
             <!-- Daftar Pilihan Kolom untuk Cetak -->
             <div class="form-group">
                 <h5>Pilih Kolom yang Akan Dicetak:</h5>
                 <div id="columnSelection" class="d-flex flex-wrap">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
-                        <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
+                        <input class="form-check-input" type="checkbox" value="Tanggal" id="inlineCheckbox1">
+                        <label class="form-check-label" for="inlineCheckbox1">Tanggal</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Description" id="inlineCheckbox2">
-                        <label class="form-check-label" for="inlineCheckbox2">Description</label>
+                        <input class="form-check-input" type="checkbox" value="Waktu" id="inlineCheckbox2">
+                        <label class="form-check-label" for="inlineCheckbox2">Waktu</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox3">
-                        <label class="form-check-label" for="inlineCheckbox3">Specification</label>
+                        <input class="form-check-input" type="checkbox" value="Departemen" id="inlineCheckbox3">
+                        <label class="form-check-label" for="inlineCheckbox3">Departemen</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
-                        <label class="form-check-label" for="inlineCheckbox4">Machine</label>
+                        <input class="form-check-input" type="checkbox" value="Mesin" id="inlineCheckbox4">
+                        <label class="form-check-label" for="inlineCheckbox4">Mesin</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Supplier1" id="inlineCheckbox5">
-                        <label class="form-check-label" for="inlineCheckbox5">Supplier1</label>
+                        <input class="form-check-input" type="checkbox" value="Remark" id="inlineCheckbox5">
+                        <label class="form-check-label" for="inlineCheckbox5">Remark</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Supplier2" id="inlineCheckbox6">
-                        <label class="form-check-label" for="inlineCheckbox6">Supplier2</label>
+                        <input class="form-check-input" type="checkbox" value="Part Name" id="inlineCheckbox6">
+                        <label class="form-check-label" for="inlineCheckbox7">Part Name</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Location" id="inlineCheckbox7">
-                        <label class="form-check-label" for="inlineCheckbox7">Location</label>
+                        <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox7">
+                        <label class="form-check-label" for="inlineCheckbox8">Specification</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Type Part" id="inlineCheckbox8">
-                        <label class="form-check-label" for="inlineCheckbox8">Type Part</label>
+                        <input class="form-check-input" type="checkbox" value="Qty" id="inlineCheckbox8">
+                        <label class="form-check-label" for="inlineCheckbox9">Qty</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Min" id="inlineCheckbox9">
-                        <label class="form-check-label" for="inlineCheckbox9">Min</label>
+                        <input class="form-check-input" type="checkbox" value="Requester" id="inlineCheckbox9">
+                        <label class="form-check-label" for="inlineCheckbox10">Requester</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Max" id="inlineCheckbox10">
-                        <label class="form-check-label" for="inlineCheckbox10">Max</label>
+                        <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
+                        <label class="form-check-label" for="inlineCheckbox11">Store Keeper/Security</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Unit" id="inlineCheckbox11">
-                        <label class="form-check-label" for="inlineCheckbox11">Unit</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="LT DAY" id="inlineCheckbox12">
-                        <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Stock" id="inlineCheckbox13">
-                        <label class="form-check-label" for="inlineCheckbox13">Stock</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
-                        <label class="form-check-label" for="inlineCheckbox14">Price</label>
+                        <input class="form-check-input" type="checkbox" value="Action" id="inlineCheckbox11">
+                        <label class="form-check-label" for="inlineCheckbox11">Action</label>
                     </div>
                 </div>
 
@@ -292,23 +324,18 @@
                             <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>ID Part</th>
-                                        <th>Description</th>
+                                        <!-- <th>ID</th> -->
+                                        <th>Tanggal</th>
+                                        <th>Time</th>
+                                        <th>Departemen</th>
+                                        <th>Mesin</th>
+                                        <th>Remark</th>
+                                        <th>Part Name</th>
                                         <th>Specification</th>
-                                        <th>Machine</th>
-                                        <th>Supplier1</th>
-                                        <th>Supplier2</th>
-                                        <th>Location</th>
-                                        <th>Type Part</th>
-                                        <th>Min</th>
-                                        <th>Max</th>
-                                        <th>Unit</th>
-                                        <th>LT DAY</th>
-                                        <th>Stock</th>
-                                        <th>Price</th>
-                                        <!-- <th>Total Value</th>
-                                        <th>Total Sparepart Cost</th>
-                                        <th>Condition</th> -->
+                                        <th>Qty</th>
+                                        <th>Requester</th>
+                                        <th>Store keeper/Security</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -390,8 +417,9 @@
     <script src="main.js"></script>
    
     <script>
+    //read data
         document.addEventListener('DOMContentLoaded', function() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
             const loadingSpinner = document.getElementById('loadingSpinner');
             const filterColumn = document.getElementById('filterColumn');
             const filterValue = document.getElementById('filterValue');
@@ -399,6 +427,8 @@
             const printPDFButton = document.getElementById('printPDF');
             const printPreviewButton = document.getElementById('printPreview');
             const columnSelection = document.getElementById('columnSelection');
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
 
             function displayData(users) {
                 const usersTableBody = document.querySelector('#userTable tbody');
@@ -406,24 +436,20 @@
 
                 users.forEach(user => {
                     const row = usersTableBody.insertRow();
-                    row.insertCell(0).textContent = user.id_part;
-                    row.insertCell(1).textContent = user.description;
-                    row.insertCell(2).textContent = user.specification;
-                    row.insertCell(3).textContent = user.machine;
-                    row.insertCell(4).textContent = user.supplier1;
-                    row.insertCell(5).textContent = user.supplier2;
-                    row.insertCell(6).textContent = user.location;
-                    row.insertCell(7).textContent = user.type_part;
-                    row.insertCell(8).textContent = user.min;
-                    row.insertCell(9).textContent = user.max;
-                    row.insertCell(10).textContent = user.unit;
-                    row.insertCell(11).textContent = user.lt_day;
-                    row.insertCell(12).textContent = user.stock;
-                    row.insertCell(13).textContent = user.price;
-                    // row.insertCell(14).textContent = user.total_value;
-                    // row.insertCell(15).textContent = user.total_sparepart_cost;
-                    // row.insertCell(16).textContent = user.condition;
-                });
+                    // row.insertCell(0).textContent = (user.id);
+                    row.insertCell(0).textContent = formatDate(user.tanggal);
+                    row.insertCell(1).textContent = formatTime(user.waktu);
+                    row.insertCell(2).textContent = user.departemen;
+                    row.insertCell(3).textContent = user.mesin;
+                    row.insertCell(4).textContent = user.remark;
+                    row.insertCell(5).textContent = user.part_name;
+                    row.insertCell(6).textContent = user.specification;
+                    row.insertCell(7).textContent = user.qty;
+                    row.insertCell(8).textContent = user.requester;
+                    row.insertCell(9).textContent = user.security;
+                    row.insertCell(10).textContent = user.action;
+                    
+                    });
 
                 if ($.fn.DataTable.isDataTable('#userTable')) {
                     $('#userTable').DataTable().destroy(); 
@@ -434,6 +460,27 @@
                 });
             }
 
+
+                 // Fungsi untuk memformat tanggal
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                if (isNaN(date)) return '';  // Mengembalikan string kosong jika input tidak valid
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');  // Bulan dimulai dari 0
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+
+            // Fungsi untuk memformat waktu
+            function formatTime(timeString) {
+                const time = new Date(timeString);
+                if (isNaN(time)) return '';  // Mengembalikan string kosong jika input tidak valid
+                const hours = String(time.getHours()).padStart(2, '0');
+                const minutes = String(time.getMinutes()).padStart(2, '0');
+                return `${hours}:${minutes}`;
+            }
+
+       
             function fetchData(filter = {}) {
                 loadingSpinner.style.display = 'block';
 
@@ -462,15 +509,28 @@
                     });
             }
 
+
             // Event listener untuk tombol filter
             applyFilterButton.addEventListener('click', () => {
                 const filterColumnValue = filterColumn.value;
                 const filterValueText = filterValue.value;
+                const startDateValue = startDateInput.value;
+                const endDateValue = endDateInput.value;
 
                 fetchData({
                     column: filterColumnValue,
-                    value: filterValueText
+                    value: filterValueText,
+                    startDate: startDateValue,
+                    endDate: endDateValue
                 });
+
+            // Setelah filter diterapkan, reset form input filter
+            filterColumn.value = ''; // Menghapus pilihan kolom filter
+            filterValue.value = ''; // Menghapus nilai filter
+            startDateInput.value = ''; // Menghapus tanggal mulai
+            endDateInput.value = ''; // Menghapus tanggal akhir
+            startTimeInput.value = ''; // Menghapus waktu mulai
+            endTimeInput.value = ''; // Menghapus waktu akhir
             });
 
             // Event listener untuk tombol cetak PDF
@@ -508,33 +568,34 @@
                     }
                 });
 
-                doc.text("Laporan Data Parts", 10, 10);
+                doc.text("Laporan Data Pengembalian Barang", 10, 10);
                 doc.autoTable({
                     head: [tableHeader],
                     body: tableRows
                 });
-                doc.save('laporan_data_parts.pdf');
+                doc.save('laporan_data_pb.pdf');
             });
 
-       // Event listener untuk tombol print preview
-    printPreviewButton.addEventListener('click', function() {
+     // Event listener untuk tombol print preview
+     printPreviewButton.addEventListener('click', function() {
         const selectedColumns = [];
         const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
 
-    // Mengambil nilai dari checkbox yang dipilih
-    checkboxes.forEach(checkbox => {
-        selectedColumns.push(checkbox.value);
-    });
+        // Mengambil nilai dari checkbox yang dipilih
+        checkboxes.forEach(checkbox => {
+            selectedColumns.push(checkbox.value);
+        });
 
-    if (selectedColumns.length === 0) {
-        alert("Silakan pilih kolom yang ingin dicetak.");
-        return; // Jika tidak ada kolom yang dipilih, keluar dari fungsi
-    }
+        // Periksa apakah ada kolom yang dipilih
+        if (selectedColumns.length === 0) {
+            alert("Silakan pilih kolom yang ingin dicetak.");
+            return; // Jika tidak ada kolom yang dipilih, keluar dari fungsi
+        }
 
-    const tableData = [];
-    const rows = document.querySelectorAll('#userTable tbody tr');
-    
-    // Mengumpulkan data dari tabel
+        const tableData = [];
+        const rows = document.querySelectorAll('#userTable tbody tr');
+
+        // Mengumpulkan data dari tabel
     rows.forEach(row => {
         const rowData = [];
         row.querySelectorAll('td').forEach(td => {
@@ -543,15 +604,15 @@
         tableData.push(rowData);
     });
 
+
     // Simpan data ke localStorage untuk dikirim ke halaman pratinjau
     localStorage.setItem('selectedColumns', JSON.stringify(selectedColumns));
     localStorage.setItem('tableData', JSON.stringify(tableData));
 
-    // Buka halaman print preview terpisah
-    window.open('lamancetak.html', '_blank', 'width=800,height=600');
+     // Buka halaman print preview terpisah
+    window.open('lamancetakpb.html', '_blank', 'width=800,height=600');
 });
-
-   
+  
 });
 
 

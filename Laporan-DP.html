@@ -177,13 +177,20 @@
             <div class="content">
                 <div class="container-fluid">
 
-            <!-- Start page title -->
-            <div class="container">
-                <div class="row align-items-left my-4">
+                    <!-- Start page title -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="page-title-box d-flex justify-content-between align-items-center">
+                                <h4 class="page-title mb-0">Laporan Data Part</h4>
+                            </div>
+                        </div>
+                    </div>
 
             <!-- Filter Form -->
-            <div class="col-md-3">
-                <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+            <div class="row mb-4">
+                <!-- Filter Berdasarkan Kolom -->
+                <div class="col-md-3">
+                    <label for="filterColumn">Filter Berdasarkan Kolom:</label>
                 <select class="form-control" id="filterColumn">
                     <option value="">--Pilih Kategori--</option>
                     <option value="id_part">ID Part</option>
@@ -471,6 +478,11 @@
                     column: filterColumnValue,
                     value: filterValueText
                 });
+
+                 // Setelah filter diterapkan, reset form input filter
+            filterColumn.value = ''; // Menghapus pilihan kolom filter
+            filterValue.value = ''; // Menghapus nilai filter
+            
             });
 
             // Event listener untuk tombol cetak PDF
@@ -548,7 +560,7 @@
     localStorage.setItem('tableData', JSON.stringify(tableData));
 
     // Buka halaman print preview terpisah
-    window.open('lamancetak.html', '_blank', 'width=800,height=600');
+    window.open('lamancetakdp.html', '_blank', 'width=800,height=600');
 });
 
    

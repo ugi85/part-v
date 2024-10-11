@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Data Pengambalian Barang</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* CSS untuk menyembunyikan elemen-elemen saat cetak */
+        @media print {
+            #printButton {
+                display: none;
+            }
+        }
+        /* Tambahkan padding atau margin jika diperlukan */
+        .print-container {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row align-items-center my-4"></div>
+        <h3>Laporan Data Pengembalian Barang</h3>
+
+        <!-- Tabel yang akan dimasukkan dari halaman utama -->
+        <table id="previewTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <!-- Kolom tabel akan diisi dengan JavaScript -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data tabel akan diisi dengan JavaScript -->
+            </tbody>
+        </table>
+
+        <!-- Tambahkan id "printButton" agar CSS print berfungsi -->
+        <button id="printButton" onclick="window.print()" class="btn btn-primary">Print</button>
+
+    </div>
+
+    <script>
+        // Script untuk menambahkan kolom dan baris ke tabel preview
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')); // Mengambil data kolom yang dipilih
+            const tableData = JSON.parse(localStorage.getItem('tableData')); // Mengambil data tabel
+
+            const tableHeader = document.querySelector('#previewTable thead tr');
+            const tableBody = document.querySelector('#previewTable tbody');
+
+            // Membuat header berdasarkan kolom yang dipilih
+            selectedColumns.forEach(col => {
+                const th = document.createElement('th');
+                th.textContent = col;
+                tableHeader.appendChild(th);
+            });
+
+            // Membuat baris berdasarkan data yang ada
+            tableData.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach((cellData, index) => {
+                    if (selectedColumns.includes(selectedColumns[index])) {
+                        const td = document.createElement('td');
+                        td.textContent = cellData;
+                        tr.appendChild(td);
+                    }
+                });
+                tableBody.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>
