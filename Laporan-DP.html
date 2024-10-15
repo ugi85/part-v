@@ -397,6 +397,41 @@
         });
     </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role');
+
+        // Cek apakah pengguna bukan admin
+        if (userRole !== 'admin') {
+            // Sembunyikan menu "Data Users"
+            const menuDataUsers = document.getElementById('menu-data-users');
+            if (menuDataUsers) {
+                menuDataUsers.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Laporan PB"
+            const menuLaporanPb = document.getElementById('menu-Laporan-pb');
+            if (menuLaporanPb) {
+                menuLaporanPb.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Laporan Data DP"
+            const menuLaporanDp = document.getElementById('menu-Laporan-dp');
+            if (menuLaporanDp) {
+                menuLaporanDp.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Get Barang"
+            const menuAddStock = document.getElementById('menu-add-stock');
+            if (menuAddStock) {
+                menuAddStock.style.display = 'none';
+            }
+        }
+    });
+</script>
+
+
     <!-- Link to external JavaScript file -->
     <script src="main.js"></script>
    

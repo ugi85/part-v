@@ -121,6 +121,7 @@
                                 <span> Data Users </span>
                             </a>
                         </li>
+
                         <li>
                             <a href="data-part.html">
                                 <i class="ion ion-ios-construct"></i>
@@ -128,37 +129,32 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li id="menu-add-stock">
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
                                 <span> Penambahan Stock </span>
                             </a>
                         </li>
-                        <li>
+
+                        <li id="menu-get-barang">
                             <a href="get-barang.html">
                                 <i class="ion ion-ios-basket"></i>
                                 <span> Pengambilan Barang </span>
                             </a>
                         </li>
 
-                        <li>
-                            <!-- <a href="javascript: void(0);" class="waves-effect">
+                        <li id="menu-report">
+                            <a href="javascript: void(0);" class="waves-effect">
                                 <i class="mdi mdi-share-variant"></i>
                                 <span> Report </span>
                                 <span class="menu-arrow"></span>
-                            </a> -->
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect">
-                                    <i class="mdi mdi-share-variant"></i>
-                                    <span> Report </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="nav-second-level nav" aria-expanded="false">
-                                    <li>
-                                        <a href="Laporan-DP.html">Data Parts</a>
-                                    </li>
-                                    <li>
-                                        <a href="Laporan-pb.html">Data Pengambilan Barang</a>
+                            </a>
+                            <ul class="nav-second-level nav" aria-expanded="false">
+                                <li>
+                                    <a href="Laporan-DP.html">Data Parts</a>
+                                </li>
+                                <li>
+                                    <a href="Laporan-pb.html">Data Pengambilan Barang</a>
                                             <!-- <span class="menu-arrow"></span>
                                         </a>
                                     <ul class="nav-third-level nav" aria-expanded="false">
@@ -379,11 +375,24 @@
         // Ambil peran pengguna dari sessionStorage
         const userRole = sessionStorage.getItem('role');
 
-        // Sembunyikan menu "Data Users" jika bukan admin
+        // Cek apakah pengguna bukan admin
         if (userRole !== 'admin') {
+            // Sembunyikan menu "Data Users"
             const menuDataUsers = document.getElementById('menu-data-users');
             if (menuDataUsers) {
                 menuDataUsers.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Report"
+            const menuReport = document.getElementById('menu-report');
+            if (menuReport) {
+                menuReport.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Add Stock"
+            const menuAddStock = document.getElementById('menu-add-stock');
+            if (menuAddStock) {
+                menuAddStock.style.display = 'none';
             }
         }
     });

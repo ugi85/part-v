@@ -203,6 +203,7 @@
                                                 <th>Qty</th>
                                                 <th>Requester</th>
                                                 <th>Store keeper/Security</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -400,6 +401,11 @@
                         <label for="editStoreKeeper">Store Keeper/Security</label>
                         <input type="text" class="form-control" id="editStoreKeeper" name="security" required>
                         <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStatus">Status</label>
+                        <input type="text" class="form-control" id="editStatus" name="security" required>
+                        <div class="invalid-feedback">Status is required.</div>
                     </div>
                     <div class="col-12 text-right">
                         <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
@@ -936,7 +942,6 @@ $.get(`https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670W
             $('#editDepartemen').val(user.departemen);
             $('#editMesin').val(user.mesin);
             $('#editRemark').val(user.remark);
-
             $('#editPartName').val(user.part_name);
             $('#editSpecification').val(user.specification);
             $('#editQty').val(user.qty);
@@ -1050,6 +1055,40 @@ error: function(jqXHR, textStatus, errorThrown) {
  }
 }
 </script>
+
+<script>
+    // Fungsi untuk memuat data dari JSON
+    function loadData() {
+        // (Isi fetch data seperti sebelumnya)
+    }
+
+    // Fungsi untuk verifikasi
+    function verifyRow(button) {
+        // (Isi verifikasi seperti sebelumnya)
+    }
+
+    // Fungsi untuk menyimpan perubahan
+    document.getElementById('editForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Mencegah refresh halaman
+
+        const statusCell = document.querySelector('.status-cell'); // Ganti dengan cara yang tepat untuk menemukan sel status
+        statusCell.innerHTML = 'Verified'; // Ubah status menjadi 'Verified'
+
+        // Jika ingin menonaktifkan tombol atau mengganti teks di tombol setelah penyimpanan
+        const saveButton = document.getElementById('saveChanges');
+        saveButton.disabled = true;
+        saveButton.innerHTML = 'Changes Saved';
+
+        // Tutup modal
+        $('#editModal').modal('hide');
+
+        // (Tambahkan logika tambahan jika Anda ingin menyimpan data ke server)
+    });
+
+    // Muat data ketika halaman dimuat
+    window.onload = loadData;
+</script>
+
 
 </body>
 

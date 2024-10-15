@@ -119,7 +119,7 @@
                         role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
-                            <!-- <span id="tampil_nama1"></span> -->
+                            <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
                         </span>
                     </a>
@@ -226,7 +226,7 @@
                                     <div id="profileInitial" class="profile-initial"></div>
                                     <div class="">
                                         <span class="pro-user-name ml-1">
-                                            <span id="tampil_nama1"></span> <!-- Nama pengguna akan tampil di sini -->
+                                            <span id="tampil_nama2"></span> <!-- Nama pengguna akan tampil di sini -->
                                             <!-- <p class="font-13">User Experience Specialist</p>
                                             <p class="text-muted mb-0"><small>California, United States</small></p> -->
                                         </span>
@@ -333,7 +333,8 @@
             if (username) {
                 // Tampilkan nama pengguna
                 document.getElementById('tampil_nama1').textContent = username;
-    
+                document.getElementById('tampil_nama2').textContent = username;
+                
                 // Tampilkan initial
                 const initial = username.charAt(0).toUpperCase();
                 document.getElementById('profileInitial').textContent = initial;

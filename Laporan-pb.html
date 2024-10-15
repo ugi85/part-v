@@ -302,10 +302,7 @@
                         <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
                         <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Action" id="inlineCheckbox11">
-                        <label class="form-check-label" for="inlineCheckbox11">Action</label>
-                    </div>
+                    
                 </div>
 
 
@@ -336,7 +333,6 @@
                                         <th>Qty</th>
                                         <th>Requester</th>
                                         <th>Store keeper/Security</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -414,6 +410,34 @@
         });
     </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role');
+
+        // Cek apakah pengguna bukan admin
+        if (userRole !== 'admin') {
+            // Sembunyikan menu "Data Users"
+            const menuDataUsers = document.getElementById('menu-data-users');
+            if (menuDataUsers) {
+                menuDataUsers.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Report"
+            const menuReport = document.getElementById('menu-report');
+            if (menuReport) {
+                menuReport.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Add Stock"
+            const menuAddStock = document.getElementById('menu-add-stock');
+            if (menuAddStock) {
+                menuAddStock.style.display = 'none';
+            }
+        }
+    });
+</script>
+
     <!-- Link to external JavaScript file -->
     <script src="main.js"></script>
    
@@ -450,7 +474,6 @@
             row.insertCell(7).textContent = user.qty;
             row.insertCell(8).textContent = user.requester;
             row.insertCell(9).textContent = user.security;
-            row.insertCell(10).textContent = user.action;
         });
 
         // Inisialisasi ulang DataTable jika dibutuhkan
