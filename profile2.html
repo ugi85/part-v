@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BiCoder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <style>
+        #loadingSpinner {
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        // Periksa status login ketika halaman dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html'; // Arahkan ke halaman login jika tidak ada status login
+            } else {
+                displayUserData(); // Tampilkan data pengguna
+            }
+        });
+
+        // Fungsi untuk mengambil dan menampilkan data pengguna
+        function displayUserData() {
+            const userId = sessionStorage.getItem('id'); // Ambil ID pengguna yang login
+
+            if (!userId) {
+                alert('Pengguna belum login!');
+                window.location.href = 'login.html'; // Arahkan ke halaman login jika tidak ada ID login
+                return;
+            }
+
+            fetch(`https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=getUserById&id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const user = data.data;
+
+                        // Tampilkan data pengguna ke dalam form
+                        document.getElementById('editUsername').value = user.username;
+                        document.getElementById('editEmail').value = user.email;
+                        document.getElementById('tampil_nama1').textContent = user.username; // Tampilkan nama pengguna
+                    } else {
+                        console.error('Error fetching user data:', data.message);
+                    }
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+
+        // Event listener untuk form submit
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('editForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Mencegah pengiriman form secara langsung
+
+                // Ambil data dari form
+                const userId = sessionStorage.getItem('id');
+                const username = document.getElementById('editUsername').value;
+                const email = document.getElementById('editEmail').value;
+                const password = document.getElementById('editPassword').value;
+
+                // Data yang akan diperbarui
+                const updatedUserData = {
+                    id: userId,
+                    username: username,
+                    email: email,
+                    password: password
+                };
+
+                // Kirim permintaan untuk memperbarui data pengguna
+                fetch('https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=updateUser', { // Ganti dengan endpoint update yang sesuai
+                    method: 'PUT', // Ubah metode sesuai kebutuhan
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedUserData),
+                })
+                    .then(response => {
+                        // Periksa apakah respons dari server baik
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Response data:', data); // Log respons untuk debugging
+                        if (data.status === 'success') {
+                            alert('Profile updated successfully!');
+                            displayUserData(); // Refresh data pengguna
+                        } else {
+                            alert(`Error updating profile: ${data.message}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating profile:', error);
+                        alert('An error occurred while updating the profile.');
+                    });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Edit Profile</h1>
+        <form id="editForm">
+            <div class="form-group">
+                <label for="editUsername">User Name</label>
+                <input type="text" class="form-control" id="editUsername" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="editEmail">Email</label>
+                <input type="email" class="form-control" id="editEmail" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="editPassword">Password</label>
+                <input type="password" class="form-control" id="editPassword" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <p id="updateMessage"></p>
+        </form>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="profile-bg-picture" style="background-image:url('assets/images/bg-profile.jpg')">
+                    <span class="picture-bg-overlay"></span>
+                </div>
+                <div class="profile-user-box">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="profile-user-img"><img src="assets/images/users/avatar-1.jpg" alt="" class="avatar-lg rounded-circle"></div>
+                            <div class="">
+                                <span class="pro-user-name ml-1">
+                                    <span id="tampil_nama1"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

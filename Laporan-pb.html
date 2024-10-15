@@ -92,7 +92,8 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome !</h6>
                         </div>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                         <!-- item-->
+                         <a href="profile.html" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
@@ -218,8 +219,8 @@
                             <label for="filterColumn">Filter Berdasarkan Kolom:</label>
                             <select class="form-control" id="filterColumn">
                                 <option value="">--Pilih Kategori--</option>
-                                <option value="tanggal">Tanggal</option>
-                                <option value="waktu">Waktu</option>
+                                <!-- <option value="tanggal">Tanggal</option> -->
+                                <!-- <option value="waktu">Waktu</option> -->
                                 <option value="departemen">Departemen</option>
                                 <option value="mesin">Mesin</option>
                                 <option value="remark">Remark</option>
@@ -283,23 +284,23 @@
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="Part Name" id="inlineCheckbox6">
-                        <label class="form-check-label" for="inlineCheckbox7">Part Name</label>
+                        <label class="form-check-label" for="inlineCheckbox6">Part Name</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox7">
-                        <label class="form-check-label" for="inlineCheckbox8">Specification</label>
+                        <label class="form-check-label" for="inlineCheckbox7">Specification</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="Qty" id="inlineCheckbox8">
-                        <label class="form-check-label" for="inlineCheckbox9">Qty</label>
+                        <label class="form-check-label" for="inlineCheckbox8">Qty</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="Requester" id="inlineCheckbox9">
-                        <label class="form-check-label" for="inlineCheckbox10">Requester</label>
+                        <label class="form-check-label" for="inlineCheckbox9">Requester</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
-                        <label class="form-check-label" for="inlineCheckbox11">Store Keeper/Security</label>
+                        <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="Action" id="inlineCheckbox11">
@@ -418,202 +419,253 @@
    
     <script>
     //read data
-        document.addEventListener('DOMContentLoaded', function() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            const filterColumn = document.getElementById('filterColumn');
-            const filterValue = document.getElementById('filterValue');
-            const applyFilterButton = document.getElementById('applyFilter');
-            const printPDFButton = document.getElementById('printPDF');
-            const printPreviewButton = document.getElementById('printPreview');
-            const columnSelection = document.getElementById('columnSelection');
-            const startDateInput = document.getElementById('startDate');
-            const endDateInput = document.getElementById('endDate');
+    document.addEventListener('DOMContentLoaded', function() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const filterColumn = document.getElementById('filterColumn');
+    const filterValue = document.getElementById('filterValue');
+    const applyFilterButton = document.getElementById('applyFilter');
+    const printPDFButton = document.getElementById('printPDF');
+    const printPreviewButton = document.getElementById('printPreview');
+    const columnSelection = document.getElementById('columnSelection');
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
 
-            function displayData(users) {
-                const usersTableBody = document.querySelector('#userTable tbody');
-                usersTableBody.innerHTML = ''; // Kosongkan tabel sebelum memuat data baru
+    let originalData = []; // Array untuk menyimpan data asli
 
-                users.forEach(user => {
-                    const row = usersTableBody.insertRow();
-                    // row.insertCell(0).textContent = (user.id);
-                    row.insertCell(0).textContent = formatDate(user.tanggal);
-                    row.insertCell(1).textContent = formatTime(user.waktu);
-                    row.insertCell(2).textContent = user.departemen;
-                    row.insertCell(3).textContent = user.mesin;
-                    row.insertCell(4).textContent = user.remark;
-                    row.insertCell(5).textContent = user.part_name;
-                    row.insertCell(6).textContent = user.specification;
-                    row.insertCell(7).textContent = user.qty;
-                    row.insertCell(8).textContent = user.requester;
-                    row.insertCell(9).textContent = user.security;
-                    row.insertCell(10).textContent = user.action;
-                    
-                    });
+     // Fungsi untuk menampilkan data di tabel
+     function displayData(users) {
+        const usersTableBody = document.querySelector('#userTable tbody');
+        usersTableBody.innerHTML = ''; // Kosongkan tabel sebelum memuat data baru
 
-                if ($.fn.DataTable.isDataTable('#userTable')) {
-                    $('#userTable').DataTable().destroy(); 
+        users.forEach(user => {
+            const row = usersTableBody.insertRow();
+            row.insertCell(0).textContent = formatDate(user.tanggal);
+            row.insertCell(1).textContent = formatTime(user.waktu);
+            row.insertCell(2).textContent = user.departemen;
+            row.insertCell(3).textContent = user.mesin;
+            row.insertCell(4).textContent = user.remark;
+            row.insertCell(5).textContent = user.part_name;
+            row.insertCell(6).textContent = user.specification;
+            row.insertCell(7).textContent = user.qty;
+            row.insertCell(8).textContent = user.requester;
+            row.insertCell(9).textContent = user.security;
+            row.insertCell(10).textContent = user.action;
+        });
+
+        // Inisialisasi ulang DataTable jika dibutuhkan
+        if ($.fn.DataTable.isDataTable('#userTable')) {
+            $('#userTable').DataTable().destroy(); 
+        }
+
+        $('#userTable').DataTable({
+            responsive: true
+        });
+    }
+    
+    function fetchData(filter = {}) {
+        loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
+
+        fetch(scriptURL)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    originalData = data.data; // Simpan data asli
+                    let users = [...originalData]; // Salin data untuk filter
+
+                    // Filter berdasarkan kolom dan nilai yang diinputkan
+                    if (filter.column && filter.value) {
+                        users = users.filter(user => {
+                            const columnValue = user[filter.column].toString().toLowerCase();
+                            return columnValue.includes(filter.value.toLowerCase());
+                        });
+                    }
+
+                    // Filter berdasarkan rentang tanggal
+                    if (filter.startDate && filter.endDate) {
+                        users = users.filter(user => {
+                            const userDate = new Date(user.tanggal);
+                            const startDate = new Date(filter.startDate);
+                            const endDate = new Date(filter.endDate);
+                            return userDate >= startDate && userDate <= endDate;
+                        });
+                    }
+                    // Menampilkan data hasil filter
+                    displayData(users);
+                } else {
+                    console.error('Error:', data.message);
                 }
-
-                $('#userTable').DataTable({
-                    responsive: true
-                });
-            }
-
-
-                 // Fungsi untuk memformat tanggal
-            function formatDate(dateString) {
-                const date = new Date(dateString);
-                if (isNaN(date)) return '';  // Mengembalikan string kosong jika input tidak valid
-                const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0');  // Bulan dimulai dari 0
-                const year = date.getFullYear();
-                return `${day}/${month}/${year}`;
-            }
-
-            // Fungsi untuk memformat waktu
-            function formatTime(timeString) {
-                const time = new Date(timeString);
-                if (isNaN(time)) return '';  // Mengembalikan string kosong jika input tidak valid
-                const hours = String(time.getHours()).padStart(2, '0');
-                const minutes = String(time.getMinutes()).padStart(2, '0');
-                return `${hours}:${minutes}`;
-            }
-
+            })
+            .catch(error => console.error('Error:', error))
+            .finally(() => {
+                loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
+            });
+    }
        
-            function fetchData(filter = {}) {
-                loadingSpinner.style.display = 'block';
+    // Fungsi untuk memformat tanggal
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (isNaN(date)) return '';  // Mengembalikan string kosong jika input tidak valid
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');  // Bulan dimulai dari 0
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
 
-                fetch(scriptURL)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            let users = data.data;
+    // Fungsi untuk memformat waktu
+    function formatTime(timeString) {
+        const time = new Date(timeString);
+        if (isNaN(time)) return '';  // Mengembalikan string kosong jika input tidak valid
+        const hours = String(time.getHours()).padStart(2, '0');
+        const minutes = String(time.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
 
-                            // Filter berdasarkan kolom dan nilai yang diinputkan
-                            if (filter.column && filter.value) {
-                                users = users.filter(user => {
-                                    const columnValue = user[filter.column].toString().toLowerCase();
-                                    return columnValue.includes(filter.value.toLowerCase());
-                                });
-                            }
+    // Event listener untuk tombol filter
+    applyFilterButton.addEventListener('click', () => {
+        const filterColumnValue = filterColumn.value;
+        const filterValueText = filterValue.value;
+        const startDateValue = startDateInput.value;
+        const endDateValue = endDateInput.value;
 
-                            displayData(users);
-                        } else {
-                            console.error('Error:', data.message);
-                        }
-                    })
-                    .catch(error => console.error('Error:', error))
-                    .finally(() => {
-                        loadingSpinner.style.display = 'none';
-                    });
-            }
+        fetchData({
+            column: filterColumnValue,
+            value: filterValueText,
+            startDate: startDateValue,
+            endDate: endDateValue
+        });
 
-
-            // Event listener untuk tombol filter
-            applyFilterButton.addEventListener('click', () => {
-                const filterColumnValue = filterColumn.value;
-                const filterValueText = filterValue.value;
-                const startDateValue = startDateInput.value;
-                const endDateValue = endDateInput.value;
-
-                fetchData({
-                    column: filterColumnValue,
-                    value: filterValueText,
-                    startDate: startDateValue,
-                    endDate: endDateValue
-                });
-
-            // Setelah filter diterapkan, reset form input filter
+        // Setelah filter diterapkan, reset form input filter jika diinginkan
             filterColumn.value = ''; // Menghapus pilihan kolom filter
             filterValue.value = ''; // Menghapus nilai filter
-            startDateInput.value = ''; // Menghapus tanggal mulai
-            endDateInput.value = ''; // Menghapus tanggal akhir
-            startTimeInput.value = ''; // Menghapus waktu mulai
-            endTimeInput.value = ''; // Menghapus waktu akhir
-            });
+            startDateInput.value = ''; // Menghapus nilai tanggal mulai
+            endDateInput.value = ''; // Menghapus nilai tanggal akhir
+    });
+   
 
-            // Event listener untuk tombol cetak PDF
-            printPDFButton.addEventListener('click', function() {
-                const selectedColumns = [];
-                const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
-
-                checkboxes.forEach(checkbox => {
-                    selectedColumns.push(checkbox.value);
-                });
-
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-
-                const tableHeader = [];
-                const tableRows = [];
-                const table = document.getElementById('userTable');
-                const rows = table.querySelectorAll('tr');
-
-                rows[0].querySelectorAll('th').forEach((th, index) => {
-                    if (selectedColumns.includes(th.innerText)) {
-                        tableHeader.push(th.innerText);
-                    }
-                });
-
-                rows.forEach((row, rowIndex) => {
-                    if (rowIndex > 0) {
-                        const rowData = [];
-                        row.querySelectorAll('td').forEach((td, cellIndex) => {
-                            if (selectedColumns.includes(tableHeader[cellIndex])) {
-                                rowData.push(td.innerText);
-                            }
-                        });
-                        tableRows.push(rowData);
-                    }
-                });
-
-                doc.text("Laporan Data Pengembalian Barang", 10, 10);
-                doc.autoTable({
-                    head: [tableHeader],
-                    body: tableRows
-                });
-                doc.save('laporan_data_pb.pdf');
-            });
-
-     // Event listener untuk tombol print preview
-     printPreviewButton.addEventListener('click', function() {
+    // Event listener untuk tombol cetak PDF
+    printPDFButton.addEventListener('click', function() {
         const selectedColumns = [];
         const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
 
-        // Mengambil nilai dari checkbox yang dipilih
         checkboxes.forEach(checkbox => {
             selectedColumns.push(checkbox.value);
         });
 
-        // Periksa apakah ada kolom yang dipilih
-        if (selectedColumns.length === 0) {
-            alert("Silakan pilih kolom yang ingin dicetak.");
-            return; // Jika tidak ada kolom yang dipilih, keluar dari fungsi
-        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-        const tableData = [];
-        const rows = document.querySelectorAll('#userTable tbody tr');
+        const tableHeader = [];
+        const tableRows = [];
+        const table = document.getElementById('userTable');
+        const rows = table.querySelectorAll('tr');
 
-        // Mengumpulkan data dari tabel
-    rows.forEach(row => {
-        const rowData = [];
-        row.querySelectorAll('td').forEach(td => {
-            rowData.push(td.innerText);
+        rows[0].querySelectorAll('th').forEach((th, index) => {
+            if (selectedColumns.includes(th.innerText)) {
+                tableHeader.push(th.innerText);
+            }
         });
-        tableData.push(rowData);
+
+        rows.forEach((row, rowIndex) => {
+            if (rowIndex > 0) {
+                const rowData = [];
+                row.querySelectorAll('td').forEach((td, cellIndex) => {
+                    if (selectedColumns.includes(tableHeader[cellIndex])) {
+                        rowData.push(td.innerText);
+                    }
+                });
+                tableRows.push(rowData);
+            }
+        });
+
+        doc.text("Laporan Data Pengambilan Barang", 10, 10);
+        doc.autoTable({
+            head: [tableHeader],
+            body: tableRows
+        });
+        doc.save('laporan_data_pb.pdf');
     });
 
+    // Event listener untuk tombol print preview
+    printPreviewButton.addEventListener('click', function() {
+        const selectedColumns = [];
+        const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
+        const tableData = [];
+
+    // Mengambil nilai dari checkbox yang dipilih (nama kolom)
+    checkboxes.forEach(checkbox => {
+        selectedColumns.push(checkbox.value);
+    });
+
+    // Periksa apakah ada kolom yang dipilih
+    if (selectedColumns.length === 0) {
+        alert("Silakan pilih kolom yang ingin dicetak.");
+        return; // Jika tidak ada kolom yang dipilih, keluar dari fungsi
+    }
+
+    const rows = document.querySelectorAll('#userTable tbody tr');
+
+    // Mengumpulkan data dari tabel, sesuai kolom yang dipilih
+    rows.forEach(row => {
+        const rowData = [];
+        const cells = row.querySelectorAll('td');
+        
+        selectedColumns.forEach(colName => {
+            let cellValue = '';
+            switch(colName) {
+                case 'Tanggal':
+                    cellValue = cells[0].innerText; // Sesuaikan indeks sesuai urutan tabel
+                    break;
+                case 'Waktu':
+                    cellValue = cells[1].innerText;
+                    break;
+                case 'Departemen':
+                    cellValue = cells[2].innerText;
+                    break;
+                case 'Mesin':
+                    cellValue = cells[3].innerText;
+                    break;
+                case 'Remark':
+                    cellValue = cells[4].innerText;
+                    break;
+                case 'Part Name':
+                    cellValue = cells[5].innerText;
+                    break;
+                case 'Specification':
+                    cellValue = cells[6].innerText;
+                    break;
+                case 'Qty':
+                    cellValue = cells[7].innerText;
+                    break;
+                case 'Requester':
+                    cellValue = cells[8].innerText;
+                    break;
+                case 'Store Keeper/Security':
+                    cellValue = cells[9].innerText;
+                    break;
+                // Tambahkan case untuk kolom tambahan jika ada
+                default:
+                    cellValue = '';
+            }
+            rowData.push(cellValue);
+        });
+        
+        tableData.push(rowData); // Menyimpan data sesuai kolom yang dipilih
+    });
 
     // Simpan data ke localStorage untuk dikirim ke halaman pratinjau
     localStorage.setItem('selectedColumns', JSON.stringify(selectedColumns));
     localStorage.setItem('tableData', JSON.stringify(tableData));
 
-     // Buka halaman print preview terpisah
+    // Buka halaman print preview terpisah
     window.open('lamancetakpb.html', '_blank', 'width=800,height=600');
 });
-  
+
+// // Memuat data awal saat halaman dimuat
+// fetchData();
+
 });
+
 
 
     </script>
