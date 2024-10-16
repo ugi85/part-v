@@ -203,7 +203,7 @@
                                                 <th>Qty</th>
                                                 <th>Requester</th>
                                                 <th>Store keeper/Security</th>
-                                                <th>Status</th>
+                                                <th>Note</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -403,9 +403,9 @@
                         <div class="invalid-feedback">Store Keeper/Security is required.</div>
                     </div>
                     <div class="form-group">
-                        <label for="editStatus">Status</label>
-                        <input type="text" class="form-control" id="editStatus" name="security" required>
-                        <div class="invalid-feedback">Status is required.</div>
+                        <label for="editNote">Note</label>
+                        <input type="text" class="form-control" id="editNote" name="note">
+                        <!-- <div class="invalid-feedback">Status is required.</div> -->
                     </div>
                     <div class="col-12 text-right">
                         <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
@@ -561,12 +561,14 @@
                     tableRow.insertCell(7).textContent = row.qty || '';
                     tableRow.insertCell(8).textContent = row.requester || '';
                     tableRow.insertCell(9).textContent = row.security || '';
+                    tableRow.insertCell(10).textContent = row.note || '';
 
                     // Tambahkan kolom Edit dan Delete
-                    const actionCell = tableRow.insertCell(10);
+                    const actionCell = tableRow.insertCell(11);
                     actionCell.innerHTML = `
                     <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
                     <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+
                 `;
             });
 
@@ -947,6 +949,7 @@ $.get(`https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670W
             $('#editQty').val(user.qty);
             $('#editRequester').val(user.requester);
             $('#editStoreKeeper').val(user.security);
+            
               // Ambil data stock berdasarkan part_name
     if (user.part_name) {
         $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
@@ -1056,38 +1059,8 @@ error: function(jqXHR, textStatus, errorThrown) {
 }
 </script>
 
-<script>
-    // Fungsi untuk memuat data dari JSON
-    function loadData() {
-        // (Isi fetch data seperti sebelumnya)
-    }
 
-    // Fungsi untuk verifikasi
-    function verifyRow(button) {
-        // (Isi verifikasi seperti sebelumnya)
-    }
 
-    // Fungsi untuk menyimpan perubahan
-    document.getElementById('editForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Mencegah refresh halaman
-
-        const statusCell = document.querySelector('.status-cell'); // Ganti dengan cara yang tepat untuk menemukan sel status
-        statusCell.innerHTML = 'Verified'; // Ubah status menjadi 'Verified'
-
-        // Jika ingin menonaktifkan tombol atau mengganti teks di tombol setelah penyimpanan
-        const saveButton = document.getElementById('saveChanges');
-        saveButton.disabled = true;
-        saveButton.innerHTML = 'Changes Saved';
-
-        // Tutup modal
-        $('#editModal').modal('hide');
-
-        // (Tambahkan logika tambahan jika Anda ingin menyimpan data ke server)
-    });
-
-    // Muat data ketika halaman dimuat
-    window.onload = loadData;
-</script>
 
 
 </body>
