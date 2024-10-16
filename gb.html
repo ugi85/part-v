@@ -507,8 +507,6 @@
     });
 </script>
 
-
-
 <script>
     // format date
     function formatDate(dateValue) {
@@ -738,6 +736,9 @@
                             text: response.message || 'An error occurred while submitting the form.',
                             icon: 'error',
                             confirmButtonText: 'OK'
+                        });.then(() => {
+                            saveButton.disabled = false;  // Aktifkan kembali tombol
+                            saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
                         });
                     }
                 } else {
@@ -746,6 +747,9 @@
                         text: 'An error occurred while submitting the form.',
                         icon: 'error',
                         confirmButtonText: 'OK'
+                    });.then(() => {
+                        saveButton.disabled = false;  // Aktifkan kembali tombol
+                        saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
                     });
                 }
             };
