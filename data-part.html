@@ -26,6 +26,8 @@
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
 
+
+
     <!-- Script to check login status -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -856,103 +858,45 @@
         });
 
     
+    //edit from & update
+    document.querySelector('#editForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var saveChanges = document.querySelector('#saveChanges');
+    saveChanges.disabled = true;
+    saveChanges.textContent = 'Loading...';
 
-    // Event listener untuk form edit
-       document.querySelector('#editForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        var saveChanges = document.querySelector('#saveChanges');
+    // Ambil semua nilai dari form
+    const formData = new URLSearchParams(new FormData(this));
 
-        saveChanges.disabled = true;
-        saveChanges.textContent = 'Loading...';
+    fetch('https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=update', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            Swal.fire('Updated!', 'Part has been updated.', 'success').then(() => {
+                // Tutup modal
+                $('#editModal').modal('hide');
+            });
 
-        const id = document.querySelector('#editForm #editId').value;
-        const id_part = document.querySelector('#editForm #editIdpart').value;
-        const no_po= document.querySelector('#editForm #editNopo').value;
-        const description = document.querySelector('#editForm #editDescription').value;
-        const specification = document.querySelector('#editForm #editSpecification').value;
-        const machine = document.querySelector('#editForm #editMachine').value;
-        const supplier1 = document.querySelector('#editForm #editSupplier1').value;
-        const supplier2 = document.querySelector('#editForm #editSupplier2').value;
-        const location= document.querySelector('#editForm #editLocation').value;
-        const type_part = document.querySelector('#editForm #editTypepart').value;
-        const min = document.querySelector('#editForm #editMin').value;
-        const max = document.querySelector('#editForm #editMax').value;
-        const unit = document.querySelector('#editForm #editUnit').value;
-        const lt_day = document.querySelector('#editForm #editLtday').value;
-        const stock = document.querySelector('#editForm #editStock').value;
-        const price = document.querySelector('#editForm #editPrice').value;
-        const total_value = document.querySelector('#editForm #editTotalvalue').value;
-        const total_sparepart_cost = document.querySelector('#editForm #editTotalsparepartcost').value;
-        const condition = document.querySelector('#editForm #editCondition').value;
-    
-      
-
-        fetch('https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=update', {
-            method: 'POST',
-            body: new URLSearchParams({
-                id: id,
-                id_part: id_part,
-                no_po: no_po,
-                description: description,
-                specification: specification,
-                machine: machine,
-                supplier1: supplier1,
-                supplier2: supplier2,
-                location: location,
-                type_part: type_part,
-                min: min,
-                max: max,
-                unit: unit,
-                lt_day: lt_day,
-                stock: stock,
-                price: price,
-                total_value: total_value,
-                total_sparepart_cost: total_sparepart_cost,
-                condition: condition
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                Swal.fire('Updated!', 'Part has been updated.', 'success')
-                    .then(() => {
-                        // Update row in the table manually
-                        const row = document.querySelector(`button.edit-btn[data-id="${id}"]`).closest('tr');
-                        row.cells[0].textContent = id_part;
-                        row.cells[1].textContent = no_po;
-                        row.cells[2].textContent = description;
-                        row.cells[3].textContent = specification;
-                        row.cells[4].textContent = machine;
-                        row.cells[5].textContent = supplier1;
-                        row.cells[6].textContent = supplier2;
-                        row.cells[7].textContent = location;
-                        row.cells[8].textContent = type_part;
-                        row.cells[9].textContent = min;
-                        row.cells[10].textContent = max;
-                        row.cells[11].textContent = unit;
-                        row.cells[12].textContent = lt_day;
-                        row.cells[13].textContent = stock;
-                        row.cells[14].textContent = price;
-                        row.cells[15].textContent = total_value;
-                        row.cells[16].textContent = total_sparepart_cost;
-                        row.cells[17].textContent = condition;
-
-                        // Hide the modal
-                        $('#editModal').modal('hide');
-                    });
-            } else {
-                Swal.fire('Error!', 'There was an error updating the user.', 'error');
-            }
-        })
-        .catch(error => {
-            Swal.fire('Error!', 'An error occurred.', 'error');
-        })
-        .finally(() => {
-            // Re-enable the saveChanges button and reset text
-            saveChanges.disabled = false;
-            saveChanges.textContent = 'Save Changes';
-        });
+            // Reload halaman setelah modal benar-benar tertutup
+            $('#editModal').on('hidden.bs.modal', function () {
+                location.reload();
+            });
+        } else {
+            Swal.fire('Error!', 'There was an error updating the part.', 'error');
+        }
+    })
+    .catch(error => {
+        Swal.fire('Error!', 'An error occurred.', 'error');
+    })
+    .finally(() => {
+        saveChanges.disabled = false;
+        saveChanges.textContent = 'Save Changes';
     });
+});
+
 
             // Event listener untuk form tambah pengguna
             document.getElementById('registerForm').addEventListener('submit', function(event) {
