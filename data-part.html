@@ -26,22 +26,6 @@
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
 
-  
-
-      <!-- Custom CSS for Loading Spinner -->
-      <style>
-        #loadingSpinner {
-            margin: 20px 0;
-        }
-
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-            border-width: .4em;
-            color: rgb(47, 47, 230);
-        }
-    </style>
-
     <!-- Script to check login status -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -53,6 +37,20 @@
 </head>
 
 <body>
+
+     <!-- Custom CSS for Loading Spinner -->
+     <style>
+        #loadingSpinner {
+            margin: 20px 0;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border-width: .4em;
+            color: rgb(47, 47, 230);
+        }
+    </style>
 
     <!-- Begin page -->
     <div id="wrapper">
@@ -71,7 +69,8 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome !</h6>
                         </div>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                         <!-- item-->
+                         <a href="profile.html" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
@@ -119,31 +118,53 @@
                                 <span> Data Users </span>
                             </a>
                         </li>
+
                         <li>
                             <a href="data-part.html">
                                 <i class="ion ion-ios-construct"></i>
                                 <span> Data Parts </span>
                             </a>
                         </li>
-                        <li>
+
+                        <li id="menu-add-stock">
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
                                 <span> Penambahan Stock </span>
                             </a>
                         </li>
-                        <li>
+
+                        <li id="menu-get-barang">
                             <a href="get-barang.html">
                                 <i class="ion ion-ios-basket"></i>
                                 <span> Pengambilan Barang </span>
                             </a>
                         </li>
-                        
-                        <!-- <li>
-                            <a href="pengadaan.html">
-                                <i class="ion ion-ios-basket"></i>
-                                <span> Pengadaan </span>
+
+                        <li id="menu-report">
+                            <a href="javascript: void(0);" class="waves-effect">
+                                <i class="mdi mdi-share-variant"></i>
+                                <span> Report </span>
+                                <span class="menu-arrow"></span>
                             </a>
-                        </li> -->
+                            <ul class="nav-second-level nav" aria-expanded="false">
+                                <li>
+                                    <a href="Laporan-DP.html">Data Parts</a>
+                                </li>
+                                <li>
+                                    <a href="Laporan-pb.html">Data Pengambilan Barang</a>
+                                            <!-- <span class="menu-arrow"></span>
+                                        </a>
+                                    <ul class="nav-third-level nav" aria-expanded="false">
+                                        <li>
+                                            <a href="javascript: void(0);">Level 2.1</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript: void(0);">Level 2.2</a>
+                                        </li> -->
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -204,15 +225,15 @@
                                 <div id="loadingSpinner" class="text-center" style="display: none;">
                                     <div class="spinner-border" role="status">
                                         <span class="sr-only">Loading...</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- end row -->
                 </div>
-                <!-- end container-fluid -->
+                    <!-- end row -->
             </div>
+                <!-- end container-fluid -->
+        </div>
             <!-- end content -->
 
         <!-- Add Part Modal -->
@@ -547,11 +568,24 @@
         // Ambil peran pengguna dari sessionStorage
         const userRole = sessionStorage.getItem('role');
 
-        // Sembunyikan menu "Data Users" jika bukan admin
+        // Cek apakah pengguna bukan admin
         if (userRole !== 'admin') {
+            // Sembunyikan menu "Data Users"
             const menuDataUsers = document.getElementById('menu-data-users');
             if (menuDataUsers) {
                 menuDataUsers.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Report"
+            const menuReport = document.getElementById('menu-report');
+            if (menuReport) {
+                menuReport.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Add Stock"
+            const menuAddStock = document.getElementById('menu-add-stock');
+            if (menuAddStock) {
+                menuAddStock.style.display = 'none';
             }
         }
     });
@@ -1045,9 +1079,8 @@
             }
         }
     }
-</script>
+    </script>
 
 
 </body>
-
 </html>

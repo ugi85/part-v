@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Dashboard 1 | Velonic - Responsive Bootstrap 4 Admin Dashboard</title>
+    <title>ambil barang</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Responsive bootstrap 4 admin template" name="description">
     <meta content="Coderthemes" name="author">
@@ -100,7 +100,7 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome !</h6>
                         </div>
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <a href="profile.html" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
@@ -167,12 +167,31 @@
                             </a>
                         </li>
                        
-                        <!-- <li>
-                            <a href="pengadaan.html">
-                                <i class="ion ion-ios-basket"></i>
-                                <span> Pengadaan </span>
+
+                        <li id="menu-report">
+                            <a href="javascript: void(0);" class="waves-effect">
+                                <i class="mdi mdi-share-variant"></i>
+                                <span> Report </span>
+                                <span class="menu-arrow"></span>
                             </a>
-                        </li> -->
+                            <ul class="nav-second-level nav" aria-expanded="false">
+                                <li>
+                                    <a href="Laporan-DP.html">Data Parts</a>
+                                </li>
+                                <li>
+                                    <a href="Laporan-pb.html">Data Pengambilan Barang</a>
+                                            <!-- <span class="menu-arrow"></span>
+                                        </a>
+                                    <ul class="nav-third-level nav" aria-expanded="false">
+                                        <li>
+                                            <a href="javascript: void(0);">Level 2.1</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript: void(0);">Level 2.2</a>
+                                        </li> -->
+                                    </ul>
+                                </li>
+                        </li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -293,7 +312,7 @@
                         <div class="item-row row">
                             <div class="col-md-4">
                                 <label for="partName">Part Name</label>
-                                <select class="form-control partName" name="part_name" required>
+                                <select class="form-control select3 partName" name="part_name" required>
                                 </select>
                             </div>
                             <div class="col-md-3">
@@ -419,6 +438,11 @@
                         <input type="text" class="form-control" id="editStoreKeeper" name="security" required>
                         <div class="invalid-feedback">Store Keeper/Security is required.</div>
                     </div>
+                    <div class="form-group">
+                        <label for="editNote">Note</label>
+                        <input type="text" class="form-control" id="editNote" name="note">
+                        <!-- <div class="invalid-feedback">Store Keeper/Security is required.</div> -->
+                    </div>
                     <div class="col-12 text-right">
                         <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
                     </div>
@@ -499,11 +523,24 @@
         // Ambil peran pengguna dari sessionStorage
         const userRole = sessionStorage.getItem('role');
 
-        // Sembunyikan menu "Data Users" jika bukan admin
+        // Cek apakah pengguna bukan admin
         if (userRole !== 'admin') {
+            // Sembunyikan menu "Data Users"
             const menuDataUsers = document.getElementById('menu-data-users');
             if (menuDataUsers) {
                 menuDataUsers.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Report"
+            const menuReport = document.getElementById('menu-report');
+            if (menuReport) {
+                menuReport.style.display = 'none';
+            }
+
+            // Sembunyikan menu "Add Stock"
+            const menuAddStock = document.getElementById('menu-add-stock');
+            if (menuAddStock) {
+                menuAddStock.style.display = 'none';
             }
         }
     });
@@ -512,20 +549,18 @@
 
 
 <script>
- 
+
         function formatDate(isoString) {
         const date = new Date(isoString);
         return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
             }
+
 
         function formatTime(isoString) {
             const date = new Date(isoString);
             return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':'); // Format waktu
         }
 
-
-
-            // read data
             document.addEventListener('DOMContentLoaded', function() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
             const loadingSpinner = document.getElementById('loadingSpinner');
@@ -536,7 +571,7 @@
                 // Ambil peran pengguna dari sessionStorage
                 const userRole = sessionStorage.getItem('role');
 
-                    // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+
                 fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
@@ -569,6 +604,7 @@
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
                         `;
                     });
+
 
                 // Initialize or reinitialize DataTable
                 if ($.fn.DataTable.isDataTable('#userTable')) {
@@ -679,6 +715,95 @@
                         });
                     }
 
+
+                    function populateAllDropdowns() {
+                        $.get(apiUrl, function(response) {
+                            if (response.status === 'success') {
+                                const $dropdowns = $('.partName');
+                                $dropdowns.each(function() {
+                                    populatePartNameDropdown($(this), response.data);
+                                });
+                            } else {
+                                console.error('Error fetching spare parts data:', response.message);
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Request failed:', textStatus, errorThrown);
+                        });
+                    }
+
+                            // create
+                $(document).ready(function() {     
+                // Set nilai default untuk tanggal dan waktu ke waktu saat ini
+                var today = new Date().toISOString().split('T')[0];
+                var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+                $('#date').val(today);
+                $('#time').val(timeNow);
+
+                // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
+                var userName = sessionStorage.getItem('username');
+                if (userName) {
+                    $('#requester').val(userName);
+                }
+
+                    const apiUrl = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpareParts';
+                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpecification';
+
+                                // Inisialisasi Select2 mesin
+                        $(document).ready(function() {
+                            $('.select2').select2({
+                                placeholder: "Select Mesin",
+                                allowClear: true,
+                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
+                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
+                            });
+
+                            // Panggil fungsi untuk mengisi dropdown mesin
+                            populateMesinDropdown();
+                        });
+                        function populateMesinDropdown() {
+                            const $mesinDropdown = $('#mesin');
+                            $.get(apiUrl, function(response) {
+                                if (response.status === 'success') {
+                                    $mesinDropdown.empty();
+                                    $mesinDropdown.append('<option value="" disabled selected>Select Mesin</option>');
+                                    response.data.forEach(item => {
+                                        if (item.partMachine) {
+                                            $mesinDropdown.append(`<option value="${item.partMachine}">${item.partMachine}</option>`);
+                                        }
+                                    });
+                                    $mesinDropdown.trigger('change'); // Refresh dropdown setelah data di-load
+                                } else {
+                                    console.error('Error fetching mesin data:', response.message);
+                                }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.error('Request failed:', textStatus, errorThrown);
+                            });
+                        }
+
+
+                                // Inisialisasi Select3 part
+                        $(document).ready(function() {
+                            $('.select3').select2({
+                                placeholder: "Select Part Name",
+                                allowClear: true,
+                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
+                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
+                            });
+
+                            // Panggil fungsi untuk mengisi dropdown mesin
+                            populatePartNameDropdown();
+                        });
+                    function populatePartNameDropdown($dropdown, data) {
+                        $dropdown.empty();
+                        $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
+                        data.forEach(item => {
+                            if (item.partName) {
+                                $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
+                            }
+                        });
+                    }
+
                     function populateAllDropdowns() {
                         $.get(apiUrl, function(response) {
                             if (response.status === 'success') {
@@ -697,28 +822,27 @@
                     populateAllDropdowns();
 
 
-
-                    $('#itemsContainer').on('change', '.partName', function() {
-                        const selectedPartName = $(this).val();
-                        const $specField = $(this).closest('.item-row').find('.specification');
-                        const $stockField = $(this).closest('.item-row').find('.stock');
+                     $('#itemsContainer').on('change', '.partName', function() {
+                         const selectedPartName = $(this).val();
+                         const $specField = $(this).closest('.item-row').find('.specification');
+                         const $stockField = $(this).closest('.item-row').find('.stock');
                         
-                        if (selectedPartName) {
-                            $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-                                console.log('Specification Response:', response);
-                                if (response.partName === selectedPartName) {
-                                    $specField.val(response.specification || '');
-                                    $stockField.val(response.stock || 0);
-                                } else {
-                                    console.error('Part name mismatch or specification data missing');
-                                }
-                            }).fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error('Request failed:', textStatus, errorThrown);
-                            });
-                        } else {
-                            $specField.val('');
-                        }
-                    });
+                         if (selectedPartName) {
+                             $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                                 console.log('Specification Response:', response);
+                                 if (response.partName === selectedPartName) {
+                                     $specField.val(response.specification || '');
+                                     $stockField.val(response.stock || 0);
+                                 } else {
+                                     console.error('Part name mismatch or specification data missing');
+                                 }
+                             }).fail(function(jqXHR, textStatus, errorThrown) {
+                                 console.error('Request failed:', textStatus, errorThrown);
+                             });
+                         } else {
+                             $specField.val('');
+                         }
+                     });
 
 
                     // Form submission
@@ -749,6 +873,10 @@
                     };
                     itemsData.push(item);
                 });
+
+
+                    populateAllDropdowns();
+
 
                 // If form is valid, submit it
                 if (isValid) {
@@ -907,17 +1035,6 @@
                 }
             });
 
-                // function formatDateForInput(isoString) {
-                // const date = new Date(isoString);
-                // return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
-                //     }
-    //                 // format date
-    // function formatDateForInput(dateValue) {
-    // if (typeof dateValue === 'number') {
-    //     return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-    // }
-    // return new Date(dateValue).toISOString().split('T')[0];
-    // }
     function formatDateForInput(isoString) {
     const date = new Date(isoString);
     const year = date.getFullYear();
@@ -1010,6 +1127,11 @@
                 });
                 });
 
+
+                                // Ambil data mesin dari API dan isi dropdown
+            $.get(apiUrl, function(response) {
+                if (response.status === 'success') {
+                    const mesinOptions = response.data.map(item => `<option value="${item.partMachine}">${item.partMachine}</option>`);
 
                 $('#editPartName').on('change', function() {
                     const selectedPartName = $(this).val();
