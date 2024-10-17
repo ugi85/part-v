@@ -154,7 +154,7 @@
                                 <span> Data Parts </span>
                             </a>
                         </li>
-                        <li>
+                        <li id="menu-add-stock">
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
                                 <span> Penambahan Stock </span>
@@ -610,7 +610,7 @@
                         // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                         setTimeout(() => {
                             const table = document.getElementById('userTable');
-                            const actionsColumnIndex = 10; // Indeks kolom Actions (0-based)
+                            const actionsColumnIndex = 11; // Indeks kolom Actions (0-based)
                             // Sembunyikan header kolom
                             table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
                             // Sembunyikan semua cell di kolom Actions
