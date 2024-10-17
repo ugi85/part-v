@@ -549,18 +549,19 @@
 
 
 <script>
-
-        function formatDate(isoString) {
+ function formatDate(isoString) {
         const date = new Date(isoString);
         return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
             }
-
 
         function formatTime(isoString) {
             const date = new Date(isoString);
             return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':'); // Format waktu
         }
 
+
+
+            // read data
             document.addEventListener('DOMContentLoaded', function() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
             const loadingSpinner = document.getElementById('loadingSpinner');
@@ -571,7 +572,7 @@
                 // Ambil peran pengguna dari sessionStorage
                 const userRole = sessionStorage.getItem('role');
 
-
+                    // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
                 fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
@@ -604,7 +605,6 @@
                             <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
                         `;
                     });
-
 
                 // Initialize or reinitialize DataTable
                 if ($.fn.DataTable.isDataTable('#userTable')) {
@@ -639,97 +639,6 @@
                 });
             });
 
-
-                            // create
-                $(document).ready(function() {     
-                // Set nilai default untuk tanggal dan waktu ke waktu saat ini
-                var today = new Date().toISOString().split('T')[0];
-                var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-
-                $('#date').val(today);
-                $('#time').val(timeNow);
-
- 
-                // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
-                var userName = sessionStorage.getItem('username');
-                if (userName) {
-                    $('#requester').val(userName);
-                }
-
-                    const apiUrl = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpareParts';
-                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpecification';
-
-                                // Inisialisasi Select2 mesin
-                        $(document).ready(function() {
-                            $('.select2').select2({
-                                placeholder: "Select Mesin",
-                                allowClear: true,
-                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
-                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
-                            });
-
-                            // Panggil fungsi untuk mengisi dropdown mesin
-                            populateMesinDropdown();
-                        });
-                        function populateMesinDropdown() {
-                            const $mesinDropdown = $('#mesin');
-                            $.get(apiUrl, function(response) {
-                                if (response.status === 'success') {
-                                    $mesinDropdown.empty();
-                                    $mesinDropdown.append('<option value="" disabled selected>Select Mesin</option>');
-                                    response.data.forEach(item => {
-                                        if (item.partMachine) {
-                                            $mesinDropdown.append(`<option value="${item.partMachine}">${item.partMachine}</option>`);
-                                        }
-                                    });
-                                    $mesinDropdown.trigger('change'); // Refresh dropdown setelah data di-load
-                                } else {
-                                    console.error('Error fetching mesin data:', response.message);
-                                }
-                            }).fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error('Request failed:', textStatus, errorThrown);
-                            });
-                        }
-
-
-                                // Inisialisasi Select2 part
-                        $(document).ready(function() {
-                            $('.select3').select2({
-                                placeholder: "Select Part Name",
-                                allowClear: true,
-                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
-                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
-                            });
-
-                            // Panggil fungsi untuk mengisi dropdown mesin
-                            populatePartNameDropdown();
-                        });
-                        
-                    function populatePartNameDropdown($dropdown, data) {
-                        $dropdown.empty();
-                        $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
-                        data.forEach(item => {
-                            if (item.partName) {
-                                $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
-                            }
-                        });
-                    }
-
-
-                    function populateAllDropdowns() {
-                        $.get(apiUrl, function(response) {
-                            if (response.status === 'success') {
-                                const $dropdowns = $('.partName');
-                                $dropdowns.each(function() {
-                                    populatePartNameDropdown($(this), response.data);
-                                });
-                            } else {
-                                console.error('Error fetching spare parts data:', response.message);
-                            }
-                        }).fail(function(jqXHR, textStatus, errorThrown) {
-                            console.error('Request failed:', textStatus, errorThrown);
-                        });
-                    }
 
                             // create
                 $(document).ready(function() {     
@@ -873,10 +782,6 @@
                     };
                     itemsData.push(item);
                 });
-
-
-                    populateAllDropdowns();
-
 
                 // If form is valid, submit it
                 if (isValid) {
@@ -1035,6 +940,7 @@
                 }
             });
 
+          
     function formatDateForInput(isoString) {
     const date = new Date(isoString);
     const year = date.getFullYear();
@@ -1127,11 +1033,6 @@
                 });
                 });
 
-
-                                // Ambil data mesin dari API dan isi dropdown
-            $.get(apiUrl, function(response) {
-                if (response.status === 'success') {
-                    const mesinOptions = response.data.map(item => `<option value="${item.partMachine}">${item.partMachine}</option>`);
 
                 $('#editPartName').on('change', function() {
                     const selectedPartName = $(this).val();
@@ -1256,6 +1157,7 @@
                 });
             }
         });
+
 
 </script>
 
