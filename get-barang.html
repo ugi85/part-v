@@ -531,7 +531,7 @@
 
      // read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
 
     // Menampilkan spinner
@@ -611,9 +611,9 @@
                 // create
     document.addEventListener('DOMContentLoaded', function() {
     // URL API Google Sheet tetap sama
-    const partSheetURL = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=read';
-    const apiUrl = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getSpareParts';
-    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getSpecification';
+    const partSheetURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpareParts';
+    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpecification';
 
     let partData = [];
 
@@ -719,7 +719,7 @@ if (event.target.classList.contains('delete-btn')) {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Menghapus data jika pengguna mengonfirmasi
-                fetch(`https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=delete&id=${userId}`, {
+                fetch(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=delete&id=${userId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -766,7 +766,7 @@ if (event.target.classList.contains('delete-btn')) {
     $(document).on('click', '.edit-btn', function() {
         const userId = $(this).data('id');
         
-        $.get(`https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=getItemById&id=${userId}`, function(data) {
+        $.get(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getItemById&id=${userId}`, function(data) {
             if (data.status === 'success') {
                 const user = data.data;
                 $('#editId').val(user.id);
@@ -850,7 +850,7 @@ if (event.target.classList.contains('delete-btn')) {
 
         const formData = $(this).serialize();
         $.ajax({
-            url: 'https://script.google.com/macros/s/AKfycbzi10zQlyV4yGp7SiiWvGuiwkHeBYcO4r6gNvEcIVEbmXZgisag-DjlrHv8oeUJhYeeHw/exec?action=update',
+            url: 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=update',
             type: 'POST',
             data: formData,
             success: function(response) {
