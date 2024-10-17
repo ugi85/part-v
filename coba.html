@@ -641,33 +641,33 @@
 <script>
     // format date
     function formatDate(dateValue) {
-    if (typeof dateValue === 'number') {
-        return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-    }
-    return new Date(dateValue).toISOString().split('T')[0];
+        if (typeof dateValue === 'number') {
+            return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
+        }
+        return new Date(dateValue).toISOString().split('T')[0];
     }
 
     // format time
     function formatTime(timeValue) {
-    if (typeof timeValue === 'number') {
-        const date = new Date((timeValue - 25569) * 86400 * 1000);
-        return date.toTimeString().split(' ')[0];
-    }
-    return new Date(timeValue).toISOString().split('T')[1].split('.')[0];
+        if (typeof timeValue === 'number') {
+            const date = new Date((timeValue - 25569) * 86400 * 1000);
+            return date.toTimeString().split(' ')[0];
+        }
+        return new Date(timeValue).toISOString().split('T')[1].split('.')[0];
     }
 
-     // read data
+    // read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
-    const loadingSpinner = document.getElementById('loadingSpinner');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
+        const loadingSpinner = document.getElementById('loadingSpinner');
 
-    // Menampilkan spinner
-    loadingSpinner.style.display = 'block';
+        // Menampilkan spinner
+        loadingSpinner.style.display = 'block';
 
-         // Ambil peran pengguna dari sessionStorage
-         const userRole = sessionStorage.getItem('role');
+        // Ambil peran pengguna dari sessionStorage
+        const userRole = sessionStorage.getItem('role');
 
-             // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+        // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
         fetch(scriptURL)
         .then(response => response.json())
         .then(data => {
@@ -693,51 +693,44 @@
                     tableRow.insertCell(10).textContent = row.status || '';
                     tableRow.insertCell(11).textContent = row.note || '';
 
-
                     // Tambahkan kolom Edit dan Delete
                     const actionCell = tableRow.insertCell(12);
                     actionCell.innerHTML = `
-                    <button class="btn btn-primary btn-sm btn-verify" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Verify</button>
-                    <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
-                    <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
-                `;
-            });
+                        <button class="btn btn-primary btn-sm btn-verify" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Verify</button>
+                        <button class="btn btn-warning btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                    `;
+                });
 
-        // Initialize or reinitialize DataTable
-        if ($.fn.DataTable.isDataTable('#userTable')) {
-                        $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
-                    }
-                    $('#userTable').DataTable(); // Buat instance DataTable baru
-                    // Sembunyikan kolom Actions jika user bukan admin
-            if (userRole !== 'admin') {
-                // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
-                setTimeout(() => {
-                    const table = document.getElementById('userTable');
-                    const actionsColumnIndex = 10; // Indeks kolom Actions (0-based)
-                    // Sembunyikan header kolom
-                    table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
-                    // Sembunyikan semua cell di kolom Actions
-                    table.querySelectorAll(`tbody tr`).forEach(row => {
-                        row.children[actionsColumnIndex].style.display = 'none';
-                    });
-                }, 100); // Sesuaikan timeout sesuai kebutuhan
-            }
-                } else {
+                // Initialize or reinitialize DataTable
+                if ($.fn.DataTable.isDataTable('#userTable')) {
+                    $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
+                }
+                $('#userTable').DataTable(); // Buat instance DataTable baru
+
+                // Sembunyikan kolom Actions jika user bukan admin
+                if (userRole !== 'admin') {
+                    setTimeout(() => {
+                        const table = document.getElementById('userTable');
+                        const actionsColumnIndex = 12; // Indeks kolom Actions (0-based)
+                        table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                        table.querySelectorAll('tbody tr').forEach(row => {
+                            row.children[actionsColumnIndex].style.display = 'none';
+                        });
+                    }, 100);
+                }
+            } else {
                 console.error('Error:', data.message);
             }
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-            // Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
         })
         .finally(() => {
-            // Menyembunyikan spinner setelah data berhasil diambil atau terjadi error
-            loadingSpinner.style.display = 'none';
+            loadingSpinner.style.display = 'none'; // Sembunyikan spinner
         });
     });
 
-
-                // create
     document.addEventListener('DOMContentLoaded', function() {
     // URL API Google Sheet tetap sama
     const partSheetURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
@@ -813,85 +806,58 @@
             $specField.val('');
         }
     });
+});
 
-     // Format tanggal dan waktu untuk form input
-     function formatDateForInput(dateValue) {
-        if (typeof dateValue === 'number') {
-            return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-        }
-        return new Date(dateValue).toISOString().split('T')[0];
-    }
 
-    function formatTimeForInput(timeValue) {
-        if (typeof timeValue === 'number') {
-            const date = new Date((timeValue - 25569) * 86400 * 1000);
-            return date.toTimeString().split(' ')[0].slice(0, 5); // HH:MM
-        }
-        return new Date(timeValue).toISOString().split('T')[1].split('.')[0].slice(0, 5); // HH:MM
-    }
+
+
     
 
+    // Event listener untuk tombol delete
     document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('delete-btn')) {
+            const userId = event.target.dataset.id;
 
-// Event Listener untuk tombol Delete
-if (event.target.classList.contains('delete-btn')) {
-    const userId = event.target.dataset.id;
-        
-        Swal.fire({
-            title: 'Konfirmasi Hapus',
-            text: 'Apakah Anda yakin ingin menghapus part ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Hapus',
-            cancelButtonText: 'Batal',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Menghapus data jika pengguna mengonfirmasi
-                fetch(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=delete&id=${userId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        'id': userId
+            Swal.fire({
+                title: 'Konfirmasi Hapus',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Menghapus data jika pengguna mengonfirmasi
+                    fetch(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=delete&id=${userId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'id': userId
+                        })
                     })
-                })
-                .then(response => response.json())
-            .then(data => {
-                console.log('Response:', data); // Debug response
-                if (data.status === 'success') {
-                    // Menghapus baris dari tabel
-                    event.target.closest('tr').remove();
-                    Swal.fire(
-                        'Terhapus!',
-                        'Pengguna telah dihapus.',
-                        'success'
-                    );
-                } else {
-                    console.error('Error:', data.message);
-                    Swal.fire(
-                        'Gagal!',
-                        'Terjadi kesalahan saat menghapus pengguna.',
-                        'error'
-                    );
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            event.target.closest('tr').remove(); // Hapus baris dari tabel
+                            Swal.fire('Terhapus!', 'Data telah dihapus.', 'success');
+                        } else {
+                            console.error('Error:', data.message);
+                            Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus data.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus data.', 'error');
+                    });
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire(
-                    'Gagal!',
-                    'Terjadi kesalahan saat menghapus pengguna.',
-                    'error'
-                );
             });
         }
     });
-}
-});
 
-   
-    // Tombol edit verifikasi
+    // Tombol edit
     $(document).on('click', '.edit-btn', function() {
         const userId = $(this).data('id');
         
@@ -899,8 +865,8 @@ if (event.target.classList.contains('delete-btn')) {
             if (data.status === 'success') {
                 const user = data.data;
                 $('#editId').val(user.id);
-                $('#editTanggal').val(formatDateForInput(user.tanggal));
-                $('#editWaktu').val(formatTimeForInput(user.waktu));
+                $('#editTanggal').val(formatDate(user.tanggal));
+                $('#editWaktu').val(formatTime(user.waktu));
                 $('#editDepartemen').val(user.departemen);
                 $('#editMesin').val(user.mesin);
                 $('#editRemark').val(user.remark);
@@ -912,9 +878,8 @@ if (event.target.classList.contains('delete-btn')) {
                 $('#editStatus').val(user.status);
                 $('#editNote').val(user.note);
 
-
-                // Ambil data stock
-                if (user.part_name) {
+                 // Ambil data stock
+                 if (user.part_name) {
                         $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
                             if (response.partName === user.part_name) {
                                 $('#editStock').val(response.stock || 0);  // Tampilkan stock
@@ -967,16 +932,13 @@ if (event.target.classList.contains('delete-btn')) {
         const saveChanges = $('#saveChanges');
         saveChanges.prop('disabled', true).text('Loading...');
 
-        // Mendapatkan nama admin dan tanggal saat ini
         const adminName = sessionStorage.getItem('username');
         const currentDate = new Date().toLocaleDateString(); // Format: MM/DD/YYYY
         const existingSecurity = $('#editStoreKeeper').val();
 
-        // Menambahkan verifikasi ke kolom security
         if (adminName) {
             const verifiedText = `Verified By ${adminName}, ${currentDate}`;
             $('#editStoreKeeper').val(existingSecurity ? `${existingSecurity}, ${verifiedText}` : verifiedText);
-             // Tambahkan warna biru untuk teks yang ditambahkan
             $('#editStoreKeeper').css('color', 'blue');
         }
 
@@ -987,196 +949,58 @@ if (event.target.classList.contains('delete-btn')) {
             data: formData,
             success: function(response) {
                 if (response.status === 'success') {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Item has been updated and verified.',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
+                    Swal.fire('Success!', 'Data has been updated and verified.', 'success').then(() => {
                         $('#editModal').modal('hide');
-                        location.reload(); // Refresh halaman setelah edit
+                        location.reload(); // Reload halaman setelah berhasil mengedit
                     });
                 } else {
                     Swal.fire('Error!', response.message, 'error');
                 }
             },
-            error: function() {
-                console.error('Request failed:', textStatus, errorThrown);
-                Swal.fire('Error!', 'An error occurred while updating item.', 'error');
+            error: function(error) {
+                console.error('Error:', error);
+                Swal.fire('Error!', 'Failed to update data. Please try again.', 'error');
             },
             complete: function() {
                 saveChanges.prop('disabled', false).text('Save Changes');
             }
         });
     });
-});
 
+    // Tombol verifikasi
+    $(document).on('click', '.btn-verify', function() {
+        const userId = $(this).data('id');
 
+        $.get(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getItemById&id=${userId}`, function(data) {
+            if (data.status === 'success') {
+                const user = data.data;
 
-// Tombol verifikasi
-$(document).on('click', '.btn-verify', function() {
-    const userId = $(this).data('id');
-    console.log('Button clicked for ID:', userId); // Debugging
-
-    // Mengambil data untuk modal verifikasi
-    $.get(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getItemById&id=${userId}`, function(data) {
-        console.log('Data fetched:', data); // Debugging
-
-        if (data.status === 'success') {
-            const user = data.data;
-            $('#editId').val(user.id);
-            $('#editTanggal').val(formatDateForInput(user.tanggal));
-            $('#editWaktu').val(formatTimeForInput(user.waktu));
-            $('#editDepartemen').val(user.departemen);
-            $('#editMesin').val(user.mesin);
-            $('#editRemark').val(user.remark);
-            $('#editPartName').val(user.part_name);
-            $('#editSpecification').val(user.specification);
-            $('#editQty').val(user.qty);
-            $('#editRequester').val(user.requester);
-            $('#editStoreKeeper').val(user.security);
-            $('#editStatus').val(user.status);
-            $('#editNote').val(user.note);
-
-            // Ambil data stock
-            if (user.part_name) {
-                $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
-                    console.log('Stock data fetched:', response); // Debugging
-                    if (response.partName === user.part_name) {
-                        $('#editStock').val(response.stock || 0);  // Tampilkan stock
-                    } else {
-                        console.error('Part name mismatch or specification data missing');
-                    }
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    console.error('Request failed:', textStatus, errorThrown);
-                });
+                $('#verifId').val(user.id);
+                $('#verifTanggal').val(formatDate(user.tanggal));
+                $('#verifWaktu').val(formatTime(user.waktu));
+                $('#verifDepartemen').val(user.departemen);
+                $('#verifMesin').val(user.mesin);
+                $('#verifRemark').val(user.remark);
+                $('#verifPartName').val(user.part_name);
+                $('#verifSpecification').val(user.specification);
+                $('#verifQty').val(user.qty);
+                $('#verifRequester').val(user.requester);
+                $('#verifStoreKeeper').val(user.security);
+                $('#verifStatus').val(user.status);
+                $('#verifNote').val(user.note);
+                
+                $('#verifModal').modal('show');
             } else {
-                $('#editStock').val(0);  // Default ke 0 jika part_name kosong
-            }
-
-            $('#verifModal').modal('show'); // Tampilkan modal
-        } else {
-            console.error('Error:', data.message);
-            Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
-        }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error('Request failed:', textStatus, errorThrown);
-        Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
-    });
-});
-
-// Mengambil data saat part name berubah
-$('#editPartName').on('change', function() {
-    const selectedPartName = $(this).val();
-    const $specField = $('#editSpecification');
-    const $stockField = $('#editStock');
-
-    if (selectedPartName) {
-        $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-            if (response.partName === selectedPartName) {
-                $specField.val(response.specification || '');
-                $stockField.val(response.stock || 0);
-            } else {
-                console.error('Part name mismatch or specification data missing');
+                console.error('Error:', data.message);
+                Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
             }
         }).fail(function(jqXHR, textStatus, errorThrown) {
             console.error('Request failed:', textStatus, errorThrown);
+            Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
         });
-    } else {
-        $specField.val('');
-    }
-});
-
-// Submit form verifikasi
-$('#verifForm').submit(function(e) {
-    e.preventDefault();
-
-    const saveButton = $('#saveButton');
-    saveButton.prop('disabled', true).text('Loading...');
-
- // Mendapatkan nama admin dan tanggal saat ini
-    const adminName = sessionStorage.getItem('username');
-        const currentDate = new Date().toLocaleDateString(); // Format: MM/DD/YYYY
-        const existingStatus = $('#editStatus').val();
-
-        // Menambahkan verifikasi ke kolom security
-        if (adminName) {
-            const verifiedText = `Verified By ${adminName}, ${currentDate}`;
-            $('#editStatus').val(existingStatus ? `${existingStatus}, ${verifiedText}` : verifiedText);
-        }
-    const verifiedText = 'Verified';
-    $('#editStatus').val(verifiedText); // Set status menjadi "Verified"
-
-    const formData = $(this).serialize();
-    $.ajax({
-        url: 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=update',
-        type: 'POST',
-        data: formData,
-        success: function(response) {
-            if (response.status === 'success') {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Item has been verified.',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    $('#verifModal').modal('hide');
-                    location.reload(); // Refresh halaman setelah edit
-                });
-            } else {
-                Swal.fire('Error!', response.message, 'error');
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error('Request failed:', textStatus, errorThrown);
-            Swal.fire('Error!', 'An error occurred while updating item.', 'error');
-        },
-        complete: function() {
-            saveButton.prop('disabled', false).text('Save Changes');
-        }
     });
-});
-
-
-
-
-// function updateNotifPengambilanBarang() {
-//     // Misalkan ini URL API yang memberikan data jumlah pengambilan barang yang belum diverifikasi
-//     const apiUrl = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getUnverifiedCount';
-
-//     // Gunakan AJAX untuk request ke API
-//     $.get(apiUrl, function(response) {
-//         if (response.status === 'success') {
-//             const unverifiedCount = response.count; // Ambil data jumlah dari respons API
-
-//             // Update badge dengan jumlah yang didapatkan
-//             $('#notifPengambilanBarang').text(unverifiedCount);
-
-//             // Jika tidak ada notifikasi, sembunyikan badge
-//             if (unverifiedCount === 0) {
-//                 $('#notifPengambilanBarang').hide();
-//             } else {
-//                 $('#notifPengambilanBarang').show();
-//             }
-//         } else {
-//             console.error('Error fetching notification count:', response.message);
-//         }
-//     }).fail(function(jqXHR, textStatus, errorThrown) {
-//         console.error('Request failed:', textStatus, errorThrown);
-//     });
-// }
-
-// // Fungsi dipanggil saat halaman dimuat
-// $(document).ready(function() {
-//     updateNotifPengambilanBarang(); // Panggil fungsi untuk mengupdate notifikasi saat halaman dimuat
-
-//     // Set interval untuk auto-refresh notifikasi setiap 60 detik
-//     setInterval(updateNotifPengambilanBarang, 60000); // 60 detik
-// });
-
-
-
 </script>
+
 
 <script>
     // Tampilkan nama pengguna di navbar saat halaman utama dimuat
