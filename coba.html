@@ -1094,6 +1094,16 @@ $('#verifForm').submit(function(e) {
     const saveButton = $('#saveButton');
     saveButton.prop('disabled', true).text('Loading...');
 
+ // Mendapatkan nama admin dan tanggal saat ini
+    const adminName = sessionStorage.getItem('username');
+        const currentDate = new Date().toLocaleDateString(); // Format: MM/DD/YYYY
+        const existingStatus = $('#editStatus').val();
+
+        // Menambahkan verifikasi ke kolom security
+        if (adminName) {
+            const verifiedText = `Verified By ${adminName}, ${currentDate}`;
+            $('#editStatus').val(existingStatus ? `${existingStatus}, ${verifiedText}` : verifiedText);
+        }
     const verifiedText = 'Verified';
     $('#editStatus').val(verifiedText); // Set status menjadi "Verified"
 
