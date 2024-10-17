@@ -167,12 +167,31 @@
                             </a>
                         </li>
                        
-                        <!-- <li>
-                            <a href="pengadaan.html">
-                                <i class="ion ion-ios-basket"></i>
-                                <span> Pengadaan </span>
+                        <li id="menu-report">
+                            <a href="javascript: void(0);" class="waves-effect">
+                                <i class="mdi mdi-share-variant"></i>
+                                <span> Report </span>
+                                <span class="menu-arrow"></span>
                             </a>
-                        </li> -->
+                            <ul class="nav-second-level nav" aria-expanded="false">
+                                <li>
+                                    <a href="Laporan-DP.html">Data Parts</a>
+                                </li>
+                                <li>
+                                    <a href="Laporan-pb.html">Data Pengambilan Barang</a>
+                                            <!-- <span class="menu-arrow"></span>
+                                        </a>
+                                    <ul class="nav-third-level nav" aria-expanded="false">
+                                        <li>
+                                            <a href="javascript: void(0);">Level 2.1</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript: void(0);">Level 2.2</a>
+                                        </li> -->
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -293,7 +312,7 @@
                         <div class="item-row row">
                             <div class="col-md-4">
                                 <label for="partName">Part Name</label>
-                                <select class="form-control partName" name="part_name" required>
+                                <select class="form-control select3 partName" name="part_name" required>
                                 </select>
                             </div>
                             <div class="col-md-3">
@@ -512,30 +531,6 @@
 
 
 <script>
-    // format date
-    // function formatDate(dateValue) {
-    // if (typeof dateValue === 'number') {
-    //     return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-    // }
-    // return new Date(dateValue).toISOString().split('T')[0];
-    // }
-
-    // // // format time
-    // function formatTime(timeValue) {
-    //     if (typeof timeValue === 'number') {
-    //         const date = new Date((timeValue - 25569) * 86400 * 1000);
-    //         return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit'});
-    //     }
-    //     const date = new Date(timeValue);
-    //     return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':');
-    // }
-//     function formatDate(isoString) {
-//     const date = new Date(isoString);
-//     const year = date.getFullYear();
-//     const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan mulai dari 0
-//     const day = String(date.getDate()).padStart(2, '0');
-//     return `${year}-${month}-${day}`; // Format YYYY-MM-DD
-// }
         function formatDate(isoString) {
         const date = new Date(isoString);
         return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
@@ -636,19 +631,6 @@
                 $('#date').val(today);
                 $('#time').val(timeNow);
 
-    // var today = new Date();
-    // // Format tanggal menjadi DD-MM-YYYY
-    // var day = String(today.getDate()).padStart(2, '0'); // Menambahkan nol di depan jika perlu
-    // var month = String(today.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
-    // var year = today.getFullYear();
-    // var formattedDate = day + '-' + month + '-' + year; // Format DD-MM-YYYY
-    
-    // // Format waktu menjadi HH:MM
-    // var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-
-    // $('#date').val(formattedDate);
-    // $('#time').val(timeNow);
-
                 // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
                 var userName = sessionStorage.getItem('username');
                 if (userName) {
@@ -691,7 +673,7 @@
                         }
 
 
-                                // Inisialisasi Select2 part
+                                // Inisialisasi Select3 part
                         $(document).ready(function() {
                             $('.select3').select2({
                                 placeholder: "Select Part Name",
@@ -730,86 +712,28 @@
 
                     populateAllDropdowns();
 
-                    $('#itemsContainer').on('change', '.partName', function() {
-    const selectedPartName = $(this).val();
-    const $specField = $(this).closest('.item-row').find('.specification');
-    const $stockField = $(this).closest('.item-row').find('.stock');
-    
-    if (selectedPartName) {
-        $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-            console.log('Specification Response:', response);
-            if (response.length > 0) {
-                // Jika ada lebih dari satu entri dengan partName yang sama, pilih salah satu atau gabungkan
-                let specifications = response.map(item => item.specification).join(', ');
-                let stocks = response.map(item => item.stock).join(', ');
 
-                // Tampilkan semua spesifikasi dan stok yang cocok
-                $specField.val(specifications || '');
-                $stockField.val(stocks || 0);
-            } else {
-                console.error('No specifications found for the selected part name');
-                $specField.val('');
-                $stockField.val(0);
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('Request failed:', textStatus, errorThrown);
-        });
-    } else {
-        $specField.val('');
-        $stockField.val(0);
-    }
-});
-
-
-//                     $('#itemsContainer').on('change', '.partName', function() {
-//     const selectedPartName = $(this).val();
-//     const $specField = $(this).closest('.item-row').find('.specification');
-//     const $stockField = $(this).closest('.item-row').find('.stock');
-
-//     if (selectedPartName) {
-//         $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-//             console.log('Specification Response:', response);
-//             if (response.status === 'success' && response.data.length > 0) {
-//                 // Asumsikan response.data adalah array dari spesifikasi yang cocok dengan partName
-//                 const specifications = response.data.map(item => item.specification).join(', ');
-//                 const stock = response.data.map(item => item.stock).join(', ');
-                
-//                 // Tampilkan semua spesifikasi yang cocok
-//                 $specField.val(specifications || '');
-//                 $stockField.val(stock || 0);
-//             } else {
-//                 console.error('Part name mismatch or specification data missing');
-//             }
-//         }).fail(function(jqXHR, textStatus, errorThrown) {
-//             console.error('Request failed:', textStatus, errorThrown);
-//         });
-//     } else {
-//         $specField.val('');
-//     }
-// });
-
-
-                    // $('#itemsContainer').on('change', '.partName', function() {
-                    //     const selectedPartName = $(this).val();
-                    //     const $specField = $(this).closest('.item-row').find('.specification');
-                    //     const $stockField = $(this).closest('.item-row').find('.stock');
+                     $('#itemsContainer').on('change', '.partName', function() {
+                         const selectedPartName = $(this).val();
+                         const $specField = $(this).closest('.item-row').find('.specification');
+                         const $stockField = $(this).closest('.item-row').find('.stock');
                         
-                    //     if (selectedPartName) {
-                    //         $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-                    //             console.log('Specification Response:', response);
-                    //             if (response.partName === selectedPartName) {
-                    //                 $specField.val(response.specification || '');
-                    //                 $stockField.val(response.stock || 0);
-                    //             } else {
-                    //                 console.error('Part name mismatch or specification data missing');
-                    //             }
-                    //         }).fail(function(jqXHR, textStatus, errorThrown) {
-                    //             console.error('Request failed:', textStatus, errorThrown);
-                    //         });
-                    //     } else {
-                    //         $specField.val('');
-                    //     }
-                    // });
+                         if (selectedPartName) {
+                             $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                                 console.log('Specification Response:', response);
+                                 if (response.partName === selectedPartName) {
+                                     $specField.val(response.specification || '');
+                                     $stockField.val(response.stock || 0);
+                                 } else {
+                                     console.error('Part name mismatch or specification data missing');
+                                 }
+                             }).fail(function(jqXHR, textStatus, errorThrown) {
+                                 console.error('Request failed:', textStatus, errorThrown);
+                             });
+                         } else {
+                             $specField.val('');
+                         }
+                     });
 
 
                     // Form submission
@@ -998,17 +922,7 @@
                 }
             });
 
-                // function formatDateForInput(isoString) {
-                // const date = new Date(isoString);
-                // return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
-                //     }
-    //                 // format date
-    // function formatDateForInput(dateValue) {
-    // if (typeof dateValue === 'number') {
-    //     return new Date((dateValue - 25569) * 86400 * 1000).toISOString().split('T')[0];
-    // }
-    // return new Date(dateValue).toISOString().split('T')[0];
-    // }
+          
     function formatDateForInput(isoString) {
     const date = new Date(isoString);
     const year = date.getFullYear();
