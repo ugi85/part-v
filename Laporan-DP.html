@@ -21,8 +21,8 @@
     <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
     <!-- App css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+   <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css"> 
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
     <!-- Toastr css -->
@@ -191,45 +191,45 @@
                         </div>
                     </div>
 
-            <!-- Filter Form -->
-            <div class="row mb-4">
-                <!-- Filter Berdasarkan Kolom -->
-                <div class="col-md-3">
-                    <label for="filterColumn">Filter Berdasarkan Kolom:</label>
-                <select class="form-control" id="filterColumn">
-                    <option value="">--Pilih Kategori--</option>
-                    <option value="id_part">ID Part</option>
-                    <option value="description">Description</option>
-                    <option value="specification">Specification</option>
-                    <option value="machine">Machine</option>
-                    <option value="supplier 1">Supplier 1</option>
-                    <option value="supplier 2">Supplier 2</option>
-                    <option value="location">Location</option>
-                    <option value="Type Part">Type Part</option>
-                    <option value="Min">Min</option>
-                    <option value="Max">Max</option>
-                    <option value="Unit">Unit</option>
-                    <option value="LT DAY">LT Day</option>
-                    <option value="Stock">Stock</option>
-                    <option value="Price">Price</option>
-                </select>
-            </div>
-            
-            <!-- Nilai Filter -->
-            <div class="col-md-3">
-                <label for="filterValue">Nilai Filter:</label>
-                <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
-            </div>
-    
-            <!-- Tombol Filter -->
-            <div class="col-md-3 d-flex align-items-end">
-                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
-            </div>
-        </div>
-        </div>
+                    <!-- Filter Form -->
+                    <div class="row mb-4">
+                        <!-- Filter Berdasarkan Kolom -->
+                        <div class="col-md-3">
+                            <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+                            <select class="form-control" id="filterColumn">
+                            <option value="">--Pilih Kategori--</option>
+                            <option value="id_part">ID Part</option>
+                            <option value="description">Description</option>
+                            <option value="specification">Specification</option>
+                            <option value="machine">Machine</option>
+                            <option value="supplier 1">Supplier 1</option>
+                            <option value="supplier 2">Supplier 2</option>
+                            <option value="location">Location</option>
+                            <option value="Type Part">Type Part</option>
+                            <option value="Min">Min</option>
+                            <option value="Max">Max</option>
+                            <option value="Unit">Unit</option>
+                            <option value="LT DAY">LT Day</option>
+                            <option value="Stock">Stock</option>
+                            <option value="Price">Price</option>
+                            </select>
+                        </div>
+                
+                            <!-- Nilai Filter -->
+                        <div class="col-3">
+                                <label for="filterValue">Nilai Filter:</label>
+                                <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
+                        </div>
+                    
+                            <!-- Tombol Filter -->
+                        <div class="col-md-3 d-flex align-items-end">
+                                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
+                        </div>
+                </div>
+             </div>
 
-            <!-- Daftar Pilihan Kolom untuk Cetak -->
-            <div class="form-group">
+                <!-- Daftar Pilihan Kolom untuk Cetak -->
+                <div class="form-group">
                 <h5>Pilih Kolom yang Akan Dicetak:</h5>
                 <div id="columnSelection" class="d-flex flex-wrap">
                     <div class="form-check form-check-inline">
@@ -289,6 +289,7 @@
                         <label class="form-check-label" for="inlineCheckbox14">Price</label>
                     </div>
                 </div>
+            </div>
 
 
             <!-- Tombol Cetak PDF dan Print Preview -->

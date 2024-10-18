@@ -12,6 +12,14 @@
             #printButton {
                 display: none;
             }
+            /* CSS untuk menempatkan footer di bagian bawah saat dicetak */
+            footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                font-size: 12px;
+            }
         }
         /* Tambahkan padding atau margin jika diperlukan */
         .print-container {
@@ -36,12 +44,24 @@
             </tbody>
         </table>
 
-        <!-- Tambahkan id "printButton" agar CSS print berfungsi -->
+        <!-- Tombol print -->
         <button id="printButton" onclick="window.print()" class="btn btn-primary">Print</button>
+
+        <!-- Footer untuk nama pengguna -->
+        <footer id="printFooter">
+            <!-- Nama pengguna akan diisi dengan JavaScript -->
+        </footer>
 
     </div>
 
     <script>
+        // Mengambil nama pengguna dari localStorage
+        const username = localStorage.getItem('username') || 'Pengguna tidak diketahui'; // Default jika tidak ada pengguna
+
+        // Menambahkan nama pengguna di footer untuk ditampilkan saat cetak
+        const footerElement = document.getElementById('printFooter');
+        footerElement.textContent = `Printed By: ${username}`;
+
         // Script untuk menambahkan kolom dan baris ke tabel preview
         document.addEventListener('DOMContentLoaded', function() {
             const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')); // Mengambil data kolom yang dipilih
