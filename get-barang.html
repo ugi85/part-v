@@ -557,7 +557,7 @@
 
             // read data
             document.addEventListener('DOMContentLoaded', function() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=read';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=read';
             const loadingSpinner = document.getElementById('loadingSpinner');
 
             // Menampilkan spinner
@@ -649,8 +649,8 @@
                     $('#requester').val(userName);
                 }
 
-                    const apiUrl = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpareParts';
-                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpecification';
+                    const apiUrl = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpareParts';
+                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpecification';
 
                                 // Inisialisasi Select2 mesin
                         $(document).ready(function() {
@@ -791,7 +791,7 @@
 
 
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=create', true);
+                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=create', true);
 
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 400) {
@@ -854,9 +854,9 @@
 
                 // get part name sheet barang
             document.addEventListener('DOMContentLoaded', function() {
-            const partSheetURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
-            const apiUrl = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpareParts';
-            const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getSpecification';
+            const partSheetURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=read';
+            const apiUrl = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpareParts';
+            const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpecification';
 
             let partData = [];
 
@@ -954,7 +954,7 @@
                 const userId = $(this).data('id');
 
                 // Ambil data item berdasarkan ID
-                $.get(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=getItemById&id=${userId}`, function(data) {
+                $.get(`https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getItemById&id=${userId}`, function(data) {
 
                     if (data.status === 'success') {
                         const user = data.data;
@@ -1071,7 +1071,7 @@
                 const formData = $(this).serialize();
 
                 $.ajax({
-                url: 'https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=update',
+                url: 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=update',
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -1121,7 +1121,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Menghapus data jika pengguna mengonfirmasi
-                        fetch(`https://script.google.com/macros/s/AKfycbzKtUV0aNv8yVHOsMHB4BwV7916wYjrDNciADfi7mBhgKomzvme_kqQddpnqfjWG85mZQ/exec?action=delete&id=${userId}`, {
+                        fetch(`https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=delete&id=${userId}`, {
                             method: 'POST', // Metode POST digunakan
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
