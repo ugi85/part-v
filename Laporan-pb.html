@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Data Pengembalian Barang</title>
+    <title>Dashboard 1 | Velonic - Responsive Bootstrap 4 Admin Dashboard</title>
     <meta content="Responsive bootstrap 4 admin template" name="description">
     <meta content="Coderthemes" name="author">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +24,13 @@
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- App css -->
+   <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+   <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css"> 
+   <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+
+   <!-- Toastr css -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
 
     <style>
         .filter-container {
@@ -204,7 +211,7 @@
     
                     <!-- Start Page Title -->
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-md-3">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Laporan Pengambilan Barang</h4>
                             </div>
@@ -215,9 +222,9 @@
                     <!-- Start Filters -->
                     <div class="row mb-4">
                         <!-- Filter Berdasarkan Kolom -->
-                        <div class="col-md-3">
-                            <label for="filterColumn">Filter Berdasarkan Kolom:</label>
-                            <select class="form-control" id="filterColumn">
+                            <div class="col-md-3">
+                                <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+                                <select class="form-control" id="filterColumn">
                                 <option value="">--Pilih Kategori--</option>
                                 <!-- <option value="tanggal">Tanggal</option> -->
                                 <!-- <option value="waktu">Waktu</option> -->
@@ -229,36 +236,39 @@
                                 <option value="qty">Qty</option>
                                 <option value="requester">Requester</option>
                                 <option value="storeKeeper">Store Keeper/Security</option>
-                                
+                                </select>
+                            </div>
 
-                            </select>
-                        </div>
     
                         <!-- Nilai Filter -->
-                        <div class="col-md-3">
+                        <div class="col-3">
                             <label for="filterValue">Nilai Filter:</label>
                             <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
                         </div>
     
                         <!-- Filter Berdasarkan Tanggal -->
-                        <div class="col-md-5">
+                        <div class="col-5">
                             <label for="filterDate">Filter Berdasarkan Tanggal:</label>
                             <div class="filter-container">
                                 <div>
                                     <label for="startDate">Mulai:</label>
                                     <input type="date" id="startDate" class="form-control form-control-inline">
                                 </div>
+
                                 <div>
                                     <label for="endDate">Akhir:</label>
                                     <input type="date" id="endDate" class="form-control form-control-inline">
                                 </div>
+
                                 <div>
-                                    <div class="col-md-12 d-flex align-items-end">
-                                    <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
+                                    <div class="col-md-12 d-flex align-items-end"></div>
+                                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
 
             <!-- Daftar Pilihan Kolom untuk Cetak -->
             <div class="form-group">
@@ -304,8 +314,8 @@
                         <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
                         <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
                     </div>
-                    
                 </div>
+            </div>
 
 
             <!-- Tombol Cetak PDF dan Print Preview -->
@@ -335,6 +345,7 @@
                                         <th>Qty</th>
                                         <th>Requester</th>
                                         <th>Store keeper/Security</th>
+                                        <th>Note</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -349,7 +360,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Footer Start -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -362,7 +373,8 @@
             </footer>
             <!-- end Footer -->
         </div>
-    </div> 
+    </div>
+
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->
@@ -451,18 +463,23 @@
     const filterColumn = document.getElementById('filterColumn');
     const filterValue = document.getElementById('filterValue');
     const applyFilterButton = document.getElementById('applyFilter');
-    const printPDFButton = document.getElementById('printPDF');
-    const printPreviewButton = document.getElementById('printPreview');
-    const columnSelection = document.getElementById('columnSelection');
     const startDateInput = document.getElementById('startDate');
     const endDateInput = document.getElementById('endDate');
+    const printPreviewButton = document.getElementById('printPreview');
+    const columnSelection = document.getElementById('columnSelection');
+    const printPDFButton = document.getElementById('printPDF');
 
     let originalData = []; // Array untuk menyimpan data asli
 
-     // Fungsi untuk menampilkan data di tabel
-     function displayData(users) {
+    // Fungsi untuk menampilkan data di tabel
+    function displayData(users) {
         const usersTableBody = document.querySelector('#userTable tbody');
         usersTableBody.innerHTML = ''; // Kosongkan tabel sebelum memuat data baru
+
+        if (users.length === 0) {
+            usersTableBody.innerHTML = '<tr><td colspan="10" class="text-center">Data tidak ditemukan</td></tr>';
+            return;
+        }
 
         users.forEach(user => {
             const row = usersTableBody.insertRow();
@@ -476,6 +493,7 @@
             row.insertCell(7).textContent = user.qty;
             row.insertCell(8).textContent = user.requester;
             row.insertCell(9).textContent = user.security;
+            row.insertCell(10).textContent = user.note;
         });
 
         // Inisialisasi ulang DataTable jika dibutuhkan
@@ -488,6 +506,7 @@
         });
     }
     
+    // Fungsi untuk mengambil data dari API
     function fetchData(filter = {}) {
         loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
 
@@ -501,20 +520,26 @@
                     // Filter berdasarkan kolom dan nilai yang diinputkan
                     if (filter.column && filter.value) {
                         users = users.filter(user => {
-                            const columnValue = user[filter.column].toString().toLowerCase();
+                            const columnValue = user[filter.column]?.toString().toLowerCase();
                             return columnValue.includes(filter.value.toLowerCase());
                         });
                     }
 
                     // Filter berdasarkan rentang tanggal
                     if (filter.startDate && filter.endDate) {
-                        users = users.filter(user => {
-                            const userDate = new Date(user.tanggal);
-                            const startDate = new Date(filter.startDate);
-                            const endDate = new Date(filter.endDate);
-                            return userDate >= startDate && userDate <= endDate;
-                        });
+                        const startDate = new Date(filter.startDate);
+                        const endDate = new Date(filter.endDate);
+                        
+                        if (!isNaN(startDate) && !isNaN(endDate)) {
+                            users = users.filter(user => {
+                                const userDate = new Date(user.tanggal);
+                                return userDate >= startDate && userDate <= endDate;
+                            });
+                        } else {
+                            console.warn('Tanggal tidak valid');
+                        }
                     }
+
                     // Menampilkan data hasil filter
                     displayData(users);
                 } else {
@@ -553,6 +578,21 @@
         const startDateValue = startDateInput.value;
         const endDateValue = endDateInput.value;
 
+        if (startDateValue && endDateValue) {
+            const startDate = new Date(startDateValue);
+            const endDate = new Date(endDateValue);
+
+            if (isNaN(startDate) || isNaN(endDate)) {
+                alert('Tanggal tidak valid.');
+                return;
+            }
+
+            if (startDate > endDate) {
+                alert('Tanggal mulai tidak boleh lebih besar dari tanggal akhir.');
+                return;
+            }
+        }
+
         fetchData({
             column: filterColumnValue,
             value: filterValueText,
@@ -561,12 +601,12 @@
         });
 
         // Setelah filter diterapkan, reset form input filter jika diinginkan
-            filterColumn.value = ''; // Menghapus pilihan kolom filter
-            filterValue.value = ''; // Menghapus nilai filter
-            startDateInput.value = ''; // Menghapus nilai tanggal mulai
-            endDateInput.value = ''; // Menghapus nilai tanggal akhir
+        filterColumn.value = ''; // Menghapus pilihan kolom filter
+        filterValue.value = ''; // Menghapus nilai filter
+        startDateInput.value = ''; // Menghapus nilai tanggal mulai
+        endDateInput.value = ''; // Menghapus nilai tanggal akhir
     });
-   
+
 
     // Event listener untuk tombol cetak PDF
     printPDFButton.addEventListener('click', function() {
@@ -685,13 +725,23 @@
     // Buka halaman print preview terpisah
     window.open('lamancetakpb.html', '_blank', 'width=800,height=600');
 });
-
-// // Memuat data awal saat halaman dimuat
-// fetchData();
-
 });
+</script>
 
+<script>
+    // Tampilkan nama pengguna di navbar saat halaman utama dimuat
+    window.onload = function() {
+ const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+ const show_username = sessionStorage.getItem('username'); 
 
+ if (isLoggedIn === 'true' && show_username) {
+     // Untuk ID unik
+     document.getElementById('tampil_nama1').textContent = show_username;
+     document.getElementById('tampil_nama2').textContent = show_username;
+     
+ }
+}
+</script>
 
     </script>
 </body>

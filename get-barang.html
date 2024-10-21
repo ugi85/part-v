@@ -160,7 +160,7 @@
                                 <span> Penambahan Stock </span>
                             </a>
                         </li>
-                        <li>
+                        <li id="menu-get-barang">
                             <a href="get-barang.html">
                                 <i class="ion ion-ios-basket"></i>
                                 <span> Pengambilan Barang </span>
@@ -513,31 +513,44 @@
     </script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Ambil peran pengguna dari sessionStorage
-        const userRole = sessionStorage.getItem('role');
+   document.addEventListener('DOMContentLoaded', function() {
+    // Ambil peran pengguna dari sessionStorage
+    const userRole = sessionStorage.getItem('role');
 
-        // Cek apakah pengguna bukan admin
-        if (userRole !== 'admin') {
-            // Sembunyikan menu "Data Users"
-            const menuDataUsers = document.getElementById('menu-data-users');
-            if (menuDataUsers) {
-                menuDataUsers.style.display = 'none';
-            }
+    // Ambil elemen menu "Get Barang"
+    const menuGetBarang = document.querySelector('#menu-get-barang span');
 
-            // Sembunyikan menu "Report"
-            const menuReport = document.getElementById('menu-report');
-            if (menuReport) {
-                menuReport.style.display = 'none';
-            }
+    // Jika role adalah admin, tampilkan "Pengambilan Barang"
+    if (userRole === 'admin') {
+        menuGetBarang.textContent = 'Pengambilan Barang';
+    } 
+    // Jika role adalah selain admin, tampilkan "Permintaan Barang"
+    else {
+        menuGetBarang.textContent = 'Permintaan Barang';
+    }
 
-            // Sembunyikan menu "Add Stock"
-            const menuAddStock = document.getElementById('menu-add-stock');
-            if (menuAddStock) {
-                menuAddStock.style.display = 'none';
-            }
+    // Sembunyikan menu berdasarkan role
+    if (userRole !== 'admin') {
+        // Sembunyikan menu "Data Users"
+        const menuDataUsers = document.getElementById('menu-data-users');
+        if (menuDataUsers) {
+            menuDataUsers.style.display = 'none';
         }
-    });
+
+        // Sembunyikan menu "Report"
+        const menuReport = document.getElementById('menu-report');
+        if (menuReport) {
+            menuReport.style.display = 'none';
+        }
+
+        // Sembunyikan menu "Add Stock"
+        const menuAddStock = document.getElementById('menu-add-stock');
+        if (menuAddStock) {
+            menuAddStock.style.display = 'none';
+        }
+    }
+});
+
 </script>
 
 
