@@ -221,14 +221,15 @@
                                 <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
                         </div>
                     
-                            <!-- Tombol Filter -->
-                        <div class="col-md-3 d-flex align-items-end">
-                                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
+                        
+                            <div class="col-md-3 d-flex align-items-end">
+                            <button id="applyFilter" class="btn btn-primary"> <i class="fas fa-search"></i> Cari</button>
                         </div>
+
                         <!-- Tombol Clear -->
-                        <div class="col-md-3 d-flex align-items-end">
-                            <button id="clear" class="btn btn-primary ml-2">Clear</button>
-                    </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button id="clear" class="btn btn-danger"><i class="fas fa-times"></i> Clear</button>
+                        </div>
                 </div>
              </div>
 
@@ -237,61 +238,61 @@
                     <h5>Pilih Kolom yang Akan Dicetak:</h5>
                     <div id="columnSelection" class="d-flex flex-wrap">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="id_part" id="inlineCheckbox1">
-                            <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="description" id="inlineCheckbox2">
-                            <label class="form-check-label" for="inlineCheckbox2">Description</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="specification" id="inlineCheckbox3">
-                            <label class="form-check-label" for="inlineCheckbox3">Specification</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="machine" id="inlineCheckbox4">
-                            <label class="form-check-label" for="inlineCheckbox4">Machine</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="supplier1" id="inlineCheckbox5">
-                            <label class="form-check-label" for="inlineCheckbox5">Supplier 1</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="supplier2" id="inlineCheckbox6">
-                            <label class="form-check-label" for="inlineCheckbox6">Supplier 2</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="location" id="inlineCheckbox7">
-                            <label class="form-check-label" for="inlineCheckbox7">Location</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="type_part" id="inlineCheckbox8">
-                            <label class="form-check-label" for="inlineCheckbox8">Type Part</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="min" id="inlineCheckbox9">
-                            <label class="form-check-label" for="inlineCheckbox9">Min</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="max" id="inlineCheckbox10">
-                            <label class="form-check-label" for="inlineCheckbox10">Max</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="unit" id="inlineCheckbox11">
-                            <label class="form-check-label" for="inlineCheckbox11">Unit</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="lt_day" id="inlineCheckbox12">
-                            <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="stock" id="inlineCheckbox13">
-                            <label class="form-check-label" for="inlineCheckbox13">Stock</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="price" id="inlineCheckbox14">
-                            <label class="form-check-label" for="inlineCheckbox14">Price</label>
-                        </div>
+                        <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
+                        <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Description" id="inlineCheckbox2">
+                        <label class="form-check-label" for="inlineCheckbox2">Description</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox3">
+                        <label class="form-check-label" for="inlineCheckbox3">Specification</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
+                        <label class="form-check-label" for="inlineCheckbox4">Machine</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Supplier 1" id="inlineCheckbox5">
+                        <label class="form-check-label" for="inlineCheckbox5">Supplier 1</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Supplier 2" id="inlineCheckbox6">
+                        <label class="form-check-label" for="inlineCheckbox6">Supplier 2</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Location" id="inlineCheckbox7">
+                        <label class="form-check-label" for="inlineCheckbox7">Location</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Type Part" id="inlineCheckbox8">
+                        <label class="form-check-label" for="inlineCheckbox8">Type Part</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Min" id="inlineCheckbox9">
+                        <label class="form-check-label" for="inlineCheckbox9">Min</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Max" id="inlineCheckbox10">
+                        <label class="form-check-label" for="inlineCheckbox10">Max</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Unit" id="inlineCheckbox11">
+                        <label class="form-check-label" for="inlineCheckbox11">Unit</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="LT Day" id="inlineCheckbox12">
+                        <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Stock" id="inlineCheckbox13">
+                        <label class="form-check-label" for="inlineCheckbox13">Stock</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
+                        <label class="form-check-label" for="inlineCheckbox14">Price</label>
+                    </div>
                     </div>
                 </div>
     
@@ -486,8 +487,11 @@
                     $('#userTable').DataTable().destroy(); 
                 }
 
-                $('#userTable').DataTable({
-                    responsive: true
+                    $('#userTable').DataTable({
+                    responsive: true,
+                    paging: false,   // Nonaktifkan pagination
+                    searching: false, // Nonaktifkan pencarian bawaan
+                    info: true      // Sembunyikan informasi jumlah data
                 });
             }
 
@@ -512,10 +516,18 @@
                         console.log("Filtering value: ", filter.value); // Nilai yang digunakan untuk filter
                         console.log("Column value: ", columnValue); // Nilai kolom yang dibandingkan
 
+                        // Filter untuk 'stock'
+                    if (filter.column.toLowerCase() === 'stock') {
+                        const stockValue = columnValue === null ? 0 : parseInt(columnValue, 10); // Ubah null menjadi 0 dan pastikan angka
+                        const filterValue = parseInt(filter.value, 10); // Mengubah filter.value menjadi integer
+                        return stockValue === filterValue; // Bandingkan nilai stock
+                    }
+
                         // Jika kolom "Min" atau "Max", lakukan filter numerik
-                        if (filter.column.toLowerCase() === 'min' || filter.column.toLowerCase() === 'max') {
+                        if (filter.column.toLowerCase() === 'min' || filter.column.toLowerCase() === 'max' || filter.column.toLowerCase() === 'stock') {
                             const parsedValue = parseFloat(filter.value); // Konversi nilai filter ke angka
                             const parsedColumnValue = parseFloat(columnValue); // Konversi nilai kolom ke angka
+                            
 
                             console.log("Parsed filter value: ", parsedValue); // Nilai filter setelah konversi ke angka
                             console.log("Parsed column value: ", parsedColumnValue); // Nilai kolom setelah konversi ke angka
@@ -524,8 +536,77 @@
                             if (!isNaN(parsedValue) && !isNaN(parsedColumnValue)) {
                                 return parsedColumnValue === parsedValue; // Jika ingin mencocokkan persis, gunakan '==='
                             }
-                            return false; // Jika tidak bisa dibandingkan, tidak lolos filter
                         }
+                            
+                            // Filter untuk kolom 'price'
+                        if (filter.column.toLowerCase() === 'price') {
+                            const priceValue = parseFloat(columnValue); // Pastikan price adalah angka
+                            const filterValue = parseFloat(filter.value); // Ubah filter.value ke format numerik
+                            return priceValue === filterValue; // Tampilkan data dengan price yang sesuai
+                        }
+                        // Filter untuk 'location'
+                    if (filter.column.toLowerCase() === 'location') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    }
+                    // Filter untuk 'id part'
+                    if (filter.column.toLowerCase() === 'id_part') {
+                        const idPartValue = columnValue.toString().toLowerCase(); // Ubah kolom id part ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return idPartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+
+                    // Filter untuk 'deskripsi'
+                    if (filter.column.toLowerCase() === 'description') {
+                        const deskripsiValue = columnValue.toString().toLowerCase(); // Ubah kolom deskripsi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return deskripsiValue.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+
+                    // Filter untuk 'specification'
+                    if (filter.column.toLowerCase() === 'specification') {
+                        const specificationValue = columnValue.toString().toLowerCase(); // Ubah kolom specification ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return specificationValue.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+
+                    // Filter untuk 'machine'
+                    if (filter.column.toLowerCase() === 'machine') {
+                        const machineValue = columnValue.toString().toLowerCase(); // Ubah kolom machine ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return machineValue.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+
+                    // Filter untuk 'supplier1'
+                    if (filter.column.toLowerCase() === 'supplier1') {
+                        const supplier1Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier1 ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return supplier1Value.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+
+                    // Filter untuk 'supplier2'
+                    if (filter.column.toLowerCase() === 'supplier2') {
+                        const supplier2Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier2 ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return supplier2Value.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+
+                    // Filter untuk 'type part'
+                    if (filter.column.toLowerCase() === 'type_part') {
+                        const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+                    // Filter untuk 'unit'
+                    if (filter.column.toLowerCase() === 'unit') {
+                        const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                    }
+
+
+                            return false; // Jika tidak bisa dibandingkan, tidak lolos filter
 
                         // Filter default: pencarian teks
                         return columnValue.toString().toLowerCase().includes(filter.value.toString().toLowerCase());
@@ -545,6 +626,16 @@
             loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
         });
 }
+
+// Event listener untuk tombol clear
+ document.getElementById('clear').addEventListener('click', () => {
+                // Kosongkan nilai filter
+                document.getElementById('filterColumn').value = ''; // Menghapus pilihan kolom filter
+                document.getElementById('filterValue').value = '';  // Menghapus nilai filter (jika ada elemen dengan ID 'filterValue')
+
+                // Refresh halaman penuh
+                window.location.reload(); // Refresh halaman setelah form di-reset
+            });
 
 // Event listener untuk tombol filter
 applyFilterButton.addEventListener('click', () => {

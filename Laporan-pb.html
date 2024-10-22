@@ -32,6 +32,9 @@
    <!-- Toastr css -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
 
+    <!-- Tambahkan Font Awesome CDN di dalam <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
     <style>
         .filter-container {
             display: flex;
@@ -222,8 +225,8 @@
                     <!-- Start Filters -->
                     <div class="row mb-4">
                         <!-- Filter Berdasarkan Kolom -->
-                            <div class="col-md-3">
-                                <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+                            <div class="col-md-2">
+                                <label for="filterColumn">Pilih Kategori:</label>
                                 <select class="form-control" id="filterColumn">
                                 <option value="">--Pilih Kategori--</option>
                                 <!-- <option value="tanggal">Tanggal</option> -->
@@ -241,13 +244,13 @@
 
     
                         <!-- Nilai Filter -->
-                        <div class="col-3">
+                        <div class="col-md-3">
                             <label for="filterValue">Nilai Filter:</label>
                             <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
                         </div>
     
                         <!-- Filter Berdasarkan Tanggal -->
-                        <div class="col-5">
+                        <div class="col-md-7">
                             <label for="filterDate">Filter Berdasarkan Tanggal:</label>
                             <div class="filter-container">
                                 <div>
@@ -261,8 +264,13 @@
                                 </div>
 
                                 <div>
-                                    <div class="col-md-12 d-flex align-items-end"></div>
-                                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
+                                    <div class="col-md-3 d-flex align-items-end"></div>
+                                    <button id="applyFilter" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Cari</button>
+                                </div>
+                                 <!-- Tombol Clear -->
+                                <div class="col-md-3 d-flex align-items-end">
+                                    <button id="clear" class="btn btn-danger"><i class="fas fa-times"></i> Clear</button>
                                 </div>
                             </div>
                         </div>
@@ -524,6 +532,53 @@
                             return columnValue.includes(filter.value.toLowerCase());
                         });
                     }
+                       // Filter untuk 'departemen'
+                       if (filter.column.toLowerCase() === 'departemen') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    }
+                        // Filter untuk 'mesin'
+                    if (filter.column.toLowerCase() === 'mesin') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    }
+                        // Filter untuk 'remark'
+                        if (filter.column.toLowerCase() === 'remark') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    }
+                     // Filter untuk 'part_name'
+                     if (filter.column.toLowerCase() === 'part_name') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    } // Filter untuk 'specification'
+                        if (filter.column.toLowerCase() === 'specification') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    } 
+                    if (filter.column.toLowerCase() === 'qty') {
+                        const qtyValue = columnValue === null ? 0 : parseInt(columnValue, 10); // Ubah null menjadi 0 dan pastikan angka
+                        const filterValue = parseInt(filter.value, 10); // Mengubah filter.value menjadi integer
+                        return qtyValue === filterValue; // Bandingkan nilai stock
+                    }
+                    // Filter untuk 'requester'
+                     if (filter.column.toLowerCase() === 'requester') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    }
+                     // Filter untuk 'security'
+                     if (filter.column.toLowerCase() === 'security') {
+                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                    }
+                        
 
                     // Filter berdasarkan rentang tanggal
                     if (filter.startDate && filter.endDate) {
@@ -570,6 +625,16 @@
         const minutes = String(time.getMinutes()).padStart(2, '0');
         return `${hours}:${minutes}`;
     }
+
+     // Event listener untuk tombol clear
+     document.getElementById('clear').addEventListener('click', () => {
+                // Kosongkan nilai filter
+                document.getElementById('filterColumn').value = ''; // Menghapus pilihan kolom filter
+                document.getElementById('filterValue').value = '';  // Menghapus nilai filter (jika ada elemen dengan ID 'filterValue')
+
+                // Refresh halaman penuh
+                window.location.reload(); // Refresh halaman setelah form di-reset
+            });
 
     // Event listener untuk tombol filter
     applyFilterButton.addEventListener('click', () => {
