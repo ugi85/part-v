@@ -21,8 +21,8 @@
     <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
     <!-- App css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
-    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+   <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css"> 
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
 
     <!-- Toastr css -->
@@ -37,9 +37,11 @@
             }
         });
     </script>
+</head>
 
-      <!-- Custom CSS for Loading Spinner -->
-      <style>
+<body>
+    <!-- Custom CSS for Loading Spinner -->
+    <style>
         #loadingSpinner {
             margin: 20px 0;
         }
@@ -61,9 +63,6 @@
             display: inline-block; /* Agar elemen tampil inline */
         }
     </style>  
-</head>
-
-<body>
 
     <!-- Begin page -->
     <div id="wrapper">
@@ -82,11 +81,12 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome !</h6>
                         </div>
-                        <a href="profile.html" class="dropdown-item notify-item">
+                         <!-- item-->
+                         <a href="profile.html" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
-                        
+                       
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0);" id="logoutButton" class="dropdown-item notify-item">
                             <i class="mdi mdi-logout-variant"></i>
@@ -130,44 +130,28 @@
                                 <span> Data Users </span>
                             </a>
                         </li>
+
                         <li>
                             <a href="data-part.html">
                                 <i class="ion ion-ios-construct"></i>
                                 <span> Data Parts </span>
                             </a>
                         </li>
-                        <li>
+
+                        <li id="menu-add-stock">
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
                                 <span> Penambahan Stock </span>
                             </a>
                         </li>
-                        <li id="menu-get-barang">
-                            <a href="get-barang-user.html">
+                        <li>
+                            <a href="get-barang.html">
                                 <i class="ion ion-ios-basket"></i>
                                 <span> Permintaan Barang </span>
                             </a>
                         </li>
-                        <li id="menu-barang">
-                            <a href="javascript: void(0);" class="waves-effect">
-                                <i class="ion ion-ios-basket"></i>
-                                <span>Pengambilan Barang</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul class="nav-second-level nav" aria-expanded="false">
-                                <li>
-                                    <a href="get-barang2.html">Permintaan Barang <span id="pendingCount"></span></a>
-                                </li>
-                                <li>
-                                    <a href="get-barang3.html">Verified</a>
-                                </li> 
-                                <li>
-                                    <a href="get-log.html">Event Log</a>
-                                </li>              
-                            </ul>
-                        </li>
                        
-                        <li id="menu-report">
+                        <li>
                             <a href="javascript: void(0);" class="waves-effect">
                                 <i class="mdi mdi-share-variant"></i>
                                 <span> Report </span>
@@ -191,7 +175,6 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-
         <!-- Left Sidebar End -->
 
 
@@ -213,48 +196,53 @@
                         </div>
                     </div>
 
-            <!-- Filter Form -->
-            <div class="row mb-4">
-                <!-- Filter Berdasarkan Kolom -->
-                <div class="col-md-3">
-                    <label for="filterColumn">Filter Berdasarkan Kolom:</label>
-                <select class="form-control" id="filterColumn">
-                    <option value="">--Pilih Kategori--</option>
-                    <option value="id_part">ID Part</option>
-                    <option value="description">Description</option>
-                    <option value="specification">Specification</option>
-                    <option value="machine">Machine</option>
-                    <option value="supplier 1">Supplier 1</option>
-                    <option value="supplier 2">Supplier 2</option>
-                    <option value="location">Location</option>
-                    <option value="Type Part">Type Part</option>
-                    <option value="Min">Min</option>
-                    <option value="Max">Max</option>
-                    <option value="Unit">Unit</option>
-                    <option value="LT DAY">LT Day</option>
-                    <option value="Stock">Stock</option>
-                    <option value="Price">Price</option>
-                </select>
-            </div>
-            
-            <!-- Nilai Filter -->
-            <div class="col-md-3">
-                <label for="filterValue">Nilai Filter:</label>
-                <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
-            </div>
-    
-            <!-- Tombol Filter -->
-            <div class="col-md-3 d-flex align-items-end">
-                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
-            </div>
-        </div>
-        </div>
+                    <!-- Filter Form -->
+                    <div class="row mb-4">
+                        <!-- Filter Berdasarkan Kolom -->
+                        <div class="col-md-3">
+                            <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+                            <select class="form-control" id="filterColumn">
+                            <option value="">--Pilih Kategori--</option>
+                            <option value="id_part">ID Part</option>
+                            <option value="description">Description</option>
+                            <option value="specification">Specification</option>
+                            <option value="machine">Machine</option>
+                            <option value="supplier1">Supplier 1</option>
+                            <option value="supplier2">Supplier 2</option>
+                            <option value="location">Location</option>
+                            <option value="type_part">Type Part</option>
+                            <option value="min">Min</option>
+                            <option value="max">Max</option>
+                            <option value="unit">Unit</option>
+                            <option value="lt_day">LT Day</option>
+                            <option value="stock">Stock</option>
+                            <option value="price">Price</option>
+                            </select>
+                        </div>
+                
+                            <!-- Nilai Filter -->
+                        <div class="col-3">
+                                <label for="filterValue">Nilai Filter:</label>
+                                <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
+                        </div>
+                    
+                        
+                            <div class="col-md-3 d-flex align-items-end">
+                            <button id="applyFilter" class="btn btn-primary"> <i class="fas fa-search"></i> Cari</button>
+                        </div>
 
-            <!-- Daftar Pilihan Kolom untuk Cetak -->
-            <div class="form-group">
-                <h5>Pilih Kolom yang Akan Dicetak:</h5>
-                <div id="columnSelection" class="d-flex flex-wrap">
-                    <div class="form-check form-check-inline">
+                        <!-- Tombol Clear -->
+                        <div class="col-3 d-flex align-items-end">
+                            <button id="clear" class="btn btn-danger"><i class="fas fa-times"></i> Clear</button>
+                        </div>
+                </div>
+             </div>
+
+                <!-- Daftar Pilihan Kolom untuk Cetak -->
+                <div class="form-group">
+                    <h5>Pilih Kolom yang Akan Dicetak:</h5>
+                    <div id="columnSelection" class="d-flex flex-wrap">
+                        <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
                         <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
                     </div>
@@ -299,7 +287,7 @@
                         <label class="form-check-label" for="inlineCheckbox11">Unit</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="LT DAY" id="inlineCheckbox12">
+                        <input class="form-check-input" type="checkbox" value="LT Day" id="inlineCheckbox12">
                         <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -310,7 +298,13 @@
                         <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
                         <label class="form-check-label" for="inlineCheckbox14">Price</label>
                     </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
+                        <label class="form-check-label" for="selectAllCheckbox">Select All</label>
+                    </div>
+                    </div>
                 </div>
+    
 
 
             <!-- Tombol Cetak PDF dan Print Preview -->
@@ -547,53 +541,176 @@ function updateMenuWithPendingCount(pendingCount) {
                     $('#userTable').DataTable().destroy(); 
                 }
 
-                $('#userTable').DataTable({
-                    responsive: true
+                    $('#userTable').DataTable({
+                    responsive: true,
+                    paging: false,   // Nonaktifkan pagination
+                    searching: false, // Nonaktifkan pencarian bawaan
+                    info: true      // Sembunyikan informasi jumlah data
                 });
             }
 
             function fetchData(filter = {}) {
-                loadingSpinner.style.display = 'block';
+    loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
 
-                fetch(scriptURL)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            let users = data.data;
+    fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                originalData = data.data; // Simpan data asli
+                let users = [...originalData]; // Salin data untuk filter
 
-                            // Filter berdasarkan kolom dan nilai yang diinputkan
-                            if (filter.column && filter.value) {
-                                users = users.filter(user => {
-                                    const columnValue = user[filter.column].toString().toLowerCase();
-                                    return columnValue.includes(filter.value.toLowerCase());
-                                });
+                console.log("Data asli: ", users); // Lihat data asli yang diambil dari API
+
+                // Filter berdasarkan kolom dan nilai yang diinputkan
+                if (filter.column && filter.value !== undefined && filter.value !== '') {
+                    users = users.filter(user => {
+                        const columnValue = user[filter.column];
+
+                        console.log("Filtering on column: ", filter.column); // Kolom yang sedang difilter
+                        console.log("Filtering value: ", filter.value); // Nilai yang digunakan untuk filter
+                        console.log("Column value: ", columnValue); // Nilai kolom yang dibandingkan
+
+                        // Filter untuk 'stock'
+                    if (filter.column.toLowerCase() === 'stock') {
+                        const stockValue = columnValue === null ? 0 : parseInt(columnValue, 10); // Ubah null menjadi 0 dan pastikan angka
+                        const filterValue = parseInt(filter.value, 10); // Mengubah filter.value menjadi integer
+                        return stockValue === filterValue; // Bandingkan nilai stock
+                    }
+
+                        // Jika kolom "Min" atau "Max", lakukan filter numerik
+                        if (filter.column.toLowerCase() === 'min' || filter.column.toLowerCase() === 'max' || filter.column.toLowerCase() === 'stock') {
+                            const parsedValue = parseFloat(filter.value); // Konversi nilai filter ke angka
+                            const parsedColumnValue = parseFloat(columnValue); // Konversi nilai kolom ke angka
+                            
+
+                            console.log("Parsed filter value: ", parsedValue); // Nilai filter setelah konversi ke angka
+                            console.log("Parsed column value: ", parsedColumnValue); // Nilai kolom setelah konversi ke angka
+
+                            // Pastikan kedua nilai adalah angka sebelum melakukan perbandingan
+                            if (!isNaN(parsedValue) && !isNaN(parsedColumnValue)) {
+                                return parsedColumnValue === parsedValue; // Jika ingin mencocokkan persis, gunakan '==='
                             }
-                          displayData(users);
-                        } else {
-                            console.error('Error:', data.message);
                         }
-                    })
-                    .catch(error => console.error('Error:', error))
-                    .finally(() => {
-                        loadingSpinner.style.display = 'none';
+                            
+                            // Filter untuk kolom 'price'
+                        if (filter.column.toLowerCase() === 'price') {
+                            const priceValue = parseFloat(columnValue); // Pastikan price adalah angka
+                            const filterValue = parseFloat(filter.value); // Ubah filter.value ke format numerik
+                            return priceValue === filterValue; // Tampilkan data dengan price yang sesuai
+                        }
+                        if (filter.column.toLowerCase() === 'lt_day') {
+                            const ltDayValue = parseFloat(columnValue); // 
+                            const filterValue = parseFloat(filter.value); // Ubah filter.value ke format numerik
+                            return ltDayValue === filterValue; // 
+                        }
+                        // Filter untuk 'location'
+                        if (filter.column.toLowerCase() === 'location') {
+                            const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                        }
+                        // Filter untuk 'id part'
+                        if (filter.column.toLowerCase() === 'id_part') {
+                            const idPartValue = columnValue.toString().toLowerCase(); // Ubah kolom id part ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return idPartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+
+                        // Filter untuk 'deskripsi'
+                        if (filter.column.toLowerCase() === 'description') {
+                            const deskripsiValue = columnValue.toString().toLowerCase(); // Ubah kolom deskripsi ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return deskripsiValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+
+                        // Filter untuk 'specification'
+                        if (filter.column.toLowerCase() === 'specification') {
+                            const specificationValue = columnValue.toString().toLowerCase(); // Ubah kolom specification ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return specificationValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+
+                        // Filter untuk 'machine'
+                        if (filter.column.toLowerCase() === 'machine') {
+                            const machineValue = columnValue.toString().toLowerCase(); // Ubah kolom machine ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return machineValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+
+                        // Filter untuk 'supplier1'
+                        if (filter.column.toLowerCase() === 'supplier1') {
+                            const supplier1Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier1 ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return supplier1Value.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+
+                        // Filter untuk 'supplier2'
+                        if (filter.column.toLowerCase() === 'supplier2') {
+                            const supplier2Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier2 ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return supplier2Value.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+
+                        // Filter untuk 'type part'
+                        if (filter.column.toLowerCase() === 'type_part') {
+                            const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+                        // Filter untuk 'unit'
+                        if (filter.column.toLowerCase() === 'unit') {
+                            const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+                            return false; // Jika tidak bisa dibandingkan, tidak lolos filter
+
+                        // Filter default: pencarian teks
+                        return columnValue.toString().toLowerCase().includes(filter.value.toString().toLowerCase());
                     });
+                }
+
+                console.log("Data after filtering: ", users); // Lihat hasil data setelah difilter
+
+                // Menampilkan data hasil filter
+                displayData(users);
+            } else {
+                console.error('Error:', data.message);
             }
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
+        });
+}
 
-            // Event listener untuk tombol filter
-            applyFilterButton.addEventListener('click', () => {
-                const filterColumnValue = filterColumn.value;
-                const filterValueText = filterValue.value;
+// Event listener untuk tombol clear
+ document.getElementById('clear').addEventListener('click', () => {
+                // Kosongkan nilai filter
+                document.getElementById('filterColumn').value = ''; // Menghapus pilihan kolom filter
+                document.getElementById('filterValue').value = '';  // Menghapus nilai filter (jika ada elemen dengan ID 'filterValue')
 
-                fetchData({
-                    column: filterColumnValue,
-                    value: filterValueText
-                });
-
-                 // Setelah filter diterapkan, reset form input filter
-            filterColumn.value = ''; // Menghapus pilihan kolom filter
-            filterValue.value = ''; // Menghapus nilai filter
-            
+                // Refresh halaman penuh
+                window.location.reload(); // Refresh halaman setelah form di-reset
             });
+
+// Event listener untuk tombol filter
+applyFilterButton.addEventListener('click', () => {
+    const filterColumnValue = filterColumn.value; // Kolom yang akan difilter
+    const filterValueText = filterValue.value; // Nilai filter (misalnya stok minimum)
+
+    // Pastikan filter value adalah angka jika kolom adalah Min atau Max
+    let filterValueNumber = parseFloat(filterValueText);
+
+    fetchData({
+        column: filterColumnValue,
+        value: filterColumnValue.toLowerCase() === 'min' || filterColumnValue.toLowerCase() === 'max' ? filterValueNumber : filterValueText // Gunakan angka untuk filter Min dan Max
+    });
+
+    // Setelah filter diterapkan, reset form input filter jika diinginkan
+    filterColumn.value = ''; // Menghapus pilihan kolom filter
+    filterValue.value = ''; // Menghapus nilai filter
+});
 
             // Event listener untuk tombol cetak PDF
             printPDFButton.addEventListener('click', function() {
@@ -638,6 +755,17 @@ function updateMenuWithPendingCount(pendingCount) {
                 doc.save('laporan_data_parts.pdf');
             });
 
+            // Checkbox "Select All"
+        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+
+        // Event listener untuk "Select All"
+        selectAllCheckbox.addEventListener('change', function() {
+            const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked; // Set semua checkbox sesuai status "Select All"
+            });
+        });
+
        // Event listener untuk tombol print preview
        printPreviewButton.addEventListener('click', function() {
             const selectedColumns = [];
@@ -648,6 +776,13 @@ function updateMenuWithPendingCount(pendingCount) {
     checkboxes.forEach(checkbox => {
         selectedColumns.push(checkbox.value);
     });
+
+    // Jika "Select All" dipilih, masukkan semua kolom
+    if (selectAllCheckbox.checked) {
+        selectedColumns.length = 0; // Reset kolom yang dipilih
+        const allColumns = ['ID Part', 'Description', 'Specification', 'Machine', 'Supplier 1', 'Supplier 2', 'Location', 'Type Part', 'Min', 'Max', 'Unit', 'LT Day', 'Stock', 'Price',];
+        selectedColumns.push(...allColumns); // Masukkan semua kolom
+    }
 
     // Periksa apakah ada kolom yang dipilih
     if (selectedColumns.length === 0) {
