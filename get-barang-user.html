@@ -173,12 +173,6 @@
                         <li id="menu-get-barang">
                             <a href="get-barang-user.html">
                                 <i class="ion ion-ios-basket"></i>
-                                <span> Pengambilan Barang </span>
-                            </a>
-                        </li>
-                        <li id="menu-get-barang">
-                            <a href="get-barang-user.html">
-                                <i class="ion ion-ios-basket"></i>
                                 <span> Permintaan Barang </span>
                             </a>
                         </li>
@@ -194,10 +188,10 @@
                                 </li>
                                 <li>
                                     <a href="get-barang3.html">Verified</a>
-                                </li>  
+                                </li>   
                                 <li>
                                     <a href="get-log.html">Event Log</a>
-                                </li>             
+                                </li>            
                             </ul>
                         </li>
                        
@@ -249,7 +243,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body table-responsive">
-                                    <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th>Tanggal</th>
@@ -601,14 +595,14 @@ function updateMenuWithPendingCount(pendingCount) {
         if (addButton) addButton.style.display = 'none';
     }
 
-    // Jika role adalah admin, tampilkan "Pengambilan Barang"
-    if (userRole === 'admin') {
-        menuGetBarang.textContent = 'Pengambilan Barang';
+   
+    if (userRole !== 'user') {
+        const menuGetBarang = document.getElementById('menu-get-barang');
+        if (menuGetBarang) {
+            menuGetBarang.style.display = 'none';
+        }
     } 
-    // Jika role adalah selain admin, tampilkan "Permintaan Barang"
-    else {
-        menuGetBarang.textContent = 'Permintaan Barang';
-    }
+    
 
     // Sembunyikan menu berdasarkan role
     if (userRole !== 'admin') {
@@ -629,12 +623,15 @@ function updateMenuWithPendingCount(pendingCount) {
         if (menuAddStock) {
             menuAddStock.style.display = 'none';
         }
+        const menuBarang = document.getElementById('menu-barang');
+        if (menuBarang) {
+            menuBarang.style.display = 'none';
+        }
     }
 
 });
 
 </script>
-
 
 
 <script>
@@ -648,8 +645,6 @@ function updateMenuWithPendingCount(pendingCount) {
             return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':'); // Format waktu
         }
 
-
-
             // read data
             document.addEventListener('DOMContentLoaded', function() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=read';
@@ -660,8 +655,8 @@ function updateMenuWithPendingCount(pendingCount) {
 
                 // Ambil peran pengguna dari sessionStorage
                 const userRole = sessionStorage.getItem('role');
-
-                    // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
+                const currentUser = sessionStorage.getItem('username'); // Misalnya, menyimpan username di sessionStorage
+                   
                 fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
@@ -671,8 +666,10 @@ function updateMenuWithPendingCount(pendingCount) {
 
                         // Kosongkan tabel sebelum menambahkan data
                         usersTableBody.innerHTML = '';
+                        // Filter data berdasarkan requester yang sama dengan user yang login
+                        const filteredRows = rows.filter(row => row.requester === currentUser);
 
-                        rows.forEach(row => {
+                        filteredRows.forEach(row => {
                             const tableRow = usersTableBody.insertRow();
                             tableRow.insertCell(0).textContent = formatDate(row.tanggal) || '';
                             tableRow.insertCell(1).textContent = formatTime(row.waktu) || '';
@@ -700,19 +697,12 @@ function updateMenuWithPendingCount(pendingCount) {
                                 statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
                             }
-
-
-
                             // Tambahkan kolom Edit dan Delete
                             const actionCell = tableRow.insertCell(11);
                             actionCell.innerHTML = `
                             <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Detail</button>           
-                        `;
-
-                 
-                    });
-
-                    
+                        `;          
+                    });           
 
                 // Initialize or reinitialize DataTable
                 if ($.fn.DataTable.isDataTable('#userTable')) {

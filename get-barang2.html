@@ -88,6 +88,7 @@
             margin-left: 8px; /* Beri sedikit jarak antara teks dan badge */
             display: inline-block; /* Agar elemen tampil inline */
         }
+
     </style>  
 </head>
 
@@ -173,12 +174,6 @@
                         <li id="menu-get-barang">
                             <a href="get-barang-user.html">
                                 <i class="ion ion-ios-basket"></i>
-                                <span> Pengambilan Barang </span>
-                            </a>
-                        </li>
-                        <li id="menu-get-barang">
-                            <a href="get-barang-user.html">
-                                <i class="ion ion-ios-basket"></i>
                                 <span> Permintaan Barang </span>
                             </a>
                         </li>
@@ -194,10 +189,10 @@
                                 </li>
                                 <li>
                                     <a href="get-barang3.html">Verified</a>
-                                </li>  
+                                </li>   
                                 <li>
                                     <a href="get-log.html">Event Log</a>
-                                </li>             
+                                </li>            
                             </ul>
                         </li>
                        
@@ -249,7 +244,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body table-responsive">
-                                    <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th>Tanggal</th>
@@ -380,7 +375,7 @@
 <!-- End Add Item Modal -->
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editItemModalLabel">Detail Permintaan Barang</h5>
@@ -390,7 +385,9 @@
             </div>
             <div class="modal-body">
                 <form id="editForm">
+                <div class="row"> <!-- Mulai grid row -->  
                     <input type="hidden" id="editId" name="id">
+                  <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                     <div class="form-group">
                         <label for="editTanggal">Tanggal</label>
                         <input type="date" class="form-control" id="editTanggal" name="tanggal" required readonly>
@@ -430,7 +427,7 @@
                         <textarea class="form-control" id="editRemark" name="remark" rows="3" readonly></textarea>
                     </div>
 
-                    <div id="ItemsContainer">
+                    <!-- <div id="ItemsContainer">
                         <div class="item-row row">
                             <div class="col-md-4">
                                 <label for="editPartName">Select Part Name</label>
@@ -450,9 +447,11 @@
                                 <input type="number" class="form-control" id="editQty" name="qty" required>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="form-group mt-4">
+                    </div> -->
+                  </div>
+
+                  <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
+                    <div class="form-group">
                         <label for="editRequester">Requester</label>
                         <input type="text" class="form-control" id="editRequester" name="requester" required readonly>
                         <div class="invalid-feedback">Requester is required.</div>
@@ -476,11 +475,39 @@
                     </div>
                     <div class="form-group">
                         <label for="editLog">Event Log</label>
-                        <input type="text" class="form-control" id="editLog" name="log" readonly>
+                        <textarea class="form-control" id="editLog" name="log" rows="3" readonly></textarea>
                     </div>
-                    <div class="col-12 text-right">
-                        <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
+                    
+                  </div>
+                </div>
+                  
+                  <div id="ItemsContainer">
+                    <div class="item-row row">
+                        <div class="col-md-4">
+                            <label for="editPartName">Select Part Name</label>
+                            <select class="form-control" id="editPartName" name="part_name" required>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="editSpecification">Specification</label>
+                            <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="editQty">Stock Available</label>
+                            <input type="text" class="form-control" id="editStock" name="stock" readonly>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="editQty">Qty</label>
+                            <input type="number" class="form-control" id="editQty" name="qty" required>
+                        </div>
                     </div>
+                   
+                </div>
+                
+                <div class="form-group mt-4 text-right">
+                    <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
+                </div>
+                
                 </form>
             </div>
         </div>
@@ -551,8 +578,61 @@
             // Alihkan ke halaman login
             window.location.href = 'index.html';
         });
+    </script>
 
-        document.addEventListener('DOMContentLoaded', function() {
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    
+    // Ambil peran pengguna dari sessionStorage
+    const userRole = sessionStorage.getItem('role');
+
+    // Ambil elemen menu "Get Barang"
+    const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
+
+    if (userRole !== 'user') {
+        if (addButton) addButton.style.display = 'none';
+    }
+    if (userRole !== 'user') {
+        const menuGetBarang = document.getElementById('menu-get-barang');
+        if (menuGetBarang) {
+            menuGetBarang.style.display = 'none';
+        }
+    } 
+
+    // Sembunyikan menu berdasarkan role
+    if (userRole !== 'admin') {
+        // Sembunyikan menu "Data Users"
+        const menuDataUsers = document.getElementById('menu-data-users');
+        if (menuDataUsers) {
+            menuDataUsers.style.display = 'none';
+        }
+
+        // Sembunyikan menu "Report"
+        const menuReport = document.getElementById('menu-report');
+        if (menuReport) {
+            menuReport.style.display = 'none';
+        }
+
+        // Sembunyikan menu "Add Stock"
+        const menuAddStock = document.getElementById('menu-add-stock');
+        if (menuAddStock) {
+            menuAddStock.style.display = 'none';
+        }
+        const menuBarang = document.getElementById('menu-barang');
+        if (menuBarang) {
+            menuBarang.style.display = 'none';
+        }
+    }
+
+});
+
+</script>
+
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
 
     // Fetch data dari URL
@@ -585,59 +665,7 @@ function updateMenuWithPendingCount(pendingCount) {
     }
 }
 
-    </script>
 
-<script>
-   document.addEventListener('DOMContentLoaded', function() {
-    
-    // Ambil peran pengguna dari sessionStorage
-    const userRole = sessionStorage.getItem('role');
-
-    // Ambil elemen menu "Get Barang"
-    const menuGetBarang = document.querySelector('#menu-get-barang span');
-    const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
-
-    if (userRole !== 'user') {
-        if (addButton) addButton.style.display = 'none';
-    }
-
-    // Jika role adalah admin, tampilkan "Pengambilan Barang"
-    if (userRole === 'admin') {
-        menuGetBarang.textContent = 'Pengambilan Barang';
-    } 
-    // Jika role adalah selain admin, tampilkan "Permintaan Barang"
-    else {
-        menuGetBarang.textContent = 'Permintaan Barang';
-    }
-
-    // Sembunyikan menu berdasarkan role
-    if (userRole !== 'admin') {
-        // Sembunyikan menu "Data Users"
-        const menuDataUsers = document.getElementById('menu-data-users');
-        if (menuDataUsers) {
-            menuDataUsers.style.display = 'none';
-        }
-
-        // Sembunyikan menu "Report"
-        const menuReport = document.getElementById('menu-report');
-        if (menuReport) {
-            menuReport.style.display = 'none';
-        }
-
-        // Sembunyikan menu "Add Stock"
-        const menuAddStock = document.getElementById('menu-add-stock');
-        if (menuAddStock) {
-            menuAddStock.style.display = 'none';
-        }
-    }
-
-});
-
-</script>
-
-
-
-<script>
  function formatDate(isoString) {
         const date = new Date(isoString);
         return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
@@ -652,7 +680,7 @@ function updateMenuWithPendingCount(pendingCount) {
 
             // read data
             document.addEventListener('DOMContentLoaded', function() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=read';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
             const loadingSpinner = document.getElementById('loadingSpinner');
 
             // Menampilkan spinner

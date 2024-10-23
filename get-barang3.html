@@ -173,12 +173,6 @@
                         <li id="menu-get-barang">
                             <a href="get-barang-user.html">
                                 <i class="ion ion-ios-basket"></i>
-                                <span> Pengambilan Barang </span>
-                            </a>
-                        </li>
-                        <li id="menu-get-barang">
-                            <a href="get-barang-user.html">
-                                <i class="ion ion-ios-basket"></i>
                                 <span> Permintaan Barang </span>
                             </a>
                         </li>
@@ -194,10 +188,10 @@
                                 </li>
                                 <li>
                                     <a href="get-barang3.html">Verified</a>
-                                </li>  
+                                </li>        
                                 <li>
                                     <a href="get-log.html">Event Log</a>
-                                </li>             
+                                </li>       
                             </ul>
                         </li>
                        
@@ -238,8 +232,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
-                                <h4 class="page-title mb-0">Data Barang Yang Diambil</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addItemModal">Ambil Barang</button>
+                                <h4 class="page-title mb-0">Data Yang Sudah Di Verified</h4>
+                               
                             </div>
                         </div>
                     </div>
@@ -249,7 +243,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body table-responsive">
-                                    <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th>Tanggal</th>
@@ -286,101 +280,9 @@
             </div>
             <!-- end content -->
 
-<!-- Add Item Modal -->
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addItemModalLabel">Form Pengambilan Barang</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="createItemForm">
-                    <div class="form-group">
-                        <label for="date">Tanggal</label>
-                        <input type="date" class="form-control" id="date" name="tanggal" required readonly>
-                        <div class="invalid-feedback">Date is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Waktu</label>
-                        <input type="time" class="form-control" id="time" name="waktu" required readonly>
-                        <div class="invalid-feedback">Time is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="departemen">Departemen</label>
-                        <select class="form-control" id="departemen" name="departemen" required >
-                            <option value="" disabled selected>Select Department</option>
-                            <option value="FMEHSS EHS">FMEHSS EHS</option>
-                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
-                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
-                            <option value="SOLID">SOLID</option>
-                            <option value="FMEHSS GA">FMEHSS GA</option>
-                            <option value="MIXTECH">MIXTECH</option>
-                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
-                            <option value="WAREHOUSE">WAREHOUSE</option>
-                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
-                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
-                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
-                        </select>
-                        <div class="invalid-feedback">Department is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="mesin">Mesin</label>
-                        <select class="form-control select2" id="mesin" name="mesin" required>
-                            <option value="" disabled selected>Select Mesin</option>
-                        </select>
-                        <div class="invalid-feedback">Machine is required.</div>
-                    </div>                 
-                    <div class="form-group">
-                        <label for="remark">Remark</label>
-                        <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
-                    </div>
-                    <div id="itemsContainer">
-                        <div class="item-row row">
-                            <div class="col-md-4">
-                                <label for="partName">Part Name</label>
-                                <select class="form-control select3 partName" name="part_name" required>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="specification">Specification</label>
-                                <input type="text" class="form-control specification" name="specification" required readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="qty">Stock Available</label>
-                                <input type="text" class="form-control stock" name="stock" readonly>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="qty">Qty</label>
-                                <input type="number" class="form-control qty" name="qty" required>
-                            </div>                        
-                        </div>
-                    </div>
-                    
-                    <div class="form-group mt-4">
-                        <label for="requester">Requester</label>
-                        <input type="text" class="form-control" id="requester" name="requester" required readonly>
-                        <div class="invalid-feedback">Requester is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="storeKeeper">Store Keeper/Security</label>
-                        <input type="text" class="form-control" id="storeKeeper" name="security" required>
-                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
-                    </div>
-                    <div class="col-12 text-right">
-                        <button type="submit" id="saveButton" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Add Item Modal -->
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editItemModalLabel">Detail Permintaan Barang</h5>
@@ -390,7 +292,9 @@
             </div>
             <div class="modal-body">
                 <form id="editForm">
+                <div class="row"> <!-- Mulai grid row -->  
                     <input type="hidden" id="editId" name="id">
+                  <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                     <div class="form-group">
                         <label for="editTanggal">Tanggal</label>
                         <input type="date" class="form-control" id="editTanggal" name="tanggal" required readonly>
@@ -429,12 +333,13 @@
                         <label for="editRemark">Remark</label>
                         <textarea class="form-control" id="editRemark" name="remark" rows="3" readonly></textarea>
                     </div>
-
-                    <div id="ItemsContainer">
+                  </div>
+                  <div class="col-md-6">
+                    <!-- <div id="ItemsContainer">
                         <div class="item-row row">
                             <div class="col-md-4">
                                 <label for="editPartName">Select Part Name</label>
-                                <select class="form-control" id="editPartName" name="part_name" required>
+                                <select class="form-control" id="editPartName" name="part_name" required disabled>
                                 </select>
                             </div>
                             <div class="col-md-3">
@@ -447,12 +352,12 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="editQty">Qty</label>
-                                <input type="number" class="form-control" id="editQty" name="qty" required>
+                                <input type="number" class="form-control" id="editQty" name="qty" required readonly>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     
-                    <div class="form-group mt-4">
+                    <div class="form-group">
                         <label for="editRequester">Requester</label>
                         <input type="text" class="form-control" id="editRequester" name="requester" required readonly>
                         <div class="invalid-feedback">Requester is required.</div>
@@ -464,7 +369,7 @@
                     </div>
                     <div class="form-group">
                         <label for="editStatus">Status</label>
-                        <select class="form-control" id="editStatus" name="status" required>
+                        <select class="form-control" id="editStatus" name="status" required disabled>
                             <option value="Pending">Pending</option>
                             <option value="Confirm">Confirm</option>
                             <option value="Cancel">Cancel</option>
@@ -472,15 +377,39 @@
                     </div> 
                     <div class="form-group">
                         <label for="editNote">Note</label>
-                        <input type="text" class="form-control" id="editNote" name="note">
+                        <input type="text" class="form-control" id="editNote" name="note" readonly>
                     </div>
                     <div class="form-group">
                         <label for="editLog">Event Log</label>
-                        <input type="text" class="form-control" id="editLog" name="log" readonly>
+                        <textarea class="form-control" id="editLog" name="log" rows="3" readonly></textarea>
                     </div>
-                    <div class="col-12 text-right">
+                  </div>
+                    <!-- <div class="col-12 text-right">
                         <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
+                    </div> -->
+                 </div>
+                 <div id="ItemsContainer">
+                    <div class="item-row row">
+                        <div class="col-md-4">
+                            <label for="editPartName">Select Part Name</label>
+                            <select class="form-control" id="editPartName" name="part_name" required disabled>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="editSpecification">Specification</label>
+                            <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="editQty">Stock Available</label>
+                            <input type="text" class="form-control" id="editStock" name="stock" readonly>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="editQty">Qty</label>
+                            <input type="number" class="form-control" id="editQty" name="qty" required readonly>
+                        </div>
                     </div>
+                   
+                </div>
                 </form>
             </div>
         </div>
@@ -594,21 +523,18 @@ function updateMenuWithPendingCount(pendingCount) {
     const userRole = sessionStorage.getItem('role');
 
     // Ambil elemen menu "Get Barang"
-    const menuGetBarang = document.querySelector('#menu-get-barang span');
     const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
 
     if (userRole !== 'user') {
         if (addButton) addButton.style.display = 'none';
     }
 
-    // Jika role adalah admin, tampilkan "Pengambilan Barang"
-    if (userRole === 'admin') {
-        menuGetBarang.textContent = 'Pengambilan Barang';
+    if (userRole !== 'user') {
+        const menuGetBarang = document.getElementById('menu-get-barang');
+        if (menuGetBarang) {
+            menuGetBarang.style.display = 'none';
+        }
     } 
-    // Jika role adalah selain admin, tampilkan "Permintaan Barang"
-    else {
-        menuGetBarang.textContent = 'Permintaan Barang';
-    }
 
     // Sembunyikan menu berdasarkan role
     if (userRole !== 'admin') {
@@ -628,6 +554,10 @@ function updateMenuWithPendingCount(pendingCount) {
         const menuAddStock = document.getElementById('menu-add-stock');
         if (menuAddStock) {
             menuAddStock.style.display = 'none';
+        }
+        const menuBarang = document.getElementById('menu-barang');
+        if (menuBarang) {
+            menuBarang.style.display = 'none';
         }
     }
 
@@ -652,7 +582,7 @@ function updateMenuWithPendingCount(pendingCount) {
 
             // read data
             document.addEventListener('DOMContentLoaded', function() {
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=read';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readConfirm';
             const loadingSpinner = document.getElementById('loadingSpinner');
 
             // Menampilkan spinner

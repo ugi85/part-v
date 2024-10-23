@@ -49,6 +49,16 @@
             height: 3rem;
             border-width: .4em;
             color: rgb(47, 47, 230);
+        }   
+        .badge-notification {
+            background-color: red; /* Warna latar belakang merah */
+            color: white; /* Warna teks putih */
+            padding: 2px 6px; /* Padding untuk memberi ruang di dalam kotak */
+            border-radius: 20%; /* Membuat sudut menjadi bulat */
+            font-size: 12px; /* Ukuran teks yang lebih kecil */
+            font-weight: bold; /* Teks tebal */
+            margin-left: 8px; /* Beri sedikit jarak antara teks dan badge */
+            display: inline-block; /* Agar elemen tampil inline */
         }
     </style>  
 </head>
@@ -132,11 +142,29 @@
                                 <span> Penambahan Stock </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="get-barang.html">
+                        <li id="menu-get-barang">
+                            <a href="get-barang-user.html">
                                 <i class="ion ion-ios-basket"></i>
-                                <span> Pengambilan Barang </span>
+                                <span> Permintaan Barang </span>
                             </a>
+                        </li>
+                        <li id="menu-barang">
+                            <a href="javascript: void(0);" class="waves-effect">
+                                <i class="ion ion-ios-basket"></i>
+                                <span>Pengambilan Barang</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="nav-second-level nav" aria-expanded="false">
+                                <li>
+                                    <a href="get-barang2.html">Permintaan Barang <span id="pendingCount"></span></a>
+                                </li>
+                                <li>
+                                    <a href="get-barang3.html">Verified</a>
+                                </li>   
+                                <li>
+                                    <a href="get-log.html">Event Log</a>
+                                </li>            
+                            </ul>
                         </li>
                        
                         <li id="menu-report">
@@ -151,17 +179,11 @@
                                 </li>
                                 <li>
                                     <a href="Laporan-pb.html">Data Pengambilan Barang</a>
-                                            <!-- <span class="menu-arrow"></span>
-                                        </a>
-                                    <ul class="nav-third-level nav" aria-expanded="false">
-                                        <li>
-                                            <a href="javascript: void(0);">Level 2.1</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript: void(0);">Level 2.2</a>
-                                        </li> -->
-                                    </ul>
                                 </li>
+                                <li>                     
+                                    <a href="Laporan-SM.html">Data Stock Minim</a>
+                                </li>                 
+                                        
                             </ul>
                         </li>
                     </ul>
@@ -192,7 +214,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body table-responsive">
-                                    <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th>Tanggal</th>
@@ -594,21 +616,79 @@
             // Alihkan ke halaman login
             window.location.href = 'index.html';
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
+
+    // Fetch data dari URL
+    fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const pendingCount = data.data.length; // Hitung jumlah total data
+                updateMenuWithPendingCount(pendingCount); // Panggil fungsi untuk memperbarui menu
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+
+// Fungsi untuk memperbarui menu dengan jumlah pending
+function updateMenuWithPendingCount(pendingCount) {
+    const pendingCountSpan = document.getElementById('pendingCount'); // Ambil elemen dengan id pendingCount
+    if (pendingCountSpan) {
+        if (pendingCount > 0) {
+            pendingCountSpan.textContent = pendingCount; // Hanya tampilkan angka, tanpa tanda kurung
+            pendingCountSpan.classList.add('badge-notification'); // Tambahkan kelas badge-notification untuk gaya
+        } else {
+            pendingCountSpan.textContent = ''; // Kosongkan jika tidak ada pending
+            pendingCountSpan.classList.remove('badge-notification'); // Hapus kelas jika tidak ada data
+        }
+    }
+}
+
     </script>
 
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
-                            // Ambil peran pengguna dari sessionStorage
-                            const userRole = sessionStorage.getItem('role');
+                        // Ambil peran pengguna dari sessionStorage
+                        const userRole = sessionStorage.getItem('role');
 
-                            // Sembunyikan menu "Data Users" jika bukan admin
-                            if (userRole !== 'admin') {
-                                const menuDataUsers = document.getElementById('menu-data-users');
-                                if (menuDataUsers) {
-                                    menuDataUsers.style.display = 'none';
-                                }
+                         if (userRole !== 'user') {
+                            const menuGetBarang = document.getElementById('menu-get-barang');
+                            if (menuGetBarang) {
+                                menuGetBarang.style.display = 'none';
                             }
-                        });
+                        } 
+                        // Sembunyikan menu berdasarkan role
+                        if (userRole !== 'admin') {
+                            // Sembunyikan menu "Data Users"
+                            const menuDataUsers = document.getElementById('menu-data-users');
+                            if (menuDataUsers) {
+                                menuDataUsers.style.display = 'none';
+                            }
+
+                            // Sembunyikan menu "Report"
+                            const menuReport = document.getElementById('menu-report');
+                            if (menuReport) {
+                                menuReport.style.display = 'none';
+                            }
+
+                            // Sembunyikan menu "Add Stock"
+                            const menuAddStock = document.getElementById('menu-add-stock');
+                            if (menuAddStock) {
+                                menuAddStock.style.display = 'none';
+                            }
+                            const menuBarang = document.getElementById('menu-barang');
+                            if (menuBarang) {
+                                menuBarang.style.display = 'none';
+                            }
+                        }
+                    });
+
                     </script>
 
 
