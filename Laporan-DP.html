@@ -37,9 +37,11 @@
             }
         });
     </script>
+</head>
 
-      <!-- Custom CSS for Loading Spinner -->
-      <style>
+<body>
+    <!-- Custom CSS for Loading Spinner -->
+    <style>
         #loadingSpinner {
             margin: 20px 0;
         }
@@ -51,9 +53,6 @@
             color: rgb(47, 47, 230);
         }
     </style>  
-</head>
-
-<body>
 
     <!-- Begin page -->
     <div id="wrapper">
@@ -72,11 +71,12 @@
                         <div class="dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome !</h6>
                         </div>
-                        <a href="profile.html" class="dropdown-item notify-item">
+                         <!-- item-->
+                         <a href="profile.html" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
-                        
+                       
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0);" id="logoutButton" class="dropdown-item notify-item">
                             <i class="mdi mdi-logout-variant"></i>
@@ -120,26 +120,29 @@
                                 <span> Data Users </span>
                             </a>
                         </li>
+
                         <li>
                             <a href="data-part.html">
                                 <i class="ion ion-ios-construct"></i>
                                 <span> Data Parts </span>
                             </a>
                         </li>
-                        <li>
+
+                        <li id="menu-add-stock">
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
                                 <span> Penambahan Stock </span>
                             </a>
                         </li>
-                        <li>
+
+                        <li id="menu-get-barang">
                             <a href="get-barang.html">
                                 <i class="ion ion-ios-basket"></i>
                                 <span> Pengambilan Barang </span>
                             </a>
                         </li>
-                       
-                        <li>
+
+                        <li id="menu-report">
                             <a href="javascript: void(0);" class="waves-effect">
                                 <i class="mdi mdi-share-variant"></i>
                                 <span> Report </span>
@@ -169,7 +172,6 @@
                 <div class="clearfix"></div>
             </div>
         </div>
-
         <!-- Left Sidebar End -->
 
 
@@ -227,7 +229,7 @@
                         </div>
 
                         <!-- Tombol Clear -->
-                        <div class="col-md-2 d-flex align-items-end">
+                        <div class="col-3 d-flex align-items-end">
                             <button id="clear" class="btn btn-danger"><i class="fas fa-times"></i> Clear</button>
                         </div>
                 </div>
@@ -292,6 +294,10 @@
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
                         <label class="form-check-label" for="inlineCheckbox14">Price</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
+                        <label class="form-check-label" for="selectAllCheckbox">Select All</label>
                     </div>
                     </div>
                 </div>
@@ -544,68 +550,71 @@
                             const filterValue = parseFloat(filter.value); // Ubah filter.value ke format numerik
                             return priceValue === filterValue; // Tampilkan data dengan price yang sesuai
                         }
+                        if (filter.column.toLowerCase() === 'lt_day') {
+                            const ltDayValue = parseFloat(columnValue); // 
+                            const filterValue = parseFloat(filter.value); // Ubah filter.value ke format numerik
+                            return ltDayValue === filterValue; // 
+                        }
                         // Filter untuk 'location'
-                    if (filter.column.toLowerCase() === 'location') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    }
-                    // Filter untuk 'id part'
-                    if (filter.column.toLowerCase() === 'id_part') {
-                        const idPartValue = columnValue.toString().toLowerCase(); // Ubah kolom id part ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return idPartValue.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
+                        if (filter.column.toLowerCase() === 'location') {
+                            const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return locationValue === filterValue; // Bandingkan lokasi secara eksak
+                        }
+                        // Filter untuk 'id part'
+                        if (filter.column.toLowerCase() === 'id_part') {
+                            const idPartValue = columnValue.toString().toLowerCase(); // Ubah kolom id part ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return idPartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
 
-                    // Filter untuk 'deskripsi'
-                    if (filter.column.toLowerCase() === 'description') {
-                        const deskripsiValue = columnValue.toString().toLowerCase(); // Ubah kolom deskripsi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return deskripsiValue.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
+                        // Filter untuk 'deskripsi'
+                        if (filter.column.toLowerCase() === 'description') {
+                            const deskripsiValue = columnValue.toString().toLowerCase(); // Ubah kolom deskripsi ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return deskripsiValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
 
-                    // Filter untuk 'specification'
-                    if (filter.column.toLowerCase() === 'specification') {
-                        const specificationValue = columnValue.toString().toLowerCase(); // Ubah kolom specification ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return specificationValue.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
+                        // Filter untuk 'specification'
+                        if (filter.column.toLowerCase() === 'specification') {
+                            const specificationValue = columnValue.toString().toLowerCase(); // Ubah kolom specification ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return specificationValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
 
-                    // Filter untuk 'machine'
-                    if (filter.column.toLowerCase() === 'machine') {
-                        const machineValue = columnValue.toString().toLowerCase(); // Ubah kolom machine ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return machineValue.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
+                        // Filter untuk 'machine'
+                        if (filter.column.toLowerCase() === 'machine') {
+                            const machineValue = columnValue.toString().toLowerCase(); // Ubah kolom machine ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return machineValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
 
-                    // Filter untuk 'supplier1'
-                    if (filter.column.toLowerCase() === 'supplier1') {
-                        const supplier1Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier1 ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return supplier1Value.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
+                        // Filter untuk 'supplier1'
+                        if (filter.column.toLowerCase() === 'supplier1') {
+                            const supplier1Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier1 ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return supplier1Value.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
 
-                    // Filter untuk 'supplier2'
-                    if (filter.column.toLowerCase() === 'supplier2') {
-                        const supplier2Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier2 ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return supplier2Value.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
+                        // Filter untuk 'supplier2'
+                        if (filter.column.toLowerCase() === 'supplier2') {
+                            const supplier2Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier2 ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return supplier2Value.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
 
-                    // Filter untuk 'type part'
-                    if (filter.column.toLowerCase() === 'type_part') {
-                        const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
-                    // Filter untuk 'unit'
-                    if (filter.column.toLowerCase() === 'unit') {
-                        const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
-                    }
-
-
+                        // Filter untuk 'type part'
+                        if (filter.column.toLowerCase() === 'type_part') {
+                            const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
+                        // Filter untuk 'unit'
+                        if (filter.column.toLowerCase() === 'unit') {
+                            const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
+                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
+                            return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
+                        }
                             return false; // Jika tidak bisa dibandingkan, tidak lolos filter
 
                         // Filter default: pencarian teks
@@ -698,6 +707,17 @@ applyFilterButton.addEventListener('click', () => {
                 doc.save('laporan_data_parts.pdf');
             });
 
+            // Checkbox "Select All"
+        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+
+        // Event listener untuk "Select All"
+        selectAllCheckbox.addEventListener('change', function() {
+            const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked; // Set semua checkbox sesuai status "Select All"
+            });
+        });
+
        // Event listener untuk tombol print preview
        printPreviewButton.addEventListener('click', function() {
             const selectedColumns = [];
@@ -708,6 +728,13 @@ applyFilterButton.addEventListener('click', () => {
     checkboxes.forEach(checkbox => {
         selectedColumns.push(checkbox.value);
     });
+
+    // Jika "Select All" dipilih, masukkan semua kolom
+    if (selectAllCheckbox.checked) {
+        selectedColumns.length = 0; // Reset kolom yang dipilih
+        const allColumns = ['ID Part', 'Description', 'Specification', 'Machine', 'Supplier 1', 'Supplier 2', 'Location', 'Type Part', 'Min', 'Max', 'Unit', 'LT Day', 'Stock', 'Price',];
+        selectedColumns.push(...allColumns); // Masukkan semua kolom
+    }
 
     // Periksa apakah ada kolom yang dipilih
     if (selectedColumns.length === 0) {

@@ -67,19 +67,7 @@
 
 
 
-<!-- Custom CSS for Loading Spinner -->
-<style>
-    #loadingSpinner {
-        margin: 20px 0;
-    }
 
-    .spinner-border {
-        width: 3rem;
-        height: 3rem;
-        border-width: .4em;
-        color: rgb(47, 47, 230);
-    }
-</style>
 
 </head>
 
@@ -212,70 +200,67 @@
             <div class="content">
                 <div class="container-fluid">
     
-                    <!-- Start Page Title -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="page-title-box d-flex justify-content-between align-items-center">
-                                <h4 class="page-title mb-0">Laporan Pengambilan Barang</h4>
-                            </div>
-                        </div>
+              <!-- Start Page Title -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="page-title-box d-flex justify-content-between align-items-center">
+                        <h4 class="page-title mb-0">Laporan Pengambilan Barang</h4>
                     </div>
-                    <!-- End Page Title -->
-    
-                    <!-- Start Filters -->
-                    <div class="row mb-4">
-                        <!-- Filter Berdasarkan Kolom -->
-                            <div class="col-md-2">
-                                <label for="filterColumn">Pilih Kategori:</label>
-                                <select class="form-control" id="filterColumn">
-                                <option value="">--Pilih Kategori--</option>
-                                <!-- <option value="tanggal">Tanggal</option> -->
-                                <!-- <option value="waktu">Waktu</option> -->
-                                <option value="departemen">Departemen</option>
-                                <option value="mesin">Mesin</option>
-                                <option value="remark">Remark</option>
-                                <option value="part_name">Part Name</option>
-                                <option value="specification">Specification</option>
-                                <option value="qty">Qty</option>
-                                <option value="requester">Requester</option>
-                                <option value="storeKeeper">Store Keeper/Security</option>
-                                </select>
-                            </div>
+                </div>
+            </div>
+            <!-- End Page Title -->
 
-    
-                        <!-- Nilai Filter -->
-                        <div class="col-md-3">
-                            <label for="filterValue">Nilai Filter:</label>
-                            <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
+            <!-- Start Filters -->
+            <div class="row mb-4">
+                <!-- Filter Berdasarkan Kolom -->
+                <div class="col-md-2 col-sm-6 mb-2">
+                    <label for="filterColumn">Pilih Kategori:</label>
+                    <select class="form-control w-100" id="filterColumn" style="max-width: 100%;">
+                        <option value="">--Pilih Kategori--</option>
+                        <option value="departemen">Departemen</option>
+                        <option value="mesin">Mesin</option>
+                        <option value="remark">Remark</option>
+                        <option value="part_name">Part Name</option>
+                        <option value="specification">Specification</option>
+                        <option value="qty">Qty</option>
+                        <option value="requester">Requester</option>
+                        <option value="storeKeeper">Store Keeper/Security</option>
+                    </select>
+                </div>
+
+                <!-- Nilai Filter -->
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <label for="filterValue">Nilai Filter:</label>
+                    <input type="text" class="form-control w-100" id="filterValue" placeholder="Masukkan Nilai Filter" style="max-width: 100%;">
+                </div>
+
+                <!-- Filter Berdasarkan Tanggal -->
+                <div class="col-md-6 col-sm-12 mb-2">
+                    <label>Filter Berdasarkan Tanggal:</label>
+                    <div class="d-flex align-items-end">
+                        <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
+                            <input type="date" id="startDate" class="form-control" placeholder="Start Date">
                         </div>
-    
-                        <!-- Filter Berdasarkan Tanggal -->
-                        <div class="col-md-7">
-                            <label for="filterDate">Filter Berdasarkan Tanggal:</label>
-                            <div class="filter-container">
-                                <div>
-                                    <label for="startDate">Mulai:</label>
-                                    <input type="date" id="startDate" class="form-control form-control-inline">
-                                </div>
-
-                                <div>
-                                    <label for="endDate">Akhir:</label>
-                                    <input type="date" id="endDate" class="form-control form-control-inline">
-                                </div>
-
-                                <div>
-                                    <div class="col-md-3 d-flex align-items-end"></div>
-                                    <button id="applyFilter" class="btn btn-primary">
-                                    <i class="fas fa-search"></i> Cari</button>
-                                </div>
-                                 <!-- Tombol Clear -->
-                                <div class="col-md-3 d-flex align-items-end">
-                                    <button id="clear" class="btn btn-danger"><i class="fas fa-times"></i> Clear</button>
-                                </div>
-                            </div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <span class="mx-2">S/D</span>
+                        </div>
+                        <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
+                            <input type="date" id="endDate" class="form-control" placeholder="End Date">
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 col-sm-3 mb-2">
+                    <button id="applyFilter" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Cari
+                    </button>
+                    <button id="clear" class="btn btn-danger">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+            </div>
+            </div>
+            <!-- End Filters -->
+
+
 
 
             <!-- Daftar Pilihan Kolom untuk Cetak -->
@@ -295,7 +280,7 @@
                         <label class="form-check-label" for="inlineCheckbox3">Departemen</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Mesin" id="inlineCheckbox4">
+                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
                         <label class="form-check-label" for="inlineCheckbox4">Mesin</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -321,6 +306,14 @@
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
                         <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Note" id="inlineCheckbox11">
+                        <label class="form-check-label" for="inlineCheckbox11">Note</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
+                        <label class="form-check-label" for="selectAllCheckbox">Select All</label>
                     </div>
                 </div>
             </div>
@@ -466,7 +459,7 @@
     <script>
     //read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const filterColumn = document.getElementById('filterColumn');
     const filterValue = document.getElementById('filterValue');
@@ -514,98 +507,69 @@
         });
     }
     
-    // Fungsi untuk mengambil data dari API
-    function fetchData(filter = {}) {
-        loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
+// Fungsi untuk mengambil data dari API
+function fetchData(filter = {}) {
+    loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
 
-        fetch(scriptURL)
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    originalData = data.data; // Simpan data asli
-                    let users = [...originalData]; // Salin data untuk filter
+    fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                originalData = data.data; // Simpan data asli
+                let users = [...originalData]; // Salin data untuk filter
 
-                    // Filter berdasarkan kolom dan nilai yang diinputkan
-                    if (filter.column && filter.value) {
-                        users = users.filter(user => {
-                            const columnValue = user[filter.column]?.toString().toLowerCase();
-                            return columnValue.includes(filter.value.toLowerCase());
-                        });
-                    }
-                       // Filter untuk 'departemen'
-                       if (filter.column.toLowerCase() === 'departemen') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    }
-                        // Filter untuk 'mesin'
-                    if (filter.column.toLowerCase() === 'mesin') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    }
-                        // Filter untuk 'remark'
-                        if (filter.column.toLowerCase() === 'remark') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    }
-                     // Filter untuk 'part_name'
-                     if (filter.column.toLowerCase() === 'part_name') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    } // Filter untuk 'specification'
-                        if (filter.column.toLowerCase() === 'specification') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    } 
-                    if (filter.column.toLowerCase() === 'qty') {
-                        const qtyValue = columnValue === null ? 0 : parseInt(columnValue, 10); // Ubah null menjadi 0 dan pastikan angka
-                        const filterValue = parseInt(filter.value, 10); // Mengubah filter.value menjadi integer
-                        return qtyValue === filterValue; // Bandingkan nilai stock
-                    }
-                    // Filter untuk 'requester'
-                     if (filter.column.toLowerCase() === 'requester') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    }
-                     // Filter untuk 'security'
-                     if (filter.column.toLowerCase() === 'security') {
-                        const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                        const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                        return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                    }
-                        
+                // Jika ada filter.value, cari pada semua kolom yang relevan
+                if (filter.value) {
+                    const searchValue = filter.value.toString().toLowerCase();
 
-                    // Filter berdasarkan rentang tanggal
-                    if (filter.startDate && filter.endDate) {
-                        const startDate = new Date(filter.startDate);
-                        const endDate = new Date(filter.endDate);
-                        
-                        if (!isNaN(startDate) && !isNaN(endDate)) {
-                            users = users.filter(user => {
-                                const userDate = new Date(user.tanggal);
-                                return userDate >= startDate && userDate <= endDate;
-                            });
-                        } else {
-                            console.warn('Tanggal tidak valid');
-                        }
-                    }
+                    users = users.filter(user => {
+                        const qtyValue = user.qty ? parseInt(user.qty, 10) : 0; // Ubah qty jadi angka (null diubah ke 0)
 
-                    // Menampilkan data hasil filter
-                    displayData(users);
-                } else {
-                    console.error('Error:', data.message);
+                        // Cek apakah salah satu kolom memiliki nilai yang sesuai (termasuk pencarian pada qty)
+                        return (
+                            (user.part_name && user.part_name.toLowerCase().includes(searchValue)) ||
+                            (user.departemen && user.departemen.toLowerCase().includes(searchValue)) ||
+                            (user.specification && user.specification.toLowerCase().includes(searchValue)) ||
+                            (user.mesin && user.mesin.toLowerCase().includes(searchValue)) ||
+                            (user.supplier1 && user.supplier1.toLowerCase().includes(searchValue)) ||
+                            (user.supplier2 && user.supplier2.toLowerCase().includes(searchValue)) ||
+                            (user.type_part && user.type_part.toLowerCase().includes(searchValue)) ||
+                            (user.description && user.description.toLowerCase().includes(searchValue)) ||
+                            (user.requester && user.requester.toLowerCase().includes(searchValue)) ||
+                            (user.id_part && user.id_part.toLowerCase().includes(searchValue)) ||
+                            (qtyValue === parseInt(filter.value, 10)) // Cocokkan qty dengan nilai filter
+                        );
+                    });
                 }
-            })
-            .catch(error => console.error('Error:', error))
-            .finally(() => {
-                loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
-            });
-    }
+
+                // Filter berdasarkan rentang tanggal (jika ada)
+                if (filter.startDate && filter.endDate) {
+                    const startDate = new Date(filter.startDate);
+                    const endDate = new Date(filter.endDate);
+
+                    if (!isNaN(startDate) && !isNaN(endDate)) {
+                        users = users.filter(user => {
+                            const userDate = new Date(user.tanggal);
+                            return userDate >= startDate && userDate <= endDate;
+                        });
+                    } else {
+                        console.warn('Tanggal tidak valid');
+                    }
+                }
+
+                // Menampilkan data hasil filter
+                displayData(users);
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
+        });
+}
+
+
        
     // Fungsi untuk memformat tanggal
     function formatDate(dateString) {
@@ -716,6 +680,17 @@
         doc.save('laporan_data_pb.pdf');
     });
 
+    // Checkbox "Select All"
+    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+
+    // Event listener untuk "Select All"
+    selectAllCheckbox.addEventListener('change', function() {
+        const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked; // Set semua checkbox sesuai status "Select All"
+        });
+    });
+
     // Event listener untuk tombol print preview
     printPreviewButton.addEventListener('click', function() {
         const selectedColumns = [];
@@ -723,9 +698,16 @@
         const tableData = [];
 
     // Mengambil nilai dari checkbox yang dipilih (nama kolom)
-    checkboxes.forEach(checkbox => {
+        checkboxes.forEach(checkbox => {
         selectedColumns.push(checkbox.value);
     });
+    
+    // Jika "Select All" dipilih, masukkan semua kolom
+    if (selectAllCheckbox.checked) {
+        selectedColumns.length = 0; // Reset kolom yang dipilih
+        const allColumns = ['Tanggal', 'Waktu', 'Departemen', 'Machine', 'Remark', 'Part Name', 'Specification', 'Qty', 'Requester', 'StoreKeeper', 'Note'];
+        selectedColumns.push(...allColumns); // Masukkan semua kolom
+    }
 
     // Periksa apakah ada kolom yang dipilih
     if (selectedColumns.length === 0) {
@@ -752,7 +734,7 @@
                 case 'Departemen':
                     cellValue = cells[2].innerText;
                     break;
-                case 'Mesin':
+                case 'Machine':
                     cellValue = cells[3].innerText;
                     break;
                 case 'Remark':
@@ -770,8 +752,11 @@
                 case 'Requester':
                     cellValue = cells[8].innerText;
                     break;
-                case 'Store Keeper/Security':
+                case 'StoreKeeper':
                     cellValue = cells[9].innerText;
+                    break;
+                case 'Note':
+                    cellValue = cells[10].innerText;
                     break;
                 // Tambahkan case untuk kolom tambahan jika ada
                 default:
