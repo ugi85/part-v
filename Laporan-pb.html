@@ -34,7 +34,22 @@
 
     <!-- Tambahkan Font Awesome CDN di dalam <head> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    
+   
+
+     <!-- Script to check login status -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+
 </head>
+
+<body>
     <style>
         .filter-container {
             display: flex;
@@ -55,23 +70,6 @@
             margin-right: 10px;
         }
     </style>
-
-     <!-- Script to check login status -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!sessionStorage.getItem('isLoggedIn')) {
-                window.location.href = 'index.html';
-            }
-        });
-    </script>
-
-
-
-
-
-</head>
-
-<body>
    
     <!-- Begin page -->
     <div id="wrapper">
@@ -80,7 +78,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <!-- <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle"> -->
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -158,7 +156,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        <li id="menu-report">
                             <a href="javascript: void(0);" class="waves-effect">
                                 <i class="mdi mdi-share-variant"></i>
                                 <span> Report </span>
@@ -200,68 +198,67 @@
             <div class="content">
                 <div class="container-fluid">
     
-              <!-- Start Page Title -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="page-title-box d-flex justify-content-between align-items-center">
-                        <h4 class="page-title mb-0">Laporan Pengambilan Barang</h4>
-                    </div>
-                </div>
-            </div>
-            <!-- End Page Title -->
-
-            <!-- Start Filters -->
-            <div class="row mb-4">
-                <!-- Filter Berdasarkan Kolom -->
-                <div class="col-md-2 col-sm-6 mb-2">
-                    <label for="filterColumn">Pilih Kategori:</label>
-                    <select class="form-control w-100" id="filterColumn" style="max-width: 100%;">
-                        <option value="">--Pilih Kategori--</option>
-                        <option value="departemen">Departemen</option>
-                        <option value="mesin">Mesin</option>
-                        <option value="remark">Remark</option>
-                        <option value="part_name">Part Name</option>
-                        <option value="specification">Specification</option>
-                        <option value="qty">Qty</option>
-                        <option value="requester">Requester</option>
-                        <option value="storeKeeper">Store Keeper/Security</option>
-                    </select>
-                </div>
-
-                <!-- Nilai Filter -->
-                <div class="col-md-3 col-sm-6 mb-2">
-                    <label for="filterValue">Nilai Filter:</label>
-                    <input type="text" class="form-control w-100" id="filterValue" placeholder="Masukkan Nilai Filter" style="max-width: 100%;">
-                </div>
-
-                <!-- Filter Berdasarkan Tanggal -->
-                <div class="col-md-6 col-sm-12 mb-2">
-                    <label>Filter Berdasarkan Tanggal:</label>
-                    <div class="d-flex align-items-end">
-                        <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
-                            <input type="date" id="startDate" class="form-control" placeholder="Start Date">
-                        </div>
-                        <div class="mb-3 d-flex align-items-center">
-                            <span class="mx-2">S/D</span>
-                        </div>
-                        <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
-                            <input type="date" id="endDate" class="form-control" placeholder="End Date">
+                    <!-- Start Page Title -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex justify-content-between align-items-center">
+                                <h4 class="page-title mb-0">Laporan Pengambilan Barang</h4>
+                            </div>
                         </div>
                     </div>
+                    <!-- End Page Title -->
+
+                    <!-- Start Filters -->
+                    <div class="row mb-4">
+                        <!-- Filter Berdasarkan Kolom -->
+                        <div class="col-md-2 col-sm-6 mb-2">
+                            <label for="filterColumn">Pilih Kategori:</label>
+                            <select class="form-control w-100" id="filterColumn" style="max-width: 100%;">
+                                <option value="">--Pilih Kategori--</option>
+                                <option value="departemen">Departemen</option>
+                                <option value="mesin">Mesin</option>
+                                <option value="remark">Remark</option>
+                                <option value="part_name">Part Name</option>
+                                <option value="specification">Specification</option>
+                                <option value="qty">Qty</option>
+                                <option value="requester">Requester</option>
+                                <option value="storeKeeper">Store Keeper/Security</option>
+                            </select>
+                        </div>
+
+                        <!-- Nilai Filter -->
+                        <div class="col-md-3 col-sm-6 mb-2">
+                            <label for="filterValue">Nilai Filter:</label>
+                            <input type="text" class="form-control w-100" id="filterValue" placeholder="Masukkan Nilai Filter" style="max-width: 100%;">
+                        </div>
+
+                        <!-- Filter Berdasarkan Tanggal -->
+                        <div class="col-md-6 col-sm-12 mb-2">
+                            <label>Filter Berdasarkan Tanggal:</label>
+                            <div class="d-flex align-items-end">
+                                <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
+                                    <input type="date" id="startDate" class="form-control" placeholder="Start Date">
+                                </div>
+                                <div class="mb-3 d-flex align-items-center">
+                                    <span class="mx-2">S/D</span>
+                                </div>
+                                <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
+                                    <input type="date" id="endDate" class="form-control" placeholder="End Date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-3 mb-2">
+                            <button id="applyFilter" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Cari
+                            </button>
+                            <button id="clear" class="btn btn-danger">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6 col-sm-3 mb-2">
-                    <button id="applyFilter" class="btn btn-primary">
-                        <i class="fas fa-search"></i> Cari
-                    </button>
-                    <button id="clear" class="btn btn-danger">
-                        <i class="fas fa-times"></i> Clear
-                    </button>
-            </div>
             </div>
             <!-- End Filters -->
-
-
-
 
             <!-- Daftar Pilihan Kolom untuk Cetak -->
             <div class="form-group">
