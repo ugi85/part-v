@@ -69,29 +69,45 @@
     </style>
     <style>
         /* Style untuk lingkaran profil dengan initial */
-        .profile-initial {
-            width: 100px;
-            height: 100px;
-            background-color: #007bff; /* Warna background lingkaran */
-            color: white; /* Warna text (initial) */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 36px;
-            font-weight: bold;
-            border-radius: 50%; /* Membuat elemen berbentuk lingkaran */
-        }
+            .profile-initial {
+                width: 80px; /* Sesuaikan ukuran gambar profil */
+                height: 80px;
+                background-color: #4fdce6; /* Warna background lingkaran */
+                color: white; /* Warna text (initial) */
+                display: flex; /* Flexbox untuk memusatkan teks di dalam lingkaran */
+                justify-content: center; /* Memusatkan teks secara horizontal */
+                align-items: center; /* Memusatkan teks secara vertikal */
+                font-size: 36px; /* Ukuran font untuk inisial */
+                font-weight: bold; /* Menebalkan inisial */
+                border-radius: 50%; /* Membuat elemen berbentuk lingkaran */
+                margin: 0 auto; /* Memusatkan lingkaran di dalam kolom */
+                margin-bottom: 10px; /* Memberi jarak antara lingkaran dan nama */
+            }
         .user-details {
             margin-top: 30px;          /* Jarak antara lingkaran dan nama */
             text-align: center;        /* Pusatkan teks nama pengguna secara horizontal */
         }
 
-        .pro-user-name {
-            font-size: 15px;           /* Ukuran teks nama pengguna */
-            font-weight: bold;         /* Menebalkan teks nama pengguna */
-            display: inline-block;     /* Membuat elemen mengikuti lebar konten */
-            text-align: left;        /* Pusatkan teks */
-            width: 100%;               /* Pastikan elemen menempati seluruh lebar */
+        .pro-user-name2 {
+            font-size: 20px; /* Ukuran teks nama pengguna */
+            font-weight: bold; /* Membuat teks tebal */
+            text-align: center; /* Memusatkan teks di bawah gambar profil */
+            display: block;
+        }
+
+        /* Mengatur agar elemen di dalam col-sm-12 diatur dalam satu kolom dan center */
+        .text-center {
+            text-align: center; /* Memastikan elemen teks terpusat */
+        }
+        .badge-notification {
+            background-color: red; /* Warna latar belakang merah */
+            color: white; /* Warna teks putih */
+            padding: 2px 6px; /* Padding untuk memberi ruang di dalam kotak */
+            border-radius: 20%; /* Membuat sudut menjadi bulat */
+            font-size: 12px; /* Ukuran teks yang lebih kecil */
+            font-weight: bold; /* Teks tebal */
+            margin-left: 8px; /* Beri sedikit jarak antara teks dan badge */
+            display: inline-block; /* Agar elemen tampil inline */
         }
     </style>
 
@@ -177,27 +193,55 @@
                                 <span> Data Parts </span>
                             </a>
                         </li>
-                        <li>
+                        <li id="menu-add-stock">
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
                                 <span> Penambahan Stock </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="get-barang.html">
+
+                        <li id="menu-get-barang">
+                            <a href="get-barang-user.html">
                                 <i class="ion ion-ios-basket"></i>
-                                <span> Pengambilan Barang </span>
+                                <span> Permintaan Barang </span>
                             </a>
                         </li>
-                        <li>
+                        <li id="menu-barang">
+                            <a href="javascript: void(0);" class="waves-effect">
+                                <i class="ion ion-ios-basket"></i>
+                                <span>Pengambilan Barang</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="nav-second-level nav" aria-expanded="false">
+                                <li>
+                                    <a href="get-barang2.html">Permintaan Barang <span id="pendingCount"></span></a>
+                                </li>
+                                <li>
+                                    <a href="get-barang3.html">Verified</a>
+                                </li>  
+                                <li>
+                                    <a href="get-log.html">Event Log</a>
+                                </li>             
+                            </ul>
+                        </li>
+
+                        <li id="menu-report">
                             <a href="javascript: void(0);" class="waves-effect">
                                 <i class="mdi mdi-share-variant"></i>
                                 <span> Report </span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="nav-second-level nav" aria-expanded="false">
-                                <li><a href="Laporan-DP.html">Data Parts</a></li>
-                                <li><a href="Laporan-pb.html">Data Pengambilan Barang</a></li>
+                                <li>
+                                    <a href="Laporan-DP.html">Data Parts</a>
+                                </li>
+                                <li>
+                                    <a href="Laporan-pb.html">Data Pengambilan Barang</a>
+                                </li>
+                                <li>                     
+                                    <a href="Laporan-SM.html">Data Stock Minim</a>
+                                </li>                 
+                                        
                             </ul>
                         </li>
                     </ul>
@@ -217,7 +261,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="profile-bg-picture"
-                                style="background-image:url('assets/images/bg-profile.jpg')">
+                                style="background-image:url('assets/images/coder.jpg')">
                                 <span class="picture-bg-overlay"></span>
                             </div>
                             <div class="profile-user-box">
@@ -226,10 +270,9 @@
                                          <!-- Gantikan gambar profil dengan div untuk initial -->
                                     <div id="profileInitial" class="profile-initial"></div>
                                     <div class="">
-                                        <span class="pro-user-name ml-1">
-                                            <span id="tampil_nama2"></span> <!-- Nama pengguna akan tampil di sini -->
-                                            <!-- <p class="font-13">User Experience Specialist</p>
-                                            <p class="text-muted mb-0"><small>California, United States</small></p> -->
+                                        <span class="pro-user-name2 ml-1">
+                                            <span class="text-center" id="tampil_nama2"></span> 
+                                          
                                         </span>
                                         </div>
                                     </div>
@@ -253,7 +296,7 @@
                                         <form id="editForm">
                                             <div class="form-group">
                                                 <label for="editUsername">User Name</label>
-                                                <input type="text" class="form-control" id="editUsername" name="username" required>
+                                                <input type="text" class="form-control" id="editUsername" name="username" required readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="editEmail">Email</label>
@@ -332,6 +375,74 @@
             sessionStorage.removeItem('isLoggedIn');
             window.location.href = 'index.html';
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
+
+    // Fetch data dari URL
+    fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const pendingCount = data.data.length; // Hitung jumlah total data
+                updateMenuWithPendingCount(pendingCount); // Panggil fungsi untuk memperbarui menu
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+
+// Fungsi untuk memperbarui menu dengan jumlah pending
+function updateMenuWithPendingCount(pendingCount) {
+    const pendingCountSpan = document.getElementById('pendingCount'); // Ambil elemen dengan id pendingCount
+    if (pendingCountSpan) {
+        if (pendingCount > 0) {
+            pendingCountSpan.textContent = pendingCount; // Hanya tampilkan angka, tanpa tanda kurung
+            pendingCountSpan.classList.add('badge-notification'); // Tambahkan kelas badge-notification untuk gaya
+        } else {
+            pendingCountSpan.textContent = ''; // Kosongkan jika tidak ada pending
+            pendingCountSpan.classList.remove('badge-notification'); // Hapus kelas jika tidak ada data
+        }
+    }
+}
+
+// Ambil peran pengguna dari sessionStorage
+const userRole = sessionStorage.getItem('role');
+
+if (userRole !== 'user') {
+    const menuGetBarang = document.getElementById('menu-get-barang');
+    if (menuGetBarang) {
+        menuGetBarang.style.display = 'none';
+    }
+} 
+
+// Sembunyikan menu berdasarkan role
+if (userRole !== 'admin') {
+    // Sembunyikan menu "Data Users"
+    const menuDataUsers = document.getElementById('menu-data-users');
+    if (menuDataUsers) {
+        menuDataUsers.style.display = 'none';
+    }
+
+    // Sembunyikan menu "Report"
+    const menuReport = document.getElementById('menu-report');
+    if (menuReport) {
+        menuReport.style.display = 'none';
+    }
+
+    // Sembunyikan menu "Add Stock"
+    const menuAddStock = document.getElementById('menu-add-stock');
+    if (menuAddStock) {
+        menuAddStock.style.display = 'none';
+    }
+    const menuBarang = document.getElementById('menu-barang');
+    if (menuBarang) {
+        menuBarang.style.display = 'none';
+    }
+}
     </script>
 
     <script>
