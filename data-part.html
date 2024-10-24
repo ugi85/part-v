@@ -160,11 +160,11 @@
                                     <a href="get-barang2.html">Permintaan Barang <span id="pendingCount"></span></a>
                                 </li>
                                 <li>
-                                    <a href="get-barang3.html">Verified</a>
-                                </li>  
+                                    <a href="get-barang3.html">Sudah DiVerifikasi</a>
+                                </li>    
                                 <li>
-                                    <a href="get-log.html">Event Log</a>
-                                </li>             
+                                    <a href="get-log.html">Mutasi Transaksi</a>
+                                </li>            
                             </ul>
                         </li>
 
@@ -205,13 +205,16 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
-                                <h4 class="page-title mb-0">Data Parts</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Item</button>
+                                <h4 class="page-title mb-0">Data Penambahan Stock</h4>
+                                <div class="d-flex">
+                                    <button id="customPrintButton" class="btn btn-primary waves-effect waves-light btn-sm mr-2">Print Data</button>
+                                    <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Item</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
-
+                   
                     <div class="row">
                         <div class="col-12">
                             <div class="card">       
@@ -746,7 +749,51 @@ function updateMenuWithPendingCount(pendingCount) {
         
 
         $('#userTable').DataTable({
-            responsive: true,  // Menjaga agar tabel tetap responsif
+                            responsive: true,
+                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                            dom: 'lrtip',
+                            buttons: [
+                                {
+                                    extend: 'print',
+                                    exportOptions: {
+                                        modifier: {
+                                            page: 'current'  // Hanya mencetak data yang terlihat di halaman saat ini
+                                        },
+                                        columns: ':visible'
+                                    },
+                                    title: '',  // Ini judul default dari DataTables
+                                    autoPrint: false,
+                                    customize: function (win) {
+                                        // Modifikasi tampilan sebelum dicetak
+                                        $(win.document.body)
+                                            .css('font-size', '10pt')  // Sesuaikan ukuran font
+                                            .prepend(  // Tambahkan elemen header di awal body
+                                                '<div style="text-align: center; margin-bottom: 20px;">' +
+                                                '<h1>PT AAG</h1>' +
+                                                '<h3>Sistem E-Part</h3>' +
+                                                '</div>'
+                                            );
+
+                                        // Buat agar tabel lebih rapi saat pratinjau cetak
+                                        $(win.document.body).find('table')
+                                            .addClass('display')
+                                            .css('font-size', 'inherit');
+
+                                        // Tambahkan tombol Print di dalam pratinjau
+                                        $(win.document.body).append(
+                                            '<button id="customPrintButton" style="margin: 20px; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">Print</button>'
+                                        );
+
+                                        // Event listener untuk tombol Print kustom di dalam pratinjau
+                                        $(win.document).on('click', '#customPrintButton', function() {
+                                            win.print();  // Memanggil dialog cetak
+                                        });
+                                         // CSS untuk menyembunyikan elemen saat mencetak
+                                            const style = '<style>@media print { #customPrintButton { display: none !important; } }</style>';
+                                            $(win.document.head).append(style);
+                                    },
+                                }
+                            ],
             columnDefs: [
                 {
                     // Sembunyikan kolom Actions jika user bukan admin
@@ -763,6 +810,10 @@ function updateMenuWithPendingCount(pendingCount) {
                 }
             }
         });
+        // Event listener untuk tombol print
+        document.getElementById('customPrintButton').addEventListener('click', function() {
+                                            $('#userTable').DataTable().button('.buttons-print').trigger();
+                                        });
     }
 
     function fetchData(showMinData = false) {

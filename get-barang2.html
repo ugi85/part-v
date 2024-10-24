@@ -188,11 +188,11 @@
                                     <a href="get-barang2.html">Permintaan Barang <span id="pendingCount"></span></a>
                                 </li>
                                 <li>
-                                    <a href="get-barang3.html">Verified</a>
-                                </li>   
+                                    <a href="get-barang3.html">Sudah DiVerifikasi</a>
+                                </li>    
                                 <li>
-                                    <a href="get-log.html">Event Log</a>
-                                </li>            
+                                    <a href="get-log.html">Mutasi Transaksi</a>
+                                </li>          
                             </ul>
                         </li>
                        
@@ -234,7 +234,7 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Data Barang Yang Diambil</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addItemModal">Ambil Barang</button>
+                                <button id="customPrintButton" class="btn btn-primary waves-effect waves-light btn-sm">Print Data</button>
                             </div>
                         </div>
                     </div>
@@ -247,6 +247,7 @@
                                     <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Tanggal</th>
                                                 <th>Time</th>
                                                 <th>Departemen</th>
@@ -427,27 +428,6 @@
                         <textarea class="form-control" id="editRemark" name="remark" rows="3" readonly></textarea>
                     </div>
 
-                    <!-- <div id="ItemsContainer">
-                        <div class="item-row row">
-                            <div class="col-md-4">
-                                <label for="editPartName">Select Part Name</label>
-                                <select class="form-control" id="editPartName" name="part_name" required>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="editSpecification">Specification</label>
-                                <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="editQty">Stock Available</label>
-                                <input type="text" class="form-control" id="editStock" name="stock" readonly>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="editQty">Qty</label>
-                                <input type="number" class="form-control" id="editQty" name="qty" required>
-                            </div>
-                        </div>
-                    </div> -->
                   </div>
 
                   <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
@@ -702,17 +682,18 @@ function updateMenuWithPendingCount(pendingCount) {
 
                         rows.forEach(row => {
                             const tableRow = usersTableBody.insertRow();
-                            tableRow.insertCell(0).textContent = formatDate(row.tanggal) || '';
-                            tableRow.insertCell(1).textContent = formatTime(row.waktu) || '';
-                            tableRow.insertCell(2).textContent = row.departemen || '';
-                            tableRow.insertCell(3).textContent = row.mesin || '';
-                            tableRow.insertCell(4).textContent = row.remark || '';
-                            tableRow.insertCell(5).textContent = row.part_name || '';
-                            tableRow.insertCell(6).textContent = row.specification || '';
-                            tableRow.insertCell(7).textContent = row.qty || 0;
-                            tableRow.insertCell(8).textContent = row.requester || '';
-                            tableRow.insertCell(9).textContent = row.security || '';
-         const statusCell = tableRow.insertCell(10);statusCell.textContent = row.status || '';
+                            tableRow.insertCell(0).textContent = row.id || '';
+                            tableRow.insertCell(1).textContent = formatDate(row.tanggal) || '';
+                            tableRow.insertCell(2).textContent = formatTime(row.waktu) || '';
+                            tableRow.insertCell(3).textContent = row.departemen || '';
+                            tableRow.insertCell(4).textContent = row.mesin || '';
+                            tableRow.insertCell(5).textContent = row.remark || '';
+                            tableRow.insertCell(6).textContent = row.part_name || '';
+                            tableRow.insertCell(7).textContent = row.specification || '';
+                            tableRow.insertCell(8).textContent = row.qty || 0;
+                            tableRow.insertCell(9).textContent = row.requester || '';
+                            tableRow.insertCell(10).textContent = row.security || '';
+         const statusCell = tableRow.insertCell(11);statusCell.textContent = row.status || '';
 
                             // Jika status "Pending", berikan warna merah
                             if (row.status === 'Pending') {
@@ -729,25 +710,76 @@ function updateMenuWithPendingCount(pendingCount) {
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
                             }
 
-
-
                             // Tambahkan kolom Edit dan Delete
-                            const actionCell = tableRow.insertCell(11);
+                            const actionCell = tableRow.insertCell(12);
                             actionCell.innerHTML = `
                             <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Detail</button>           
-                        `;
-
-                 
+                        `;               
                     });
-
-                    
 
                 // Initialize or reinitialize DataTable
                 if ($.fn.DataTable.isDataTable('#userTable')) {
                                 $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
                             }
-                            $('#userTable').DataTable(); // Buat instance DataTable baru
-                            // Sembunyikan kolom Actions jika user bukan admin
+                             // Inisialisasi DataTable
+                        $('#userTable').DataTable({
+                            responsive: true,
+                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                            dom: 'lrtip',
+                            buttons: [
+                                {
+                                    extend: 'print',
+                                    exportOptions: {
+                                        modifier: {
+                                            page: 'current'  // Hanya mencetak data yang terlihat di halaman saat ini
+                                        },
+                                        columns: ':visible'
+                                    },
+                                    title: '',  // Ini judul default dari DataTables
+                                    autoPrint: false,
+                                    customize: function (win) {
+                                        // Modifikasi tampilan sebelum dicetak
+                                        $(win.document.body)
+                                            .css('font-size', '10pt')  // Sesuaikan ukuran font
+                                            .prepend(  // Tambahkan elemen header di awal body
+                                                '<div style="text-align: center; margin-bottom: 20px;">' +
+                                                '<h1>PT AAG</h1>' +
+                                                '<h3>Sistem E-Part</h3>' +
+                                                '</div>'
+                                            );
+
+                                        // Buat agar tabel lebih rapi saat pratinjau cetak
+                                        $(win.document.body).find('table')
+                                            .addClass('display')
+                                            .css('font-size', 'inherit');
+
+                                        // Tambahkan tombol Print di dalam pratinjau
+                                        $(win.document.body).append(
+                                            '<button id="customPrintButton" style="margin: 20px; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">Print</button>'
+                                        );
+
+                                        // Event listener untuk tombol Print kustom di dalam pratinjau
+                                        $(win.document).on('click', '#customPrintButton', function() {
+                                            win.print();  // Memanggil dialog cetak
+                                        });
+                                         // CSS untuk menyembunyikan elemen saat mencetak
+                                            const style = '<style>@media print { #customPrintButton { display: none !important; } }</style>';
+                                            $(win.document.head).append(style);
+                                    },
+                                }
+                            ],
+                            columnDefs: [
+                                {
+                                    targets: 12,
+                                    visible: userRole === 'admin',
+                                    searchable: false
+                                }
+                            ]
+                        });
+                                  // Event listener untuk tombol print
+                                  document.getElementById('customPrintButton').addEventListener('click', function() {
+                                            $('#userTable').DataTable().button('.buttons-print').trigger();
+                                        });
                     if (userRole !== 'admin') {
                         // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                         setTimeout(() => {
@@ -1276,67 +1308,6 @@ function updateMenuWithPendingCount(pendingCount) {
                         });
                 });
             });
-
-            // Event Listener untuk tombol Delete
-             document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('delete-btn')) {
-                const userId = event.target.dataset.id;
-
-                // Konfirmasi penghapusan menggunakan SweetAlert2
-                Swal.fire({
-                    title: 'Konfirmasi Hapus',
-                    text: 'Apakah Anda yakin ingin menghapus part ini?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Hapus',
-                    cancelButtonText: 'Batal',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Menghapus data jika pengguna mengonfirmasi
-                        fetch(`https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=delete&id=${userId}`, {
-                            method: 'POST', // Metode POST digunakan
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                'id': userId
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Response:', data); // Debug response
-                            if (data.status === 'success') {
-                                // Menghapus baris dari tabel
-                                event.target.closest('tr').remove();
-                                Swal.fire(
-                                    'Terhapus!',
-                                    'Pengguna telah dihapus.',
-                                    'success'
-                                );
-                            } else {
-                                console.error('Error:', data.message);
-                                Swal.fire(
-                                    'Gagal!',
-                                    'Terjadi kesalahan saat menghapus pengguna.',
-                                    'error'
-                                );
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            Swal.fire(
-                                'Gagal!',
-                                'Terjadi kesalahan saat menghapus pengguna.',
-                                'error'
-                            );
-                        });
-                    }
-                });
-            }
-        });
-
-
 </script>
 
 <script>
