@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Print Preview</title>
+    <title>Laporan Data Part</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
@@ -13,16 +13,53 @@
                 display: none;
             }
         }
+        /* CSS untuk menempatkan footer di bagian bawah saat dicetak */
+        .header-info {
+                position: fixed;
+                top: 10px; /* Jarak dari atas */
+                left: 10px; /* Jarak dari kiri */
+                font-size: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between; /* Membuat elemen dalam satu baris dengan spasi di antara mereka */
+            }
+
         /* Tambahkan padding atau margin jika diperlukan */
         .print-container {
             padding: 20px;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            }
+
+        .print-header {
+            text-align: center;
+            margin-bottom: 20px;
         }
+
+        
+        .title-info {
+            font-size: 14px;
+            text-align: left;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between; /* Membuat elemen tetap sejajar */
+        }
+        
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="row align-items-center my-4"></div>
-        <h1>Laporan Data Parts</h1>
+        <div class="title-info">
+            <p id="printedBy">Printed by: <span id="tampil_nama1"></span></p>
+            <p id="printDateTime"></p>
+        </div>
+
+   <div class="row align-items-center my-4">
+            <div class="col-12">
+                <h3 class="print-header">Laporan Data Part</h3>
 
         <!-- Tabel yang akan dimasukkan dari halaman utama -->
         <table id="previewTable" class="table table-bordered">
@@ -44,11 +81,26 @@
     <script>
         // Script untuk menambahkan kolom dan baris ke tabel preview
         document.addEventListener('DOMContentLoaded', function() {
-            const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns')); // Mengambil data kolom yang dipilih
-            const tableData = JSON.parse(localStorage.getItem('tableData')); // Mengambil data tabel
+            const selectedColumns = JSON.parse(localStorage.getItem('selectedColumns'));
+            const tableData = JSON.parse(localStorage.getItem('tableData'));
 
             const tableHeader = document.querySelector('#previewTable thead tr');
             const tableBody = document.querySelector('#previewTable tbody');
+
+            // Menampilkan tanggal dan waktu saat ini
+            const currentDateTime = new Date();
+            const formattedDate = currentDateTime.toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+            const formattedTime = currentDateTime.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('printDateTime').textContent = `Date: ${formattedDate}, Time: ${formattedTime}`;
+
 
             // Membuat header berdasarkan kolom yang dipilih
             selectedColumns.forEach(col => {
@@ -57,7 +109,7 @@
                 tableHeader.appendChild(th);
             });
 
-            // Membuat baris berdasarkan data yang ada
+            // Membuat baris berdasarkan data yang ada  
             tableData.forEach(row => {
                 const tr = document.createElement('tr');
                 row.forEach((cellData, index) => {
@@ -70,6 +122,17 @@
                 tableBody.appendChild(tr);
             });
         });
+
+        // Tampilkan nama pengguna di navbar saat halaman utama dimuat
+        window.onload = function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const show_username = sessionStorage.getItem('username'); 
+
+            if (isLoggedIn === 'true' && show_username) {
+                document.getElementById('tampil_nama1').textContent = show_username;
+                document.getElementById('tampil_nama2').textContent = show_username;
+            }
+        }
     </script>
 </body>
 </html>

@@ -24,9 +24,9 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
-
-
-
+   
+    <!-- Toastr css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
 
     <!-- Script to check login status -->
     <script>
@@ -36,12 +36,8 @@
             }
         });
     </script>
-</head>
-
-<body>
-
-     <!-- Custom CSS for Loading Spinner -->
-     <style>
+       <!-- Custom CSS for Loading Spinner -->
+       <style>
         #loadingSpinner {
             margin: 20px 0;
         }
@@ -63,6 +59,9 @@
             display: inline-block; /* Agar elemen tampil inline */
         }
     </style>
+</head>
+
+<body>
 
     <!-- Begin page -->
     <div id="wrapper">
@@ -86,7 +85,6 @@
                             <i class="mdi mdi-account-outline"></i>
                             <span>Profile</span>
                         </a>
-                       
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0);" id="logoutButton" class="dropdown-item notify-item">
                             <i class="mdi mdi-logout-variant"></i>
@@ -202,6 +200,7 @@
         <div class="content-page">
             <div class="content">
                 <div class="container-fluid">
+
                     <!-- start page title -->
                     <div class="row">
                         <div class="col-12">
@@ -550,6 +549,14 @@
 
     <!-- Vendor js -->
     <script src="assets/js/vendor.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
+    <!-- penyebab error profil -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
 
     <!-- Required datatable js -->
     <script src="assets/libs/datatables/jquery.dataTables.min.js"></script>

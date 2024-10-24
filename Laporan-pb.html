@@ -32,6 +32,24 @@
    <!-- Toastr css -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet">
 
+    <!-- Tambahkan Font Awesome CDN di dalam <head> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    
+   
+
+     <!-- Script to check login status -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+
+</head>
+
+<body>
     <style>
         .filter-container {
             display: flex;
@@ -52,45 +70,6 @@
             margin-right: 10px;
         }
     </style>
-
-     <!-- Script to check login status -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!sessionStorage.getItem('isLoggedIn')) {
-                window.location.href = 'index.html';
-            }
-        });
-    </script>
-
-
-
-<!-- Custom CSS for Loading Spinner -->
-<style>
-    #loadingSpinner {
-        margin: 20px 0;
-    }
-
-    .spinner-border {
-        width: 3rem;
-        height: 3rem;
-        border-width: .4em;
-        color: rgb(47, 47, 230);
-    }
-    .badge-notification {
-            background-color: red; /* Warna latar belakang merah */
-            color: white; /* Warna teks putih */
-            padding: 2px 6px; /* Padding untuk memberi ruang di dalam kotak */
-            border-radius: 20%; /* Membuat sudut menjadi bulat */
-            font-size: 12px; /* Ukuran teks yang lebih kecil */
-            font-weight: bold; /* Teks tebal */
-            margin-left: 8px; /* Beri sedikit jarak antara teks dan badge */
-            display: inline-block; /* Agar elemen tampil inline */
-        }
-</style>
-
-</head>
-
-<body>
    
     <!-- Begin page -->
     <div id="wrapper">
@@ -164,7 +143,7 @@
                                 <span> Data Parts </span>
                             </a>
                         </li>
-                        <li>
+                        <li id="menu-add-stock">
                             <a href="add-stock.html">
                                 <i class="ion ion-md-cube"></i>
                                 <span> Penambahan Stock </span>
@@ -188,13 +167,13 @@
                                 </li>
                                 <li>
                                     <a href="get-barang3.html">Verified</a>
-                                </li>   
+                                </li>    
                                 <li>
                                     <a href="get-log.html">Event Log</a>
-                                </li>            
+                                </li>           
                             </ul>
                         </li>
-
+                        
                         <li id="menu-report">
                             <a href="javascript: void(0);" class="waves-effect">
                                 <i class="mdi mdi-share-variant"></i>
@@ -232,24 +211,22 @@
                 <div class="container-fluid">
     
                     <!-- Start Page Title -->
-                    <div class="row">
-                        <div class="col-md-3">
+                    <div class="row mb-4">
+                        <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Laporan Pengambilan Barang</h4>
                             </div>
                         </div>
                     </div>
                     <!-- End Page Title -->
-    
+
                     <!-- Start Filters -->
                     <div class="row mb-4">
                         <!-- Filter Berdasarkan Kolom -->
-                            <div class="col-md-3">
-                                <label for="filterColumn">Filter Berdasarkan Kolom:</label>
-                                <select class="form-control" id="filterColumn">
+                        <div class="col-md-2 col-sm-6 mb-2">
+                            <label for="filterColumn">Pilih Kategori:</label>
+                            <select class="form-control w-100" id="filterColumn" style="max-width: 100%;">
                                 <option value="">--Pilih Kategori--</option>
-                                <!-- <option value="tanggal">Tanggal</option> -->
-                                <!-- <option value="waktu">Waktu</option> -->
                                 <option value="departemen">Departemen</option>
                                 <option value="mesin">Mesin</option>
                                 <option value="remark">Remark</option>
@@ -258,39 +235,42 @@
                                 <option value="qty">Qty</option>
                                 <option value="requester">Requester</option>
                                 <option value="storeKeeper">Store Keeper/Security</option>
-                                </select>
-                            </div>
-
-    
-                        <!-- Nilai Filter -->
-                        <div class="col-3">
-                            <label for="filterValue">Nilai Filter:</label>
-                            <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
+                            </select>
                         </div>
-    
+
+                        <!-- Nilai Filter -->
+                        <div class="col-md-3 col-sm-6 mb-2">
+                            <label for="filterValue">Nilai Filter:</label>
+                            <input type="text" class="form-control w-100" id="filterValue" placeholder="Masukkan Nilai Filter" style="max-width: 100%;">
+                        </div>
+
                         <!-- Filter Berdasarkan Tanggal -->
-                        <div class="col-5">
-                            <label for="filterDate">Filter Berdasarkan Tanggal:</label>
-                            <div class="filter-container">
-                                <div>
-                                    <label for="startDate">Mulai:</label>
-                                    <input type="date" id="startDate" class="form-control form-control-inline">
+                        <div class="col-md-6 col-sm-12 mb-2">
+                            <label>Filter Berdasarkan Tanggal:</label>
+                            <div class="d-flex align-items-end">
+                                <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
+                                    <input type="date" id="startDate" class="form-control" placeholder="Start Date">
                                 </div>
-
-                                <div>
-                                    <label for="endDate">Akhir:</label>
-                                    <input type="date" id="endDate" class="form-control form-control-inline">
+                                <div class="mb-3 d-flex align-items-center">
+                                    <span class="mx-2">S/D</span>
                                 </div>
-
-                                <div>
-                                    <div class="col-md-12 d-flex align-items-end"></div>
-                                <button id="applyFilter" class="btn btn-primary ml-2">Terapkan Filter</button>
+                                <div class="flex-fill me-2 mb-2" style="max-width: 200px;">
+                                    <input type="date" id="endDate" class="form-control" placeholder="End Date">
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-6 col-sm-3 mb-2">
+                            <button id="applyFilter" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Cari
+                            </button>
+                            <button id="clear" class="btn btn-danger">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <!-- End Filters -->
 
             <!-- Daftar Pilihan Kolom untuk Cetak -->
             <div class="form-group">
@@ -309,7 +289,7 @@
                         <label class="form-check-label" for="inlineCheckbox3">Departemen</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Mesin" id="inlineCheckbox4">
+                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
                         <label class="form-check-label" for="inlineCheckbox4">Mesin</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -336,13 +316,25 @@
                         <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
                         <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
                     </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Note" id="inlineCheckbox11">
+                        <label class="form-check-label" for="inlineCheckbox11">Note</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Event Log" id="inlineCheckbox12">
+                        <label class="form-check-label" for="inlineCheckbox12">Event Log</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
+                        <label class="form-check-label" for="selectAllCheckbox">Select All</label>
+                    </div>
                 </div>
             </div>
 
 
             <!-- Tombol Cetak PDF dan Print Preview -->
             <div class="form-group">
-                <button id="printPreview" class="btn btn-secondary mt-3">Preview Print</button>
+                <button id="printPreview" class="btn btn-primary waves-effect waves-light btn-sm">Preview Print</button>
             </div>
             <div class="form-group" hidden>
                 <button id="printPDF" class="btn btn-danger mt-3">Cetak PDF</button>
@@ -357,6 +349,7 @@
                                 <thead>
                                     <tr>
                                         <!-- <th>ID</th> -->
+                                        <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Time</th>
                                         <th>Departemen</th>
@@ -368,6 +361,7 @@
                                         <th>Requester</th>
                                         <th>Store keeper/Security</th>
                                         <th>Note</th>
+                                        <th>Event Log</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -409,7 +403,7 @@
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -444,52 +438,12 @@
             sessionStorage.removeItem('isLoggedIn');
             window.location.href = 'index.html';
         });
-        document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
-
-    // Fetch data dari URL
-    fetch(scriptURL)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                const pendingCount = data.data.length; // Hitung jumlah total data
-                updateMenuWithPendingCount(pendingCount); // Panggil fungsi untuk memperbarui menu
-            } else {
-                console.error('Error:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-});
-
-// Fungsi untuk memperbarui menu dengan jumlah pending
-function updateMenuWithPendingCount(pendingCount) {
-    const pendingCountSpan = document.getElementById('pendingCount'); // Ambil elemen dengan id pendingCount
-    if (pendingCountSpan) {
-        if (pendingCount > 0) {
-            pendingCountSpan.textContent = pendingCount; // Hanya tampilkan angka, tanpa tanda kurung
-            pendingCountSpan.classList.add('badge-notification'); // Tambahkan kelas badge-notification untuk gaya
-        } else {
-            pendingCountSpan.textContent = ''; // Kosongkan jika tidak ada pending
-            pendingCountSpan.classList.remove('badge-notification'); // Hapus kelas jika tidak ada data
-        }
-    }
-}
-
     </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Ambil peran pengguna dari sessionStorage
         const userRole = sessionStorage.getItem('role');
-
-        if (userRole !== 'user') {
-        const menuGetBarang = document.getElementById('menu-get-barang');
-        if (menuGetBarang) {
-            menuGetBarang.style.display = 'none';
-        }
-            } 
 
         // Cek apakah pengguna bukan admin
         if (userRole !== 'admin') {
@@ -510,10 +464,6 @@ function updateMenuWithPendingCount(pendingCount) {
             if (menuAddStock) {
                 menuAddStock.style.display = 'none';
             }
-            const menuBarang = document.getElementById('menu-barang');
-            if (menuBarang) {
-                menuBarang.style.display = 'none';
-            }
         }
     });
 </script>
@@ -524,7 +474,7 @@ function updateMenuWithPendingCount(pendingCount) {
     <script>
     //read data
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ-D1NP-DKa-eImcXemb_qNWnYBX670Wp6HRG0CQwj-s7D5KOMkvotiZXst9_HG1VhuA/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const filterColumn = document.getElementById('filterColumn');
     const filterValue = document.getElementById('filterValue');
@@ -537,29 +487,33 @@ function updateMenuWithPendingCount(pendingCount) {
 
     let originalData = []; // Array untuk menyimpan data asli
 
+    // Ambil peran pengguna dari sessionStorage
+    const userRole = sessionStorage.getItem('role');
+    // Menyembunyikan tombol "Tambah Item" jika pengguna bukan admin
+    if (userRole !== 'admin') {
+        if (addButton) addButton.style.display = 'none';
+    }
+
     // Fungsi untuk menampilkan data di tabel
     function displayData(users) {
         const usersTableBody = document.querySelector('#userTable tbody');
         usersTableBody.innerHTML = ''; // Kosongkan tabel sebelum memuat data baru
 
-        if (users.length === 0) {
-            usersTableBody.innerHTML = '<tr><td colspan="10" class="text-center">Data tidak ditemukan</td></tr>';
-            return;
-        }
-
-        users.forEach(user => {
+        users.forEach((user, index) => {
             const row = usersTableBody.insertRow();
-            row.insertCell(0).textContent = formatDate(user.tanggal);
-            row.insertCell(1).textContent = formatTime(user.waktu);
-            row.insertCell(2).textContent = user.departemen;
-            row.insertCell(3).textContent = user.mesin;
-            row.insertCell(4).textContent = user.remark;
-            row.insertCell(5).textContent = user.part_name;
-            row.insertCell(6).textContent = user.specification;
-            row.insertCell(7).textContent = user.qty;
-            row.insertCell(8).textContent = user.requester;
-            row.insertCell(9).textContent = user.security;
-            row.insertCell(10).textContent = user.note;
+            row.insertCell(0).textContent = index + 1;
+            row.insertCell(1).textContent = formatDate(user.tanggal);
+            row.insertCell(2).textContent = formatTime(user.waktu);
+            row.insertCell(3).textContent = user.departemen;
+            row.insertCell(4).textContent = user.mesin;
+            row.insertCell(5).textContent = user.remark;
+            row.insertCell(6).textContent = user.part_name;
+            row.insertCell(7).textContent = user.specification;
+            row.insertCell(8).textContent = user.qty;
+            row.insertCell(9).textContent = user.requester;
+            row.insertCell(10).textContent = user.security;
+            row.insertCell(11).textContent = user.note;
+            row.insertCell(12).textContent = user.log;
         });
 
         // Inisialisasi ulang DataTable jika dibutuhkan
@@ -568,55 +522,78 @@ function updateMenuWithPendingCount(pendingCount) {
         }
 
         $('#userTable').DataTable({
-            responsive: true
+                    responsive: true,
+                    paging: false,   // Nonaktifkan pagination
+                    searching: false, // Nonaktifkan pencarian bawaan
+                    info: true      // Sembunyikan informasi jumlah data
+                });
+            }
+
+        
+    
+// Fungsi untuk mengambil data dari API
+function fetchData(filter = {}) {
+    loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
+
+    fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                originalData = data.data; // Simpan data asli
+                let users = [...originalData]; // Salin data untuk filter
+
+                // Jika ada filter.value, cari pada semua kolom yang relevan
+                if (filter.value) {
+                    const searchValue = filter.value.toString().toLowerCase();
+
+                    users = users.filter(user => {
+                        const qtyValue = user.qty ? parseInt(user.qty, 10) : 0; // Ubah qty jadi angka (null diubah ke 0)
+
+                        // Cek apakah salah satu kolom memiliki nilai yang sesuai (termasuk pencarian pada qty)
+                        return (
+                            (user.part_name && user.part_name.toLowerCase().includes(searchValue)) ||
+                            (user.departemen && user.departemen.toLowerCase().includes(searchValue)) ||
+                            (user.specification && user.specification.toLowerCase().includes(searchValue)) ||
+                            (user.mesin && user.mesin.toLowerCase().includes(searchValue)) ||
+                            (user.supplier1 && user.supplier1.toLowerCase().includes(searchValue)) ||
+                            (user.supplier2 && user.supplier2.toLowerCase().includes(searchValue)) ||
+                            (user.type_part && user.type_part.toLowerCase().includes(searchValue)) ||
+                            (user.description && user.description.toLowerCase().includes(searchValue)) ||
+                            (user.requester && user.requester.toLowerCase().includes(searchValue)) ||
+                            (user.id_part && user.id_part.toLowerCase().includes(searchValue)) ||
+                            (qtyValue === parseInt(filter.value, 10)) // Cocokkan qty dengan nilai filter
+                        );
+                    });
+                }
+
+                // Filter berdasarkan rentang tanggal (jika ada)
+                if (filter.startDate && filter.endDate) {
+                    const startDate = new Date(filter.startDate);
+                    const endDate = new Date(filter.endDate);
+
+                    if (!isNaN(startDate) && !isNaN(endDate)) {
+                        users = users.filter(user => {
+                            const userDate = new Date(user.tanggal);
+                            return userDate >= startDate && userDate <= endDate;
+                        });
+                    } else {
+                        console.warn('Tanggal tidak valid');
+                    }
+                }
+
+                // Menampilkan data hasil filter
+                displayData(users);
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error))
+        .finally(() => {
+            loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
         });
     }
-    
-    // Fungsi untuk mengambil data dari API
-    function fetchData(filter = {}) {
-        loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
 
-        fetch(scriptURL)
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    originalData = data.data; // Simpan data asli
-                    let users = [...originalData]; // Salin data untuk filter
 
-                    // Filter berdasarkan kolom dan nilai yang diinputkan
-                    if (filter.column && filter.value) {
-                        users = users.filter(user => {
-                            const columnValue = user[filter.column]?.toString().toLowerCase();
-                            return columnValue.includes(filter.value.toLowerCase());
-                        });
-                    }
-
-                    // Filter berdasarkan rentang tanggal
-                    if (filter.startDate && filter.endDate) {
-                        const startDate = new Date(filter.startDate);
-                        const endDate = new Date(filter.endDate);
-                        
-                        if (!isNaN(startDate) && !isNaN(endDate)) {
-                            users = users.filter(user => {
-                                const userDate = new Date(user.tanggal);
-                                return userDate >= startDate && userDate <= endDate;
-                            });
-                        } else {
-                            console.warn('Tanggal tidak valid');
-                        }
-                    }
-
-                    // Menampilkan data hasil filter
-                    displayData(users);
-                } else {
-                    console.error('Error:', data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error))
-            .finally(() => {
-                loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
-            });
-    }
        
     // Fungsi untuk memformat tanggal
     function formatDate(dateString) {
@@ -636,6 +613,16 @@ function updateMenuWithPendingCount(pendingCount) {
         const minutes = String(time.getMinutes()).padStart(2, '0');
         return `${hours}:${minutes}`;
     }
+
+     // Event listener untuk tombol clear
+     document.getElementById('clear').addEventListener('click', () => {
+                // Kosongkan nilai filter
+                document.getElementById('filterColumn').value = ''; // Menghapus pilihan kolom filter
+                document.getElementById('filterValue').value = '';  // Menghapus nilai filter (jika ada elemen dengan ID 'filterValue')
+
+                // Refresh halaman penuh
+                window.location.reload(); // Refresh halaman setelah form di-reset
+            });
 
     // Event listener untuk tombol filter
     applyFilterButton.addEventListener('click', () => {
@@ -675,6 +662,8 @@ function updateMenuWithPendingCount(pendingCount) {
 
 
     // Event listener untuk tombol cetak PDF
+
+   
     printPDFButton.addEventListener('click', function() {
         const selectedColumns = [];
         const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
@@ -682,6 +671,8 @@ function updateMenuWithPendingCount(pendingCount) {
         checkboxes.forEach(checkbox => {
             selectedColumns.push(checkbox.value);
         });
+
+        selectedColumns.unshift("No");
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -697,24 +688,37 @@ function updateMenuWithPendingCount(pendingCount) {
             }
         });
 
+        // Ambil data baris berdasarkan kolom yang dipilih, termasuk kolom "No"
         rows.forEach((row, rowIndex) => {
-            if (rowIndex > 0) {
-                const rowData = [];
-                row.querySelectorAll('td').forEach((td, cellIndex) => {
-                    if (selectedColumns.includes(tableHeader[cellIndex])) {
-                        rowData.push(td.innerText);
-                    }
-                });
-                tableRows.push(rowData);
-            }
+                if (rowIndex > 0) { // Melewatkan header
+                    const rowData = [];
+                    row.querySelectorAll('td').forEach((td, cellIndex) => {
+                        if (selectedColumns.includes(tableHeader[cellIndex])) {
+                            rowData.push(td.innerText);
+                        }
+                    });
+                    tableRows.push(rowData);
+                }
+            });
+
+            // Menambahkan teks dan tabel ke PDF
+            doc.text("Laporan Data Pengambilan Barang", 10, 10);
+            doc.autoTable({
+                head: [tableHeader],
+                body: tableRows,
+            });
+            doc.save('laporan_data_pb.pdf');
         });
 
-        doc.text("Laporan Data Pengambilan Barang", 10, 10);
-        doc.autoTable({
-            head: [tableHeader],
-            body: tableRows
+    // Checkbox "Select All"
+    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+
+    // Event listener untuk "Select All"
+    selectAllCheckbox.addEventListener('change', function() {
+        const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked; // Set semua checkbox sesuai status "Select All"
         });
-        doc.save('laporan_data_pb.pdf');
     });
 
     // Event listener untuk tombol print preview
@@ -724,9 +728,16 @@ function updateMenuWithPendingCount(pendingCount) {
         const tableData = [];
 
     // Mengambil nilai dari checkbox yang dipilih (nama kolom)
-    checkboxes.forEach(checkbox => {
+        checkboxes.forEach(checkbox => {
         selectedColumns.push(checkbox.value);
     });
+    
+    // Jika "Select All" dipilih, masukkan semua kolom
+    if (selectAllCheckbox.checked) {
+        selectedColumns.length = 0; // Reset kolom yang dipilih
+        const allColumns = ['Tanggal', 'Waktu', 'Departemen', 'Machine', 'Remark', 'Part Name', 'Specification', 'Qty', 'Requester', 'StoreKeeper', 'Note'];
+        selectedColumns.push(...allColumns); // Masukkan semua kolom
+    }
 
     // Periksa apakah ada kolom yang dipilih
     if (selectedColumns.length === 0) {
@@ -744,35 +755,44 @@ function updateMenuWithPendingCount(pendingCount) {
         selectedColumns.forEach(colName => {
             let cellValue = '';
             switch(colName) {
+                case 'No':
+                    cellValue = cells[0].innerText;
+                    break;
                 case 'Tanggal':
-                    cellValue = cells[0].innerText; // Sesuaikan indeks sesuai urutan tabel
+                    cellValue = cells[1].innerText; // Sesuaikan indeks sesuai urutan tabel
                     break;
                 case 'Waktu':
-                    cellValue = cells[1].innerText;
-                    break;
-                case 'Departemen':
                     cellValue = cells[2].innerText;
                     break;
-                case 'Mesin':
+                case 'Departemen':
                     cellValue = cells[3].innerText;
                     break;
-                case 'Remark':
+                case 'Machine':
                     cellValue = cells[4].innerText;
                     break;
-                case 'Part Name':
+                case 'Remark':
                     cellValue = cells[5].innerText;
                     break;
-                case 'Specification':
-                    cellValue = cells[6].innerText;
+                case 'Part Name':
+                    cellValue = cells[65].innerText;
                     break;
-                case 'Qty':
+                case 'Specification':
                     cellValue = cells[7].innerText;
                     break;
-                case 'Requester':
+                case 'Qty':
                     cellValue = cells[8].innerText;
                     break;
-                case 'Store Keeper/Security':
-                    cellValue = cells[9].innerText;
+                case 'Requester':
+                    cellValue = cells[98].innerText;
+                    break;
+                case 'StoreKeeper':
+                    cellValue = cells[10].innerText;
+                    break;
+                case 'Note':
+                    cellValue = cells[11].innerText;
+                    break;
+                case 'Event Log':
+                    cellValue = cells[12].innerText;
                     break;
                 // Tambahkan case untuk kolom tambahan jika ada
                 default:

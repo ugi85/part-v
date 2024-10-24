@@ -221,6 +221,7 @@
                                     <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th>Username</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
@@ -520,13 +521,14 @@ window.onload = function() {
                     const usersTableBody = document.querySelector('#userTable tbody');
                     usersTableBody.innerHTML = ''; 
 
-                    users.forEach(user => {
+                    users.forEach((user, index) => {
                         const row = usersTableBody.insertRow();
-                        row.insertCell(0).textContent = user.username;
-                        row.insertCell(1).textContent = user.email;
-                        row.insertCell(2).textContent = user.role;
+                        row.insertCell(0).textContent = index + 1;
+                        row.insertCell(1).textContent = user.username;
+                        row.insertCell(2).textContent = user.email;
+                        row.insertCell(3).textContent = user.role;
 
-                        const actionsCell = row.insertCell(3);
+                        const actionsCell = row.insertCell(4);
                   // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
                   actionsCell.innerHTML = `
                         <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
@@ -544,7 +546,7 @@ window.onload = function() {
                     // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                     setTimeout(() => {
                         const table = document.getElementById('userTable');
-                        const actionsColumnIndex = 3; // Indeks kolom Actions (0-based)
+                        const actionsColumnIndex = 4; // Indeks kolom Actions (0-based)
                         // Sembunyikan header kolom
                         table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
                         // Sembunyikan semua cell di kolom Actions
@@ -681,9 +683,9 @@ window.onload = function() {
                     .then(() => {
                         // Update row in the table manually
                         const row = document.querySelector(`button.edit-btn[data-id="${id}"]`).closest('tr');
-                        row.cells[0].textContent = username;
-                        row.cells[1].textContent = email;
-                        row.cells[2].textContent = role;
+                        row.cells[1].textContent = username;
+                        row.cells[2].textContent = email;
+                        row.cells[3].textContent = role;
 
            
                         $('#editModal').modal('hide');
