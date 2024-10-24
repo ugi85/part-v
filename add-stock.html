@@ -159,10 +159,10 @@
                                     <a href="get-barang2.html">Permintaan Barang <span id="pendingCount"></span></a>
                                 </li>
                                 <li>
-                                    <a href="get-barang3.html">Verified</a>
-                                </li>   
+                                    <a href="get-barang3.html">Sudah DiVerifikasi</a>
+                                </li>    
                                 <li>
-                                    <a href="get-log.html">Event Log</a>
+                                    <a href="get-log.html">Mutasi Transaksi</a>
                                 </li>            
                             </ul>
                         </li>
@@ -204,8 +204,12 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Data Penambahan Stock</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addItemModal">Tambah Stock</button>
+                                <div class="d-flex">
+                                    <button id="customPrintButton" class="btn btn-primary waves-effect waves-light btn-sm mr-2">Print Data</button>
+                                    <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addItemModal">Tambah Stock</button>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                     <!-- end page title -->           
@@ -218,7 +222,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Tanggal</th>
-                                                <th>No PR/WO</th>
+                                                <th>No.PO/Adjustment</th>
                                                 <th>ID Part</th>
                                                 <th>Requester</th>     
                                                 <th>Add Stocks</th>
@@ -302,7 +306,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="no_pr">No PR/WO</label>
+                                            <label for="no_pr">No.PO/Adjustment</label>
                                             <input type="text" class="form-control" id="no_pr" name="no_pr" required>
                                             <div class="invalid-feedback">No Pr is required.</div>
                                         </div>
@@ -444,7 +448,7 @@
                                 <div id="itemsContainer">
                                     <div class="item-row">                           
                                         <div class="form-group">
-                                            <label for="editNopr">No PR/WO</label>
+                                            <label for="editNopr">No.PO/Adjusmtent</label>
                                             <input type="text" class="form-control" id="editNopr" name="no_pr" required>
                                             <div class="invalid-feedback">No Pr is required.</div>
                                         </div>
@@ -776,8 +780,65 @@ function updateMenuWithPendingCount(pendingCount) {
                             if ($.fn.DataTable.isDataTable('#userTable')) {
                                             $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
                                         }
-                                        $('#userTable').DataTable(); // Buat instance DataTable baru
-                                        // Sembunyikan kolom Actions jika user bukan admin
+                                          // Inisialisasi DataTable
+                        $('#userTable').DataTable({
+                            responsive: true,
+                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                            dom: 'lrtip',
+                            buttons: [
+                                {
+                                    extend: 'print',
+                                    exportOptions: {
+                                        modifier: {
+                                            page: 'current'  // Hanya mencetak data yang terlihat di halaman saat ini
+                                        },
+                                        columns: ':visible'
+                                    },
+                                    title: '',  // Ini judul default dari DataTables
+                                    autoPrint: false,
+                                    customize: function (win) {
+                                        // Modifikasi tampilan sebelum dicetak
+                                        $(win.document.body)
+                                            .css('font-size', '10pt')  // Sesuaikan ukuran font
+                                            .prepend(  // Tambahkan elemen header di awal body
+                                                '<div style="text-align: center; margin-bottom: 20px;">' +
+                                                '<h1>PT AAG</h1>' +
+                                                '<h3>Sistem E-Part</h3>' +
+                                                '</div>'
+                                            );
+
+                                        // Buat agar tabel lebih rapi saat pratinjau cetak
+                                        $(win.document.body).find('table')
+                                            .addClass('display')
+                                            .css('font-size', 'inherit');
+
+                                        // Tambahkan tombol Print di dalam pratinjau
+                                        $(win.document.body).append(
+                                            '<button id="customPrintButton" style="margin: 20px; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">Print</button>'
+                                        );
+
+                                        // Event listener untuk tombol Print kustom di dalam pratinjau
+                                        $(win.document).on('click', '#customPrintButton', function() {
+                                            win.print();  // Memanggil dialog cetak
+                                        });
+                                         // CSS untuk menyembunyikan elemen saat mencetak
+                                            const style = '<style>@media print { #customPrintButton { display: none !important; } }</style>';
+                                            $(win.document.head).append(style);
+                                    },
+                                }
+                            ],
+                            columnDefs: [
+                                {
+                                    targets: 12,
+                                    visible: userRole === 'admin',
+                                    searchable: false
+                                }
+                            ]
+                        });
+                                  // Event listener untuk tombol print
+                                  document.getElementById('customPrintButton').addEventListener('click', function() {
+                                            $('#userTable').DataTable().button('.buttons-print').trigger();
+                                        });
                                 if (userRole !== 'admin') {
                                     // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                                     setTimeout(() => {
