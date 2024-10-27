@@ -258,7 +258,9 @@
                                                 <th>Requester</th>
                                                 <th>Store keeper/Security</th>
                                                 <th>Status</th>
-                                                <!-- <th>Note</th> -->
+                                                <!-- <th>LOG</th> -->
+                                                <!-- <th>ADD QTY</th>
+                                                <th>New Status</th> -->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -373,6 +375,121 @@
     </div>
 </div>
 <!-- End Add Item Modal -->
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editItemModalLabel">Detail Permintaan Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                <div class="row"> <!-- Mulai grid row -->  
+                    <input type="hidden" id="editId" name="id">
+                  <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
+                    <div class="form-group">
+                        <label for="editTanggal">Tanggal</label>
+                        <input type="date" class="form-control" id="editTanggal" name="tanggal" required readonly>
+                        <div class="invalid-feedback">Date is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editWaktu">Waktu</label>
+                        <input type="time" class="form-control" id="editWaktu" name="waktu" required readonly>
+                        <div class="invalid-feedback">Time is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDepartemen">Departemen</label>
+                        <select class="form-control" id="editDepartemen" name="departemen" required disabled>
+                            <option value="" disabled selected>Select Department</option>
+                            <option value="FMEHSS EHS">FMEHSS EHS</option>
+                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
+                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
+                            <option value="SOLID">SOLID</option>
+                            <option value="FMEHSS GA">FMEHSS GA</option>
+                            <option value="MIXTECH">MIXTECH</option>
+                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
+                            <option value="WAREHOUSE">WAREHOUSE</option>
+                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
+                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
+                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
+                        </select>
+                        <div class="invalid-feedback">Department is required.</div>
+                    </div>          
+                    <div class="form-group">
+                        <label for="editMesin">Select Mesin</label>
+                            <select class="form-control" id="editMesin" name="mesin" required disabled>
+                                <option value="" disabled selected>Select Mesin</option>
+                            </select>
+                    </div>  
+                    <div class="form-group">
+                        <label for="editRemark">Remark</label>
+                        <textarea class="form-control" id="editRemark" name="remark" rows="3" readonly></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    
+                    <div class="form-group">
+                        <label for="editRequester">Requester</label>
+                        <input type="text" class="form-control" id="editRequester" name="requester" required readonly>
+                        <div class="invalid-feedback">Requester is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStoreKeeper">Store Keeper/Security</label>
+                        <input type="text" class="form-control" id="editStoreKeeper" name="security" required readonly>
+                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStatus">Status</label>
+                        <select class="form-control" id="editStatus" name="status" required disabled>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirm">Confirm</option>
+                            <option value="Cancel">Cancel</option>
+                        </select>
+                    </div> 
+                    <div class="form-group">
+                        <label for="editNote">Note</label>
+                        <textarea class="form-control" id="editNote" name="note" rows="1" readonly></textarea>
+                        <!-- <input type="text" class="form-control" id="editNote" name="note" readonly> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="editLog">Event Log</label>
+                        <textarea class="form-control" id="editLog" name="log" rows="3" readonly></textarea>
+                    </div>
+                  </div>
+                    <!-- <div class="col-12 text-right">
+                        <button type="submit" id="saveChanges" class="btn btn-primary">Save Changes</button>
+                    </div> -->
+                 </div>
+                 <div id="ItemsContainer">
+                    <div class="item-row row">
+                        <div class="col-md-5">
+                            <label for="editPartName">Select Part Name</label>
+                            <select class="form-control" id="editPartName" name="part_name" required disabled>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="editSpecification">Specification</label>
+                            <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
+                        </div>
+                        <!-- <div class="col-md-3">
+                            <label for="editQty">Stock Available</label>
+                            <input type="text" class="form-control" id="editStock" name="stock" readonly>
+                        </div> -->
+                        <div class="col-md-3">
+                            <label for="editQty">Qty</label>
+                            <input type="number" class="form-control" id="editQty" name="qty" required readonly>
+                        </div>
+                    </div>
+                   
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- Footer Start -->
             <footer class="footer">
@@ -526,7 +643,8 @@ function updateMenuWithPendingCount(pendingCount) {
 
 
 <script>
- function formatDate(isoString) {
+
+function formatDate(isoString) {
         const date = new Date(isoString);
         return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
             }
@@ -535,6 +653,8 @@ function updateMenuWithPendingCount(pendingCount) {
             const date = new Date(isoString);
             return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':'); // Format waktu
         }
+
+
 
             // read data
             document.addEventListener('DOMContentLoaded', function() {
@@ -547,7 +667,8 @@ function updateMenuWithPendingCount(pendingCount) {
                 // Ambil peran pengguna dari sessionStorage
                 const userRole = sessionStorage.getItem('role');
                 const currentUser = sessionStorage.getItem('username'); // Misalnya, menyimpan username di sessionStorage
-                   
+
+                    // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
                 fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
@@ -557,8 +678,9 @@ function updateMenuWithPendingCount(pendingCount) {
 
                         // Kosongkan tabel sebelum menambahkan data
                         usersTableBody.innerHTML = '';
-                        // Filter data berdasarkan requester yang sama dengan user yang login
+                         // Filter data berdasarkan requester yang sama dengan user yang login
                         const filteredRows = rows.filter(row => row.requester === currentUser);
+
 
                         filteredRows.forEach(row => {
                             const tableRow = usersTableBody.insertRow();
@@ -568,9 +690,9 @@ function updateMenuWithPendingCount(pendingCount) {
                             tableRow.insertCell(3).textContent = row.departemen || '';
                             tableRow.insertCell(4).textContent = row.mesin || '';
                             tableRow.insertCell(5).textContent = row.remark || '';
-                            tableRow.insertCell(6).textContent = row.part_name || '';
-                            tableRow.insertCell(7).textContent = row.specification || '';
-                            tableRow.insertCell(8).textContent = row.qty || 0;
+                            tableRow.insertCell(6).textContent = row.add_partName || '';
+                            tableRow.insertCell(7).textContent = row.add_spec || '';
+                            tableRow.insertCell(8).textContent = row.add_qty || 0;
                             tableRow.insertCell(9).textContent = row.requester || '';
                             tableRow.insertCell(10).textContent = row.security || '';
          const statusCell = tableRow.insertCell(11);statusCell.textContent = row.status || '';
@@ -589,29 +711,88 @@ function updateMenuWithPendingCount(pendingCount) {
                                 statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
                             }
+                        //    tableRow.insertCell(12).innerHTML = row.log ? row.log.replace(/\n/g, '<br>') : '';
+                            
                             // Tambahkan kolom Edit dan Delete
                             const actionCell = tableRow.insertCell(12);
                             actionCell.innerHTML = `
-                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Detail</button>           
-                        `;          
-                    });           
+                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole == 'user' ? 'display: show;' : ''}">Detail</button>           
+                        `;               
+                    });
 
                 // Initialize or reinitialize DataTable
                 if ($.fn.DataTable.isDataTable('#userTable')) {
                                 $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
                             }
-                            $('#userTable').DataTable(); // Buat instance DataTable baru
-                            // Sembunyikan kolom Actions jika user bukan admin
-                    if (userRole !== 'admin') {
+                             // Inisialisasi DataTable
+                        $('#userTable').DataTable({
+                            responsive: true,
+                            lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                            dom: 'lrtip',
+                            buttons: [
+                                {
+                                    extend: 'print',
+                                    exportOptions: {
+                                        modifier: {
+                                            page: 'current'  // Hanya mencetak data yang terlihat di halaman saat ini
+                                        },
+                                        columns: ':visible'
+                                    },
+                                    title: '',  // Ini judul default dari DataTables
+                                    autoPrint: false,
+                                    customize: function (win) {
+                                        // Modifikasi tampilan sebelum dicetak
+                                        $(win.document.body)
+                                            .css('font-size', '10pt')  // Sesuaikan ukuran font
+                                            .prepend(  // Tambahkan elemen header di awal body
+                                                '<div style="text-align: center; margin-bottom: 20px;">' +
+                                                '<h1>Bicoder Developer</h1>' +
+                                                '<h3>Sistem E-Part</h3>' +
+                                                '</div>'
+                                            );
+
+                                        // Buat agar tabel lebih rapi saat pratinjau cetak
+                                        $(win.document.body).find('table')
+                                            .addClass('display')
+                                            .css('font-size', 'inherit');
+
+                                        // Tambahkan tombol Print di dalam pratinjau
+                                        $(win.document.body).append(
+                                            '<button id="customPrintButton" style="margin: 20px; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">Print</button>'
+                                        );
+
+                                        // Event listener untuk tombol Print kustom di dalam pratinjau
+                                        $(win.document).on('click', '#customPrintButton', function() {
+                                            win.print();  // Memanggil dialog cetak
+                                        });
+                                         // CSS untuk menyembunyikan elemen saat mencetak
+                                            const style = '<style>@media print { #customPrintButton { display: none !important; } }</style>';
+                                            $(win.document.head).append(style);
+                                    },
+                                }
+                            ],
+                            columnDefs: [
+                                {
+                                    targets: 12,
+                                    visible: userRole === 'user',
+                                    searchable: false
+                                }
+                            ]
+                        });
+                                  // Event listener untuk tombol print
+                                  document.getElementById('customPrintButton').addEventListener('click', function() {
+                                            $('#userTable').DataTable().button('.buttons-print').trigger();
+                                        });
+                    if (userRole == 'user') {
                         // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                         setTimeout(() => {
                             const table = document.getElementById('userTable');
                             const actionsColumnIndex = 12; // Indeks kolom Actions (0-based)
                             // Sembunyikan header kolom
-                            table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
+                            table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'show';
                             // Sembunyikan semua cell di kolom Actions
                             table.querySelectorAll(`tbody tr`).forEach(row => {
-                                row.children[actionsColumnIndex].style.display = 'none';
+                                row.children[actionsColumnIndex].style.display = 'show';
                             });
                         }, 100); // Sesuaikan timeout sesuai kebutuhan
                     }
@@ -630,7 +811,294 @@ function updateMenuWithPendingCount(pendingCount) {
             });
 
 
-                            // create
+                // get part name sheet barang
+            document.addEventListener('DOMContentLoaded', function() {
+            const partSheetURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=read';
+            const apiUrl = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpareParts';
+            const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpecification';
+
+            let partData = [];
+
+            // Fetch data part_name dari sheet part
+            fetch(partSheetURL)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Raw part data:', data); // Debug: Cek data mentah
+                    if (data.status === 'success') {
+                        partData = data.data;
+                        console.log('Part data:', partData); // Debug: Cek data setelah parsing
+                    } else {
+                        console.error('Error fetching part data:', data.message);
+                        Swal.fire('Error!', 'Failed to fetch part data. Please try again.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching part data:', error);
+                    // Swal.fire('Error!', 'An error occurred while fetching part data.', 'error');
+                });
+
+            function populatePartNameDropdown($dropdown, data) {
+                $dropdown.empty();
+                $dropdown.append('<option value="" disabled selected>Select editPart Name</option>');
+                data.forEach(item => {
+                    if (item.partName) {
+                        $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
+                    }
+                });
+            }
+
+            // Fungsi untuk mengisi dropdown mesin
+            function populateMesinDropdown($dropdown, data) {
+                $dropdown.empty();
+                $dropdown.append('<option value="" disabled selected>Select Mesin</option>');
+                data.forEach(item => {
+                    if (item.partMachine) {  // Pastikan data mesin ada
+                        $dropdown.append(`<option value="${item.partMachine}">${item.partMachine}</option>`);
+                    }
+                });
+            }
+            
+            function populateAllDropdowns() {
+                $.get(apiUrl, function(response) {
+                    if (response.status === 'success') {
+                        const $dropdowns = $('#editPartName');
+                        populatePartNameDropdown($dropdowns, response.data);
+                    } else {
+                        console.error('Error fetching spare parts data:', response.message);
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                });
+            }
+
+            populateAllDropdowns();
+
+            $('#itemsContainer').on('change', '.partName', function() {
+                const selectedPartName = $(this).val();
+                const $specField = $(this).closest('.item-row').find('.specification');
+                
+                if (selectedPartName) {
+                    $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                        console.log('Specification Response:', response);
+                        if (response.partName === selectedPartName) {
+                            $specField.val(response.specification || '');
+                        } else {
+                            console.error('Part name mismatch or specification data missing');
+                        }
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        console.error('Request failed:', textStatus, errorThrown);
+                    });
+                } else {
+                    $specField.val('');
+                }
+            });
+
+          
+    function formatDateForInput(isoString) {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan mulai dari 0
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // Format YYYY-MM-DD
+}
+
+
+                function formatTimeForInput(isoString) {
+                    const date = new Date(isoString);
+                    return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }).replace('.', ':'); // Format waktu
+                }
+
+                // edit btn
+                $(document).on('click', '.edit-btn', function() {
+                const userId = $(this).data('id');
+
+                // Ambil data item berdasarkan ID
+                $.get(`https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getItemById&id=${userId}`, function(data) {
+
+                    if (data.status === 'success') {
+                        const user = data.data;
+
+                            $('#editId').val(user.id);
+                            $('#editTanggal').val(formatDateForInput(user.tanggal));
+                            $('#editWaktu').val(formatTimeForInput(user.waktu));
+                            $('#editDepartemen').val(user.departemen);
+                            $('#editMesin').val(user.mesin).trigger('change');
+                            $('#editRemark').val(user.remark);
+
+                            $('#editPartName').val(user.add_partName).trigger('change');
+                            $('#editSpecification').val(user.add_spec);
+                            $('#editQty').val(user.add_qty);
+                            $('#editRequester').val(user.requester);
+                            $('#editStoreKeeper').val(user.security);
+                            $('#editStatus').val(user.status).attr('data-old-value',user.status);
+                            $('#editNote').val(user.note).attr('data-old-value',user.note);
+                            $('#editLog').val(user.log);
+                            // Ambil data stock berdasarkan part_name
+                    if (user.part_name) {
+                        $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
+                            if (response.partName === user.part_name) {
+                                $('#editStock').val(response.stock || 0);  // Tampilkan stock
+                            } else {
+                                console.error('Part name mismatch or specification data missing');
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Request failed:', textStatus, errorThrown);
+                        });
+                    } else {
+                        $('#editStock').val(0);  // Default ke 0 jika part_name kosong
+                    }
+
+                            $('#editModal').modal('show');
+                        // Inisialisasi Select2 pada dropdown jika belum diinisialisasi
+                                $('#editPartName').select2({
+                                    placeholder: 'Pilih Part Name',
+                                    allowClear: true,
+                                    dropdownParent: $('#editModal') // Agar dropdown muncul di atas modal
+                                });
+
+                                // Ambil data mesin dari API dan isi dropdown
+            $.get(apiUrl, function(response) {
+                if (response.status === 'success') {
+                    const mesinOptions = response.data.map(item => `<option value="${item.partMachine}">${item.partMachine}</option>`);
+
+                    // Update dropdown mesin dengan opsi yang diambil dari API
+                    $('#editMesin').html(mesinOptions);
+
+                    // Setelah mengisi dropdown, inisialisasi Select2 pada dropdown mesin
+                    $('#editMesin').select2({
+                        placeholder: 'Pilih Mesin',
+                        allowClear: true,
+                        dropdownParent: $('#editModal') // Agar dropdown muncul di atas modal
+                    });
+
+                    // Set value mesin sesuai data yang diambil sebelumnya
+                    $('#editMesin').val(user.mesin).trigger('change');
+                } else {
+                    console.error('Failed to fetch mesin data:', response.message);
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Request to get spare parts failed:', textStatus, errorThrown);
+            });
+                    } else {
+                        console.error('Error:', data.message);
+                        Swal.fire('Error!', 'Failed to fetch data. Please try again.', 'error');
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                    Swal.fire('Error!', 'An error occurred while fetching data.', 'error');
+                });
+                });
+
+
+                $('#editPartName').on('change', function() {
+                    const selectedPartName = $(this).val();
+                    const $specField = $('#editSpecification');
+                    const $stockField = $('#editStock');
+
+                    if (selectedPartName) {
+                        $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
+                            if (response.partName === selectedPartName) {
+                                $specField.val(response.specification || '');
+                                $stockField.val(response.stock || 0);
+                            } else {
+                                console.error('Part name mismatch or specification data missing');
+                            }
+                        }).fail(function(jqXHR, textStatus, errorThrown) {
+                            console.error('Request failed:', textStatus, errorThrown);
+                        });
+                    } else {
+                        $specField.val('');
+                    }
+                });
+
+                // Form submission untuk modal edit
+            $('#editForm').submit(function(e) {
+                e.preventDefault();
+                var saveChanges = document.querySelector('#saveChanges');
+
+                        saveChanges.disabled = true;
+                        saveChanges.textContent = 'Loading...';
+
+                const adminName = sessionStorage.getItem('username');
+                const currentDate = new Date().toLocaleString();
+                let changedFields = [];
+
+                // Get current values
+                const currentPartName = $('#editPartName').val();
+                const currentQty = $('#editQty').val();
+                const currentStatus = $('#editStatus').val();
+                const currentNote = $('#editNote').val();
+
+                // Get old values (could be stored in hidden fields or data attributes)
+                const oldPartName = $('#editPartName').data('old-value');
+                const oldQty = $('#editQty').data('old-value');
+                const oldStatus = $('#editStatus').data('old-value');
+                const oldNote = $('#editNote').data('old-value');
+
+                // Compare old and new values to see what was changed
+                if (currentPartName !== oldPartName) {
+                    changedFields.push(`Part Name: ${oldPartName} -> ${currentPartName}`);
+                }
+                if (currentQty !== oldQty) {
+                    changedFields.push(`Qty: ${oldQty} -> ${currentQty}`);
+                }
+         
+                if (currentNote !== oldNote) {
+                    changedFields.push(`Note: ${oldNote} -> ${currentNote}`);
+                }
+                if (currentStatus !== oldStatus) {
+                    changedFields.push(`Status: ${oldStatus} -> ${currentStatus}`);
+                }
+
+
+                if (adminName) {
+                    const existingLog = $('#editLog').val();
+                    const newLogEntry = `${adminName}, ${currentDate}, Merubah:\n${changedFields.join(', ')}`;
+                    
+                    // Tambahkan entri log baru
+                    const updatedLog = existingLog ? `${existingLog}\n${newLogEntry}` : newLogEntry;
+                    $('#editLog').val(updatedLog);
+                }
+                
+
+
+                const formData = $(this).serialize();
+
+                $.ajax({
+                url: 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=update',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            title: 'Updated!',
+                            text: 'Item has been updated.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $('#editModal').modal('hide');
+                                location.reload(); // Refresh page after user confirms
+                            }
+                        });
+                    } else {
+                        Swal.fire('Error!', response.message, 'error');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Request failed:', textStatus, errorThrown);
+                    Swal.fire('Error!', 'An error occurred while updating the item.', 'error');
+                }
+                })
+                .always(() => {
+                            // Re-enable the saveChanges button and reset text
+                            saveChanges.disabled = false;
+                            saveChanges.textContent = 'Save Changes';
+                        });
+                });
+            }); 
+
+                           // create
                 $(document).ready(function() {     
                 // Set nilai default untuk tanggal dan waktu ke waktu saat ini
                 var today = new Date().toISOString().split('T')[0];

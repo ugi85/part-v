@@ -328,8 +328,8 @@
                                 <div class="card-body widget-style-2">
                                     <div class="text-white media">
                                         <div class="media-body align-self-center">
-                                            <h2 class="my-0 text-white"><span id="totalDataStock">0</span></h2>
-                                            <p class="mb-0">Total Add Stock</p>
+                                            <h2 class="my-0 text-white"><span id="totalReqBarang">0</span></h2>
+                                            <p class="mb-0">Total Permintaan Barang</p>
                                         </div>
                                         <i class="mdi mdi-comment-multiple"></i>
                                     </div>
@@ -694,10 +694,12 @@ function updateMenuWithPendingCount(pendingCount) {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=readLowStock';
     const allDataURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
     const stockURL = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=read';
+    const reqBarangURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const lowStockCountElement = document.getElementById('lowStockCount');
     const totalDataCountElement = document.getElementById('totalDataCount'); 
     const totalDataStockElement = document.getElementById('totalDataStock'); 
+    const totalDaataReqElement = document.getElementById('totalReqBarang'); 
     const showTableButton = document.getElementById('showTable');
     const userTableCard = document.getElementById('showTableCard');
     const totalPriceElement = document.getElementById('totalPrice');
@@ -718,6 +720,24 @@ function updateMenuWithPendingCount(pendingCount) {
             if (data.status === 'success') {
                 const totalDataStock = data.data.length;
                 $(totalDataStockElement).text(totalDataStock).counterUp({
+                    delay: 10,
+                    time: 1000
+                });
+                
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function fetchReqBarang() {
+    fetch(reqBarangURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const totalReqBarang= data.data.length;
+                $(totalDaataReqElement).text(totalReqBarang).counterUp({
                     delay: 10,
                     time: 1000
                 });
@@ -874,6 +894,7 @@ function updateMenuWithPendingCount(pendingCount) {
     fetchData();
     fetchAllData();
     fetchStockData();
+    fetchReqBarang();
 });
 
 document.getElementById('dataPart').addEventListener('click', function() {

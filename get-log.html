@@ -334,9 +334,7 @@
                     <div class="form-group">
                         <label for="editRemark">Remark</label>
                         <textarea class="form-control" id="editRemark" name="remark" rows="3" readonly></textarea>
-                    </div>
-                 
-                 
+                    </div>               
                     
                 </div>
 
@@ -361,7 +359,8 @@
                     </div> 
                     <div class="form-group">
                         <label for="editNote">Note</label>
-                        <input type="text" class="form-control" id="editNote" name="note" readonly>
+                        <textarea class="form-control" id="editNote" name="note" rows="1" readonly></textarea>
+                        <!-- <input type="text" class="form-control" id="editNote" name="note" readonly> -->
                     </div>
                     <div class="form-group">
                         <label for="editLog">Event Log</label>
@@ -615,7 +614,10 @@ function updateMenuWithPendingCount(pendingCount) {
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
                             }
 
-                            tableRow.insertCell(8).textContent = row.log || '';
+                            // tableRow.insertCell(8).textContent = row.log || '';
+                            // Mengganti penggunaan \n dengan <br> untuk menampilkan log dengan baris baru
+                            tableRow.insertCell(8).innerHTML = row.log ? row.log.replace(/\n/g, '<br>') : '';
+
 
                             // Tambahkan kolom Edit dan Delete
                             const actionCell = tableRow.insertCell(9);
@@ -649,7 +651,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                                 .css('font-size', '10pt')  // Sesuaikan ukuran font
                                                 .prepend(  // Tambahkan elemen header di awal body
                                                     '<div style="text-align: center; margin-bottom: 20px;">' +
-                                                    '<h1>PT AAG</h1>' +
+                                                    '<h1>Bicoder Developer</h1>' +
                                                     '<h3>Sistem E-Part</h3>' +
                                                     '</div>'
                                                 );

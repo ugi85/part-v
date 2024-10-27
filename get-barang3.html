@@ -357,7 +357,8 @@
                     </div> 
                     <div class="form-group">
                         <label for="editNote">Note</label>
-                        <input type="text" class="form-control" id="editNote" name="note" readonly>
+                        <textarea class="form-control" id="editNote" name="note" rows="1" readonly></textarea>
+                        <!-- <input type="text" class="form-control" id="editNote" name="note" readonly> -->
                     </div>
                     <div class="form-group">
                         <label for="editLog">Event Log</label>
@@ -643,7 +644,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                             .css('font-size', '10pt')  // Sesuaikan ukuran font
                                             .prepend(  // Tambahkan elemen header di awal body
                                                 '<div style="text-align: center; margin-bottom: 20px;">' +
-                                                '<h1>PT AAG</h1>' +
+                                                '<h1>Bicoder Developer</h1>' +
                                                 '<h3>Sistem E-Part</h3>' +
                                                 '</div>'
                                             );
