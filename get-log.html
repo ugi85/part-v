@@ -295,7 +295,7 @@
         <div class="modal-body">
              <form id="editForm">
                 <div class="row"> <!-- Mulai grid row -->  
-                    <input type="hidden" id="editId" name="id">
+                    <!-- <input type="hidden" id="editId" name="id"> -->
                   <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                     <div class="form-group">
                         <label for="editTanggal">Tanggal</label>
@@ -374,6 +374,10 @@
                   </div>
                   <div id="ItemsContainer">
                     <div class="item-row row">
+                        <div class="col-md-1">
+                            <label for="editQty">ID</label>
+                            <input type="number" class="form-control" id="editId" name="id" required readonly>
+                        </div>
                         <div class="col-md-4">
                             <label for="editPartName">Select Part Name</label>
                             <select class="form-control" id="editPartName" name="part_name" required disabled>
@@ -383,7 +387,7 @@
                             <label for="editSpecification">Specification</label>
                             <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label for="editQty">Stock Available</label>
                             <input type="text" class="form-control" id="editStock" name="stock" readonly>
                         </div>
@@ -633,7 +637,7 @@ function updateMenuWithPendingCount(pendingCount) {
                             $('#userTable').DataTable({
                                 responsive: true,
                                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                                dom: 'lrtip',
+                                dom: '<"row"<"col-sm-6"l><"col-sm-6"f>>rtip', // Show entries di kiri dan search di kanan
                                 buttons: [
                                     {
                                         extend: 'print',

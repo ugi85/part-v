@@ -429,7 +429,7 @@ function updateMenuWithPendingCount(pendingCount) {
                         $('#userTable').DataTable({
                     responsive: true,
                     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                    dom: 'lrtip',
+                    dom: '<"row"<"col-sm-6"l><"col-sm-6"f>>rtip', // Show entries di kiri dan search di kanan
                     buttons: [
                         {
                             extend: 'print',
