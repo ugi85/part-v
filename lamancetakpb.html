@@ -3,42 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Data Pengambalian Barang</title>
+    <title>Laporan Data Pengambilan Barang</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
-        /* CSS untuk menyembunyikan elemen-elemen saat cetak */
+        /* CSS untuk menyesuaikan tampilan saat cetak */
         @media print {
             #printButton {
-                display: none;
+                display: none; /* Sembunyikan tombol print saat cetak */
             }
-            /* CSS untuk menempatkan footer di bagian bawah saat dicetak */
-            .header-info {
-                position: fixed;
-                top: 10px; /* Jarak dari atas */
-                left: 10px; /* Jarak dari kiri */
-                font-size: 10px;
-                width: 100%;
-                display: flex;
-                justify-content: space-between; /* Membuat elemen dalam satu baris dengan spasi di antara mereka */
+            /* Atur ulang margin, padding, dan ukuran font agar tampilan lebih rapi saat dicetak */
+            body {
+                margin: 0;
+                padding: 0;
             }
             .container {
-                margin-top: 100px; /* Beri jarak dari header */
+                margin: 0;
+                padding: 20px;
+                width: 100%;
+            }
+            .print-header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .table {
+                width: 100%;
+                table-layout: auto; /* Agar kolom bisa menyesuaikan lebar */
+                font-size: 12px; /* Ukuran font lebih kecil agar pas di layar cetak */
+            }
+            /* Sesuaikan lebar kolom agar tabel tidak terlalu besar */
+            .table th, .table td {
+                word-wrap: break-word; /* Agar teks yang panjang bisa dibungkus */
+                max-width: 150px;
+            }
+            .title-info {
+                font-size: 12px;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
             }
         }
+
         .print-header {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        
         .title-info {
             font-size: 14px;
-            text-align: left;
-            margin-top: 20px;
-            margin-bottom: 20px;
             display: flex;
             justify-content: space-between; /* Membuat elemen tetap sejajar */
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -52,7 +68,6 @@
         <div class="row align-items-center my-4">
             <div class="col-12">
                 <h3 class="print-header">Laporan Data Pengambilan Barang</h3>
-                <!-- <h4 class="print-header">Amartha Anugerah Global</h4> -->
             </div>
         </div>
 
@@ -88,7 +103,6 @@
                 second: '2-digit'
             });
             document.getElementById('printDateTime').textContent = `Date: ${formattedDate}, Time: ${formattedTime}`;
-
 
             // Membuat header berdasarkan kolom yang dipilih
             selectedColumns.forEach(col => {

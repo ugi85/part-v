@@ -71,7 +71,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -358,7 +358,7 @@ function updateMenuWithPendingCount(pendingCount) {
             } 
 
         // Cek apakah pengguna bukan admin
-        if (userRole !== 'admin') {
+        if (userRole !== 'admin' && userRole !== 'superadmin') {
             // Sembunyikan menu "Data Users"
             const menuDataUsers = document.getElementById('menu-data-users');
             if (menuDataUsers) {
@@ -390,7 +390,7 @@ function updateMenuWithPendingCount(pendingCount) {
 <!-- Fetch and Display User Data -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=readLowStock';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=readLowStock';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
     const showMinDataButton = document.querySelector('#showMinDataButton'); // Selector untuk tombol tampilkan data minimal
@@ -475,7 +475,7 @@ function updateMenuWithPendingCount(pendingCount) {
                     columnDefs: [
                         {
                             targets: 9,
-                            visible: userRole === 'admin',
+                            visible: userRole === 'admin' || userRole === 'superadmin',
                             searchable: false
                         }
                     ]

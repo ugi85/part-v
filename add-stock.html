@@ -72,7 +72,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -627,7 +627,7 @@ function updateMenuWithPendingCount(pendingCount) {
                             }
                         } 
                         // Sembunyikan menu berdasarkan role
-                        if (userRole !== 'admin') {
+                        if (userRole !== 'admin' && userRole !== 'superadmin') {
                             // Sembunyikan menu "Data Users"
                             const menuDataUsers = document.getElementById('menu-data-users');
                             if (menuDataUsers) {
@@ -717,7 +717,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                         // Tambahkan kolom Edit dan Delete
                                         const actionCell = tableRow.insertCell(13);
                                         actionCell.innerHTML = `
-                                        <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Detail</button>
+                                        <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' && userRole !== 'superadmin' ? 'display: none;' : ''}">Detail</button>
                                     `;
                                 });
 
@@ -775,7 +775,7 @@ function updateMenuWithPendingCount(pendingCount) {
                             columnDefs: [
                                 {
                                     targets: 13,
-                                    visible: userRole === 'admin',
+                                    visible: userRole === 'admin' || userRole === 'superadmin',
                                     searchable: false
                                 }
                             ]
@@ -784,11 +784,11 @@ function updateMenuWithPendingCount(pendingCount) {
                                   document.getElementById('customPrintButton').addEventListener('click', function() {
                                             $('#userTable').DataTable().button('.buttons-print').trigger();
                                         });
-                                if (userRole !== 'admin') {
+                                if (userRole !== 'admin' && userRole !== 'superadmin') {
                                     // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                                     setTimeout(() => {
                                         const table = document.getElementById('userTable');
-                                        const actionsColumnIndex = 10; // Indeks kolom Actions (0-based)
+                                        const actionsColumnIndex = 13; // Indeks kolom Actions (0-based)
                                         // Sembunyikan header kolom
                                         table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
                                         // Sembunyikan semua cell di kolom Actions
