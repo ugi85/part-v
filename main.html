@@ -61,6 +61,24 @@
             color: #6023da; /* Ganti dengan warna yang Anda inginkan */
             transform: scale(1.1); /* Efek zoom sedikit untuk menambahkan efek interaktif */
         }
+        .ion-ios-pricetag {
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .ion-ios-pricetag:hover {
+            color: #6023da; /* Ganti dengan warna yang Anda inginkan */
+            transform: scale(1.1); /* Efek zoom sedikit untuk menambahkan efek interaktif */
+        }
+        .ion-ios-basket {
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .ion-ios-basket:hover {
+            color: #ed0b30; /* Ganti dengan warna yang Anda inginkan */
+            transform: scale(1.1); /* Efek zoom sedikit untuk menambahkan efek interaktif */
+        }
        
         .badge-notification {
             background-color: red; /* Warna latar belakang merah */
@@ -170,6 +188,13 @@
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
+
+                        <li id="menu-dashboard">
+                            <a href="main.html">
+                                <i class=" ion ion-ios-home"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
 
 
                         <li id="menu-data-users">
@@ -317,7 +342,7 @@
                                             <h2 class="my-0 text-white"><span id="totalPrice">0</span></h2>
                                             <p class="mb-0">Total Price</p>
                                         </div>
-                                        <i class="ion-ios-pricetag"></i>
+                                        <i class="ion-md-stats"></i>
                                     </div>
                                 </div>
                             </div>
@@ -331,7 +356,7 @@
                                             <h2 class="my-0 text-white"><span id="totalReqBarang">0</span></h2>
                                             <p class="mb-0">Total Permintaan Barang</p>
                                         </div>
-                                        <i class="mdi mdi-comment-multiple" id="dataRequest"  style="cursor: pointer;"></i>
+                                        <i class="ion-ios-basket" id="dataRequest"  style="cursor: pointer;"></i>
                                     </div>
                                 </div>
                             </div>
@@ -840,7 +865,7 @@ function fetchReqBarang() {
                     time: 1000,
                     callback: function() {
         // Setelah animasi selesai, tambahkan simbol 'Rp'
-                 $('#totalPrice').text(`${totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+                 $('#totalPrice').text(`${totalPrice.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`);
                  }
                 });
                 // Tampilkan total harga dalam format Rupiah

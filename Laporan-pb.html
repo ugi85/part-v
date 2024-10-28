@@ -131,6 +131,12 @@
             <div class="slimscroll-menu">
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
+                        <li id="menu-dashboard">
+                            <a href="main.html">
+                                <i class=" ion ion-ios-home"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
                         <li id="menu-data-users">
                             <a href="data-users.html">
                                 <i class="ion ion-ios-contacts"></i>
@@ -272,65 +278,65 @@
             </div>
             <!-- End Filters -->
 
-            <!-- Daftar Pilihan Kolom untuk Cetak -->
-            <div class="form-group">
-                <h5>Pilih Kolom yang Akan Dicetak:</h5>
-                <div id="columnSelection" class="d-flex flex-wrap">
-                    
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Tanggal" id="inlineCheckbox1">
-                        <label class="form-check-label" for="inlineCheckbox1">Tanggal</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Waktu" id="inlineCheckbox2">
-                        <label class="form-check-label" for="inlineCheckbox2">Waktu</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Departemen" id="inlineCheckbox3">
-                        <label class="form-check-label" for="inlineCheckbox3">Departemen</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
-                        <label class="form-check-label" for="inlineCheckbox4">Mesin</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Remark" id="inlineCheckbox5">
-                        <label class="form-check-label" for="inlineCheckbox5">Remark</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Part Name" id="inlineCheckbox6">
-                        <label class="form-check-label" for="inlineCheckbox6">Part Name</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox7">
-                        <label class="form-check-label" for="inlineCheckbox7">Specification</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Qty" id="inlineCheckbox8">
-                        <label class="form-check-label" for="inlineCheckbox8">Qty</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Requester" id="inlineCheckbox9">
-                        <label class="form-check-label" for="inlineCheckbox9">Requester</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
-                        <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Note" id="inlineCheckbox11">
-                        <label class="form-check-label" for="inlineCheckbox11">Note</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Event Log" id="inlineCheckbox12">
-                        <label class="form-check-label" for="inlineCheckbox12">Event Log</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
-                        <label class="form-check-label" for="selectAllCheckbox">Select All</label>
-                    </div>
+    
+          <!-- Daftar Pilihan Kolom untuk Cetak -->
+          <div class="form-group">
+            <h5>Pilih Kolom yang Akan Dicetak:</h5>
+            <div id="columnSelection" class="d-flex flex-wrap">
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Tanggal" id="inlineCheckbox1">
+                    <label class="form-check-label" for="inlineCheckbox1">Tanggal</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Waktu" id="inlineCheckbox2">
+                    <label class="form-check-label" for="inlineCheckbox2">Waktu</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Departemen" id="inlineCheckbox3">
+                    <label class="form-check-label" for="inlineCheckbox3">Departemen</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
+                    <label class="form-check-label" for="inlineCheckbox4">Mesin</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Remark" id="inlineCheckbox5">
+                    <label class="form-check-label" for="inlineCheckbox5">Remark</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Part Name" id="inlineCheckbox6">
+                    <label class="form-check-label" for="inlineCheckbox6">Part Name</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox7">
+                    <label class="form-check-label" for="inlineCheckbox7">Specification</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Qty" id="inlineCheckbox8">
+                    <label class="form-check-label" for="inlineCheckbox8">Qty</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Requester" id="inlineCheckbox9">
+                    <label class="form-check-label" for="inlineCheckbox9">Requester</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
+                    <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Note" id="inlineCheckbox11">
+                    <label class="form-check-label" for="inlineCheckbox11">Note</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Event Log" id="inlineCheckbox12">
+                    <label class="form-check-label" for="inlineCheckbox12">Event Log</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
+                    <label class="form-check-label" for="selectAllCheckbox">Select All</label>
                 </div>
             </div>
+        </div>
 
 
             <!-- Tombol Cetak PDF dan Print Preview -->
@@ -346,7 +352,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
                                         <!-- <th>ID</th> -->

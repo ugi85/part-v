@@ -153,6 +153,12 @@
             <div class="slimscroll-menu">
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
+                        <li id="menu-dashboard">
+                            <a href="main.html">
+                                <i class=" ion ion-ios-home"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
                         <li id="menu-data-users">
                             <a href="data-users.html">
                                 <i class="ion ion-ios-contacts"></i>
@@ -726,6 +732,8 @@ function updateMenuWithPendingCount(pendingCount) {
                 if ($.fn.DataTable.isDataTable('#userTable')) {
                                 $('#userTable').DataTable().destroy(); // Hancurkan instance DataTable yang ada
                             }
+                            const show_username = sessionStorage.getItem('username'); 
+                            const currentDateTime = new Date().toLocaleString();
                              // Inisialisasi DataTable
                         $('#userTable').DataTable({
                             responsive: true,
@@ -747,10 +755,14 @@ function updateMenuWithPendingCount(pendingCount) {
                                         $(win.document.body)
                                             .css('font-size', '10pt')  // Sesuaikan ukuran font
                                             .prepend(  // Tambahkan elemen header di awal body
-                                                '<div style="text-align: center; margin-bottom: 20px;">' +
-                                                '<h1>Bicoder Developer</h1>' +
-                                                '<h3>Sistem E-Part</h3>' +
-                                                '</div>'
+                                            `<div style="width: 100%; margin-bottom: 20px; position: relative;">
+                                    <div style="float: left; font-size: 12px;">Printed By: ${show_username}</div>
+                                    <div style="float: right; font-size: 12px;">Date and Time: ${currentDateTime}</div>
+                                    <div style="clear: both; text-align: center;">
+                                        <h1>Bicoder Developer</h1>
+                                        <h3>Sistem E-Part</h3>
+                                    </div>
+                                    </div>`
                                             );
 
                                         // Buat agar tabel lebih rapi saat pratinjau cetak

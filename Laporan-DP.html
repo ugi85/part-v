@@ -114,6 +114,12 @@
             <div class="slimscroll-menu">
                 <div id="sidebar-menu">
                     <ul class="metismenu" id="side-menu">
+                        <li id="menu-dashboard">
+                            <a href="main.html">
+                                <i class=" ion ion-ios-home"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
                         <li id="menu-data-users">
                             <a href="data-users.html">
                                 <i class="ion ion-ios-contacts"></i>
@@ -193,7 +199,7 @@
         <div class="content-page">
             <div class="content">
                 <div class="container-fluid">
-
+        
                     <!-- Start page title -->
                     <div class="row">
                         <div class="col-md-3">
@@ -202,123 +208,126 @@
                             </div>
                         </div>
                     </div>
-
+        
                     <!-- Filter Form -->
                     <div class="row mb-4">
                         <!-- Filter Berdasarkan Kolom -->
-                        <div class="col-md-3">
+                        <div class="col-sm-12 col-md-4 mb-3">
                             <label for="filterColumn">Filter Berdasarkan Kolom:</label>
                             <select class="form-control" id="filterColumn">
-                            <option value="">--Pilih Kategori--</option>
-                            <option value="id_part">ID Part</option>
-                            <option value="description">Description</option>
-                            <option value="specification">Specification</option>
-                            <option value="machine">Machine</option>
-                            <option value="supplier1">Supplier 1</option>
-                            <option value="supplier2">Supplier 2</option>
-                            <option value="location">Location</option>
-                            <option value="type_part">Type Part</option>
-                            <option value="min">Min</option>
-                            <option value="max">Max</option>
-                            <option value="unit">Unit</option>
-                            <option value="lt_day">LT Day</option>
-                            <option value="stock">Stock</option>
-                            <option value="price">Price</option>
+                                <option value="">--Pilih Kategori--</option>
+                                <option value="id_part">ID Part</option>
+                                <option value="description">Description</option>
+                                <option value="specification">Specification</option>
+                                <option value="machine">Machine</option>
+                                <option value="supplier1">Supplier 1</option>
+                                <option value="supplier2">Supplier 2</option>
+                                <option value="location">Location</option>
+                                <option value="type_part">Type Part</option>
+                                <option value="min">Min</option>
+                                <option value="max">Max</option>
+                                <option value="unit">Unit</option>
+                                <option value="lt_day">LT Day</option>
+                                <option value="stock">Stock</option>
+                                <option value="price">Price</option>
                             </select>
                         </div>
-                
-                            <!-- Nilai Filter -->
-                        <div class="col-3">
-                                <label for="filterValue">Nilai Filter:</label>
-                                <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
+        
+                        <!-- Nilai Filter -->
+                        <div class="col-sm-12 col-md-4 mb-3">
+                            <label for="filterValue">Nilai Filter:</label>
+                            <input type="text" class="form-control" id="filterValue" placeholder="Masukkan Nilai Filter">
                         </div>
-                    
-                        
-                            <div class="col-md-3 d-flex align-items-end">
-                            <button id="applyFilter" class="btn btn-primary"> <i class="fas fa-search"></i> Cari</button>
+        
+                        <div class="col-sm-6 col-md-2 mb-3 d-flex align-items-end">
+                            <button id="applyFilter" class="btn btn-primary btn-block"> <i class="fas fa-search"></i> Cari</button>
                         </div>
-
+        
                         <!-- Tombol Clear -->
-                        <div class="col-3 d-flex align-items-end">
-                            <button id="clear" class="btn btn-danger"><i class="fas fa-times"></i> Clear</button>
+                        <div class="col-sm-6 col-md-2 mb-3 d-flex align-items-end">
+                            <button id="clear" class="btn btn-danger btn-block"><i class="fas fa-times"></i> Clear</button>
                         </div>
-                        
+                    </div>
+        
+                    <!-- Optional Additional Buttons -->
+                    <!-- Uncomment if needed
+                    <div class="col-3 d-flex align-items-end">
+                        <button id="opendb" class="btn btn-primary btn-block"><i class="fas fa-search"></i> Buka Data Base</button>
+                    </div>
+                    -->
                 </div>
-                <!-- Tombol Clear
-                <div class="col-3 d-flex align-items-end">
-                    <button id="opendb" class="btn btn-primary"><i class="fas fa-search"></i> Buka Data Base</button>
-                </div> -->
-             </div>
-             
-
-                <!-- Daftar Pilihan Kolom untuk Cetak -->
-                <div class="form-group">
-                    <h5>Pilih Kolom yang Akan Dicetak:</h5>
-                    <div id="columnSelection" class="d-flex flex-wrap">
-                    
-                        <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
-                        <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Description" id="inlineCheckbox2">
-                        <label class="form-check-label" for="inlineCheckbox2">Description</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox3">
-                        <label class="form-check-label" for="inlineCheckbox3">Specification</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
-                        <label class="form-check-label" for="inlineCheckbox4">Machine</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Supplier 1" id="inlineCheckbox5">
-                        <label class="form-check-label" for="inlineCheckbox5">Supplier 1</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Supplier 2" id="inlineCheckbox6">
-                        <label class="form-check-label" for="inlineCheckbox6">Supplier 2</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Location" id="inlineCheckbox7">
-                        <label class="form-check-label" for="inlineCheckbox7">Location</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Type Part" id="inlineCheckbox8">
-                        <label class="form-check-label" for="inlineCheckbox8">Type Part</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Min" id="inlineCheckbox9">
-                        <label class="form-check-label" for="inlineCheckbox9">Min</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Max" id="inlineCheckbox10">
-                        <label class="form-check-label" for="inlineCheckbox10">Max</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Unit" id="inlineCheckbox11">
-                        <label class="form-check-label" for="inlineCheckbox11">Unit</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="LT Day" id="inlineCheckbox12">
-                        <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Stock" id="inlineCheckbox13">
-                        <label class="form-check-label" for="inlineCheckbox13">Stock</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
-                        <label class="form-check-label" for="inlineCheckbox14">Price</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
-                        <label class="form-check-label" for="selectAllCheckbox">Select All</label>
-                    </div>
-                    </div>
+            <!-- </div>
+        </div> -->
+        
+        
+                       <!-- Daftar Pilihan Kolom untuk Cetak -->
+        <div class="form-group">
+            <h5>Pilih Kolom yang Akan Dicetak:</h5>
+            <div id="columnSelection" class="d-flex flex-wrap">
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
+                    <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
                 </div>
-    
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Description" id="inlineCheckbox2">
+                    <label class="form-check-label" for="inlineCheckbox2">Description</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox3">
+                    <label class="form-check-label" for="inlineCheckbox3">Specification</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
+                    <label class="form-check-label" for="inlineCheckbox4">Machine</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Supplier 1" id="inlineCheckbox5">
+                    <label class="form-check-label" for="inlineCheckbox5">Supplier 1</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Supplier 2" id="inlineCheckbox6">
+                    <label class="form-check-label" for="inlineCheckbox6">Supplier 2</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Location" id="inlineCheckbox7">
+                    <label class="form-check-label" for="inlineCheckbox7">Location</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Type Part" id="inlineCheckbox8">
+                    <label class="form-check-label" for="inlineCheckbox8">Type Part</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Min" id="inlineCheckbox9">
+                    <label class="form-check-label" for="inlineCheckbox9">Min</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Max" id="inlineCheckbox10">
+                    <label class="form-check-label" for="inlineCheckbox10">Max</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Unit" id="inlineCheckbox11">
+                    <label class="form-check-label" for="inlineCheckbox11">Unit</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="LT Day" id="inlineCheckbox12">
+                    <label class="form-check-label" for="inlineCheckbox12">LT DAY</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Stock" id="inlineCheckbox13">
+                    <label class="form-check-label" for="inlineCheckbox13">Stock</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Price" id="inlineCheckbox14">
+                    <label class="form-check-label" for="inlineCheckbox14">Price</label>
+                </div>
+                <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+                    <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
+                    <label class="form-check-label" for="selectAllCheckbox">Select All</label>
+                </div>
+            </div>
+        </div>
+        
+        
 
 
             <!-- Tombol Cetak PDF dan Print Preview -->
@@ -334,7 +343,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="userTable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <table id="userTable" class="table table-bordered dt-responsive wrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>No</th>
