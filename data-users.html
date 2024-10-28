@@ -73,7 +73,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -280,6 +280,7 @@
                                         <option value="">Select Role</option>
                                         <option value="admin">Admin</option>
                                         <option value="user">User</option>
+                                        <option value="superadmin">SuperAdmin</option>
                                     </select>
                                     <div class="invalid-feedback">Role is required.</div>
                                 </div>
@@ -322,6 +323,7 @@
                         <select class="form-control" id="editRole" name="role" required>
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
+                            <option value="superadmin">SuperAdmin</option>
                         </select>
                     </div>
                     <div class="col-12 text-right">
@@ -432,6 +434,33 @@ function updateMenuWithPendingCount(pendingCount) {
     // Ambil peran pengguna dari sessionStorage
     const userRole = sessionStorage.getItem('role');
 
+        // Jika peran pengguna adalah admin, sembunyikan opsi SuperAdmin
+        if (userRole === 'admin') {
+        const superadminOption = document.querySelector('#editRole option[value="superadmin"]');
+        if (superadminOption) {
+            superadminOption.style.display = 'none'; // Sembunyikan opsi SuperAdmin
+        }
+
+        // Set dropdown menjadi readonly (tidak bisa diubah)
+        const editRoleSelect = document.getElementById('editRole');
+        editRoleSelect.disabled = true; // Nonaktifkan dropdown agar admin tidak bisa mengubahnya
+        const editPassSelect = document.getElementById('editPassword');
+        editPassSelect.disabled = true; // Nonaktifkan dropdown agar admin tidak bisa mengubahnya
+        // Set dropdown menjadi readonly (tidak bisa diubah)
+        const editUserSelect = document.getElementById('editUsername');
+        editUserSelect.disabled = true; // Nonaktifkan dropdown agar admin tidak bisa mengubahnya// Set dropdown menjadi readonly (tidak bisa diubah)
+        const editMailSelect = document.getElementById('editEmail');
+        editMailSelect.disabled = true; // Nonaktifkan dropdown agar admin tidak bisa mengubahnya
+        
+    }
+     // Jika peran pengguna adalah admin, sembunyikan opsi SuperAdmin
+     if (userRole === 'admin') {
+        const superadminOption = document.querySelector('#role option[value="superadmin"]');
+        if (superadminOption) {
+            superadminOption.style.display = 'none'; // Sembunyikan opsi SuperAdmin
+        }
+    }
+
     if (userRole !== 'user') {
         const menuGetBarang = document.getElementById('menu-get-barang');
         if (menuGetBarang) {
@@ -440,7 +469,7 @@ function updateMenuWithPendingCount(pendingCount) {
     } 
 
     // Sembunyikan menu berdasarkan role
-    if (userRole !== 'admin') {
+    if (userRole !== 'admin'&& userRole !== 'superadmin') {
         // Sembunyikan menu "Data Users"
         const menuDataUsers = document.getElementById('menu-data-users');
         if (menuDataUsers) {
@@ -516,7 +545,11 @@ window.onload = function() {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    const users = data.data;
+                    let users = data.data;
+                    // Filter data untuk menyembunyikan superadmin dari admin
+                if (userRole === 'admin') {
+                    users = users.filter(user => user.role !== 'superadmin');
+                }
                     users.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                     const usersTableBody = document.querySelector('#userTable tbody');
                     usersTableBody.innerHTML = ''; 
@@ -531,8 +564,8 @@ window.onload = function() {
                         const actionsCell = row.insertCell(4);
                   // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
                   actionsCell.innerHTML = `
-                        <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                        <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin'&& userRole !== 'superadmin' ? 'display: none;' : ''}">Edit</button>
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'admin'&& userRole !== 'superadmin' ? 'display: none;' : ''}">Delete</button>
                     `;
                 });
 
@@ -542,7 +575,7 @@ window.onload = function() {
                         }
                         $('#userTable').DataTable(); // Buat instance DataTable baru
                         // Sembunyikan kolom Actions jika user bukan admin
-                if (userRole !== 'admin') {
+                if (userRole !== 'admin'&& userRole !== 'superadmin') {
                     // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                     setTimeout(() => {
                         const table = document.getElementById('userTable');

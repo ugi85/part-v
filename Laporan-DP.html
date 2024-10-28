@@ -52,16 +52,6 @@
             border-width: .4em;
             color: rgb(47, 47, 230);
         }
-        .badge-notification {
-            background-color: red; /* Warna latar belakang merah */
-            color: white; /* Warna teks putih */
-            padding: 2px 6px; /* Padding untuk memberi ruang di dalam kotak */
-            border-radius: 20%; /* Membuat sudut menjadi bulat */
-            font-size: 12px; /* Ukuran teks yang lebih kecil */
-            font-weight: bold; /* Teks tebal */
-            margin-left: 8px; /* Beri sedikit jarak antara teks dan badge */
-            display: inline-block; /* Agar elemen tampil inline */
-        }
     </style>  
 
     <!-- Begin page -->
@@ -71,7 +61,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -150,7 +140,6 @@
                                 <span> Permintaan Barang </span>
                             </a>
                         </li>
-                       
                         <li id="menu-barang">
                             <a href="javascript: void(0);" class="waves-effect">
                                 <i class="ion ion-ios-basket"></i>
@@ -185,8 +174,7 @@
                                 </li>
                                 <li>                     
                                     <a href="Laporan-SM.html">Data Stock Minim</a>
-                                </li>                 
-                                        
+                                </li>                                                        
                             </ul>
                         </li>
                     </ul>
@@ -254,13 +242,20 @@
                         <div class="col-3 d-flex align-items-end">
                             <button id="clear" class="btn btn-danger"><i class="fas fa-times"></i> Clear</button>
                         </div>
+                        
                 </div>
+                <!-- Tombol Clear
+                <div class="col-3 d-flex align-items-end">
+                    <button id="opendb" class="btn btn-primary"><i class="fas fa-search"></i> Buka Data Base</button>
+                </div> -->
              </div>
+             
 
                 <!-- Daftar Pilihan Kolom untuk Cetak -->
                 <div class="form-group">
                     <h5>Pilih Kolom yang Akan Dicetak:</h5>
                     <div id="columnSelection" class="d-flex flex-wrap">
+                    
                         <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" value="ID Part" id="inlineCheckbox1">
                         <label class="form-check-label" for="inlineCheckbox1">ID Part</label>
@@ -328,7 +323,7 @@
 
             <!-- Tombol Cetak PDF dan Print Preview -->
             <div class="form-group">
-                <button id="printPreview" class="btn btn-secondary mt-3">Preview Print</button>
+                <button id="printPreview" class="btn btn-primary mt-3">Print</button>
             </div>
             <div class="form-group" hidden>
                 <button id="printPDF" class="btn btn-danger mt-3">Cetak PDF</button>
@@ -435,40 +430,6 @@
             sessionStorage.removeItem('isLoggedIn');
             window.location.href = 'index.html';
         });
-
-        document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
-
-    // Fetch data dari URL
-    fetch(scriptURL)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                const pendingCount = data.data.length; // Hitung jumlah total data
-                updateMenuWithPendingCount(pendingCount); // Panggil fungsi untuk memperbarui menu
-            } else {
-                console.error('Error:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-});
-
-// Fungsi untuk memperbarui menu dengan jumlah pending
-function updateMenuWithPendingCount(pendingCount) {
-    const pendingCountSpan = document.getElementById('pendingCount'); // Ambil elemen dengan id pendingCount
-    if (pendingCountSpan) {
-        if (pendingCount > 0) {
-            pendingCountSpan.textContent = pendingCount; // Hanya tampilkan angka, tanpa tanda kurung
-            pendingCountSpan.classList.add('badge-notification'); // Tambahkan kelas badge-notification untuk gaya
-        } else {
-            pendingCountSpan.textContent = ''; // Kosongkan jika tidak ada pending
-            pendingCountSpan.classList.remove('badge-notification'); // Hapus kelas jika tidak ada data
-        }
-    }
-}
-
     </script>
 
 <script>
@@ -476,15 +437,8 @@ function updateMenuWithPendingCount(pendingCount) {
         // Ambil peran pengguna dari sessionStorage
         const userRole = sessionStorage.getItem('role');
 
-        if (userRole !== 'user') {
-        const menuGetBarang = document.getElementById('menu-get-barang');
-        if (menuGetBarang) {
-            menuGetBarang.style.display = 'none';
-        }
-    } 
-
         // Cek apakah pengguna bukan admin
-        if (userRole !== 'admin') {
+        if (userRole !== 'admin' && userRole !== 'superadmin') {
             // Sembunyikan menu "Data Users"
             const menuDataUsers = document.getElementById('menu-data-users');
             if (menuDataUsers) {
@@ -508,10 +462,6 @@ function updateMenuWithPendingCount(pendingCount) {
             if (menuAddStock) {
                 menuAddStock.style.display = 'none';
             }
-            const menuBarang = document.getElementById('menu-barang');
-            if (menuBarang) {
-                menuBarang.style.display = 'none';
-            }
         }
     });
 </script>
@@ -521,7 +471,7 @@ function updateMenuWithPendingCount(pendingCount) {
     <script src="main.js"></script>
    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function() {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
             const loadingSpinner = document.getElementById('loadingSpinner');
             const filterColumn = document.getElementById('filterColumn');
@@ -532,12 +482,20 @@ function updateMenuWithPendingCount(pendingCount) {
             const columnSelection = document.getElementById('columnSelection');
             let originalData = []; // Untuk menyimpan data asli dari API
 
+            // Ambil peran pengguna dari sessionStorage
+            const userRole = sessionStorage.getItem('role');
+            // Menyembunyikan tombol "Tambah Item" jika pengguna bukan admin
+            if (userRole !== 'admin') {
+                if (addButton) addButton.style.display = 'none';
+            }
+
             function displayData(users) {
                 const usersTableBody = document.querySelector('#userTable tbody');
                 usersTableBody.innerHTML = ''; // Kosongkan tabel sebelum memuat data baru
 
                 users.forEach((user, index) => {
                     const row = usersTableBody.insertRow();
+                
                     row.insertCell(0).textContent = index + 1;
                     row.insertCell(1).textContent = user.id_part;
                     row.insertCell(2).textContent = user.description;
@@ -564,136 +522,70 @@ function updateMenuWithPendingCount(pendingCount) {
 
                     $('#userTable').DataTable({
                     responsive: true,
-                    paging: false,   // Nonaktifkan pagination
+                    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+
+                    // paging: false,   // Nonaktifkan pagination
                     searching: false, // Nonaktifkan pencarian bawaan
                     info: true      // Sembunyikan informasi jumlah data
                 });
             }
 
-            function fetchData(filter = {}) {
-    loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
+function fetchData(filter = {}) {
+    loadingSpinner.style.display = 'block'; // Show loading spinner
 
     fetch(scriptURL)
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                originalData = data.data; // Simpan data asli
-                let users = [...originalData]; // Salin data untuk filter
+                let users = data.data; // Store original data
 
-                console.log("Data asli: ", users); // Lihat data asli yang diambil dari API
+                console.log("Original data: ", users); // See the original data fetched from API
 
-                // Filter berdasarkan kolom dan nilai yang diinputkan
+                // Filter by column and input value
                 if (filter.column && filter.value !== undefined && filter.value !== '') {
+                    const filterValueLower = filter.value.toString().toLowerCase(); // Normalize filter value
+
                     users = users.filter(user => {
                         const columnValue = user[filter.column];
+                        const columnValueLower = columnValue ? columnValue.toString().toLowerCase() : '';
 
-                        console.log("Filtering on column: ", filter.column); // Kolom yang sedang difilter
-                        console.log("Filtering value: ", filter.value); // Nilai yang digunakan untuk filter
-                        console.log("Column value: ", columnValue); // Nilai kolom yang dibandingkan
+                        console.log("Filtering on column: ", filter.column); // The column being filtered
+                        console.log("Filtering value: ", filter.value); // Value used for filtering
+                        console.log("Column value: ", columnValue); // Column value being compared
 
-                        // Filter untuk 'stock'
-                    if (filter.column.toLowerCase() === 'stock') {
-                        const stockValue = columnValue === null ? 0 : parseInt(columnValue, 10); // Ubah null menjadi 0 dan pastikan angka
-                        const filterValue = parseInt(filter.value, 10); // Mengubah filter.value menjadi integer
-                        return stockValue === filterValue; // Bandingkan nilai stock
-                    }
+                        // Handle specific filters
+                        switch (filter.column.toLowerCase()) {
+                            case 'stock':
+                                return parseInt(columnValue, 10) === parseInt(filter.value, 10) || columnValue === null;
 
-                        // Jika kolom "Min" atau "Max", lakukan filter numerik
-                        if (filter.column.toLowerCase() === 'min' || filter.column.toLowerCase() === 'max' || filter.column.toLowerCase() === 'stock') {
-                            const parsedValue = parseFloat(filter.value); // Konversi nilai filter ke angka
-                            const parsedColumnValue = parseFloat(columnValue); // Konversi nilai kolom ke angka
-                            
+                            case 'min':
+                            case 'max':
+                            case 'price':
+                            case 'lt_day':
+                                return parseFloat(columnValue) === parseFloat(filter.value);
 
-                            console.log("Parsed filter value: ", parsedValue); // Nilai filter setelah konversi ke angka
-                            console.log("Parsed column value: ", parsedColumnValue); // Nilai kolom setelah konversi ke angka
+                            case 'location':
+                                return handleLocationFilter(columnValueLower, filterValueLower);
 
-                            // Pastikan kedua nilai adalah angka sebelum melakukan perbandingan
-                            if (!isNaN(parsedValue) && !isNaN(parsedColumnValue)) {
-                                return parsedColumnValue === parsedValue; // Jika ingin mencocokkan persis, gunakan '==='
-                            }
-                        }
-                            
-                            // Filter untuk kolom 'price'
-                        if (filter.column.toLowerCase() === 'price') {
-                            const priceValue = parseFloat(columnValue); // Pastikan price adalah angka
-                            const filterValue = parseFloat(filter.value); // Ubah filter.value ke format numerik
-                            return priceValue === filterValue; // Tampilkan data dengan price yang sesuai
-                        }
-                        if (filter.column.toLowerCase() === 'lt_day') {
-                            const ltDayValue = parseFloat(columnValue); // 
-                            const filterValue = parseFloat(filter.value); // Ubah filter.value ke format numerik
-                            return ltDayValue === filterValue; // 
-                        }
-                        // Filter untuk 'location'
-                        if (filter.column.toLowerCase() === 'location') {
-                            const locationValue = columnValue.toString().toLowerCase(); // Ubah kolom lokasi ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return locationValue === filterValue; // Bandingkan lokasi secara eksak
-                        }
-                        // Filter untuk 'id part'
-                        if (filter.column.toLowerCase() === 'id_part') {
-                            const idPartValue = columnValue.toString().toLowerCase(); // Ubah kolom id part ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return idPartValue.includes(filterValue); // Bandingkan berdasarkan substring
-                        }
+                            case 'id_part':
+                            case 'description':
+                            case 'specification':
+                            case 'machine':
+                            case 'supplier1':
+                            case 'supplier2':
+                            case 'type_part':
+                            case 'unit':
+                                return columnValueLower.includes(filterValueLower);
 
-                        // Filter untuk 'deskripsi'
-                        if (filter.column.toLowerCase() === 'description') {
-                            const deskripsiValue = columnValue.toString().toLowerCase(); // Ubah kolom deskripsi ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return deskripsiValue.includes(filterValue); // Bandingkan berdasarkan substring
+                            default:
+                                return columnValueLower.includes(filterValueLower); // Default text search
                         }
-
-                        // Filter untuk 'specification'
-                        if (filter.column.toLowerCase() === 'specification') {
-                            const specificationValue = columnValue.toString().toLowerCase(); // Ubah kolom specification ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return specificationValue.includes(filterValue); // Bandingkan berdasarkan substring
-                        }
-
-                        // Filter untuk 'machine'
-                        if (filter.column.toLowerCase() === 'machine') {
-                            const machineValue = columnValue.toString().toLowerCase(); // Ubah kolom machine ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return machineValue.includes(filterValue); // Bandingkan berdasarkan substring
-                        }
-
-                        // Filter untuk 'supplier1'
-                        if (filter.column.toLowerCase() === 'supplier1') {
-                            const supplier1Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier1 ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return supplier1Value.includes(filterValue); // Bandingkan berdasarkan substring
-                        }
-
-                        // Filter untuk 'supplier2'
-                        if (filter.column.toLowerCase() === 'supplier2') {
-                            const supplier2Value = columnValue.toString().toLowerCase(); // Ubah kolom supplier2 ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return supplier2Value.includes(filterValue); // Bandingkan berdasarkan substring
-                        }
-
-                        // Filter untuk 'type part'
-                        if (filter.column.toLowerCase() === 'type_part') {
-                            const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
-                        }
-                        // Filter untuk 'unit'
-                        if (filter.column.toLowerCase() === 'unit') {
-                            const typePartValue = columnValue.toString().toLowerCase(); // Ubah kolom type part ke string dan lowercase
-                            const filterValue = filter.value.toString().toLowerCase(); // Ubah nilai filter ke string dan lowercase
-                            return typePartValue.includes(filterValue); // Bandingkan berdasarkan substring
-                        }
-                            return false; // Jika tidak bisa dibandingkan, tidak lolos filter
-
-                        // Filter default: pencarian teks
-                        return columnValue.toString().toLowerCase().includes(filter.value.toString().toLowerCase());
                     });
                 }
 
-                console.log("Data after filtering: ", users); // Lihat hasil data setelah difilter
+                console.log("Data after filtering: ", users); // See the resulting data after filtering
 
-                // Menampilkan data hasil filter
+                // Display filtered data
                 displayData(users);
             } else {
                 console.error('Error:', data.message);
@@ -701,9 +593,22 @@ function updateMenuWithPendingCount(pendingCount) {
         })
         .catch(error => console.error('Error:', error))
         .finally(() => {
-            loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
+            loadingSpinner.style.display = 'none'; // Hide loading spinner after fetching data
         });
 }
+
+// Helper function to handle location filtering
+function handleLocationFilter(locationValue, filterValue) {
+    const rangeMatch = filterValue.match(/^(.*?)-(.*?)$/);
+    if (rangeMatch) {
+        const startValue = rangeMatch[1].trim();
+        const endValue = rangeMatch[2].trim();
+        return locationValue >= startValue && locationValue <= endValue; // Range filter
+    }
+    const regex = new RegExp(`^.*${filterValue}.*$`, 'i'); // Allow for case insensitive match
+    return regex.test(locationValue); // Regex search
+}
+
 
 // Event listener untuk tombol clear
  document.getElementById('clear').addEventListener('click', () => {
@@ -793,6 +698,9 @@ applyFilterButton.addEventListener('click', () => {
             const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
             const tableData = [];
 
+             // Tambahkan kolom "No" secara manual agar selalu ada
+    // selectedColumns.push('No');
+
     // Mengambil nilai dari checkbox yang dipilih (nama kolom)
     checkboxes.forEach(checkbox => {
         selectedColumns.push(checkbox.value);
@@ -821,47 +729,50 @@ applyFilterButton.addEventListener('click', () => {
         selectedColumns.forEach(colName => {
             let cellValue = '';
             switch(colName) {
-                case 'ID Part':
+                case 'No':
                     cellValue = cells[0].innerText; // Sesuaikan indeks sesuai urutan tabel
                     break;
-                case 'Description':
-                    cellValue = cells[1].innerText;
+                case 'ID Part':
+                    cellValue = cells[1].innerText; // Sesuaikan indeks sesuai urutan tabel
                     break;
-                case 'Specification':
+                case 'Description':
                     cellValue = cells[2].innerText;
                     break;
-                case 'Machine':
+                case 'Specification':
                     cellValue = cells[3].innerText;
                     break;
-                case 'Supplier 1':
+                case 'Machine':
                     cellValue = cells[4].innerText;
                     break;
-                case 'Supplier 2':
+                case 'Supplier 1':
                     cellValue = cells[5].innerText;
                     break;
-                case 'Location':
+                case 'Supplier 2':
                     cellValue = cells[6].innerText;
                     break;
-                case 'Type Part':
+                case 'Location':
                     cellValue = cells[7].innerText;
                     break;
-                case 'Min':
+                case 'Type Part':
                     cellValue = cells[8].innerText;
                     break;
-                case 'Max':
+                case 'Min':
                     cellValue = cells[9].innerText;
                     break;
-                case 'Unit':
+                case 'Max':
                     cellValue = cells[10].innerText;
                     break;
-                case 'LT Day':
+                case 'Unit':
                     cellValue = cells[11].innerText;
                     break;
-                case 'Stock':
+                case 'LT Day':
                     cellValue = cells[12].innerText;
                     break;
-                case 'Price':
+                case 'Stock':
                     cellValue = cells[13].innerText;
+                    break;
+                case 'Price':
+                    cellValue = cells[14].innerText;
                     break;
                 default:
                     cellValue = '';
@@ -881,9 +792,25 @@ applyFilterButton.addEventListener('click', () => {
 });
 
 });
-
     </script>
-
+    <!-- <script>
+        document.getElementById('opendb').addEventListener('click', function() {
+            // URL Spreadsheet yang akan dibuka
+            const spreadsheetURL = 'https://docs.google.com/spreadsheets/d/16RyXFuJVDAmO7_xQ_lNMOE0cepfkfWS7Vp2oq_luZHI/edit?gid=930527899#gid=930527899';
+            
+            // Buka Spreadsheet di tab baru dengan mode read-only (public access)
+            window.open(spreadsheetURL, '_blank');
+        });
+    </script> -->
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Menampilkan nama file yang dipilih (tidak membuka file langsung)
+                alert('Selected file: ' + file.name);
+            }
+        });
+    </script>
 <script>
     // Tampilkan nama pengguna di navbar saat halaman utama dimuat
     window.onload = function() {

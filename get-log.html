@@ -100,7 +100,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -295,7 +295,7 @@
         <div class="modal-body">
              <form id="editForm">
                 <div class="row"> <!-- Mulai grid row -->  
-                    <input type="hidden" id="editId" name="id">
+                    <!-- <input type="hidden" id="editId" name="id"> -->
                   <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                     <div class="form-group">
                         <label for="editTanggal">Tanggal</label>
@@ -334,9 +334,7 @@
                     <div class="form-group">
                         <label for="editRemark">Remark</label>
                         <textarea class="form-control" id="editRemark" name="remark" rows="3" readonly></textarea>
-                    </div>
-                 
-                 
+                    </div>               
                     
                 </div>
 
@@ -361,7 +359,8 @@
                     </div> 
                     <div class="form-group">
                         <label for="editNote">Note</label>
-                        <input type="text" class="form-control" id="editNote" name="note" readonly>
+                        <textarea class="form-control" id="editNote" name="note" rows="1" readonly></textarea>
+                        <!-- <input type="text" class="form-control" id="editNote" name="note" readonly> -->
                     </div>
                     <div class="form-group">
                         <label for="editLog">Event Log</label>
@@ -375,6 +374,10 @@
                   </div>
                   <div id="ItemsContainer">
                     <div class="item-row row">
+                        <div class="col-md-1">
+                            <label for="editQty">ID</label>
+                            <input type="number" class="form-control" id="editId" name="id" required readonly>
+                        </div>
                         <div class="col-md-4">
                             <label for="editPartName">Select Part Name</label>
                             <select class="form-control" id="editPartName" name="part_name" required disabled>
@@ -384,7 +387,7 @@
                             <label for="editSpecification">Specification</label>
                             <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label for="editQty">Stock Available</label>
                             <input type="text" class="form-control" id="editStock" name="stock" readonly>
                         </div>
@@ -521,7 +524,7 @@ function updateMenuWithPendingCount(pendingCount) {
     } 
 
     // Sembunyikan menu berdasarkan role
-    if (userRole !== 'admin') {
+    if (userRole !== 'admin' && userRole !== 'superadmin') {
         // Sembunyikan menu "Data Users"
         const menuDataUsers = document.getElementById('menu-data-users');
         if (menuDataUsers) {
@@ -615,12 +618,15 @@ function updateMenuWithPendingCount(pendingCount) {
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
                             }
 
-                            tableRow.insertCell(8).textContent = row.log || '';
+                            // tableRow.insertCell(8).textContent = row.log || '';
+                            // Mengganti penggunaan \n dengan <br> untuk menampilkan log dengan baris baru
+                            tableRow.insertCell(8).innerHTML = row.log ? row.log.replace(/\n/g, '<br>') : '';
+
 
                             // Tambahkan kolom Edit dan Delete
                             const actionCell = tableRow.insertCell(9);
                             actionCell.innerHTML = `
-                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Detail</button>           
+                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' && userRole !== 'superadmin' ? 'display: none;' : ''}">Detail</button>           
                         `;            
                     });
          
@@ -631,7 +637,7 @@ function updateMenuWithPendingCount(pendingCount) {
                             $('#userTable').DataTable({
                                 responsive: true,
                                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                                dom: 'lrtip',
+                                dom: '<"row"<"col-sm-6"l><"col-sm-6"f>>rtip', // Show entries di kiri dan search di kanan
                                 buttons: [
                                     {
                                         extend: 'print',
@@ -649,7 +655,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                                 .css('font-size', '10pt')  // Sesuaikan ukuran font
                                                 .prepend(  // Tambahkan elemen header di awal body
                                                     '<div style="text-align: center; margin-bottom: 20px;">' +
-                                                    '<h1>PT AAG</h1>' +
+                                                    '<h1>Bicoder Developer</h1>' +
                                                     '<h3>Sistem E-Part</h3>' +
                                                     '</div>'
                                                 );
@@ -677,7 +683,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                 columnDefs: [
                                     {
                                         targets: 9,
-                                        visible: userRole === 'admin',
+                                        visible: userRole === 'admin' || userRole === 'superadmin',
                                         searchable: false
                                     }
                                 ]
@@ -687,7 +693,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                             $('#userTable').DataTable().button('.buttons-print').trigger();
                                         });
                             // Sembunyikan kolom Actions jika user bukan admin
-                    if (userRole !== 'admin') {
+                    if (userRole !== 'admin' && userRole !== 'superadmin') {
                         // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                         setTimeout(() => {
                             const table = document.getElementById('userTable');

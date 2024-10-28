@@ -70,7 +70,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -205,7 +205,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
-                                <h4 class="page-title mb-0">Data Penambahan Stock</h4>
+                                <h4 class="page-title mb-0">Data Part</h4>
                                 <div class="d-flex">
                                     <button id="customPrintButton" class="btn btn-primary waves-effect waves-light btn-sm mr-2">Print Data</button>
                                     <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#registerModal">Tambah Item</button>
@@ -645,7 +645,7 @@ function updateMenuWithPendingCount(pendingCount) {
     
 
     // Sembunyikan menu berdasarkan role
-    if (userRole !== 'admin') {
+    if (userRole !== 'admin' && userRole !== 'superadmin') {
         // Sembunyikan menu "Data Users"
         const menuDataUsers = document.getElementById('menu-data-users');
         if (menuDataUsers) {
@@ -678,7 +678,7 @@ function updateMenuWithPendingCount(pendingCount) {
 <!-- Fetch and Display User Data -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=read';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
     const showMinDataButton = document.querySelector('#showMinDataButton'); // Selector untuk tombol tampilkan data minimal
@@ -686,7 +686,7 @@ function updateMenuWithPendingCount(pendingCount) {
     // Ambil peran pengguna dari sessionStorage
     const userRole = sessionStorage.getItem('role');
     // Menyembunyikan tombol "Tambah Item" jika pengguna bukan admin
-    if (userRole !== 'admin') {
+    if (userRole !== 'admin' && userRole !== 'superadmin') {
         if (addButton) addButton.style.display = 'none';
     }
 
@@ -721,8 +721,8 @@ function updateMenuWithPendingCount(pendingCount) {
             const actionsCell = row.insertCell(13);
             // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
             actionsCell.innerHTML = `
-                <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Edit</button>
-                <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Delete</button>
+                <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'superadmin' ? 'display: none;' : ''}">Edit</button>
+                <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'superadmin' ? 'display: none;' : ''}">Delete</button>
             `;
             
              // Warnai baris biru jika id_part sama dengan lastAddedId
@@ -751,7 +751,7 @@ function updateMenuWithPendingCount(pendingCount) {
         $('#userTable').DataTable({
                             responsive: true,
                             lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                            dom: 'lrtip',
+                            dom: '<"row"<"col-sm-6"l><"col-sm-6"f>>rtip', // Show entries di kiri dan search di kanan
                             buttons: [
                                 {
                                     extend: 'print',
@@ -769,7 +769,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                             .css('font-size', '10pt')  // Sesuaikan ukuran font
                                             .prepend(  // Tambahkan elemen header di awal body
                                                 '<div style="text-align: center; margin-bottom: 20px;">' +
-                                                '<h1>PT AAG</h1>' +
+                                                '<h1>Bicoder Developer</h1>' +
                                                 '<h3>Sistem E-Part</h3>' +
                                                 '</div>'
                                             );
@@ -798,7 +798,7 @@ function updateMenuWithPendingCount(pendingCount) {
                 {
                     // Sembunyikan kolom Actions jika user bukan admin
                     targets: 13, // Indeks kolom Actions (dimulai dari 0)
-                    visible: userRole === 'admin', // Sembunyikan jika bukan admin
+                    visible: userRole === 'superadmin', // Sembunyikan jika bukan admin
                     searchable: false // Tidak perlu kolom ini masuk dalam pencarian
                 }
             ],
@@ -868,7 +868,7 @@ function updateMenuWithPendingCount(pendingCount) {
 
 
         // Mengambil data pengguna untuk diisi dalam form edit
-        fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=getPartById&id=${userId}`)
+        fetch(`https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=getPartById&id=${userId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
@@ -921,7 +921,7 @@ function updateMenuWithPendingCount(pendingCount) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menghapus data jika pengguna mengonfirmasi
-                    fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=delete&id=${userId}`, {
+                    fetch(`https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=delete&id=${userId}`, {
                         method: 'POST', // Metode POST digunakan
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -969,7 +969,7 @@ function updateMenuWithPendingCount(pendingCount) {
             let selectedType = this.value;
 
             // Request ke API untuk mendapatkan ID Part terbaru berdasarkan type_part
-            fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=getLatestPartByTypePart&type_part=${selectedType}`)
+            fetch(`https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=getLatestPartByTypePart&type_part=${selectedType}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
@@ -995,7 +995,7 @@ function updateMenuWithPendingCount(pendingCount) {
     // Ambil semua nilai dari form
     const formData = new URLSearchParams(new FormData(this));
 
-    fetch('https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=update', {
+    fetch('https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=update', {
         method: 'POST',
         body: formData
     })
@@ -1049,7 +1049,7 @@ function updateMenuWithPendingCount(pendingCount) {
                     saveButton.textContent = 'Loading...';
                     var formData = new FormData(form);
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=create', true);
+                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=create', true);
 
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 400) {
@@ -1108,7 +1108,7 @@ function updateMenuWithPendingCount(pendingCount) {
                 let selectedType = this.value;
 
                 // Request ke API untuk mendapatkan ID Part terbaru berdasarkan type_part
-                fetch(`https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=getLatestPartByTypePart&type_part=${selectedType}`)
+                fetch(`https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=getLatestPartByTypePart&type_part=${selectedType}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {

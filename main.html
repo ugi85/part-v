@@ -100,7 +100,7 @@
 
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                               <i class="mdi mdi-chevron-down"></i>
@@ -328,10 +328,10 @@
                                 <div class="card-body widget-style-2">
                                     <div class="text-white media">
                                         <div class="media-body align-self-center">
-                                            <h2 class="my-0 text-white"><span id="totalDataStock">0</span></h2>
-                                            <p class="mb-0">Total Add Stock</p>
+                                            <h2 class="my-0 text-white"><span id="totalReqBarang">0</span></h2>
+                                            <p class="mb-0">Total Permintaan Barang</p>
                                         </div>
-                                        <i class="mdi mdi-comment-multiple"></i>
+                                        <i class="mdi mdi-comment-multiple" id="dataRequest"  style="cursor: pointer;"></i>
                                     </div>
                                 </div>
                             </div>
@@ -632,7 +632,7 @@ function updateMenuWithPendingCount(pendingCount) {
     
 
     // Sembunyikan menu berdasarkan role
-    if (userRole !== 'admin') {
+    if (userRole !== 'admin' && userRole !== 'superadmin') {
         // Sembunyikan menu "Data Users"
         const menuDataUsers = document.getElementById('menu-data-users');
         if (menuDataUsers) {
@@ -691,13 +691,15 @@ function updateMenuWithPendingCount(pendingCount) {
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=readLowStock';
-    const allDataURL = 'https://script.google.com/macros/s/AKfycbwwwWDOmSCm8tRABze_aYK7igCbIKAQ_hf4h27rxCF_VOuBQf4c_NMET-wzEqMiJ1gYhg/exec?action=read';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=readLowStock';
+    const allDataURL = 'https://script.google.com/macros/s/AKfycbwWUz74JID1xxrNiv4dGM243shYN_NmoSwcMQFmfIaG8bwgsCjPugB7gb4u2gY8LQwFww/exec?action=read';
     const stockURL = 'https://script.google.com/macros/s/AKfycbx58jT1fOqampwyd8pBtJBpV9OPfzsHwjAMlmhfzm4qegPpPNAQlei6Qw_19rP0fXaFTg/exec?action=read';
+    const reqBarangURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
     const loadingSpinner = document.getElementById('loadingSpinner');
     const lowStockCountElement = document.getElementById('lowStockCount');
     const totalDataCountElement = document.getElementById('totalDataCount'); 
     const totalDataStockElement = document.getElementById('totalDataStock'); 
+    const totalDaataReqElement = document.getElementById('totalReqBarang'); 
     const showTableButton = document.getElementById('showTable');
     const userTableCard = document.getElementById('showTableCard');
     const totalPriceElement = document.getElementById('totalPrice');
@@ -718,6 +720,24 @@ function updateMenuWithPendingCount(pendingCount) {
             if (data.status === 'success') {
                 const totalDataStock = data.data.length;
                 $(totalDataStockElement).text(totalDataStock).counterUp({
+                    delay: 10,
+                    time: 1000
+                });
+                
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function fetchReqBarang() {
+    fetch(reqBarangURL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const totalReqBarang= data.data.length;
+                $(totalDaataReqElement).text(totalReqBarang).counterUp({
                     delay: 10,
                     time: 1000
                 });
@@ -780,13 +800,13 @@ function updateMenuWithPendingCount(pendingCount) {
                 {
                     // Sembunyikan kolom Actions jika user bukan admin
                     targets: 8, // Indeks kolom Actions (dimulai dari 0)
-                    visible: userRole === 'admin', // Sembunyikan jika bukan admin
+                    visible: userRole === 'admin' || userRole === 'superadmin', // Sembunyikan jika bukan admin
                     searchable: false // Tidak perlu kolom ini masuk dalam pencarian
                 }
             ],
             initComplete: function() {
                 // Jika userRole bukan admin, kita juga sembunyikan <th> header kolom Action
-                if (userRole !== 'admin') {
+                if (userRole !== 'admin' && userRole !== 'superadmin') {
                     const actionsHeader = document.querySelector('thead th:nth-child(18)');
                     if (actionsHeader) actionsHeader.style.display = 'none';
                 }
@@ -874,10 +894,14 @@ function updateMenuWithPendingCount(pendingCount) {
     fetchData();
     fetchAllData();
     fetchStockData();
+    fetchReqBarang();
 });
 
 document.getElementById('dataPart').addEventListener('click', function() {
     window.location.href = 'data-part.html'; 
+});
+document.getElementById('dataRequest').addEventListener('click', function() {
+    window.location.href = 'get-barang2.html'; 
 });
 
 </script>

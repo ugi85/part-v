@@ -134,7 +134,7 @@
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                             <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -420,7 +420,7 @@ if (userRole !== 'user') {
 } 
 
 // Sembunyikan menu berdasarkan role
-if (userRole !== 'admin') {
+if (userRole !== 'admin' && userRole !== 'superadmin') {
     // Sembunyikan menu "Data Users"
     const menuDataUsers = document.getElementById('menu-data-users');
     if (menuDataUsers) {

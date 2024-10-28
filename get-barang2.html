@@ -101,7 +101,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <img src="assets/images/users/a3.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -387,7 +387,7 @@
             <div class="modal-body">
                 <form id="editForm">
                 <div class="row"> <!-- Mulai grid row -->  
-                    <input type="hidden" id="editId" name="id">
+                    <!-- <input type="hidden" id="editId" name="id"> -->
                   <div class="col-md-6"> <!-- Kolom untuk layar desktop -->
                     <div class="form-group">
                         <label for="editTanggal">Tanggal</label>
@@ -451,7 +451,8 @@
                     </div> 
                     <div class="form-group">
                         <label for="editNote">Note</label>
-                        <input type="text" class="form-control" id="editNote" name="note">
+                        <textarea class="form-control" id="editNote" name="note" rows="1"></textarea>
+                        <!-- <input type="text" class="form-control" id="editNote" name="note"> -->
                     </div>
                     <div class="form-group">
                         <label for="editLog">Event Log</label>
@@ -463,6 +464,10 @@
                   
                   <div id="ItemsContainer">
                     <div class="item-row row">
+                        <div class="col-md-1">
+                            <label for="editId">ID</label>
+                            <input type="number" class="form-control" id="editId" name="id" required readonly>
+                        </div>
                         <div class="col-md-4">
                             <label for="editPartName">Select Part Name</label>
                             <select class="form-control" id="editPartName" name="part_name" required>
@@ -472,7 +477,7 @@
                             <label for="editSpecification">Specification</label>
                             <input type="text" class="form-control" id="editSpecification" name="specification" required readonly>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label for="editQty">Stock Available</label>
                             <input type="text" class="form-control" id="editStock" name="stock" readonly>
                         </div>
@@ -580,7 +585,7 @@
     } 
 
     // Sembunyikan menu berdasarkan role
-    if (userRole !== 'admin') {
+    if (userRole !== 'admin' && userRole !== 'superadmin') {
         // Sembunyikan menu "Data Users"
         const menuDataUsers = document.getElementById('menu-data-users');
         if (menuDataUsers) {
@@ -713,7 +718,7 @@ function updateMenuWithPendingCount(pendingCount) {
                             // Tambahkan kolom Edit dan Delete
                             const actionCell = tableRow.insertCell(12);
                             actionCell.innerHTML = `
-                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin' ? 'display: none;' : ''}">Detail</button>           
+                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin'&& userRole !== 'superadmin' ? 'display: none;' : ''}">Detail</button>           
                         `;               
                     });
 
@@ -725,7 +730,7 @@ function updateMenuWithPendingCount(pendingCount) {
                         $('#userTable').DataTable({
                             responsive: true,
                             lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                            dom: 'lrtip',
+                            dom: '<"row"<"col-sm-6"l><"col-sm-6"f>>rtip', // Show entries di kiri dan search di kanan
                             buttons: [
                                 {
                                     extend: 'print',
@@ -743,7 +748,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                             .css('font-size', '10pt')  // Sesuaikan ukuran font
                                             .prepend(  // Tambahkan elemen header di awal body
                                                 '<div style="text-align: center; margin-bottom: 20px;">' +
-                                                '<h1>PT AAG</h1>' +
+                                                '<h1>Bicoder Developer</h1>' +
                                                 '<h3>Sistem E-Part</h3>' +
                                                 '</div>'
                                             );
@@ -771,7 +776,7 @@ function updateMenuWithPendingCount(pendingCount) {
                             columnDefs: [
                                 {
                                     targets: 12,
-                                    visible: userRole === 'admin',
+                                    visible: userRole === 'admin' || userRole === 'superadmin',
                                     searchable: false
                                 }
                             ]
@@ -780,7 +785,7 @@ function updateMenuWithPendingCount(pendingCount) {
                                   document.getElementById('customPrintButton').addEventListener('click', function() {
                                             $('#userTable').DataTable().button('.buttons-print').trigger();
                                         });
-                    if (userRole !== 'admin') {
+                    if (userRole !== 'admin' && userRole !== 'superadmin') {
                         // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                         setTimeout(() => {
                             const table = document.getElementById('userTable');
@@ -806,224 +811,6 @@ function updateMenuWithPendingCount(pendingCount) {
                     loadingSpinner.style.display = 'none';
                 });
             });
-
-
-                            // create
-                $(document).ready(function() {     
-                // Set nilai default untuk tanggal dan waktu ke waktu saat ini
-                var today = new Date().toISOString().split('T')[0];
-                var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-
-                $('#date').val(today);
-                $('#time').val(timeNow);
-
-                // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
-                var userName = sessionStorage.getItem('username');
-                if (userName) {
-                    $('#requester').val(userName);
-                }
-
-                    const apiUrl = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpareParts';
-                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpecification';
-
-                                // Inisialisasi Select2 mesin
-                        $(document).ready(function() {
-                            $('.select2').select2({
-                                placeholder: "Select Mesin",
-                                allowClear: true,
-                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
-                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
-                            });
-
-                            // Panggil fungsi untuk mengisi dropdown mesin
-                            populateMesinDropdown();
-                        });
-                        function populateMesinDropdown() {
-                            const $mesinDropdown = $('#mesin');
-                            $.get(apiUrl, function(response) {
-                                if (response.status === 'success') {
-                                    $mesinDropdown.empty();
-                                    $mesinDropdown.append('<option value="" disabled selected>Select Mesin</option>');
-                                    response.data.forEach(item => {
-                                        if (item.partMachine) {
-                                            $mesinDropdown.append(`<option value="${item.partMachine}">${item.partMachine}</option>`);
-                                        }
-                                    });
-                                    $mesinDropdown.trigger('change'); // Refresh dropdown setelah data di-load
-                                } else {
-                                    console.error('Error fetching mesin data:', response.message);
-                                }
-                            }).fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error('Request failed:', textStatus, errorThrown);
-                            });
-                        }
-
-
-                                // Inisialisasi Select3 part
-                        $(document).ready(function() {
-                            $('.select3').select2({
-                                placeholder: "Select Part Name",
-                                allowClear: true,
-                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
-                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
-                            });
-
-                            // Panggil fungsi untuk mengisi dropdown mesin
-                            populatePartNameDropdown();
-                        });
-                    function populatePartNameDropdown($dropdown, data) {
-                        $dropdown.empty();
-                        $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
-                        data.forEach(item => {
-                            if (item.partName) {
-                                $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
-                            }
-                        });
-                    }
-
-                    function populateAllDropdowns() {
-                        $.get(apiUrl, function(response) {
-                            if (response.status === 'success') {
-                                const $dropdowns = $('.partName');
-                                $dropdowns.each(function() {
-                                    populatePartNameDropdown($(this), response.data);
-                                });
-                            } else {
-                                console.error('Error fetching spare parts data:', response.message);
-                            }
-                        }).fail(function(jqXHR, textStatus, errorThrown) {
-                            console.error('Request failed:', textStatus, errorThrown);
-                        });
-                    }
-
-                    populateAllDropdowns();
-
-
-                     $('#itemsContainer').on('change', '.partName', function() {
-                         const selectedPartName = $(this).val();
-                         const $specField = $(this).closest('.item-row').find('.specification');
-                         const $stockField = $(this).closest('.item-row').find('.stock');
-                        
-                         if (selectedPartName) {
-                             $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-                                 console.log('Specification Response:', response);
-                                 if (response.partName === selectedPartName) {
-                                     $specField.val(response.specification || '');
-                                     $stockField.val(response.stock || 0);
-                                 } else {
-                                     console.error('Part name mismatch or specification data missing');
-                                 }
-                             }).fail(function(jqXHR, textStatus, errorThrown) {
-                                 console.error('Request failed:', textStatus, errorThrown);
-                             });
-                         } else {
-                             $specField.val('');
-                         }
-                     });
-
-
-                    // Form submission
-            document.getElementById('createItemForm').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from submitting normally
-
-                var form = event.target;
-                var isValid = true;
-                var saveButton = document.getElementById('saveButton');
-                
-                // Validate each field
-                Array.from(form.elements).forEach(function(element) {
-                    if (element.required && !element.value) {
-                        element.classList.add('is-invalid');
-                        isValid = false;
-                    } else {
-                        element.classList.remove('is-invalid');
-                    }
-                });
-
-                // Collect data from each item row
-                var itemsData = [];
-                document.querySelectorAll('#itemsContainer .item-row').forEach(function(row) {
-                    var item = {
-                        part_name: row.querySelector('.partName').value,
-                        specification: row.querySelector('.specification').value,
-                        qty: row.querySelector('.qty').value
-                    };
-                    itemsData.push(item);
-                });
-
-                // If form is valid, submit it
-                if (isValid) {
-                    saveButton.disabled = true;
-                    saveButton.textContent = 'Loading...';
-                    var formData = new FormData(form);
-                    formData.append('items', JSON.stringify(itemsData)); // Add items data
-
-                    // Add current date and time
-            var currentDate = new Date();
-            formData.append('tanggal', currentDate.toISOString().split('T')[0]); // YYYY-MM-DD format
-            formData.append('waktu', currentDate.toTimeString().split(' ')[0]);  // HH:MM:SS format
-
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=create', true);
-
-                    xhr.onload = function () {
-                        if (xhr.status >= 200 && xhr.status < 400) {
-                            var response = JSON.parse(xhr.responseText);
-
-                            if (response.status === 'success') {
-                                Swal.fire({
-                                    title: 'Success!',
-                                    text: 'Data saved successfully!',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
-                                    location.reload(); // Reload the page to update the data
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: response.message || 'An error occurred while submitting the form.',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
-                                    saveButton.disabled = false;  // Aktifkan kembali tombol
-                                    saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
-                                });
-                            }
-                        } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'An error occurred while submitting the form.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                saveButton.disabled = false;  // Aktifkan kembali tombol
-                                saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
-                            });
-                        }
-                    };
-
-                    xhr.onerror = function() {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'An error occurred while sending the request.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    };
-
-                    xhr.send(formData);
-                } else {
-                    Swal.fire({
-                        title: 'Validation Error',
-                        text: 'Please fill in all required fields.',
-                        icon: 'warning',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        });
 
 
                 // get part name sheet barang
@@ -1240,13 +1027,15 @@ function updateMenuWithPendingCount(pendingCount) {
 
                 // Get current values
                 const currentPartName = $('#editPartName').val();
-                const currentQty = $('#editQty').val();
+                // const currentQty = $('#editQty').val();
+                const currentQty = parseInt($('#editQty').val(), 10);
                 const currentStatus = $('#editStatus').val();
                 const currentNote = $('#editNote').val();
 
                 // Get old values (could be stored in hidden fields or data attributes)
                 const oldPartName = $('#editPartName').data('old-value');
-                const oldQty = $('#editQty').data('old-value');
+                // const oldQty = $('#editQty').data('old-value');
+                const oldQty = parseInt($('#editQty').data('old-value'), 10);
                 const oldStatus = $('#editStatus').data('old-value');
                 const oldNote = $('#editNote').data('old-value');
 
@@ -1257,20 +1046,24 @@ function updateMenuWithPendingCount(pendingCount) {
                 if (currentQty !== oldQty) {
                     changedFields.push(`Qty: ${oldQty} -> ${currentQty}`);
                 }
-                if (currentStatus !== oldStatus) {
-                    changedFields.push(`Status: ${oldStatus} -> ${currentStatus}`);
-                }
+         
                 if (currentNote !== oldNote) {
                     changedFields.push(`Note: ${oldNote} -> ${currentNote}`);
                 }
+                if (currentStatus !== oldStatus) {
+                    changedFields.push(`Status: ${oldStatus} -> ${currentStatus}`);
+                }
 
-                // Log activity with changes
+
                 if (adminName) {
                     const existingLog = $('#editLog').val();
-                    const newLogEntry = `${adminName}, ${currentDate},ubah: ${changedFields.join(', ')}`;
-                    const updatedLog = existingLog ? `${existingLog} || ${newLogEntry}` : newLogEntry;
+                    const newLogEntry = `${adminName}, ${currentDate}, Merubah:\n${changedFields.join(', ')}`;
+                    
+                    // Tambahkan entri log baru
+                    const updatedLog = existingLog ? `${existingLog}\n${newLogEntry}` : newLogEntry;
                     $('#editLog').val(updatedLog);
                 }
+                
 
 
                 const formData = $(this).serialize();
@@ -1307,7 +1100,8 @@ function updateMenuWithPendingCount(pendingCount) {
                             saveChanges.textContent = 'Save Changes';
                         });
                 });
-            });
+            }); 
+
 </script>
 
 <script>
