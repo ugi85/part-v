@@ -740,84 +740,93 @@ window.onload = function() {
         });
     });
 
-    // Event listener untuk form tambah pengguna
-    document.getElementById('registerForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
 
-        var form = event.target;
-        var isValid = true;
-        var saveButton = document.getElementById('saveButton');
+   // Event listener untuk form tambah pengguna
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
 
-        // Validate each field
-        Array.from(form.elements).forEach(function(element) {
-            if (element.required && !element.value) {
-                element.classList.add('is-invalid');
-                isValid = false;
-            } else {
-                element.classList.remove('is-invalid');
-            }
-        });
+    var form = event.target;
+    var isValid = true;
+    var saveButton = document.getElementById('saveButton');
 
-        // If form is valid, submit it
-        if (isValid) {
-            saveButton.disabled = true;
-            saveButton.textContent = 'Loading...';
-            var formData = new FormData(form);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwuAGfMOV0Qit84uH_tglWDckzRfQG6Ovm3os9I2A_QhVdkeBMiy93LjfNf5ICe9kvUmQ/exec?action=register', true);
+    // Validate each field
+    Array.from(form.elements).forEach(function(element) {
+        if (element.required && !element.value) {
+            element.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            element.classList.remove('is-invalid');
+        }
+    });
 
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 400) {
-                    var response = JSON.parse(xhr.responseText);
+    // If form is valid, submit it
+    if (isValid) {
+        saveButton.disabled = true;
+        saveButton.textContent = 'Loading...';
 
-                    if (response.status === 'success') {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'User added successfully!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then(() => {
-                            $('#registerModal').modal('hide'); // Close the modal
-                            // Reload the data to update the table
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: response.message || 'An error occurred while submitting the form.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwmRCvvPpEcYJUSR9wIDfVW4LRSBMatUu62amx_CNNazvncdK-42sWlITgYJsscMGFS/exec?action=register', true);
+
+        xhr.onload = function () {
+            saveButton.disabled = false;
+            saveButton.textContent = 'Save';
+
+            if (xhr.status >= 200 && xhr.status < 400) {
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'User added successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        $('#registerModal').modal('hide'); // Close the modal
+                        // Reload the data to update the table
+                        location.reload();
+                    });
                 } else {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'An error occurred while submitting the form.',
+                        text: response.message || 'An error occurred while submitting the form.',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
                 }
-            };
-
-            xhr.onerror = function() {
+            } else {
                 Swal.fire({
                     title: 'Error!',
-                    text: 'An error occurred while sending the request.',
+                    text: 'An error occurred while submitting the form.',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
-            };
+            }
+        };
 
-            xhr.send(formData);
-        } else {
+        xhr.onerror = function() {
+            saveButton.disabled = false;
+            saveButton.textContent = 'Save';
+
             Swal.fire({
-                title: 'Validation Error',
-                text: 'Please fill in all required fields.',
-                icon: 'warning',
+                title: 'Error!',
+                text: 'An error occurred while sending the request.',
+                icon: 'error',
                 confirmButtonText: 'OK'
             });
-        }
-    });
+        };
+
+        xhr.send(formData);
+    } else {
+        Swal.fire({
+            title: 'Validation Error',
+            text: 'Please fill in all required fields.',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+    }
+});
+
 </script>
 
 <script>
