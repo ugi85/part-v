@@ -494,7 +494,7 @@
             // Ambil peran pengguna dari sessionStorage
             const userRole = sessionStorage.getItem('role');
             // Menyembunyikan tombol "Tambah Item" jika pengguna bukan admin
-            if (userRole !== 'admin') {
+            if (userRole !== 'admin'&& userRole !== 'superadmin') {
                 if (addButton) addButton.style.display = 'none';
             }
 
