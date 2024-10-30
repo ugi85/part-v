@@ -78,7 +78,7 @@
             <ul class="list-unstyled topnav-menu float-right mb-0">
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <!-- <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle"> -->
+                        <img src="assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                         <span id="tampil_nama1"></span>
                             <i class="mdi mdi-chevron-down"></i>
@@ -127,66 +127,62 @@
         <!-- end Topbar -->
 
         <!-- Left Sidebar Start -->
-        <div class="left-side-menu">
-            <div class="slimscroll-menu">
-                <div id="sidebar-menu">
-                    <ul class="metismenu" id="side-menu">
-                        <li id="menu-data-users">
-                            <a href="data-users.html">
-                                <i class="ion ion-ios-contacts"></i>
-                                <span> Data Users </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="data-part.html">
-                                <i class="ion ion-ios-construct"></i>
-                                <span> Data Parts </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="add-stock.html">
-                                <i class="ion ion-md-cube"></i>
-                                <span> Penambahan Stock </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="get-barang.html">
-                                <i class="ion ion-ios-basket"></i>
-                                <span> Pengambilan Barang </span>
-                            </a>
-                        </li>
+<div class="left-side-menu">
+    <div class="slimscroll-menu">
+        <!-- Logo Section -->
+        <div class="text-center my-3">
+            <a href="index.html" class="logo">
+                <img src="path/to/your/logo.png" alt="Logo" style="max-width: 100%; height: auto;">
+            </a>
+        </div>
 
-                        <li id="menu-report">
-                            <a href="javascript: void(0);" class="waves-effect">
-                                <i class="mdi mdi-share-variant"></i>
-                                <span> Report </span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul class="nav-second-level nav" aria-expanded="false">
-                                <li>
-                                    <a href="Laporan-DP.html">Data Parts</a>
-                                </li>
-                                <li>
-                                    <a href="Laporan-pb.html">Data Pengambilan Barang</a>
-                                            <!-- <span class="menu-arrow"></span>
-                                        </a>
-                                    <ul class="nav-third-level nav" aria-expanded="false">
-                                        <li>
-                                            <a href="javascript: void(0);">Level 2.1</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript: void(0);">Level 2.2</a>
-                                        </li> -->
-                                    </ul>
-                                </li>
-                            </ul>
+        <div id="sidebar-menu">
+            <ul class="metismenu" id="side-menu">
+                <li id="menu-data-users">
+                    <a href="data-users.html">
+                        <i class="ion ion-ios-contacts"></i>
+                        <span> Data Users </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="data-part.html">
+                        <i class="ion ion-ios-construct"></i>
+                        <span> Data Parts </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add-stock.html">
+                        <i class="ion ion-md-cube"></i>
+                        <span> Penambahan Stock </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="get-barang.html">
+                        <i class="ion ion-ios-basket"></i>
+                        <span> Pengambilan Barang </span>
+                    </a>
+                </li>
+                <li id="menu-report">
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="mdi mdi-share-variant"></i>
+                        <span> Report </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level nav" aria-expanded="false">
+                        <li>
+                            <a href="Laporan-DP.html">Data Parts</a>
+                        </li>
+                        <li>
+                            <a href="Laporan-pb.html">Data Pengambilan Barang</a>
                         </li>
                     </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
+                </li>
+            </ul>
         </div>
-        <!-- Left Sidebar End -->
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- Left Sidebar End -->
 
 
         
@@ -261,64 +257,72 @@
             <!-- End Filters -->
 
             <!-- Daftar Pilihan Kolom untuk Cetak -->
-            <div class="form-group">
-                <h5>Pilih Kolom yang Akan Dicetak:</h5>
-                <div id="columnSelection" class="d-flex flex-wrap">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Tanggal" id="inlineCheckbox1">
-                        <label class="form-check-label" for="inlineCheckbox1">Tanggal</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Waktu" id="inlineCheckbox2">
-                        <label class="form-check-label" for="inlineCheckbox2">Waktu</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Departemen" id="inlineCheckbox3">
-                        <label class="form-check-label" for="inlineCheckbox3">Departemen</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
-                        <label class="form-check-label" for="inlineCheckbox4">Mesin</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Remark" id="inlineCheckbox5">
-                        <label class="form-check-label" for="inlineCheckbox5">Remark</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Part Name" id="inlineCheckbox6">
-                        <label class="form-check-label" for="inlineCheckbox6">Part Name</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox7">
-                        <label class="form-check-label" for="inlineCheckbox7">Specification</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Qty" id="inlineCheckbox8">
-                        <label class="form-check-label" for="inlineCheckbox8">Qty</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Requester" id="inlineCheckbox9">
-                        <label class="form-check-label" for="inlineCheckbox9">Requester</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
-                        <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Note" id="inlineCheckbox11">
-                        <label class="form-check-label" for="inlineCheckbox11">Note</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
-                        <label class="form-check-label" for="selectAllCheckbox">Select All</label>
-                    </div>
-                </div>
-            </div>
+           <div class="form-group">
+    <h5>Pilih Kolom yang Akan Dicetak:</h5>
+    <div id="columnSelection" class="d-flex flex-wrap">
+        <!-- First Row -->
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Tanggal" id="inlineCheckbox1">
+            <label class="form-check-label" for="inlineCheckbox1">Tanggal</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Waktu" id="inlineCheckbox2">
+            <label class="form-check-label" for="inlineCheckbox2">Waktu</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Departemen" id="inlineCheckbox3">
+            <label class="form-check-label" for="inlineCheckbox3">Departemen</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Machine" id="inlineCheckbox4">
+            <label class="form-check-label" for="inlineCheckbox4">Mesin</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Remark" id="inlineCheckbox5">
+            <label class="form-check-label" for="inlineCheckbox5">Remark</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Part Name" id="inlineCheckbox6">
+            <label class="form-check-label" for="inlineCheckbox6">Part Name</label>
+        </div>
+        
+        <!-- Second Row -->
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Specification" id="inlineCheckbox7">
+            <label class="form-check-label" for="inlineCheckbox7">Specification</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Qty" id="inlineCheckbox8">
+            <label class="form-check-label" for="inlineCheckbox8">Qty</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Requester" id="inlineCheckbox9">
+            <label class="form-check-label" for="inlineCheckbox9">Requester</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="StoreKeeper" id="inlineCheckbox10">
+            <label class="form-check-label" for="inlineCheckbox10">Store Keeper/Security</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Note" id="inlineCheckbox11">
+            <label class="form-check-label" for="inlineCheckbox11">Note</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Event Log" id="inlineCheckbox12">
+            <label class="form-check-label" for="inlineCheckbox12">Event Log</label>
+        </div>
+        <div class="form-check form-check-inline col-6 col-sm-4 col-md-3 mb-2">
+            <input class="form-check-input" type="checkbox" value="Select All" id="selectAllCheckbox">
+            <label class="form-check-label" for="selectAllCheckbox">Select All</label>
+        </div>
+    </div>
+</div>
 
+            
 
             <!-- Tombol Cetak PDF dan Print Preview -->
             <div class="form-group">
-                <button id="printPreview" class="btn btn-secondary mt-3">Preview Print</button>
+                <button id="printPreview" class="btn btn-primary waves-effect waves-light btn-sm">Print</button>
             </div>
             <div class="form-group" hidden>
                 <button id="printPDF" class="btn btn-danger mt-3">Cetak PDF</button>
@@ -333,6 +337,7 @@
                                 <thead>
                                     <tr>
                                         <!-- <th>ID</th> -->
+                                        <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Time</th>
                                         <th>Departemen</th>
@@ -344,6 +349,7 @@
                                         <th>Requester</th>
                                         <th>Store keeper/Security</th>
                                         <th>Note</th>
+                                        <th>Event Log</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -385,7 +391,7 @@
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -469,29 +475,34 @@
 
     let originalData = []; // Array untuk menyimpan data asli
 
+    // Ambil peran pengguna dari sessionStorage
+    const userRole = sessionStorage.getItem('role');
+    // Menyembunyikan tombol "Tambah Item" jika pengguna bukan admin
+    if (userRole !== 'admin') {
+        if (addButton) addButton.style.display = 'none';
+    }
+
     // Fungsi untuk menampilkan data di tabel
     function displayData(users) {
         const usersTableBody = document.querySelector('#userTable tbody');
         usersTableBody.innerHTML = ''; // Kosongkan tabel sebelum memuat data baru
 
-        if (users.length === 0) {
-            usersTableBody.innerHTML = '<tr><td colspan="10" class="text-center">Data tidak ditemukan</td></tr>';
-            return;
-        }
-
-        users.forEach(user => {
+        users.forEach((user, index) => {
             const row = usersTableBody.insertRow();
-            row.insertCell(0).textContent = formatDate(user.tanggal);
-            row.insertCell(1).textContent = formatTime(user.waktu);
-            row.insertCell(2).textContent = user.departemen;
-            row.insertCell(3).textContent = user.mesin;
-            row.insertCell(4).textContent = user.remark;
-            row.insertCell(5).textContent = user.part_name;
-            row.insertCell(6).textContent = user.specification;
-            row.insertCell(7).textContent = user.qty;
-            row.insertCell(8).textContent = user.requester;
-            row.insertCell(9).textContent = user.security;
-            row.insertCell(10).textContent = user.note;
+
+            row.insertCell(0).textContent = index + 1;
+            row.insertCell(1).textContent = formatDate(user.tanggal);
+            row.insertCell(2).textContent = formatTime(user.waktu);
+            row.insertCell(3).textContent = user.departemen;
+            row.insertCell(4).textContent = user.mesin;
+            row.insertCell(5).textContent = user.remark;
+            row.insertCell(6).textContent = user.part_name;
+            row.insertCell(7).textContent = user.specification;
+            row.insertCell(8).textContent = user.qty;
+            row.insertCell(9).textContent = user.requester;
+            row.insertCell(10).textContent = user.security;
+            row.insertCell(11).textContent = user.note;
+            row.insertCell(12).textContent = user.log;
         });
 
         // Inisialisasi ulang DataTable jika dibutuhkan
@@ -500,29 +511,33 @@
         }
 
         $('#userTable').DataTable({
-            responsive: true
-        });
-    }
+                    responsive: true,
+                    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+
+                    // paging: false,   // Nonaktifkan pagination
+                    searching: false, // Nonaktifkan pencarian bawaan
+                    info: true      // Sembunyikan informasi jumlah data
+                });
+            }
+
+        
     
 // Fungsi untuk mengambil data dari API
 function fetchData(filter = {}) {
-    loadingSpinner.style.display = 'block'; // Tampilkan spinner loading
+    loadingSpinner.style.display = 'block'; // Show loading spinner
 
     fetch(scriptURL)
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                originalData = data.data; // Simpan data asli
-                let users = [...originalData]; // Salin data untuk filter
+                const originalData = data.data; // Store original data
+                let filteredUsers = [...originalData]; // Copy data for filtering
 
-                // Jika ada filter.value, cari pada semua kolom yang relevan
+                // Filter by general input value
                 if (filter.value) {
                     const searchValue = filter.value.toString().toLowerCase();
-
-                    users = users.filter(user => {
-                        const qtyValue = user.qty ? parseInt(user.qty, 10) : 0; // Ubah qty jadi angka (null diubah ke 0)
-
-                        // Cek apakah salah satu kolom memiliki nilai yang sesuai (termasuk pencarian pada qty)
+                    filteredUsers = filteredUsers.filter(user => {
+                        const qtyValue = user.qty ? parseInt(user.qty, 10) : 0; // Convert qty to number (null to 0)
                         return (
                             (user.part_name && user.part_name.toLowerCase().includes(searchValue)) ||
                             (user.departemen && user.departemen.toLowerCase().includes(searchValue)) ||
@@ -534,39 +549,87 @@ function fetchData(filter = {}) {
                             (user.description && user.description.toLowerCase().includes(searchValue)) ||
                             (user.requester && user.requester.toLowerCase().includes(searchValue)) ||
                             (user.id_part && user.id_part.toLowerCase().includes(searchValue)) ||
-                            (qtyValue === parseInt(filter.value, 10)) // Cocokkan qty dengan nilai filter
+                            (qtyValue === parseInt(filter.value, 10)) // Match qty with filter value
                         );
                     });
                 }
 
-                // Filter berdasarkan rentang tanggal (jika ada)
+                // Filter for location range
+                if (filter.column?.toLowerCase() === 'location' && filter.value) {
+                    const filterValueLower = filter.value.toLowerCase();
+                    filteredUsers = filteredUsers.filter(user => {
+                        const locationValue = user.location ? user.location.toLowerCase() : '';
+                        const rangeMatch = filterValueLower.match(/^(.*?)-(.*?)$/);
+                        if (rangeMatch) {
+                            const startValue = rangeMatch[1].trim();
+                            const endValue = rangeMatch[2].trim();
+                            return isLocationInRangeAlphanumeric(locationValue, startValue, endValue);
+                        } else {
+                            return locationValue.includes(filterValueLower);
+                        }
+                    });
+                }
+
+                // Filter by date range (if applicable)
                 if (filter.startDate && filter.endDate) {
                     const startDate = new Date(filter.startDate);
                     const endDate = new Date(filter.endDate);
 
                     if (!isNaN(startDate) && !isNaN(endDate)) {
-                        users = users.filter(user => {
+                        filteredUsers = filteredUsers.filter(user => {
                             const userDate = new Date(user.tanggal);
                             return userDate >= startDate && userDate <= endDate;
                         });
                     } else {
-                        console.warn('Tanggal tidak valid');
+                        console.warn('Invalid date provided');
                     }
                 }
 
-                // Menampilkan data hasil filter
-                displayData(users);
+                // Sort results by location alphanumerically
+                filteredUsers.sort((a, b) => {
+                    const locationA = a.location ? a.location.toLowerCase() : '';
+                    const locationB = b.location ? b.location.toLowerCase() : '';
+                    return locationA.localeCompare(locationB, undefined, { numeric: true, sensitivity: 'base' });
+                });
+
+                // Display filtered data
+                displayData(filteredUsers);
             } else {
                 console.error('Error:', data.message);
             }
         })
-        .catch(error => console.error('Error:', error))
+        .catch(error => console.error('Error fetching data:', error))
         .finally(() => {
-            loadingSpinner.style.display = 'none'; // Sembunyikan spinner loading setelah data selesai di-fetch
+            loadingSpinner.style.display = 'none'; // Hide loading spinner after data fetch
         });
 }
 
+// Function to check if locationValue is within the alphanumeric range defined by startValue and endValue
+function isLocationInRangeAlphanumeric(locationValue, startValue, endValue) {
+    const parseLocation = (location) => {
+        const match = location.match(/^([a-zA-Z]+)(\d+)$/); // Separate letters and numbers
+        return match ? [match[1], parseInt(match[2], 10)] : [location, 0];
+    };
 
+    const [locAlpha, locNum] = parseLocation(locationValue);
+    const [startAlpha, startNum] = parseLocation(startValue);
+    const [endAlpha, endNum] = parseLocation(endValue);
+
+    // Compare the alphabetical part first
+    if (locAlpha < startAlpha || locAlpha > endAlpha) {
+        return false;
+    }
+
+    // Compare numerical part if the alphabetical part is equal
+    if (locAlpha === startAlpha && locNum < startNum) {
+        return false;
+    }
+    if (locAlpha === endAlpha && locNum > endNum) {
+        return false;
+    }
+
+    return true;
+}
        
     // Fungsi untuk memformat tanggal
     function formatDate(dateString) {
@@ -633,81 +696,41 @@ function fetchData(filter = {}) {
         endDateInput.value = ''; // Menghapus nilai tanggal akhir
     });
 
-
-    // Event listener untuk tombol cetak PDF
-    printPDFButton.addEventListener('click', function() {
-        const selectedColumns = [];
-        const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
-
-        checkboxes.forEach(checkbox => {
-            selectedColumns.push(checkbox.value);
-        });
-
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        const tableHeader = [];
-        const tableRows = [];
-        const table = document.getElementById('userTable');
-        const rows = table.querySelectorAll('tr');
-
-        rows[0].querySelectorAll('th').forEach((th, index) => {
-            if (selectedColumns.includes(th.innerText)) {
-                tableHeader.push(th.innerText);
-            }
-        });
-
-        rows.forEach((row, rowIndex) => {
-            if (rowIndex > 0) {
-                const rowData = [];
-                row.querySelectorAll('td').forEach((td, cellIndex) => {
-                    if (selectedColumns.includes(tableHeader[cellIndex])) {
-                        rowData.push(td.innerText);
-                    }
-                });
-                tableRows.push(rowData);
-            }
-        });
-
-        doc.text("Laporan Data Pengambilan Barang", 10, 10);
-        doc.autoTable({
-            head: [tableHeader],
-            body: tableRows
-        });
-        doc.save('laporan_data_pb.pdf');
-    });
-
     // Checkbox "Select All"
     const selectAllCheckbox = document.getElementById('selectAllCheckbox');
 
-    // Event listener untuk "Select All"
-    selectAllCheckbox.addEventListener('change', function() {
-        const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = selectAllCheckbox.checked; // Set semua checkbox sesuai status "Select All"
-        });
+// Event listener untuk "Select All"
+selectAllCheckbox.addEventListener('change', function() {
+    const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAllCheckbox.checked; // Set semua checkbox sesuai status "Select All"
     });
+});
+
 
     // Event listener untuk tombol print preview
-    printPreviewButton.addEventListener('click', function() {
-        const selectedColumns = [];
-        const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
-        const tableData = [];
+printPreviewButton.addEventListener('click', function() {
+    const selectedColumns = [];
+    const checkboxes = columnSelection.querySelectorAll('input[type="checkbox"]:checked');
+    const tableData = [];
+
+    // Tambahkan kolom "No" secara manual agar selalu ada
+    selectedColumns.push('No');
 
     // Mengambil nilai dari checkbox yang dipilih (nama kolom)
-        checkboxes.forEach(checkbox => {
+    checkboxes.forEach(checkbox => {
         selectedColumns.push(checkbox.value);
     });
-    
+
     // Jika "Select All" dipilih, masukkan semua kolom
     if (selectAllCheckbox.checked) {
         selectedColumns.length = 0; // Reset kolom yang dipilih
-        const allColumns = ['Tanggal', 'Waktu', 'Departemen', 'Machine', 'Remark', 'Part Name', 'Specification', 'Qty', 'Requester', 'StoreKeeper', 'Note'];
+        const allColumns = ['No','Tanggal', 'Waktu', 'Departemen', 'Machine', 'Remark', 'Part Name', 'Specification', 'Qty', 'Requester', 'StoreKeeper', 'Note', 'Event Log'];
         selectedColumns.push(...allColumns); // Masukkan semua kolom
     }
 
-    // Periksa apakah ada kolom yang dipilih
-    if (selectedColumns.length === 0) {
+    // Periksa apakah ada kolom yang dipilih (selain "No")
+    if (selectedColumns.length === 1) { // hanya "No" yang dipilih
         alert("Silakan pilih kolom yang ingin dicetak.");
         return; // Jika tidak ada kolom yang dipilih, keluar dari fungsi
     }
@@ -722,38 +745,44 @@ function fetchData(filter = {}) {
         selectedColumns.forEach(colName => {
             let cellValue = '';
             switch(colName) {
+                case 'No':
+                    cellValue = cells[0].innerText;
+                    break;
                 case 'Tanggal':
-                    cellValue = cells[0].innerText; // Sesuaikan indeks sesuai urutan tabel
+                    cellValue = cells[1].innerText; // Sesuaikan indeks sesuai urutan tabel
                     break;
                 case 'Waktu':
-                    cellValue = cells[1].innerText;
-                    break;
-                case 'Departemen':
                     cellValue = cells[2].innerText;
                     break;
-                case 'Machine':
+                case 'Departemen':
                     cellValue = cells[3].innerText;
                     break;
-                case 'Remark':
+                case 'Machine':
                     cellValue = cells[4].innerText;
                     break;
-                case 'Part Name':
+                case 'Remark':
                     cellValue = cells[5].innerText;
                     break;
-                case 'Specification':
+                case 'Part Name':
                     cellValue = cells[6].innerText;
                     break;
-                case 'Qty':
+                case 'Specification':
                     cellValue = cells[7].innerText;
                     break;
-                case 'Requester':
+                case 'Qty':
                     cellValue = cells[8].innerText;
                     break;
-                case 'StoreKeeper':
+                case 'Requester':
                     cellValue = cells[9].innerText;
                     break;
-                case 'Note':
+                case 'StoreKeeper':
                     cellValue = cells[10].innerText;
+                    break;
+                case 'Note':
+                    cellValue = cells[11].innerText;
+                    break;
+                case 'Event Log':
+                    cellValue = cells[12].innerText;
                     break;
                 // Tambahkan case untuk kolom tambahan jika ada
                 default:
@@ -772,24 +801,21 @@ function fetchData(filter = {}) {
     // Buka halaman print preview terpisah
     window.open('lamancetakpb.html', '_blank', 'width=800,height=600');
 });
-});
-</script>
-
-<script>
-    // Tampilkan nama pengguna di navbar saat halaman utama dimuat
-    window.onload = function() {
- const isLoggedIn = sessionStorage.getItem('isLoggedIn');
- const show_username = sessionStorage.getItem('username'); 
-
- if (isLoggedIn === 'true' && show_username) {
-     // Untuk ID unik
-     document.getElementById('tampil_nama1').textContent = show_username;
-     document.getElementById('tampil_nama2').textContent = show_username;
-     
- }
-}
-</script>
-
+    })
+    </script>
+    <script>
+        // Tampilkan nama pengguna di navbar saat halaman utama dimuat
+        window.onload = function() {
+     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+     const show_username = sessionStorage.getItem('username'); 
+    
+     if (isLoggedIn === 'true' && show_username) {
+         // Untuk ID unik
+         document.getElementById('tampil_nama1').textContent = show_username;
+         document.getElementById('tampil_nama2').textContent = show_username;
+         
+     }
+    }
     </script>
 </body>
 </html>

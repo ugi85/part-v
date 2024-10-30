@@ -5,49 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Data Part</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
+   
     <style>
-        /* CSS untuk menyembunyikan elemen-elemen saat cetak */
+        /* CSS untuk menyesuaikan tampilan saat cetak */
         @media print {
             #printButton {
-                display: none;
+                display: none; /* Sembunyikan tombol print saat cetak */
+            }
+            /* Atur ulang margin, padding, dan ukuran font agar tampilan lebih rapi saat dicetak */
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                margin: 0;
+                padding: 20px;
+                width: 100%;
+            }
+            .print-header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .table {
+                width: 100%;
+                table-layout: auto; /* Agar kolom bisa menyesuaikan lebar */
+                font-size: 12px; /* Ukuran font lebih kecil agar pas di layar cetak */
+            }
+            /* Sesuaikan lebar kolom agar tabel tidak terlalu besar */
+            .table th, .table td {
+                word-wrap: break-word; /* Agar teks yang panjang bisa dibungkus */
+                max-width: 150px;
+            }
+            .title-info {
+                font-size: 12px;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
             }
         }
-        /* CSS untuk menempatkan footer di bagian bawah saat dicetak */
-        .header-info {
-                position: fixed;
-                top: 10px; /* Jarak dari atas */
-                left: 10px; /* Jarak dari kiri */
-                font-size: 10px;
-                width: 100%;
-                display: flex;
-                justify-content: space-between; /* Membuat elemen dalam satu baris dengan spasi di antara mereka */
-            }
-
-        /* Tambahkan padding atau margin jika diperlukan */
-        .print-container {
-            padding: 20px;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 12px;
-            }
 
         .print-header {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        
         .title-info {
             font-size: 14px;
-            text-align: left;
-            margin-top: 20px;
-            margin-bottom: 20px;
             display: flex;
             justify-content: space-between; /* Membuat elemen tetap sejajar */
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
-        
     </style>
 </head>
 <body>
@@ -57,25 +65,25 @@
             <p id="printDateTime"></p>
         </div>
 
-   <div class="row align-items-center my-4">
+        <div class="row align-items-center my-4">
             <div class="col-12">
-                <h3 class="print-header">Laporan Data Data Part</h3>
+                <h3 class="print-header">Laporan Data Part</h3>
+            </div>
+        </div>
 
-        <!-- Tabel yang akan dimasukkan dari halaman utama -->
-        <table id="previewTable" class="table table-bordered">
-            <thead>
-                <tr>
-                    <!-- Kolom tabel akan diisi dengan JavaScript -->
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data tabel akan diisi dengan JavaScript -->
-            </tbody>
-        </table>
+        <!-- Membuat tabel responsif -->
+        <div class="table-responsive">
+            <table id="previewTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th> <!-- Kolom nomor urut -->
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-        <!-- Tambahkan id "printButton" agar CSS print berfungsi -->
         <button id="printButton" onclick="window.print()" class="btn btn-primary">Print</button>
-
     </div>
 
     <script>
@@ -101,7 +109,6 @@
             });
             document.getElementById('printDateTime').textContent = `Date: ${formattedDate}, Time: ${formattedTime}`;
 
-
             // Membuat header berdasarkan kolom yang dipilih
             selectedColumns.forEach(col => {
                 const th = document.createElement('th');
@@ -109,16 +116,24 @@
                 tableHeader.appendChild(th);
             });
 
-            // Membuat baris berdasarkan data yang ada  
-            tableData.forEach(row => {
+            // Membuat baris berdasarkan data yang ada dengan nomor urut
+            tableData.forEach((row, index) => {
                 const tr = document.createElement('tr');
-                row.forEach((cellData, index) => {
-                    if (selectedColumns.includes(selectedColumns[index])) {
+
+                // Menambahkan nomor urut
+                const tdIndex = document.createElement('td');
+                tdIndex.textContent = index + 1; // Nomor urut mulai dari 1
+                tr.appendChild(tdIndex);
+
+                // Menambahkan data sesuai kolom yang dipilih
+                row.forEach((cellData, idx) => {
+                    if (selectedColumns.includes(selectedColumns[idx])) {
                         const td = document.createElement('td');
                         td.textContent = cellData;
                         tr.appendChild(td);
                     }
                 });
+
                 tableBody.appendChild(tr);
             });
         });

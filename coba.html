@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Data Part</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .modal-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .modal-body {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .filter-btn {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3 class="mt-4">Laporan Data Part</h3>
+
+        <!-- Form Filter -->
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <label for="filterColumn">Filter Berdasarkan Kolom:</label>
+                <select id="filterColumn" class="form-control">
+                    <option value="Location">Location</option>
+                    <!-- Tambahkan kolom lain jika perlu -->
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="filterValue">Nilai Filter:</label>
+                <input type="text" id="filterValue" class="form-control" placeholder="Masukkan Nilai Filter" readonly data-toggle="modal" data-target="#filterModal">
+            </div>
+            <div class="col-md-2">
+                <button id="searchButton" class="btn btn-info filter-btn">Cari</button>
+            </div>
+        </div>
+
+        <!-- Modal untuk memilih lokasi -->
+        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="filterModalLabel">Pilih Lokasi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- List lokasi dari database -->
+                        <div id="locationList">
+                            <!-- Checkbox lokasi di sini (dinamis) -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="applyFilter">Pilih</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Simulasi data lokasi dari database (bisa diganti dengan fetch API dari server)
+            const locationData = ['C1.2', 'C1.3', 'C2.1', 'C2.2'];
+
+            // Menampilkan checkbox lokasi dalam modal
+            locationData.forEach(location => {
+                $('#locationList').append(
+                    `<div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="${location}" id="location-${location}">
+                        <label class="form-check-label" for="location-${location}">
+                            ${location}
+                        </label>
+                    </div>`
+                );
+            });
+
+            // Aksi saat tombol "Pilih" ditekan pada modal
+            $('#applyFilter').click(function() {
+                const selectedLocations = [];
+                $('#locationList input[type="checkbox"]:checked').each(function() {
+                    selectedLocations.push($(this).val());
+                });
+
+                // Menampilkan lokasi terpilih pada input filter
+                $('#filterValue').val(selectedLocations.join(', '));
+
+                // Tutup modal setelah memilih
+                $('#filterModal').modal('hide');
+            });
+
+            // Aksi saat tombol "Cari" ditekan
+            $('#searchButton').click(function() {
+                const filterColumn = $('#filterColumn').val();
+                const filterValue = $('#filterValue').val();
+
+                if (filterValue) {
+                    // Implementasi logika untuk mencari data berdasarkan kolom dan nilai filter
+                    console.log(`Cari berdasarkan ${filterColumn}: ${filterValue}`);
+                    // Anda dapat mengirim filter ini ke server atau memproses di front-end
+                } else {
+                    alert('Silakan pilih nilai filter terlebih dahulu.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
