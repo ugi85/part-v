@@ -232,6 +232,9 @@
                                     <a href="get-wo-user.html">Order Request</a>
                                 </li>
                                 <li>
+                                    <a href="get-wo-executor.html">Jobs Request</a>
+                                </li>
+                                <li>
                                     <a href="javascript: void(0);" aria-expanded="false">Log Approved
                                             <span class="menu-arrow"></span>
                                         </a>
@@ -753,10 +756,6 @@ function formatDate(isoString) {
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
                             } else if (row.status_user === 'Cancel') {
                                 statusCell.style.color = 'red'; // Memberikan warna teks hijau
-                                statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
-                                statusCell.style.textShadow = '1px black'; // Efek stroke
-                            } else if (row.status_user === 'To be process') {
-                                statusCell.style.color = 'orange'; // Memberikan warna teks hijau
                                 statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
                             }

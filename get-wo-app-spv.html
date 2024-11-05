@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Bicoder|User</title>
+    <title>Bicoder|Data Permintaan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Responsive bootstrap 4 admin template" name="description">
     <meta content="Coderthemes" name="author">
@@ -88,6 +88,7 @@
             margin-left: 8px; /* Beri sedikit jarak antara teks dan badge */
             display: inline-block; /* Agar elemen tampil inline */
         }
+
     </style>  
 </head>
 
@@ -197,7 +198,7 @@
                                 </li>    
                                 <li>
                                     <a href="get-log.html">Mutasi Transaksi</a>
-                                </li>           
+                                </li>          
                             </ul>
                         </li>
                        
@@ -236,8 +237,11 @@
                                             <span class="menu-arrow"></span>
                                         </a>
                                     <ul class="nav-third-level nav" aria-expanded="false">
-                                        <li>
-                                            <a href="get-wo-app-spv.html">Approved <span id="pendingCount"></span></a>
+                                        <li id="appSpv">
+                                            <a href="get-wo-app-spv.html">Approved Spv <span id="pendingCount"></span></a>
+                                        </li>
+                                        <li id="appAdmin">
+                                            <a href="get-wo-app-adm.html">Approved Admin <span id="pendingCount"></span></a>
                                         </li>
                                         <li>
                                             <a href="get-wo-spv-confirm.html">Sudah Di Verikasi</a>
@@ -267,7 +271,7 @@
                         <div class="col-12">
                             <div class="page-title-box d-flex justify-content-between align-items-center">
                                 <h4 class="page-title mb-0">Data Barang Yang Diambil</h4>
-                                <button type="button" class="btn btn-success waves-effect waves-light btn-sm" data-toggle="modal" data-target="#addItemModal">Order Request</button>
+                                <button id="customPrintButton" class="btn btn-primary waves-effect waves-light btn-sm">Print Data</button>
                             </div>
                         </div>
                     </div>
@@ -291,9 +295,7 @@
                                                 <th>Description</th>
                                                 <th>Requester</th>
                                                 <th>Status</th>
-                                                <!-- <th>LOG</th> -->
-                                                <!-- <th>ADD QTY</th>
-                                                <th>New Status</th> -->
+                                                <!-- <th>Note</th> -->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -316,118 +318,7 @@
             </div>
             <!-- end content -->
 
-<!-- Add Item Modal -->
-<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addItemModalLabel">Form Pengambilan Barang</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="createItemForm">
-                    <div class="form-group">
-                        <label for="date">Tanggal</label>
-                        <input type="date" class="form-control" id="date" name="tanggal" required readonly>
-                        <div class="invalid-feedback">Date is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Waktu</label>
-                        <input type="time" class="form-control" id="time" name="waktu" required readonly>
-                        <div class="invalid-feedback">Time is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="departemen">Departemen</label>
-                        <select class="form-control" id="departemen" name="departemen" required >
-                            <option value="" disabled selected>Select Department</option>
-                            <option value="FMEHSS EHS">FMEHSS EHS</option>
-                            <option value="HPS HR+BPE+PTPT+IT">HPS HR+BPE+PTPT+IT</option>
-                            <option value="QO (QA,QS,QV)">QO (QA,QS,QV)</option>
-                            <option value="SOLID">SOLID</option>
-                            <option value="FMEHSS GA">FMEHSS GA</option>
-                            <option value="MIXTECH">MIXTECH</option>
-                            <option value="QUALITY CONTROL">QUALITY CONTROL</option>
-                            <option value="WAREHOUSE">WAREHOUSE</option>
-                            <option value="FMEHSS MAINTENANCE">FMEHSS MAINTENANCE</option>
-                            <option value="PRODUCTION COMPLIANCE">PRODUCTION COMPLIANCE</option>
-                            <option value="SCM+SITE SUPPORT">SCM+SITE SUPPORT</option>
-                        </select>
-                        <div class="invalid-feedback">Department is required.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="mesin">Mesin</label>
-                        <select class="form-control select2" id="mesin" name="mesin" required>
-                            <option value="" disabled selected>Select Mesin</option>
-                        </select>
-                        <div class="invalid-feedback">Machine is required.</div>
-                    </div>     
-                    <div class="form-group">
-                        <label for="room">Room</label>
-                        <input type="text" class="form-control" id="room" name="room" required>
-                        <div class="invalid-feedback">Room is required.</div>
-                    </div> 
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" required>
-                        <div class="invalid-feedback">Location is required.</div>
-                    </div> 
-                    <div class="form-group">
-                        <label for="priority">Priority</label>
-                        <select class="form-control" id="priority" name="priority" required >
-                            <option value="" disabled selected>Select Priority</option>
-                            <option value="High (&lt;1 Week)/Safety">High(&lt;1 Week)/Safety</option>
-                            <option value="Medium (&gt;2 Week &lt;1 Month)">Mesdium(&gt;2 Week &lt;1 Month)</option>
-                            <option value="Low (&gt;1 Month)">Low(&gt;1 Month)</option>
-                        </select>
-                        <div class="invalid-feedback">Priority is required.</div>
-                    </div>            
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                    </div>
-                    <!-- <div id="itemsContainer">
-                        <div class="item-row row">
-                            <div class="col-md-4">
-                                <label for="partName">Part Name</label>
-                                <select class="form-control select3 partName" name="part_name" required>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="specification">Specification</label>
-                                <input type="text" class="form-control specification" name="specification" required readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="qty">Stock Available</label>
-                                <input type="text" class="form-control stock" name="stock" readonly>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="qty">Qty</label>
-                                <input type="number" class="form-control qty" name="qty" required>
-                            </div>                        
-                        </div>
-                    </div> -->
-                    
-                    <div class="form-group mt-4">
-                        <label for="requester">Requester</label>
-                        <input type="text" class="form-control" id="requester" name="requester" required readonly>
-                        <div class="invalid-feedback">Requester is required.</div>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label for="storeKeeper">Store Keeper/Security</label>
-                        <input type="text" class="form-control" id="storeKeeper" name="security" required>
-                        <div class="invalid-feedback">Store Keeper/Security is required.</div>
-                    </div> -->
-                    <div class="col-12 text-right">
-                        <button type="submit" id="saveButton" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Add Item Modal -->
+
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -502,9 +393,8 @@
                     </div>
                     <div class="form-group">
                         <label for="editStatus">Status</label>
-                        <select class="form-control" id="editStatus" name="status_user" required>
+                        <select class="form-control" id="editStatus" name="status" required>
                             <option value="Review Spv">Review Spv</option>
-                            <option value="Review Admin">Review Admin</option>
                             <option value="Confirm">Confirm</option>
                             <option value="Cancel">Cancel</option>
                         </select>
@@ -516,22 +406,24 @@
                     </div>
                     <div class="form-group">
                         <label for="editLog">Event Log</label>
-                        <textarea class="form-control" id="editLog" name="log" rows="5" readonly></textarea>
+                        <textarea class="form-control" id="editLog" name="log" rows="3" readonly></textarea>
                     </div>
                     
                   </div>
                 </div>
                   
                 
-                <!-- <div class="form-group mt-4 text-right">
+                <div class="form-group mt-4 text-right">
                     <button type="submit" id="saveChanges" class="btn btn-primary">Lanjut Admin</button>
-                </div> -->
+                </div>
                 
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
 
             <!-- Footer Start -->
             <footer class="footer">
@@ -595,8 +487,61 @@
             // Alihkan ke halaman login
             window.location.href = 'index.html';
         });
+    </script>
 
-        document.addEventListener('DOMContentLoaded', function() {
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    
+    // Ambil peran pengguna dari sessionStorage
+    const userRole = sessionStorage.getItem('role');
+
+    // Ambil elemen menu "Get Barang"
+    const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
+
+    if (userRole !== 'user') {
+        if (addButton) addButton.style.display = 'none';
+    }
+    if (userRole !== 'user') {
+        const menuGetBarang = document.getElementById('menu-get-barang');
+        if (menuGetBarang) {
+            menuGetBarang.style.display = 'none';
+        }
+    } 
+
+    // Sembunyikan menu berdasarkan role
+    if (userRole !== 'admin' && userRole !== 'superadmin') {
+        // Sembunyikan menu "Data Users"
+        const menuDataUsers = document.getElementById('menu-data-users');
+        if (menuDataUsers) {
+            menuDataUsers.style.display = 'none';
+        }
+
+        // Sembunyikan menu "Report"
+        const menuReport = document.getElementById('menu-report');
+        if (menuReport) {
+            menuReport.style.display = 'none';
+        }
+
+        // Sembunyikan menu "Add Stock"
+        const menuAddStock = document.getElementById('menu-add-stock');
+        if (menuAddStock) {
+            menuAddStock.style.display = 'none';
+        }
+        const menuBarang = document.getElementById('menu-barang');
+        if (menuBarang) {
+            menuBarang.style.display = 'none';
+        }
+    }
+
+});
+
+</script>
+
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=readPending';
 
     // Fetch data dari URL
@@ -629,64 +574,8 @@ function updateMenuWithPendingCount(pendingCount) {
     }
 }
 
-    </script>
 
-<script>
-   document.addEventListener('DOMContentLoaded', function() {
-    
-    // Ambil peran pengguna dari sessionStorage
-    const userRole = sessionStorage.getItem('role');
-
-    // Ambil elemen menu "Get Barang"
-    const menuGetBarang = document.querySelector('#menu-get-barang span');
-    const addButton = document.querySelector('.page-title-box .btn.btn-success'); // Selector untuk tombol "Tambah Item"
-
-    if (userRole !== 'user') {
-        if (addButton) addButton.style.display = 'none';
-    }
-
-   
-    if (userRole !== 'user') {
-        const menuGetBarang = document.getElementById('menu-get-barang');
-        if (menuGetBarang) {
-            menuGetBarang.style.display = 'none';
-        }
-    } 
-    
-
-    // Sembunyikan menu berdasarkan role
-    if (userRole !== 'admin') {
-        // Sembunyikan menu "Data Users"
-        const menuDataUsers = document.getElementById('menu-data-users');
-        if (menuDataUsers) {
-            menuDataUsers.style.display = 'none';
-        }
-
-        // Sembunyikan menu "Report"
-        const menuReport = document.getElementById('menu-report');
-        if (menuReport) {
-            menuReport.style.display = 'none';
-        }
-
-        // Sembunyikan menu "Add Stock"
-        const menuAddStock = document.getElementById('menu-add-stock');
-        if (menuAddStock) {
-            menuAddStock.style.display = 'none';
-        }
-        const menuBarang = document.getElementById('menu-barang');
-        if (menuBarang) {
-            menuBarang.style.display = 'none';
-        }
-    }
-
-});
-
-</script>
-
-
-<script>
-
-function formatDate(isoString) {
+ function formatDate(isoString) {
         const date = new Date(isoString);
         return date.toLocaleDateString('id-ID'); // Format tanggal sesuai dengan lokal Indonesia
             }
@@ -708,7 +597,6 @@ function formatDate(isoString) {
 
                 // Ambil peran pengguna dari sessionStorage
                 const userRole = sessionStorage.getItem('role');
-                const currentUser = sessionStorage.getItem('username'); // Misalnya, menyimpan username di sessionStorage
 
                     // Mengambil data dari Google Sheets dan menampilkannya dalam tabel
                 fetch(scriptURL)
@@ -720,11 +608,30 @@ function formatDate(isoString) {
 
                         // Kosongkan tabel sebelum menambahkan data
                         usersTableBody.innerHTML = '';
-                         // Filter data berdasarkan requester yang sama dengan user yang login
-                        const filteredRows = rows.filter(row => row.requester === currentUser);
+
+                        rows.forEach(row => {
+                            let statusToDisplay;
+                    
+                        // Tentukan status berdasarkan role
+                        if (userRole === 'supervisor') {
+                            statusToDisplay = row.status_spv;
+                        } else if (userRole === 'admin') {
+                            statusToDisplay = row.status_adm;
+                        } else if (userRole === 'user') {
+                            statusToDisplay = row.status_user;
+                        } else {
+                            statusToDisplay = row.status;
+                        }
+
+                        // Skip baris jika status untuk admin atau role lainnya kosong
+                        if (userRole === 'admin' && !statusToDisplay) {
+                            return;
+                        }
+                        if (!statusToDisplay || statusToDisplay === 'Confirm') {
+                        return; // Lewati data ini dan lanjutkan ke iterasi berikutnya
+                    }
 
 
-                        filteredRows.forEach(row => {
                             const tableRow = usersTableBody.insertRow();
                             tableRow.insertCell(0).textContent = row.id || '';
                             tableRow.insertCell(1).textContent = formatDate(row.tanggal) || '';
@@ -736,36 +643,32 @@ function formatDate(isoString) {
                             tableRow.insertCell(7).textContent = row.priority || '';
                             tableRow.insertCell(8).textContent = row.description || '';
                             tableRow.insertCell(9).textContent = row.requester || '';
-         const statusCell = tableRow.insertCell(10);statusCell.textContent = row.status_user || '';
+                           
+         const statusCell = tableRow.insertCell(10);statusCell.textContent = statusToDisplay || '';
 
                             // Jika status "Pending", berikan warna merah
-                            if (row.status_user === 'Review Spv') {
+                            if (row.status === 'Review Spv') {
                                 statusCell.style.color = 'orange'; // Memberikan warna teks merah
                                 statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
-                            } else if (row.status_user === 'Review Admin') {
+                            } else if (row.status === 'Review Admin') {
                                 statusCell.style.color = 'purple'; // Memberikan warna teks hijau
                                 statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
-                            } else if (row.status_user === 'Confirm') {
+                            } else if (row.status === 'Confirm') {
                                 statusCell.style.color = 'blue'; // Memberikan warna teks hijau
                                 statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
-                            } else if (row.status_user === 'Cancel') {
+                            } else if (row.status === 'Cancel') {
                                 statusCell.style.color = 'red'; // Memberikan warna teks hijau
                                 statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
                                 statusCell.style.textShadow = '1px black'; // Efek stroke
-                            } else if (row.status_user === 'To be process') {
-                                statusCell.style.color = 'orange'; // Memberikan warna teks hijau
-                                statusCell.style.fontWeight = 'bold'; // Opsi tambahan untuk mempertegas
-                                statusCell.style.textShadow = '1px black'; // Efek stroke
                             }
-                        //    tableRow.insertCell(12).innerHTML = row.log ? row.log.replace(/\n/g, '<br>') : '';
-                            
+
                             // Tambahkan kolom Edit dan Delete
                             const actionCell = tableRow.insertCell(11);
                             actionCell.innerHTML = `
-                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole == 'user' ? 'display: show;' : ''}">Detail</button>           
+                            <button class="btn btn-success btn-sm edit-btn" data-id="${row.id}" style="${userRole !== 'admin'&& userRole !== 'superadmin' && userRole !== 'supervisor' ? 'display: none;' : ''}">Detail</button>           
                         `;               
                     });
 
@@ -829,7 +732,7 @@ function formatDate(isoString) {
                             columnDefs: [
                                 {
                                     targets: 11,
-                                    visible: userRole === 'user',
+                                    visible: userRole === 'admin' || userRole === 'superadmin' || userRole === 'supervisor',
                                     searchable: false
                                 }
                             ]
@@ -838,16 +741,16 @@ function formatDate(isoString) {
                                   document.getElementById('customPrintButton').addEventListener('click', function() {
                                             $('#userTable').DataTable().button('.buttons-print').trigger();
                                         });
-                    if (userRole == 'user') {
+                    if (userRole !== 'admin' && userRole !== 'superadmin' && userRole !== 'supervisor') {
                         // Menggunakan setTimeout untuk menunggu DataTable selesai diinisialisasi
                         setTimeout(() => {
                             const table = document.getElementById('userTable');
                             const actionsColumnIndex = 11; // Indeks kolom Actions (0-based)
                             // Sembunyikan header kolom
-                            table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'show';
+                            table.querySelector('thead tr').children[actionsColumnIndex].style.display = 'none';
                             // Sembunyikan semua cell di kolom Actions
                             table.querySelectorAll(`tbody tr`).forEach(row => {
-                                row.children[actionsColumnIndex].style.display = 'show';
+                                row.children[actionsColumnIndex].style.display = 'none';
                             });
                         }, 100); // Sesuaikan timeout sesuai kebutuhan
                     }
@@ -869,8 +772,8 @@ function formatDate(isoString) {
                 // get part name sheet barang
             document.addEventListener('DOMContentLoaded', function() {
             const partSheetURL = 'https://script.google.com/macros/s/AKfycbzcg3XqJ6hEyJBGLNUlgM4MWeCUthMtrtQ2Dk7XOeWNs8KFq3y3DvYKFGGVm_-iy__t-Q/exec?action=read';
-            const apiUrl = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpareParts';
-            const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpecification';
+            const apiUrl = 'https://script.google.com/macros/s/AKfycbzcg3XqJ6hEyJBGLNUlgM4MWeCUthMtrtQ2Dk7XOeWNs8KFq3y3DvYKFGGVm_-iy__t-Q/exec?action=getSpareParts';
+            const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbzcg3XqJ6hEyJBGLNUlgM4MWeCUthMtrtQ2Dk7XOeWNs8KFq3y3DvYKFGGVm_-iy__t-Q/exec?action=getSpecification';
 
             let partData = [];
 
@@ -973,7 +876,7 @@ function formatDate(isoString) {
                     if (data.status === 'success') {
                         const user = data.data;
 
-                        $('#editId').val(user.id);
+                            $('#editId').val(user.id);
                             $('#editTanggal').val(formatDateForInput(user.tanggal));
                             $('#editWaktu').val(formatTimeForInput(user.waktu));
                             $('#editDepartemen').val(user.departemen);
@@ -982,23 +885,11 @@ function formatDate(isoString) {
 
                             $('#editRequester').val(user.requester);
                             $('#editLocation').val(user.location);
-                            $('#editStatus').val(user.status_user).attr('data-old-value',user.status_user);
+                            $('#editStatus').val(user.status).attr('data-old-value',user.status);
                             $('#editNote').val(user.note).attr('data-old-value',user.note);
                             $('#editLog').val(user.log);
                             // Ambil data stock berdasarkan part_name
-                    if (user.part_name) {
-                        $.get(apiUrlSpecification, { partName: user.part_name }, function(response) {
-                            if (response.partName === user.part_name) {
-                                $('#editStock').val(response.stock || 0);  // Tampilkan stock
-                            } else {
-                                console.error('Part name mismatch or specification data missing');
-                            }
-                        }).fail(function(jqXHR, textStatus, errorThrown) {
-                            console.error('Request failed:', textStatus, errorThrown);
-                        });
-                    } else {
-                        $('#editStock').val(0);  // Default ke 0 jika part_name kosong
-                    }
+                    
 
                             $('#editModal').modal('show');
                         // Inisialisasi Select2 pada dropdown jika belum diinisialisasi
@@ -1076,24 +967,26 @@ function formatDate(isoString) {
                 let changedFields = [];
 
                 // Get current values
-                const currentPartName = $('#editPartName').val();
-                const currentQty = $('#editQty').val();
+                // const currentPartName = $('#editPartName').val();
+                // const currentQty = $('#editQty').val();
+                // const currentQty = parseInt($('#editQty').val(), 10);
                 const currentStatus = $('#editStatus').val();
                 const currentNote = $('#editNote').val();
 
                 // Get old values (could be stored in hidden fields or data attributes)
-                const oldPartName = $('#editPartName').data('old-value');
-                const oldQty = $('#editQty').data('old-value');
+                // const oldPartName = $('#editPartName').data('old-value');
+                // const oldQty = $('#editQty').data('old-value');
+                // const oldQty = parseInt($('#editQty').data('old-value'), 10);
                 const oldStatus = $('#editStatus').data('old-value');
                 const oldNote = $('#editNote').data('old-value');
 
                 // Compare old and new values to see what was changed
-                if (currentPartName !== oldPartName) {
-                    changedFields.push(`Part Name: ${oldPartName} -> ${currentPartName}`);
-                }
-                if (currentQty !== oldQty) {
-                    changedFields.push(`Qty: ${oldQty} -> ${currentQty}`);
-                }
+                // if (currentPartName !== oldPartName) {
+                //     changedFields.push(`Part Name: ${oldPartName} -> ${currentPartName}`);
+                // }
+                // if (currentQty !== oldQty) {
+                //     changedFields.push(`Qty: ${oldQty} -> ${currentQty}`);
+                // }
          
                 if (currentNote !== oldNote) {
                     changedFields.push(`Note: ${oldNote} -> ${currentNote}`);
@@ -1117,9 +1010,10 @@ function formatDate(isoString) {
                 const formData = $(this).serialize();
 
                 $.ajax({
-                url: 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=update',
+                url: 'https://script.google.com/macros/s/AKfycbzcg3XqJ6hEyJBGLNUlgM4MWeCUthMtrtQ2Dk7XOeWNs8KFq3y3DvYKFGGVm_-iy__t-Q/exec?action=update',
                 type: 'POST',
                 data: formData,
+                timeout: 60000, // 60 detik
                 success: function(response) {
                     if (response.status === 'success') {
                         Swal.fire({
@@ -1145,227 +1039,10 @@ function formatDate(isoString) {
                 .always(() => {
                             // Re-enable the saveChanges button and reset text
                             saveChanges.disabled = false;
-                            saveChanges.textContent = 'Save Changes';
+                            saveChanges.textContent = 'Lanjut Admin';
                         });
                 });
             }); 
-
-                           // create
-                $(document).ready(function() {     
-                // Set nilai default untuk tanggal dan waktu ke waktu saat ini
-                var today = new Date().toISOString().split('T')[0];
-                var timeNow = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
-
-                $('#date').val(today);
-                $('#time').val(timeNow);
-
-                // Ambil nama pengguna dari sessionStorage dan tampilkan di kolom requester
-                var userName = sessionStorage.getItem('username');
-                if (userName) {
-                    $('#requester').val(userName);
-                }
-
-                    const apiUrl = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpareParts';
-                    const apiUrlSpecification = 'https://script.google.com/macros/s/AKfycbypjjsM2tpbpqcGGLivgQ0mjgSkrmK8DfMfuBZ_g3YC_a7fWv8A4s8v0Z51RaqNYbXG0w/exec?action=getSpecification';
-
-                                // Inisialisasi Select2 mesin
-                        $(document).ready(function() {
-                            $('.select2').select2({
-                                placeholder: "Select Mesin",
-                                allowClear: true,
-                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
-                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
-                            });
-
-                            // Panggil fungsi untuk mengisi dropdown mesin
-                            populateMesinDropdown();
-                        });
-                        function populateMesinDropdown() {
-                            const $mesinDropdown = $('#mesin');
-                            $.get(apiUrl, function(response) {
-                                if (response.status === 'success') {
-                                    $mesinDropdown.empty();
-                                    $mesinDropdown.append('<option value="" disabled selected>Select Mesin</option>');
-                                    response.data.forEach(item => {
-                                        if (item.partMachine) {
-                                            $mesinDropdown.append(`<option value="${item.partMachine}">${item.partMachine}</option>`);
-                                        }
-                                    });
-                                    $mesinDropdown.trigger('change'); // Refresh dropdown setelah data di-load
-                                } else {
-                                    console.error('Error fetching mesin data:', response.message);
-                                }
-                            }).fail(function(jqXHR, textStatus, errorThrown) {
-                                console.error('Request failed:', textStatus, errorThrown);
-                            });
-                        }
-
-
-                                // Inisialisasi Select3 part
-                        $(document).ready(function() {
-                            $('.select3').select2({
-                                placeholder: "Select Part Name",
-                                allowClear: true,
-                                selectionCssClass: 'form-control', // Memastikan gaya Bootstrap diterapkan
-                                containerCssClass: 'form-control'  // Menjamin kontainer juga mendapatkan gaya yang benar
-                            });
-
-                            // Panggil fungsi untuk mengisi dropdown mesin
-                            populatePartNameDropdown();
-                        });
-                    function populatePartNameDropdown($dropdown, data) {
-                        $dropdown.empty();
-                        $dropdown.append('<option value="" disabled selected>Select Part Name</option>');
-                        data.forEach(item => {
-                            if (item.partName) {
-                                $dropdown.append(`<option value="${item.partName}">${item.partName}</option>`);
-                            }
-                        });
-                    }
-
-                    function populateAllDropdowns() {
-                        $.get(apiUrl, function(response) {
-                            if (response.status === 'success') {
-                                const $dropdowns = $('.partName');
-                                $dropdowns.each(function() {
-                                    populatePartNameDropdown($(this), response.data);
-                                });
-                            } else {
-                                console.error('Error fetching spare parts data:', response.message);
-                            }
-                        }).fail(function(jqXHR, textStatus, errorThrown) {
-                            console.error('Request failed:', textStatus, errorThrown);
-                        });
-                    }
-
-                    populateAllDropdowns();
-
-
-                     $('#itemsContainer').on('change', '.partName', function() {
-                         const selectedPartName = $(this).val();
-                         const $specField = $(this).closest('.item-row').find('.specification');
-                         const $stockField = $(this).closest('.item-row').find('.stock');
-                        
-                         if (selectedPartName) {
-                             $.get(apiUrlSpecification, { partName: selectedPartName }, function(response) {
-                                 console.log('Specification Response:', response);
-                                 if (response.partName === selectedPartName) {
-                                     $specField.val(response.specification || '');
-                                     $stockField.val(response.stock || 0);
-                                 } else {
-                                     console.error('Part name mismatch or specification data missing');
-                                 }
-                             }).fail(function(jqXHR, textStatus, errorThrown) {
-                                 console.error('Request failed:', textStatus, errorThrown);
-                             });
-                         } else {
-                             $specField.val('');
-                         }
-                     });
-
-
-                    // Form submission
-            document.getElementById('createItemForm').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the form from submitting normally
-
-                var form = event.target;
-                var isValid = true;
-                var saveButton = document.getElementById('saveButton');
-                
-                // Validate each field
-                Array.from(form.elements).forEach(function(element) {
-                    if (element.required && !element.value) {
-                        element.classList.add('is-invalid');
-                        isValid = false;
-                    } else {
-                        element.classList.remove('is-invalid');
-                    }
-                });
-
-                // Collect data from each item row
-                var itemsData = [];
-                document.querySelectorAll('#itemsContainer .item-row').forEach(function(row) {
-                    var item = {
-                        part_name: row.querySelector('.partName').value,
-                        specification: row.querySelector('.specification').value,
-                        qty: row.querySelector('.qty').value
-                    };
-                    itemsData.push(item);
-                });
-
-                // If form is valid, submit it
-                if (isValid) {
-                    saveButton.disabled = true;
-                    saveButton.textContent = 'Loading...';
-                    var formData = new FormData(form);
-                    formData.append('items', JSON.stringify(itemsData)); // Add items data
-
-                    // Add current date and time
-            var currentDate = new Date();
-            formData.append('tanggal', currentDate.toISOString().split('T')[0]); // YYYY-MM-DD format
-            formData.append('waktu', currentDate.toTimeString().split(' ')[0]);  // HH:MM:SS format
-
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzcg3XqJ6hEyJBGLNUlgM4MWeCUthMtrtQ2Dk7XOeWNs8KFq3y3DvYKFGGVm_-iy__t-Q/exec?action=create', true);
-
-                    xhr.onload = function () {
-                        if (xhr.status >= 200 && xhr.status < 400) {
-                            var response = JSON.parse(xhr.responseText);
-
-                            if (response.status === 'success') {
-                                Swal.fire({
-                                    title: 'Success!',
-                                    text: 'Data saved successfully!',
-                                    icon: 'success',
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
-                                    location.reload(); // Reload the page to update the data
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: response.message || 'An error occurred while submitting the form.',
-                                    icon: 'error',
-                                    confirmButtonText: 'OK'
-                                }).then(() => {
-                                    saveButton.disabled = false;  // Aktifkan kembali tombol
-                                    saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
-                                });
-                            }
-                        } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'An error occurred while submitting the form.',
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            }).then(() => {
-                                saveButton.disabled = false;  // Aktifkan kembali tombol
-                                saveButton.textContent = 'Save';  // Ubah teks tombol kembali ke 'Save'
-                            });
-                        }
-                    };
-
-                    xhr.onerror = function() {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'An error occurred while sending the request.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    };
-
-                    xhr.send(formData);
-                } else {
-                    Swal.fire({
-                        title: 'Validation Error',
-                        text: 'Please fill in all required fields.',
-                        icon: 'warning',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        });
 
 </script>
 
