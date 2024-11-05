@@ -726,9 +726,10 @@ function updateMenuWithPendingCount(pendingCount) {
 
             const actionsCell = row.insertCell(13);
             // Menyembunyikan tombol Edit dan Delete jika peran pengguna bukan admin
+            const userRole = sessionStorage.getItem('role');
             actionsCell.innerHTML = `
-                <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'superadmin' ? 'display: none;' : ''}">Edit</button>
-                <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'superadmin' ? 'display: none;' : ''}">Delete</button>
+                <button class="btn btn-warning btn-sm edit-btn" data-id="${user.id}" style="${userRole !== 'superadmin' && userRole !== 'admin' ? 'display: none;' : user.condition.toLowerCase().includes('obs') ? 'display: none;' : ''}">Edit</button>
+                <button class="btn btn-danger btn-sm delete-btn" data-id="${user.id}" style="${userRole !== 'superadmin' ? 'display: none;' : user.condition.toLowerCase().includes('obs') ? 'display: none;' : ''}">Delete</button>
             `;
             
              // Warnai baris biru jika id_part sama dengan lastAddedId
@@ -809,7 +810,7 @@ function updateMenuWithPendingCount(pendingCount) {
                 {
                     // Sembunyikan kolom Actions jika user bukan admin
                     targets: 13, // Indeks kolom Actions (dimulai dari 0)
-                    visible: userRole === 'superadmin', // Sembunyikan jika bukan admin
+                    visible: userRole === 'superadmin' || userRole === 'admin', // Sembunyikan jika bukan admin
                     searchable: false // Tidak perlu kolom ini masuk dalam pencarian
                 }
             ],
@@ -884,27 +885,63 @@ function updateMenuWithPendingCount(pendingCount) {
             .then(data => {
                 if (data.status === 'success') {
                     const user = data.data;
-                    document.querySelector('#editForm #editId').value = user.id;
-                    document.querySelector('#editForm #editIdpart').value = user.id_part;
-                    document.querySelector('#editForm #editNopo').value = user.no_po;
-                    document.querySelector('#editForm #editDescription').value = user.description;
-                    document.querySelector('#editForm #editSpecification').value = user.specification;
-                    document.querySelector('#editForm #editMachine').value = user.machine;
-                    document.querySelector('#editForm #editSupplier1').value = user.supplier1;
-                    document.querySelector('#editForm #editSupplier2').value = user.supplier2;
-                    document.querySelector('#editForm #editLocation').value = user.location;
-                    document.querySelector('#editForm #editTypepart').value = user.type_part;
-                    document.querySelector('#editForm #editMin').value = user.min;
-                    document.querySelector('#editForm #editMax').value = user.max;
-                    document.querySelector('#editForm #editUnit').value = user.unit;
-                    document.querySelector('#editForm #editLtday').value = user.lt_day;
-                    document.querySelector('#editForm #editStock').value = user.stock;
-                    document.querySelector('#editForm #editPrice').value = user.price;
-                    document.querySelector('#editForm #editTotalvalue').value = user.total_value;
-                    document.querySelector('#editForm #editTotalsparepartcost').value = user.total_sparepart_cost;
-                    document.querySelector('#editForm #editCondition').value = user.condition;
+                   // Isi nilai form edit dengan data yang diambil
+                   const formFields = {
+                        '#editId': user.id,
+                        '#editIdpart': user.id_part,
+                        '#editNopo': user.no_po,
+                        '#editDescription': user.description,
+                        '#editSpecification': user.specification,
+                        '#editMachine': user.machine,
+                        '#editSupplier1': user.supplier1,
+                        '#editSupplier2': user.supplier2,
+                        '#editLocation': user.location,
+                        '#editTypepart': user.type_part,
+                        '#editMin': user.min,
+                        '#editMax': user.max,
+                        '#editUnit': user.unit,
+                        '#editLtday': user.lt_day,
+                        '#editStock': user.stock,
+                        '#editPrice': user.price,
+                        '#editTotalvalue': user.total_value,
+                        '#editTotalsparepartcost': user.total_sparepart_cost,
+                        '#editCondition': user.condition
+                    };
 
-                  
+                    // Iterasi melalui setiap field untuk mengisi form
+                    for (const [selector, value] of Object.entries(formFields)) {
+                        document.querySelector(selector).value = value;
+                    }
+
+                    // Set form field sebagai readonly jika role adalah admin
+                    const userRole = sessionStorage.getItem('role');
+                    if (userRole === 'admin') {
+                        const readonlyFields = [
+                            '#editIdpart',
+                            '#editNopo',
+                            '#editDescription',
+                            '#editSpecification',
+                            '#editMachine',
+                            '#editSupplier1',
+                            '#editSupplier2',
+                            '#editLocation',
+                            // '#editTypepart',
+                            '#editMin',
+                            '#editMax',
+                            // '#editUnit',
+                            '#editLtday',
+                            '#editStock',
+                            '#editPrice',
+                            '#editTotalvalue',
+                            '#editTotalsparepartcost'
+                        ];
+                        readonlyFields.forEach(selector => {
+                            document.querySelector(selector).readOnly = true;
+                        });
+                        // Set dropdown typepart dan unit sebagai disabled
+                        document.querySelector('#editTypepart').disabled = true;
+                        document.querySelector('#editUnit').disabled = true;
+                        }
 
                     // Menampilkan modal edit
                     $('#editModal').modal('show');
@@ -915,6 +952,7 @@ function updateMenuWithPendingCount(pendingCount) {
             })
             .catch(error => console.error('Error:', error));
     }
+    
 
     // Event Listener untuk tombol Delete
     if (event.target.classList.contains('delete-btn')) {

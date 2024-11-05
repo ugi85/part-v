@@ -76,7 +76,7 @@
         }
 
         .ion-ios-basket:hover {
-            color: #ed0b30; /* Ganti dengan warna yang Anda inginkan */
+            color: #33f52d; /* Ganti dengan warna yang Anda inginkan */
             transform: scale(1.1); /* Efek zoom sedikit untuk menambahkan efek interaktif */
         }
        
@@ -272,12 +272,27 @@
                                     <a href="get-wo-user.html">Order Request</a>
                                 </li>
                                 <li>
-                                    <a href="Laporan-pb.html">Aprroved</a>
+                                    <a href="get-wo-executor.html">Jobs Request</a>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);" aria-expanded="false">Log Approved
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                    <ul class="nav-third-level nav" aria-expanded="false">
+                                        <li id="appSpv">
+                                            <a href="get-wo-app-spv.html">Approved Spv <span id="pendingCount"></span></a>
+                                        </li>
+                                        <li id="appAdmin">
+                                            <a href="get-wo-app-adm.html">Approved Admin <span id="pendingCount"></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="get-wo-spv-confirm.html">Sudah Di Verikasi</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>                     
                                     <a href="Laporan-SM.html">Status</a>
-                                </li>                 
-                                        
+                                </li>                                                        
                             </ul>
                         </li> -->
 
@@ -413,10 +428,7 @@
                             </div>
                         </div>
                     </div>
-                 
-
-                   
-
+                
                     </div> 
 
                     <!-- <div class="row">
@@ -672,7 +684,33 @@ function updateMenuWithPendingCount(pendingCount) {
             menuGetBarang.style.display = 'none';
         }
     } 
+    // Mendapatkan role pengguna dari sessionStorage
+
+// Menyembunyikan atau menampilkan menu berdasarkan role
+if (userRole === 'admin') {
+    // Menampilkan menu admin, menyembunyikan menu spv
+    const menuAppAdmin = document.getElementById('appAdmin');
+    const menuAppSpv = document.getElementById('appSpv');
     
+    if (menuAppAdmin) {
+        menuAppAdmin.style.display = 'block'; // Atur sesuai dengan tampilan yang diinginkan
+    }
+    if (menuAppSpv) {
+        menuAppSpv.style.display = 'none';
+    }
+} else {
+    // Menampilkan menu spv, menyembunyikan menu admin
+    const menuAppSpv = document.getElementById('appSpv');
+    const menuAppAdmin = document.getElementById('appAdmin');
+    
+    if (menuAppSpv) {
+        menuAppSpv.style.display = 'block';
+    }
+    if (menuAppAdmin) {
+        menuAppAdmin.style.display = 'none';
+    }
+}
+
 
     // Sembunyikan menu berdasarkan role
     if (userRole !== 'admin' && userRole !== 'superadmin') {
