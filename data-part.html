@@ -912,6 +912,22 @@ function updateMenuWithPendingCount(pendingCount) {
                     for (const [selector, value] of Object.entries(formFields)) {
                         document.querySelector(selector).value = value;
                     }
+                      // Simpan nilai awal Stock
+                    const stockField = document.querySelector('#editStock');
+                    const initialStockValue = stockField.value;
+
+                    // Event listener untuk mengatur Stock ke 0 jika Condition diisi "obs"
+                    const conditionField = document.querySelector('#editCondition');
+                    conditionField.addEventListener('input', function() {
+                        if (conditionField.value.toLowerCase() === 'obs') {
+                            if (parseInt(stockField.value) !== 0) {
+                                stockField.value = 0;
+                            }
+                        } else {
+                            // Kembalikan nilai Stock ke nilai awal jika Condition bukan "obs"
+                            stockField.value = initialStockValue;
+                        }
+                    });
 
                     // Set form field sebagai readonly jika role adalah admin
                     const userRole = sessionStorage.getItem('role');
